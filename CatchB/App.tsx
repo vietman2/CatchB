@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 
-import TabContainer from "./containers/TabContainer";
+import BaseContainer from "./containers/BaseContainer";
 
 export default function App() {
   /*
@@ -13,7 +13,7 @@ export default function App() {
     */
   return (
     <NavigationContainer>
-      <TabContainer />
+      <BaseContainer />
     </NavigationContainer>
     
   );
