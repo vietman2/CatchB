@@ -1,22 +1,30 @@
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 
 interface loginButtonProps {
   text: string;
   onPress: () => void;
-  kakao: boolean;
 }
 
-export const LoginButton = ({ text, onPress, kakao }: loginButtonProps) => {
+export const LoginButton = ({ text, onPress }: loginButtonProps) => {
   return (
     <TouchableOpacity
-      style={
-        kakao
-          ? { ...styles.button, backgroundColor: "yellow" }
-          : styles.button
-      }
+      style={styles.button}
       onPress={onPress}
     >
       <Text style={styles.buttonText}>{text}</Text>
+    </TouchableOpacity>
+  );
+};
+
+interface portalLoginButtonProps {
+  kakao: boolean
+  onPress: () => void;
+}
+
+export const PortalLoginButton = ({ kakao, onPress }: portalLoginButtonProps) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Image source={kakao ? require("../assets/images/kakao_login_large.png") : require("../assets/images/btnG_축약형.png")} style={styles.portalButton} />
     </TouchableOpacity>
   );
 };
@@ -56,5 +64,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingHorizontal: 15,
     paddingVertical: 10,
+  },
+  portalButton: {
+    borderRadius: 25,
+    padding: 10,
+    resizeMode: "contain",
+    height: 50,
+    width: 120,
   },
 });

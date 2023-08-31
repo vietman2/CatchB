@@ -5,7 +5,7 @@ import { MyTextInput } from "../../components/TextInput";
 import { LoginButton } from "../../components/Buttons";
 import { LoginLogo } from "../../components/Icons";
 
-import { containerStyles } from "./styles";
+import { containerStyles } from "../Login/styles";
 
 export default function SignUp() {
   const [username, setUsername] = useState<string>("");
@@ -46,7 +46,6 @@ export default function SignUp() {
         <LoginButton
           text="회원가입"
           onPress={() => console.log("회원가입")}
-          kakao={false}
         />
       </View>
     );

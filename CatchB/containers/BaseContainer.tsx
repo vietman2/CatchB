@@ -4,7 +4,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Image, View } from "react-native";
 
 import Login from "../pages/Login/Login";
-import SignUp from "../pages/Login/SignUp";
+import SignUp from "../pages/SignUp/SignUp";
 import TabContainer from "./TabContainer";
 import { IconText } from "../components/Icons";
 

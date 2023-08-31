@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { containerStyles } from "./styles";
 import { MyTextInput } from "../../components/TextInput";
-import { LoginButton, TextButton } from "../../components/Buttons";
+import { LoginButton, TextButton, PortalLoginButton } from "../../components/Buttons";
 import { LoginLogo } from "../../components/Icons";
 import { RootStackParamList } from "../../containers/BaseContainer";
 
@@ -23,6 +23,10 @@ export default function Login({ navigation }: Props) {
 
   const handleKakaoLogin = () => {
     // 1. 카카오 로그인 요청
+  }
+
+  const handleNaverLogin = () => {
+    // 1. 네이버 로그인 요청
   }
 
   const TextInputFields = () => {
@@ -47,15 +51,15 @@ export default function Login({ navigation }: Props) {
   const Buttons = () => {
     return (
       <View style={containerStyles.buttonContainer}>
-        <LoginButton text="Login" onPress={handleLogin} kakao={false} />
+        <LoginButton text="Login" onPress={handleLogin} />
         <View style={containerStyles.divider}>
-          <Image
-            source={require("../../assets/images/kakao_login_large.png")}
-            style={containerStyles.loginButton}
+          <PortalLoginButton
+            kakao={true}
+            onPress={handleKakaoLogin}
           />
-          <Image
-            source={require("../../assets/images/btnG_축약형.png")}
-            style={containerStyles.loginButton}
+          <PortalLoginButton
+            kakao={false}
+            onPress={handleNaverLogin}
           />
         </View>
         <View style={containerStyles.textButtonContainer}>
