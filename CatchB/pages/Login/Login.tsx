@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, KeyboardAvoidingView, Platform, Image } from "react-native";
+import { View, KeyboardAvoidingView, Platform } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { containerStyles } from "./styles";
@@ -53,14 +53,8 @@ export default function Login({ navigation }: Props) {
       <View style={containerStyles.buttonContainer}>
         <LoginButton text="Login" onPress={handleLogin} />
         <View style={containerStyles.divider}>
-          <PortalLoginButton
-            kakao={true}
-            onPress={handleKakaoLogin}
-          />
-          <PortalLoginButton
-            kakao={false}
-            onPress={handleNaverLogin}
-          />
+          <PortalLoginButton kakao={true} onPress={handleKakaoLogin} />
+          <PortalLoginButton kakao={false} onPress={handleNaverLogin} />
         </View>
         <View style={containerStyles.textButtonContainer}>
           <TextButton
