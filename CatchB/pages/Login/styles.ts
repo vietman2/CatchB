@@ -20,6 +20,18 @@ const containerStyles = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "center",
   },
+  loginButton: {
+    borderRadius: 25,
+    padding: 10,
+    resizeMode: "contain",
+    height: 50,
+    width: 120,
+  },
+  divider: {
+    marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
 
 export { containerStyles };

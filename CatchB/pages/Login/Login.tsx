@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, KeyboardAvoidingView, Platform } from "react-native";
+import { View, KeyboardAvoidingView, Platform, Image } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { containerStyles } from "./styles";
@@ -13,6 +13,17 @@ type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 export default function Login({ navigation }: Props) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const handleLogin = () => {
+    // 1. username, password 유효성 검사
+    // 2. 로그인 요청
+    // 3. 로그인 성공 시, 메인 페이지로 이동
+    // 4. 로그인 실패 시, 실패 메시지 출력
+  }
+
+  const handleKakaoLogin = () => {
+    // 1. 카카오 로그인 요청
+  }
 
   const TextInputFields = () => {
     return (
@@ -36,16 +47,17 @@ export default function Login({ navigation }: Props) {
   const Buttons = () => {
     return (
       <View style={containerStyles.buttonContainer}>
-        <LoginButton
-          text="Login"
-          onPress={() => console.log("로그인")}
-          kakao={false}
-        />
-        <LoginButton
-          text="카카오 계정으로 로그인"
-          onPress={() => console.log("카카오로그인")}
-          kakao={true}
-        />
+        <LoginButton text="Login" onPress={handleLogin} kakao={false} />
+        <View style={containerStyles.divider}>
+          <Image
+            source={require("../../assets/images/kakao_login_large.png")}
+            style={containerStyles.loginButton}
+          />
+          <Image
+            source={require("../../assets/images/btnG_축약형.png")}
+            style={containerStyles.loginButton}
+          />
+        </View>
         <View style={containerStyles.textButtonContainer}>
           <TextButton
             text="비밀번호 찾기"
