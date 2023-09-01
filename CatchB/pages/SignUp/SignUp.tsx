@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, View, Text } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  View,
+  Text,
+  ScrollView,
+} from "react-native";
 
 import { MyTextInput } from "../../components/TextInput";
 import { LoginButton } from "../../components/Buttons";
@@ -40,10 +46,9 @@ export default function SignUp() {
     setError("회원가입 기능은 아직 구현되지 않았습니다.");
     register(username, email, password);
 
-
     // 3. 회원가입 성공 시, 로그인 페이지로 이동
     // 4. 회원가입 실패 시, 실패 메시지 출력
-  }
+  };
 
   const TextInputFields = () => {
     return (
@@ -72,7 +77,7 @@ export default function SignUp() {
         />
       </View>
     );
-  }
+  };
 
   const Buttons = () => {
     return (
@@ -81,15 +86,10 @@ export default function SignUp() {
         <LoginButton text="회원가입" onPress={handleSignUp} />
       </View>
     );
-  }
+  };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.mainContainer}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
-      enabled
-    >
+    <KeyboardAvoidingView style={styles.mainContainer} behavior={"position"}>
       <LoginLogo />
       <TextInputFields />
       <Buttons />
