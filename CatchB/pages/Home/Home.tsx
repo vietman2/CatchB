@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { RootTabParamList } from "../../App";
+import { RootTabParamList } from "../../containers/TabContainer";
 
 type HomeProps = BottomTabScreenProps<RootTabParamList, "Home">;
 

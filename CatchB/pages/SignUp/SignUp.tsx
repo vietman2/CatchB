@@ -1,16 +1,9 @@
 import { useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  View,
-  Text,
-  ScrollView,
-} from "react-native";
+import { KeyboardAvoidingView, View, Text } from "react-native";
 
 import { MyTextInput } from "../../components/TextInput";
 import { LoginButton } from "../../components/Buttons";
 import { LoginLogo } from "../../components/Icons";
-import { register } from "../../services/account";
 import { styles } from "../Login/styles";
 
 export default function SignUp() {
@@ -44,7 +37,6 @@ export default function SignUp() {
     // 2. 회원가입 요청
     //setError("");
     setError("회원가입 기능은 아직 구현되지 않았습니다.");
-    register(username, email, password);
 
     // 3. 회원가입 성공 시, 로그인 페이지로 이동
     // 4. 회원가입 실패 시, 실패 메시지 출력
