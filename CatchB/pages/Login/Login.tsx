@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, KeyboardAvoidingView, Platform, Text } from "react-native";
+import { View, KeyboardAvoidingView, Text } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { styles } from "./styles";
