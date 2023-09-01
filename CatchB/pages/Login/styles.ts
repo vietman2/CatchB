@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const containerStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: "#fff",
@@ -32,6 +32,12 @@ const containerStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginHorizontal: 50,
+    marginTop: 5,
+  },
 });
 
-export { containerStyles };
+export { styles };

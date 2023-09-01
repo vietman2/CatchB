@@ -6,6 +6,7 @@ interface textInputProps {
   placeholder: string;
   onChangeText: (text: string) => void;
   value: string;
+  secureTextEntry?: boolean;
 }
 
 export const MyTextInput = (props: textInputProps) => {
@@ -21,9 +22,11 @@ export const MyTextInput = (props: textInputProps) => {
       ) : null}
 
       <TextInput
+        style={{ flex: 1 }}
         placeholder={props.placeholder}
         onChangeText={props.onChangeText}
         value={props.value}
+        secureTextEntry={props.secureTextEntry}
       />
     </View>
   );
