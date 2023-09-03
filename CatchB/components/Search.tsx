@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     justifyContent: "center",
+    fontFamily: "KBO Dia Gothic_bold",
     color: "green",
   },
   icon: {

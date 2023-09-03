@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 20,
     paddingVertical: 3,
-    fontFamily: "KBO Dia Gothic_medium"
+    fontFamily: "KBO Dia Gothic_bold",
+    color: "green",
   },
 });

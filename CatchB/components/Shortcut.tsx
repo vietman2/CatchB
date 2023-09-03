@@ -53,13 +53,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: "bold",
+    fontFamily: "KBO Dia Gothic_bold",
+    color: "green",
   },
   description: {
     fontSize: 15,
-    color: "#666",
     textAlign: "center",
-    marginVertical: 5,
+    marginVertical: 10,
+    fontFamily: "KBO Dia Gothic_bold",
+    color: "green",
   },
 })
