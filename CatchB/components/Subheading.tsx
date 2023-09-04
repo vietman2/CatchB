@@ -13,6 +13,8 @@ export default function Subheading({ description }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginHorizontal: 12,
+  },
   description: {},
 });

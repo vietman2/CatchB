@@ -15,7 +15,7 @@ import Facility from "../../components/Facility";
 
 type HomeProps = BottomTabScreenProps<RootTabParamList, "Home">;
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 export default function Home({ navigation }: HomeProps) {
   const [fontsLoaded] = useFonts({
@@ -70,8 +70,16 @@ export default function Home({ navigation }: HomeProps) {
         <Heading title="나에게 딱 맞는, 캐치B 추천" />
         <Subheading description="캐치B가 추천하는 레슨장" />
         <ScrollView style={{ flexDirection: "row" }} horizontal>
-          <Facility name="원스타베이스볼 아카데미" address="경기 고양시 일산서구 가좌로 62" image_id={1} />
-          <Facility name="분당 빠따형 야구레슨" address="경기 성남시 분당구 발이봉북로 3" image_id={2} />
+          <Facility
+            name="원스타베이스볼 아카데미"
+            address="경기 고양시 일산서구 가좌로 62"
+            image_id={1}
+          />
+          <Facility
+            name="분당 빠따형 야구레슨"
+            address="경기 성남시 분당구 발이봉북로 3"
+            image_id={2}
+          />
         </ScrollView>
       </ScrollView>
     </SafeAreaView>

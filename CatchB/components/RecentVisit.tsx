@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { CircularButton } from "./Buttons";
 
 interface Props {

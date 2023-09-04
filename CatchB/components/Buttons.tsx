@@ -7,24 +7,31 @@ interface loginButtonProps {
 
 export const LoginButton = ({ text, onPress }: loginButtonProps) => {
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
 
 interface portalLoginButtonProps {
-  kakao: boolean
+  kakao: boolean;
   onPress: () => void;
 }
 
-export const PortalLoginButton = ({ kakao, onPress }: portalLoginButtonProps) => {
+export const PortalLoginButton = ({
+  kakao,
+  onPress,
+}: portalLoginButtonProps) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Image source={kakao ? require("../assets/images/kakao_login_large.png") : require("../assets/images/btnG_축약형.png")} style={styles.portalButton} />
+      <Image
+        source={
+          kakao
+            ? require("../assets/images/kakao_login_large.png")
+            : require("../assets/images/btnG_축약형.png")
+        }
+        style={styles.portalButton}
+      />
     </TouchableOpacity>
   );
 };
@@ -40,7 +47,7 @@ export const TextButton = ({ text, onPress }: textButtonProps) => {
       <Text style={styles.normalText}>{text}</Text>
     </TouchableOpacity>
   );
-}
+};
 
 interface circularButtonProps {
   text: string;
@@ -49,14 +56,11 @@ interface circularButtonProps {
 
 export const CircularButton = ({ text, onPress }: circularButtonProps) => {
   return (
-    <TouchableOpacity
-      style={styles.circularButton}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={styles.circularButton} onPress={onPress}>
       <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   button: {

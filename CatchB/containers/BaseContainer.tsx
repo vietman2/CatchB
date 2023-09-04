@@ -8,13 +8,13 @@ import SignUp from "../pages/SignUp/SignUp";
 import TabContainer from "./TabContainer";
 import { IconText } from "../components/Icons";
 
+const RootStack = createNativeStackNavigator<RootStackParamList>();
+
 export type RootStackParamList = {
   Login: undefined;
   SignUp: undefined;
   Main: undefined;
 };
-
-const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function BaseContainer() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
