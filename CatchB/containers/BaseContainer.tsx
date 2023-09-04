@@ -51,6 +51,7 @@ export default function BaseContainer() {
             </View>
           );
         },
+        headerShadowVisible: false,
       }}
     >
       <RootStack.Screen

@@ -42,6 +42,22 @@ export const TextButton = ({ text, onPress }: textButtonProps) => {
   );
 }
 
+interface circularButtonProps {
+  text: string;
+  onPress: () => void;
+}
+
+export const CircularButton = ({ text, onPress }: circularButtonProps) => {
+  return (
+    <TouchableOpacity
+      style={styles.circularButton}
+      onPress={onPress}
+    >
+      <Text style={styles.buttonText}>{text}</Text>
+    </TouchableOpacity>
+  );
+}
+
 const styles = StyleSheet.create({
   button: {
     height: 40,
@@ -71,5 +87,14 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     height: 50,
     width: 120,
+  },
+  circularButton: {
+    height: 60,
+    width: 60,
+    backgroundColor: "gray",
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
   },
 });
