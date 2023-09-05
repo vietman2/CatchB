@@ -25,6 +25,14 @@ const coaches: CoachInfoType[] = [
         location: "부산시 해운대구",
         num_reviews: 5,
     },
+    {
+        id: 4,
+        name: "홍승우",
+        rating: 8.5,
+        price: 40000,
+        location: "서울시 관악구",
+        num_reviews: 13,
+    }
 ]
 
 const facilities: FacilityInfoType[] = [
