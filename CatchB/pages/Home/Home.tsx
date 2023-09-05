@@ -1,21 +1,24 @@
+import { useCallback } from "react";
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import Search from "../../components/Search";
-import Shortcut from "../../components/Shortcut";
+import Search from "../../components/Home/Search";
+import Shortcut from "../../components/Home/Shortcut";
+import Heading from "../../components/Home/Heading";
+import RecentVisit from "../../components/Home/RecentVisit";
+import Subheading from "../../components/Home/Subheading";
+import Facility from "../../components/Home/Facility";
+import CoachSimple from "../../components/Home/CoachSimple";
+import InfoSimple from "../../components/Home/InfoSimple";
 import { RootTabParamList } from "../../containers/TabContainer";
+import { coaches, facilities, informations } from "../../variables/dummydata";
 import { styles } from "./styles";
-import Heading from "../../components/Heading";
-import { useCallback } from "react";
-import RecentVisit from "../../components/RecentVisit";
-import Subheading from "../../components/Subheading";
-import Facility from "../../components/Facility";
 
 type HomeProps = BottomTabScreenProps<RootTabParamList, "Home">;
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 export default function Home({ navigation }: HomeProps) {
   const [fontsLoaded] = useFonts({
@@ -51,6 +54,65 @@ export default function Home({ navigation }: HomeProps) {
     );
   };
 
+  const Ads = () => {
+    return (
+      <View style={styles.ads}>
+        <Text style={{ fontSize: 30, color: "yellow" }}>광고</Text>
+      </View>
+    );
+  };
+
+  const RecentVisits = () => {
+    return (
+      <View>
+        <Heading title="최근 본 시설" />
+        <ScrollView style={{ flexDirection: "row" }} horizontal>
+          <RecentVisit facility={facilities[2]} />
+          <RecentVisit facility={facilities[3]} />
+        </ScrollView>
+      </View>
+    );
+  };
+
+  const RecommendedFacilities = () => {
+    return (
+      <View>
+        <Heading title="나에게 딱 맞는, 캐치B 추천" />
+        <Subheading description="캐치B가 추천하는 레슨장" />
+        <ScrollView style={{ flexDirection: "row" }} horizontal>
+          <Facility facility={facilities[0]} />
+          <Facility facility={facilities[1]} />
+        </ScrollView>
+      </View>
+    );
+  };
+
+  const RecommendedCoaches = () => {
+    return (
+      <View>
+        <Heading title="우리 동네 추천 레슨 코치!" />
+        <ScrollView style={{ flexDirection: "row" }} horizontal>
+          <CoachSimple coach={coaches[0]} />
+          <CoachSimple coach={coaches[2]} />
+          <CoachSimple coach={coaches[1]} />
+        </ScrollView>
+      </View>
+    );
+  };
+
+  const RecommendedItems = () => {
+    return (
+      <View>
+        <Heading title="Catch B 핫정보!" />
+        <Subheading description="#캐치비추천템 #야구OOTD #요즘야구복 #야구배트" />
+        <ScrollView style={{ flexDirection: "row" }} horizontal>
+          <InfoSimple information={informations[0]} />
+          <InfoSimple information={informations[1]} />
+        </ScrollView>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView
       style={{ backgroundColor: "#fff" }}
@@ -59,20 +121,11 @@ export default function Home({ navigation }: HomeProps) {
       <ScrollView>
         <Search />
         <Shortcuts />
-        <View style={styles.ads}>
-          <Text style={{ fontSize: 30, color: "yellow" }}>광고</Text>
-        </View>
-        <Heading title="최근 본 시설" />
-        <ScrollView style={{ flexDirection: "row" }} horizontal>
-          <RecentVisit name="스윕 베이스볼 아카데미" image_id={1} />
-          <RecentVisit name="시흥 엘리트 야구 레슨" image_id={2} />
-        </ScrollView>
-        <Heading title="나에게 딱 맞는, 캐치B 추천" />
-        <Subheading description="캐치B가 추천하는 레슨장" />
-        <ScrollView style={{ flexDirection: "row" }} horizontal>
-          <Facility name="원스타베이스볼 아카데미" address="경기 고양시 일산서구 가좌로 62" image_id={1} />
-          <Facility name="분당 빠따형 야구레슨" address="경기 성남시 분당구 발이봉북로 3" image_id={2} />
-        </ScrollView>
+        <Ads />
+        <RecentVisits />
+        <RecommendedFacilities />
+        <RecommendedCoaches />
+        <RecommendedItems />
       </ScrollView>
     </SafeAreaView>
   );

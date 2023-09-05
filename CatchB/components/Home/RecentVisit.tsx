@@ -1,26 +1,26 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import { CircularButton } from "./Buttons";
+import { View, Text, Image, StyleSheet } from "react-native";
+import { CircularButton } from "../Buttons";
+import { FacilityInfoType } from "../../variables/types";
 
 interface Props {
-  name: string;
-  image_id: number;
+  facility: FacilityInfoType;
 }
 
-export default function RecentVisit({ name, image_id }: Props) {
+export default function RecentVisit({ facility }: Props) {
   const renderImage = (image_id: number) => {
-    if (image_id === 1) {
+    if (image_id === 3) {
       return (
         <Image
           style={styles.image}
-          source={require("../assets/images/indoor1.jpg")}
+          source={require("../../assets/images/indoor1.jpg")}
         />
       );
     }
-    if (image_id === 2) {
+    if (image_id === 4) {
       return (
         <Image
           style={styles.image}
-          source={require("../assets/images/indoor2.jpg")}
+          source={require("../../assets/images/indoor2.jpg")}
         />
       );
     } else return <></>;
@@ -28,9 +28,9 @@ export default function RecentVisit({ name, image_id }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.facilityName}>{name}</Text>
+      <Text style={styles.facilityName}>{facility.name}</Text>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        {renderImage(image_id)}
+        {renderImage(facility.id)}
         <CircularButton text="예약" onPress={() => {}} />
       </View>
     </View>
