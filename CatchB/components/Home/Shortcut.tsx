@@ -12,7 +12,7 @@ export default function Shortcut({ imageNumber, title, description}: Props) {
       return (
         <Image
           style={styles.image}
-          source={require("../assets/images/baseball_player.png")}
+          source={require("../../assets/images/baseball_player.png")}
           />
       )
     }
@@ -20,7 +20,7 @@ export default function Shortcut({ imageNumber, title, description}: Props) {
       return (
         <Image
           style={styles.image}
-          source={require("../assets/images/field.png")}
+          source={require("../../assets/images/field.png")}
         />
       );
     } else return <></>;
