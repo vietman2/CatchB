@@ -3,10 +3,10 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Image, View } from "react-native";
 
-import Login from "../pages/Login/Login";
-import SignUp from "../pages/SignUp/SignUp";
+import Login from "../pages/Account/Login";
+import SignUp from "../pages/Account/SignUp";
 import TabContainer from "./TabContainer";
-import { IconText } from "../components/Icons";
+import { IconText } from "../pages/Account/components/Icons";
 
 export type RootStackParamList = {
   Login: undefined;

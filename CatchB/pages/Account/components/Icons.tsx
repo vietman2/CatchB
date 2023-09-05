@@ -28,7 +28,7 @@ export const LoginLogo = () => {
     <View style={styles.container}>
       <Text style={styles.titleText}>W E L C O M E</Text>
       <Image
-        source={require("../assets/images/logo_font_bottom_white.png")}
+        source={require("../../../assets/images/logo_font_bottom_white.png")}
         style={styles.logo}
       />
     </View>

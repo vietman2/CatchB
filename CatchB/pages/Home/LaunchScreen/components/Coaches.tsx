@@ -1,32 +1,35 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { CoachInfoType } from "../../variables/types";
+
+import { MainHeading } from "./Headings";
+import { CoachInfoType } from "../../../../variables/types";
+import { coaches } from "../../../../variables/dummydata";
 
 interface Props {
   coach: CoachInfoType;
 }
 
-export default function CoachSimple({ coach }: Props) {
+const CoachSimple = ({ coach }: Props) => {
   const renderImage = (image_id: number) => {
     if (image_id === 1) {
       return (
         <Image
           style={styles.image}
-          source={require("../../assets/images/LSY.jpg")}
+          source={require("../../../../assets/images/LSY.jpg")}
         />
       );
     } else if (image_id === 2) {
       return (
         <Image
           style={styles.image}
-          source={require("../../assets/images/PCH.png")}
+          source={require("../../../../assets/images/PCH.png")}
         />
       );
     } else if (image_id === 3) {
       return (
         <Image
           style={styles.image}
-          source={require("../../assets/images/LDH.jpg")}
+          source={require("../../../../assets/images/LDH.jpg")}
         />
       );
     } else return <></>;
@@ -51,6 +54,19 @@ export default function CoachSimple({ coach }: Props) {
       <Text style={styles.price}>{formatPrice(coach.price)}원 / 1시간</Text>
     </View>
   );
+}
+
+export default function Coaches() {
+    return (
+      <View>
+        <MainHeading content="우리 동네 추천 레슨 코치!" />
+        <ScrollView style={{ flexDirection: "row" }} horizontal>
+          <CoachSimple coach={coaches[0]} />
+          <CoachSimple coach={coaches[2]} />
+          <CoachSimple coach={coaches[1]} />
+        </ScrollView>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({

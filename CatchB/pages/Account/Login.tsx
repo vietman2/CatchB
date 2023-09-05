@@ -3,9 +3,9 @@ import { View, KeyboardAvoidingView, Text } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { styles } from "./styles";
-import { MyTextInput } from "../../components/TextInput";
-import { LoginButton, TextButton, PortalLoginButton } from "../../components/Buttons";
-import { LoginLogo } from "../../components/Icons";
+import { MyTextInput } from "./components/TextInput";
+import { LoginButton, TextButton, PortalLoginButton } from "./components/Buttons";
+import { LoginLogo } from "./components/Icons";
 import { RootStackParamList } from "../../containers/BaseContainer";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
