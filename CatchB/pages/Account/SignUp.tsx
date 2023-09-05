@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { KeyboardAvoidingView, View, Text } from "react-native";
 
-import { MyTextInput } from "../../components/TextInput";
-import { LoginButton } from "../../components/Buttons";
-import { LoginLogo } from "../../components/Icons";
-import { styles } from "../Login/styles";
+import { MyTextInput } from "./components/TextInput";
+import { LoginButton } from "./components/Buttons";
+import { LoginLogo } from "./components/Icons";
+import { styles } from "./styles";
 
 export default function SignUp() {
   const [username, setUsername] = useState<string>("");
