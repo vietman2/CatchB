@@ -5,10 +5,11 @@ import { HomeStackScreenProps } from "../../../containers/navigation";
 
 export default function CoachDetail() {
   const route = useRoute<HomeStackScreenProps<"CoachDetail">["route"]>();
+  const coach = route.params.coach;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{route.params.coach.name}</Text>
+      <Text style={styles.title}>{coach.name}</Text>
     </View>
   );
 }

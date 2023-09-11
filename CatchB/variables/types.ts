@@ -5,19 +5,10 @@ export type CoachInfoType = {
   price: number;
   location: string;
   num_reviews: number;
+  likes?: number;
+  chat_url?: string;
+  career?: string[];
 };
-
-export type CoachDetailType = {
-    id: number;
-    name: string;
-    rating: number;
-    price: number;
-    location: string;
-    num_reviews: number;
-    likes: number;
-    chat_url: string;
-    career: string[];
-}
 
 export type FacilityInfoType = {
   id: number;
