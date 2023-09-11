@@ -7,12 +7,7 @@ import Login from "../pages/Account/Login";
 import SignUp from "../pages/Account/SignUp";
 import TabContainer from "./TabContainer";
 import { IconText } from "../pages/Account/components/Icons";
-
-export type RootStackParamList = {
-  Login: undefined;
-  SignUp: undefined;
-  Main: undefined;
-};
+import { RootStackParamList } from "./navigation";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
