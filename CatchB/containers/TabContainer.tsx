@@ -2,20 +2,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import HomeScreen from "../pages/Home/Home";
+import HomeContainer from "./HomeContainer";
 import NearbyScreen from "../pages/Nearby/Nearby";
 import CommunityScreen from "../pages/Community/Community";
 import CalendarScreen from "../pages/Calendar/Calendar";
 import MyPageScreen from "../pages/MyPage/MyPage";
-
-export type RootTabParamList = {
-  Home: undefined;
-  Nearby: undefined;
-  Community: undefined;
-  Calendar: undefined;
-  MyPage: undefined;
-  Login: undefined;
-}
+import { RootTabParamList } from "./navigation";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -48,7 +40,7 @@ export default function TabContainer() {
       >
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeContainer}
           options={{ title: "홈" }}
         />
         <Tab.Screen

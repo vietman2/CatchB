@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 import { MainHeading } from "./Headings";
+import { HomeStackScreenProps } from "../../../../containers/navigation";
 import { CoachInfoType } from "../../../../variables/types";
 import { coaches } from "../../../../variables/dummydata";
 
@@ -10,6 +12,9 @@ interface Props {
 }
 
 const CoachSimple = ({ coach }: Props) => {
+  const navigation =
+    useNavigation<HomeStackScreenProps<"CoachDetail">["navigation"]>();
+
   const renderImage = (image_id: number) => {
     if (image_id === 1) {
       return (
@@ -41,6 +46,7 @@ const CoachSimple = ({ coach }: Props) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate("CoachDetail", { coach: coach })}>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         {renderImage(coach.id)}
       </View>
@@ -52,6 +58,7 @@ const CoachSimple = ({ coach }: Props) => {
       </View>
       <Text style={styles.location}>{coach.location}</Text>
       <Text style={styles.price}>{formatPrice(coach.price)}원 / 1시간</Text>
+      </TouchableOpacity>
     </View>
   );
 }
