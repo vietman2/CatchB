@@ -34,9 +34,3 @@ export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
     StackScreenProps<HomeStackParamList, T>,
     RootTabScreenProps<"Home">
   >;
-
-declare global {
-  namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
-  }
-}
