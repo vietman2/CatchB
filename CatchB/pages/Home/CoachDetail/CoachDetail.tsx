@@ -1,5 +1,6 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { HomeStackScreenProps } from "../../../containers/navigation";
 
@@ -9,12 +10,19 @@ export default function CoachDetail() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{coach.name}</Text>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  title: {},
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  title: {
+    marginLeft: 100,
+    fontSize: 24,
+    fontFamily: "KBO Dia Gothic_bold",
+  },
 });
