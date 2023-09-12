@@ -4,7 +4,7 @@ const coaches: CoachInfoType[] = [
   {
     id: 1,
     name: "이승엽",
-    rating: 10.0,
+    rating: 9.5,
     price: 50000,
     location: "서울시 강남구",
     num_reviews: 10,
