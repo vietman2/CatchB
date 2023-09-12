@@ -176,3 +176,89 @@ export const searchBoxStyles = StyleSheet.create({
     marginRight: 5,
   },
 });
+
+export const itemStyles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+    marginLeft: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+  textBox: {
+    borderWidth: 1,
+    borderColor: "green",
+    borderRadius: 20,
+  },
+  title: {
+    marginTop: 4,
+    fontSize: 16,
+    padding: 6,
+    fontFamily: "KBO Dia Gothic_bold",
+  },
+  hashtags: {
+    fontSize: 12,
+    padding: 6,
+    fontFamily: "KBO Dia Gothic_bold",
+    marginBottom: 4,
+  },
+  image: {
+    width: 180,
+    height: 240,
+    resizeMode: "cover",
+    borderRadius: 20,
+  },
+  moreInfo: {
+    fontSize: 12,
+    padding: 6,
+    fontFamily: "KBO Dia Gothic_bold",
+    marginBottom: 4,
+    color: "gray",
+  },
+});
+
+export const coachStyles = StyleSheet.create({
+  container: {
+    borderColor: "green",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    marginHorizontal: 20,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+  },
+  title: {
+    fontSize: 20,
+    fontFamily: "KBO Dia Gothic_bold",
+    paddingLeft: 5,
+    marginRight: 15,
+  },
+  location: {
+    fontSize: 15,
+    fontFamily: "KBO Dia Gothic_bold",
+    color: "gray",
+    paddingLeft: 5,
+  },
+  firstLine: {
+    flexDirection: "row",
+    marginTop: 5,
+  },
+  rating: {
+    fontSize: 20,
+    fontFamily: "KBO Dia Gothic_bold",
+  },
+  reviewCount: {
+    fontSize: 20,
+    fontFamily: "KBO Dia Gothic_bold",
+    color: "gray",
+  },
+  price: {
+    fontSize: 20,
+    fontFamily: "KBO Dia Gothic_bold",
+    paddingLeft: 5,
+    marginTop: 5,
+  },
+});

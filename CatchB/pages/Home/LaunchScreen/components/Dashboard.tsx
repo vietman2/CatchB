@@ -79,10 +79,10 @@ const Ads = () => {
 
 export default function Dashboard() {
   return (
-    <View>
+    <>
       <SearchBox />
       <Cards />
       <Ads />
-    </View>
+    </>
   );
 }

@@ -84,9 +84,9 @@ const RecommendedFacility = () => {
 
 export default function Facilities() {
   return (
-    <View>
+    <>
       <RecentFacility />
       <RecommendedFacility />
-    </View>
+    </>
   );
 }
