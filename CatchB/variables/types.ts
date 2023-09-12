@@ -8,6 +8,8 @@ export type CoachInfoType = {
   likes?: number;
   chat_url?: string;
   career?: string[];
+  response_rate?: number;
+  consults?: number;
 };
 
 export type FacilityInfoType = {

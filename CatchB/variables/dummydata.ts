@@ -17,6 +17,8 @@ const coaches: CoachInfoType[] = [
       "제 48회 대통령배 우승/ 수훈선수상 / 득점상",
       "2014 고교야구 전반기 주말리그 수훈선수상 / 타격상",
     ],
+    response_rate: 100,
+    consults: 14,
   },
   {
     id: 2,
