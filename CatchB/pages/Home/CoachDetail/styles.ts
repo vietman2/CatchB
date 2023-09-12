@@ -35,10 +35,6 @@ const styles = StyleSheet.create({
     color: "gray",
     fontFamily: "KBO Dia Gothic_bold",
   },
-  detailInfo: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   firstLine: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -59,10 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "gray",
     fontWeight: "bold",
-  },
-  cards: {
-    flexDirection: "row",
-    marginTop: 10,
   },
   image: {
     flex: 1,
@@ -103,6 +95,10 @@ const cardStyles = StyleSheet.create({
     marginTop: 5,
     marginHorizontal: 5,
     borderRadius: 20,
+  },
+  cards: {
+    flexDirection: "row",
+    marginTop: 10,
   },
   title: {
     fontSize: 20,
