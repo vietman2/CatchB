@@ -9,28 +9,28 @@ export default function Images() {
       <Image
         key={1}
         style={styles.image}
-        source={require("../../../../assets/images/LSY.jpg")}
+        source={require("../../../../assets/images/facility1.png")}
       />
     );
     images.push(
       <Image
         key={2}
         style={styles.image}
-        source={require("../../../../assets/images/LSY2.jpg")}
+        source={require("../../../../assets/images/facility2.jpg")}
       />
     );
     images.push(
       <Image
         key={3}
         style={styles.image}
-        source={require("../../../../assets/images/LSY3.jpg")}
+        source={require("../../../../assets/images/indoor1.jpg")}
       />
     );
     images.push(
       <Image
         key={4}
         style={styles.image}
-        source={require("../../../../assets/images/LSY4.jpg")}
+        source={require("../../../../assets/images/indoor2.jpg")}
       />
     );
 

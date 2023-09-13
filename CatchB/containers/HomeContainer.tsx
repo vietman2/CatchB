@@ -8,6 +8,7 @@ import { HomeStackParamList } from "./navigation";
 import { IconText } from "../pages/Account/components/Icons";
 import Home from "../pages/Home/Home";
 import CoachDetail from "../pages/Home/CoachDetail/CoachDetail";
+import FacilityDetail from "../pages/Home/FacilityDetail/FacilityDetail";
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
 
@@ -56,6 +57,20 @@ export default function HomeContainer() {
             );
           },
           headerTitle: route.params.coach.name + " 코치",
+          headerRight: CatchBLogo,
+          headerTitleAlign: "center",
+        })}
+      />
+      <HomeStack.Screen
+        name="FacilityDetail"
+        component={FacilityDetail}
+        options={({ route }) => ({
+          headerLeft: () => {
+            return (
+              <Ionicons name="chevron-back-outline" size={30} color="green" />
+            );
+          },
+          headerTitle: route.params.facility.name,
           headerRight: CatchBLogo,
           headerTitleAlign: "center",
         })}

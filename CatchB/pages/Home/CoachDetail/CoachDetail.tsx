@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import { HomeStackScreenProps } from "../../../containers/navigation";
-import { styles } from "./styles";
+import { styles } from "../styles";
 import Images from "./components/Images";
 import Buttons from "./components/Buttons";
 import Cards from "./components/Cards";

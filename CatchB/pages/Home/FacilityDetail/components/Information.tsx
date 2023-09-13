@@ -2,33 +2,29 @@ import { View, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { styles } from "../../styles";
-import { CoachInfoType } from "../../../../variables/types";
+import { FacilityInfoType } from "../../../../variables/types";
 
 interface Props {
-  coach: CoachInfoType;
+  facility: FacilityInfoType;
 }
 
-export default function Information({ coach }: Props) {
-  const academic_age = () => {
-    return `${4}년제 졸업 / ${30}대`;
-  };
-
+export default function Information({ facility }: Props) {
   const renderDescription = () => {
-    if (coach.career === null || coach.career === undefined) {
-      return "경력이 없습니다.";
+    if (facility.description === null || facility.description === undefined) {
+      return "설명이 없습니다.";
     }
 
     const descriptionText = [];
 
-    for (let i = 0; i < coach.career.length; i++) {
+    for (let i = 0; i < facility.description.length; i++) {
       descriptionText.push(
         <Text key={i} style={styles.descriptionText}>
           {"\u2022 "}
-          {coach.career[i]}
+          {facility.description[i]}
         </Text>
       );
 
-      if (i !== coach.career.length - 1) {
+      if (i !== facility.description.length - 1) {
         descriptionText.push(<Text key={i + 100}>{"\n"}</Text>);
       }
     }
@@ -39,12 +35,12 @@ export default function Information({ coach }: Props) {
   const BasicInfo = () => {
     return (
       <View style={styles.basicInfo}>
-        <Text style={styles.age}>{academic_age()}</Text>
+        <Text style={styles.age}>{facility.address}</Text>
         <View style={styles.rating}>
           <Ionicons name="star" size={20} color="yellow" />
           <Text style={styles.ratingText}>
             {" "}
-            {coach.rating} / 최근 상담 {coach.num_reviews}
+            {facility.rating} / 최근 상담 {facility.num_reviews}
           </Text>
         </View>
       </View>
@@ -54,8 +50,8 @@ export default function Information({ coach }: Props) {
   const FirstLine = () => {
     return (
       <View style={styles.firstLine}>
-        <Text style={styles.name}>{coach.name} 코치</Text>
-        <Text style={styles.price}>{coach.price}원 / 1시간</Text>
+        <Text style={styles.name}>{facility.name}</Text>
+        <Text style={styles.price}>{facility.price}원 / 1시간</Text>
       </View>
     );
   };

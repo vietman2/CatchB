@@ -1,6 +1,6 @@
 import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { CoachInfoType } from "../variables/types";
+import { CoachInfoType, FacilityInfoType } from "../variables/types";
 
 export type RootTabParamList = {
   Home: undefined;
@@ -19,7 +19,7 @@ export type HomeStackParamList = {
   SignUp: undefined;
   SplashScreen: undefined;
   CoachDetail: { coach: CoachInfoType };
-  FacilityDetail: undefined;
+  FacilityDetail: { facility: FacilityInfoType };
 };
 
 export type HomeStackScreenProps<T extends keyof HomeStackParamList> =

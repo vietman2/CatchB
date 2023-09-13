@@ -16,6 +16,14 @@ export type FacilityInfoType = {
   id: number;
   name: string;
   address: string;
+  rating?: number;
+  price?: number;
+  num_reviews?: number;
+  likes?: number;
+  chat_url?: string;
+  description?: string[];
+  response_rate?: number;
+  consults?: number;
 };
 
 export type InformationType = {
