@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { styles } from "../../styles";
-import { FacilityInfoType } from "../../../../variables/types";
+import { FacilityInfoType } from "../../../variables/types";
 
 interface Props {
   facility: FacilityInfoType;

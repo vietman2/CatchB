@@ -7,9 +7,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  images: {
-    flex: 1,
-  },
   information: {
     flex: 1,
     padding: 20,
@@ -17,6 +14,38 @@ const styles = StyleSheet.create({
     borderColor: "green",
     borderWidth: 1,
     borderRadius: 20,
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  chatButton: {
+    width: width / 2.5,
+    height: 50,
+    backgroundColor: "#e2f4e2",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    marginHorizontal: 5,
+    flexDirection: "row",
+  },
+  chatText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "green",
+    paddingLeft: 10,
+  },
+  image: {
+    flex: 1,
+    width: width,
+    height: height / 2,
+    resizeMode: "cover",
+  },
+  descriptionText: {
+    fontSize: 16,
+    color: "gray",
+    fontWeight: "bold",
   },
   basicInfo: {
     flexDirection: "row",
@@ -50,38 +79,6 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 10,
     marginLeft: 15,
-  },
-  descriptionText: {
-    fontSize: 16,
-    color: "gray",
-    fontWeight: "bold",
-  },
-  image: {
-    flex: 1,
-    width: width,
-    height: height / 2,
-    resizeMode: "cover",
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 10,
-  },
-  chatButton: {
-    width: width / 2.5,
-    height: 50,
-    backgroundColor: "#e2f4e2",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    marginHorizontal: 5,
-    flexDirection: "row",
-  },
-  chatText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "green",
-    paddingLeft: 10,
   },
 });
 

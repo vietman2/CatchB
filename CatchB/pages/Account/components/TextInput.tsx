@@ -1,4 +1,4 @@
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { textInputStyles } from "./styles";

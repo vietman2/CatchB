@@ -6,7 +6,7 @@ import Images from "./components/Images";
 import Information from "./components/Information";
 import Cards from "./components/Cards";
 import Buttons from "./components/Buttons";
-import { HomeStackScreenProps } from "../../../containers/navigation";
+import { HomeStackScreenProps } from "../../containers/navigation";
 
 export default function FacilityDetail() {
   const route = useRoute<HomeStackScreenProps<"FacilityDetail">["route"]>();

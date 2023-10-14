@@ -6,16 +6,16 @@ import Login from "../pages/Account/Login";
 import SignUp from "../pages/Account/SignUp";
 import { HomeStackParamList } from "./navigation";
 import { IconText } from "../pages/Account/components/Icons";
-import Home from "../pages/Home/Home";
-import CoachDetail from "../pages/Home/CoachDetail/CoachDetail";
-import FacilityDetail from "../pages/Home/FacilityDetail/FacilityDetail";
+import Home from "../pages/tabs/Home/Home";
+import CoachDetail from "../pages/CoachDetail/CoachDetail";
+import FacilityDetail from "../pages/FacilityDetail/FacilityDetail";
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
 
 const CatchBLogo = () => {
   return (
     <Image
-      source={require("../assets/images/logo_font_right_white.png")}
+      source={require("assets/images/logo_font_right_white.png")}
       style={{ width: 150, height: 50, margin: 10 }}
     />
   );

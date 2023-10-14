@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { facilities } from "../../variables/dummydata";
+import { facilities } from "../../../variables/dummydata";
 
 export default function Nearby() {
   return (
