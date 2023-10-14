@@ -92,6 +92,10 @@ const facilities: FacilityInfoType[] = [
     ],
     response_rate: 100,
     consults: 73,
+    location: {
+      latitude: 37.682,
+      longitude: 126.744,
+    }
   },
   {
     id: 2,
@@ -111,6 +115,10 @@ const facilities: FacilityInfoType[] = [
     ],
     response_rate: 100,
     consults: 73,
+    location: {
+      latitude: 37.402,
+      longitude: 127.108,
+    }
   },
   {
     id: 3,
@@ -130,6 +138,10 @@ const facilities: FacilityInfoType[] = [
     ],
     response_rate: 100,
     consults: 73,
+    location: {
+      latitude: 37.508,
+      longitude: 127.034,
+    }
   },
   {
     id: 4,
@@ -149,6 +161,10 @@ const facilities: FacilityInfoType[] = [
     ],
     response_rate: 100,
     consults: 73,
+    location: {
+      latitude: 37.347,
+      longitude: 126.739,
+    }
   },
 ];
 

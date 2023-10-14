@@ -24,6 +24,10 @@ export type FacilityInfoType = {
   description?: string[];
   response_rate?: number;
   consults?: number;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
 };
 
 export type InformationType = {
