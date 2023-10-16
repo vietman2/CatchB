@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { styles } from "../../styles";
-import { CoachInfoType } from "../../../../variables/types";
+import { CoachInfoType } from "../../../variables/types";
 
 interface Props {
   coach: CoachInfoType;

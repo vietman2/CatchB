@@ -6,9 +6,9 @@ import { styles } from "./styles";
 import { MyTextInput } from "./components/TextInput";
 import { LoginButton, TextButton, PortalLoginButton } from "./components/Buttons";
 import { LoginLogo } from "./components/Icons";
-import { RootStackParamList } from "../../containers/BaseContainer";
+import { HomeStackParamList } from "../../containers/navigation";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+type Props = NativeStackScreenProps<HomeStackParamList, "Login">;
 
 export default function Login({ navigation }: Props) {
   const [username, setUsername] = useState<string>("");
