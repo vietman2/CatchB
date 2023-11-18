@@ -42,10 +42,15 @@ export default function LessonCoach({ coach }: Props) {
 
   const formatPrice = (price: number) => {
     const str = price.toString();
-    if (str.length > 15) {
-      throw new Error("Input too long");
+    const chars = str.split("").reverse();
+    const withCommas = [];
+    for (let i = 0; i < chars.length; i++) {
+      if (i > 0 && i % 3 === 0) {
+        withCommas.push(",");
+      }
+      withCommas.push(chars[i]);
     }
-    return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return withCommas.reverse().join("");
   };
 
   return (
