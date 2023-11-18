@@ -41,7 +41,11 @@ export default function LessonCoach({ coach }: Props) {
   };
 
   const formatPrice = (price: number) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const str = price.toString();
+    if (str.length > 15) {
+      throw new Error("Input too long");
+    }
+    return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
