@@ -30,7 +30,7 @@ jobs:
           yarn && CI=true
           yarn global add lcov-result-merger
           yarn test --coverage --watchAll=false
-          lcov-result-merger 'coverage/lcov.info' 'coverage/lcov-report/*.info' 'coverage/lcov-report/**/*.info' 'coverage/lcov-report/**/**/*.info' 'coverage/lcov-report/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/**/**/**/**/*.info' 'coverage/lcov-reW
+          lcov-result-merger '*/coverage/lcov.info' 'coverage.lcov' --prepend-source-files --prepend-path-fix "."
           
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@master
