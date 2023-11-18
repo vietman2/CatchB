@@ -27,9 +27,9 @@ jobs:
       - name: Build
         run: |
           cd CatchB
-          yarn && CI=true
+          yarn
+          CI=true yarn test --coverage --watchAll=false
           yarn global add lcov-result-merger
-          yarn test --coverage --watchAll=false
           lcov-result-merger '*/coverage/lcov.info' 'coverage.lcov' --prepend-source-files --prepend-path-fix "."
           
       - name: Upload coverage to Coveralls
