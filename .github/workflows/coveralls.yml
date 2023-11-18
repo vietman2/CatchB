@@ -36,4 +36,3 @@ jobs:
         uses: coverallsapp/github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./CatchB/coverage.lcov
