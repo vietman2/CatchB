@@ -29,10 +29,10 @@ jobs:
           cd CatchB
           yarn
           CI=true yarn test --coverage --watchAll=false
-          yarn global add lcov-result-merger
-          lcov-result-merger '*/coverage/lcov.info' 'coverage.lcov' --prepend-source-files --prepend-path-fix "."
-          
+          coveralls < ./coverage/lcov.info
+
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
