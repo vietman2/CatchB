@@ -29,7 +29,6 @@ jobs:
           cd CatchB
           yarn
           CI=true yarn test --coverage --watchAll=false
-          yarn global add coveralls
           coveralls < ./coverage/lcov.info
 
       - name: Upload coverage to Coveralls
