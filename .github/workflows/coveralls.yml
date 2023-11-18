@@ -28,7 +28,9 @@ jobs:
         run: |
           cd CatchB
           yarn && CI=true
+          yarn global add lcov-result-merger
           yarn test --coverage --watchAll=false
+          lcov-result-merger 'coverage/lcov.info' 'coverage/lcov-report/*.info' 'coverage/lcov-report/**/*.info' 'coverage/lcov-report/**/**/*.info' 'coverage/lcov-report/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/**/**/**/*.info' 'coverage/lcov-report/**/**/**/**/**/**/**/**/**/**/*.info' 'coverage/lcov-reW
           
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@master
