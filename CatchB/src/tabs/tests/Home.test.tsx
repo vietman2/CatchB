@@ -1,5 +1,4 @@
-import { RenderAPI, act, render, waitFor } from "@testing-library/react-native";
-import * as SplashScreen from "expo-splash-screen";
+import { render } from "@testing-library/react-native";
 
 import Home from "../Home";
 

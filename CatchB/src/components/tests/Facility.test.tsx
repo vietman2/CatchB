@@ -1,7 +1,6 @@
-import { render, fireEvent, act } from "@testing-library/react-native";
+import { render, fireEvent } from "@testing-library/react-native";
 
 import { FacilityLarge, FacilitySmall } from "../Facility";
-import { useNavigation } from "@react-navigation/native";
 
 jest.mock("@react-navigation/native", () => ({
   useNavigation: () => ({

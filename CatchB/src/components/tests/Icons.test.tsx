@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { IconText, LoginLogo } from "../Icons";
 
