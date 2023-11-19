@@ -50,15 +50,6 @@ public class MainApplication extends Application implements ReactApplication {
       protected Boolean isHermesEnabled() {
         return BuildConfig.IS_HERMES_ENABLED;
       }
-
-      @Override
-      protected String getJSBundleFile() {
-        if (BuildConfig.IS_BUNDLED) {
-          return super.getJSBundleFile();
-        } else {
-          return null;
-        }
-      }
   });
 
   @Override
