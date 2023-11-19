@@ -5,6 +5,6 @@ import MyPage from "../MyPage";
 describe("MyPage", () => {
   it("renders correctly", () => {
     const { getByText } = render(<MyPage />);
-    expect(getByText("Catch B")).toBeTruthy();
+    expect(getByText("마이페이지 화면")).toBeTruthy();
   });
 });
