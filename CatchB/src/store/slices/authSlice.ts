@@ -8,12 +8,12 @@ const initialState: {
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (token: string, thunkAPI) => {
+  async (token: string) => {
     return token;
   }
 );
 
-export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+export const logout = createAsyncThunk("auth/logout", async () => {
   return null;
 });
 

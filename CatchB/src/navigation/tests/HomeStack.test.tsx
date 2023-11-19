@@ -1,4 +1,4 @@
-import { waitFor, fireEvent, render, act } from "@testing-library/react-native";
+import { fireEvent, render, act } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
