@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from "@testing-library/react-native";
+import { fireEvent, render, act } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -55,6 +55,7 @@ describe("<HomeContainer />", () => {
     await act(() => {
       fireEvent.press(getByText("이대호 코치"));
     });
+
   });
 
   it("navigates to FacilityDetail and checks header options", async () => {
@@ -68,10 +69,10 @@ describe("<HomeContainer />", () => {
     );
 
     const { getByText } = render(component);
-
     await act(() => {
       fireEvent.press(getByText("원스타베이스볼 아카데미"));
     });
+
   });
 
 });
