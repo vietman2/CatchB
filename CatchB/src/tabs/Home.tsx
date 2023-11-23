@@ -1,13 +1,9 @@
 import { useCallback } from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import SearchBar from "../components/SearchBar";
-import Facilities from "../containers/RecommendedFacilities";
-import Coaches from "../containers/CoachesHorizontal";
-import Items from "../containers/Items";
-import { cardStyles } from "./styles";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,15 +26,30 @@ export default function Home() {
 
   return (
     <SafeAreaView onLayout={onLayoutRootView}>
-      <ScrollView style={{ backgroundColor: "#fff" }}>
+      <ScrollView style={styles.container}>
         <SearchBar />
-        <View style={cardStyles.ads}>
-          <Text style={{ fontSize: 30, color: "yellow" }}>광고</Text>
+        <View style={styles.ads}>
+          <Text style={styles.text}>광고</Text>
         </View>
-        <Facilities />
-        <Coaches />
-        <Items />
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+  },
+  ads: {
+    marginTop: 20,
+    backgroundColor: "blue",
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 15,
+  },
+  text: {
+    fontSize: 30,
+    color: "yellow",
+  },
+});

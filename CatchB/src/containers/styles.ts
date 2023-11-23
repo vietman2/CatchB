@@ -1,54 +1,49 @@
 import { StyleSheet } from "react-native";
 
+import { colors } from "../variables/colors"
+
 export const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.whitebackground,
   },
-  information: {
-    flex: 1,
-    padding: 20,
-    marginHorizontal: 2,
-    borderColor: "green",
-    borderWidth: 1,
-    borderRadius: 20,
-  },
-  descriptionText: {
-    fontSize: 16,
-    color: "gray",
-    fontWeight: "bold",
-  },
-  basicInfo: {
+  textButtonContainer: {
+    marginTop: -10,
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  age: {
-    fontSize: 20,
-    color: "gray",
-    fontFamily: "KBO Dia Gothic_bold",
+  textInputContainer: {
+    marginHorizontal: 50,
+    justifyContent: "center",
   },
-  rating: {
+  buttonContainer: {
+    marginHorizontal: 50,
+    justifyContent: "center",
+  },
+  checkboxContainer: {
     flexDirection: "row",
-  },
-  ratingText: {
-    fontSize: 16,
-    color: "gray",
-    fontFamily: "KBO Dia Gothic_bold",
-  },
-  firstLine: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  name: {
-    fontSize: 26,
-    fontWeight: "bold",
-  },
-  price: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  description: {
     marginTop: 10,
-    marginLeft: 15,
+    alignItems: "center",
+  },
+  loginButton: {
+    borderRadius: 25,
+    padding: 10,
+    resizeMode: "contain",
+    height: 50,
+    width: 120,
+  },
+  divider: {
+    marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  checkboxText: {
+    fontSize: 15,
+  },
+  errorText: {
+    color: colors.error,
+    fontSize: 12,
+    marginHorizontal: 50,
+    marginTop: 5,
   },
 });

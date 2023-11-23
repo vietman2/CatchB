@@ -1,7 +1,7 @@
-import { View, TextInput } from "react-native";
+import { View, TextInput, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { textInputStyles } from "./styles";
+import { colors } from "../variables/colors";
 
 interface textInputProps {
   iconName?: string;
@@ -18,7 +18,7 @@ export const MyTextInput = (props: textInputProps) => {
         <Ionicons
           name={props.iconName}
           size={24}
-          color="black"
+          color={colors.icon}
           style={textInputStyles.icon}
         />
       ) : null}
@@ -34,3 +34,20 @@ export const MyTextInput = (props: textInputProps) => {
     </View>
   );
 };
+
+const textInputStyles = StyleSheet.create({
+  textInputField: {
+    flexDirection: "row",
+    height: 60,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 50,
+    marginVertical: 10,
+    paddingHorizontal: 10,
+  },
+  icon: {
+    alignSelf: "center",
+    marginLeft: 10,
+    marginRight: 10,
+  },
+});

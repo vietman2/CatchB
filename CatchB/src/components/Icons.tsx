@@ -1,27 +1,4 @@
-import { Text, TouchableOpacity, View, StyleSheet, Image } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-
-interface Props {
-  onPress: () => void;
-  name: string;
-  text: string;
-}
-
-export const IconText = ({ onPress, name, text }: Props) => {
-  return (
-    <TouchableOpacity
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        marginLeft: 10,
-      }}
-      onPress={onPress}
-    >
-      <Ionicons name={name} size={20} color="black" />
-      <Text style={{ marginBottom: 5 }}>{text}</Text>
-    </TouchableOpacity>
-  );
-};
+import { Text, View, StyleSheet, Image } from "react-native";
 
 export const LoginLogo = () => {
   return (

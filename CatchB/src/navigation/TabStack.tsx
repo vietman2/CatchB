@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import HomeContainer from "./HomeStack";
+import HomeStack from "./HomeStack";
 import NearbyScreen from "../tabs/Nearby";
 import CommunityScreen from "../tabs/Community";
 import CalendarScreen from "../tabs/Calendar";
-import MyPageScreen from "../tabs/MyPage";
+import MyPageStack from "./MyPageStack";
 import { RootTabParamList } from "../variables/navigation";
 
 /**
@@ -42,11 +42,7 @@ export default function TabContainer() {
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen
-        name="Home"
-        component={HomeContainer}
-        options={{ title: "홈" }}
-      />
+      <Tab.Screen name="Home" component={HomeStack} options={{ title: "홈" }} />
       <Tab.Screen
         name="Nearby"
         component={NearbyScreen}
@@ -64,7 +60,7 @@ export default function TabContainer() {
       />
       <Tab.Screen
         name="MyPage"
-        component={MyPageScreen}
+        component={MyPageStack}
         options={{ title: "마이페이지" }}
       />
     </Tab.Navigator>

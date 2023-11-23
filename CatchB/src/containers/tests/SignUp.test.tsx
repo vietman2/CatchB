@@ -36,6 +36,5 @@ describe("[SignUp] screen rendering test", () => {
 
     const passwordCheckInput = getByPlaceholderText("비밀번호 확인");
     fireEvent.changeText(passwordCheckInput, "test");
-
   });
 });
