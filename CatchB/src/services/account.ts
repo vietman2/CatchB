@@ -39,6 +39,7 @@ export async function login(username: string, password: string) {
     */
 }
 
+/*
 export async function register(
   username: string,
   first_name: string,
@@ -50,3 +51,4 @@ export async function register(
 ) {
   const url = `${API_LOCAL_URL}/api/users/register`;
 }
+*/
