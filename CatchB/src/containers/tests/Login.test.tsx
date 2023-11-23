@@ -1,82 +1,136 @@
-import { render, fireEvent } from "@testing-library/react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { fireEvent, act, waitFor } from "@testing-library/react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import { HomeStackParamList } from "../../variables/navigation";
+import { renderWithProviders } from "../../utils/test-utils";
 import Login from "../Login";
 
 jest.mock("react-native-vector-icons/Ionicons", () => "Ionicons");
+jest.mock("react-native-gesture-handler", () => ({
+  PanGestureHandler: "PanGestureHandler",
+}));
+jest.mock("react-native-paper", () => ({
+  Checkbox: "Checkbox",
+  Provider: "Provider",
+}));
 
-type Props = NativeStackScreenProps<HomeStackParamList, "Login">;
-
-const mockProps: Props = {
-  navigation: {
-    navigate: jest.fn(),
-    dispatch: jest.fn(),
-    reset: jest.fn(),
-    goBack: jest.fn(),
-    isFocused: jest.fn(),
-    canGoBack: jest.fn(),
-    getId: jest.fn(),
-    getState: jest.fn(),
-    getParent: jest.fn(),
-    setOptions: jest.fn(),
-    setParams: jest.fn(),
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    replace: jest.fn(),
-    push: jest.fn(),
-    pop: jest.fn(),
-    popToTop: jest.fn(),
-  },
-  route: {
-    key: "",
-    name: "Login",
-    params: undefined,
-  },
-};
+const Stack = createStackNavigator();
 
 describe("[Login] screen rendering test", () => {
   it("should render correctly", () => {
-    const { getByText, getByPlaceholderText } = render(
-      <Login navigation={mockProps.navigation} route={mockProps.route} />
+    const { getByText, getByPlaceholderText } = renderWithProviders(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerTitle: "",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
-
-    expect(getByText("Login")).toBeTruthy();
-    expect(getByPlaceholderText("아이디")).toBeTruthy();
-    expect(getByPlaceholderText("비밀번호")).toBeTruthy();
   });
 
-  it("should render error text correctly", () => {
-    const { getByText } = render(
-      <Login navigation={mockProps.navigation} route={mockProps.route} />
+  it("should render error text correctly", async () => {
+    const { getByText } = renderWithProviders(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerTitle: "",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
-    expect(getByText("")).toBeTruthy();
 
     fireEvent.press(getByText("Login"));
-    expect(getByText("로그인 기능은 아직 구현되지 않았습니다.")).toBeTruthy();
+    await waitFor(() =>
+      expect(
+        getByText("아이디 또는 비밀번호가 일치하지 않습니다.")
+      ).toBeTruthy()
+    );
   });
 
-  it("should change text correctly", () => {
-    const { getByPlaceholderText } = render(
-      <Login navigation={mockProps.navigation} route={mockProps.route} />
+  it("should handle toggle correctly", () => {
+    const { getByTestId } = renderWithProviders(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerTitle: "",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+
+    fireEvent.press(getByTestId("checkbox"));
+  });
+
+  it("should handle login correctly", async () => {
+    const { getByText, getByPlaceholderText } = renderWithProviders(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerTitle: "",
+            }}
+          />
+          <Stack.Screen
+            name="MyPageScreen"
+            component={Login}
+            options={{
+              headerTitle: "",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
 
     const idInput = getByPlaceholderText("아이디");
-    fireEvent.changeText(idInput, "test");
-
     const passwordInput = getByPlaceholderText("비밀번호");
-    fireEvent.changeText(passwordInput, "test");
+
+    fireEvent.changeText(idInput, "admin");
+    fireEvent.changeText(passwordInput, "admin");
+
+    await waitFor(() => {
+      expect(idInput.props.value).toBe("admin");
+      expect(passwordInput.props.value).toBe("admin");
+    });
+
+    await act(() => fireEvent.press(getByText("Login")));
   });
 
-  it("should handle button press correctly", () => {
-    const { getByText, getByTestId } = render(
-      <Login navigation={mockProps.navigation} route={mockProps.route} />
+  it("should handle button press correctly", async () => {
+    const { getByText, getByTestId } = renderWithProviders(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerTitle: "",
+            }}
+          />
+          <Stack.Screen name="SignUp" component={Login} />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
 
-    fireEvent.press(getByText("Login"));
-    fireEvent.press(getByTestId("kakaoButton"));
-    fireEvent.press(getByTestId("naverButton"));
-    fireEvent.press(getByText("비밀번호 찾기"));
-    fireEvent.press(getByText("회원가입"));
+    await act(() => {
+      fireEvent.press(getByText("회원가입"));
+      fireEvent.press(getByText("비밀번호 찾기"));
+      fireEvent.press(getByTestId("kakaoButton"));
+      fireEvent.press(getByTestId("naverButton"));
+    });
   });
 });

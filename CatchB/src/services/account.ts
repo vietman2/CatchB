@@ -1,4 +1,4 @@
-import { API_LOCAL_URL } from "./apiConfig";
+//import { API_LOCAL_URL } from "./apiConfig";
 import { admin, exampleUser } from "../variables/mvp_dummy_data/user";
 
 export async function login(username: string, password: string) {

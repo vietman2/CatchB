@@ -80,6 +80,7 @@ export default function Login({ navigation }: LoginProps) {
               <Checkbox
                 status={checked ? "checked" : "unchecked"}
                 onPress={() => setChecked(!checked)}
+                testID="checkbox"
               />
               <Text style={styles.checkboxText}>자동 로그인</Text>
             </View>

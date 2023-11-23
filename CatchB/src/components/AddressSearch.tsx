@@ -7,8 +7,8 @@ export default function AddressSearch() {
       <Postcode
         style={styles.window}
         jsOptions={{ animation: true }}
-        onSelected={(data) => console.log(data)}
-        onError={(error) => alert(`에러가 발생했습니다. ${error}`)}
+        onSelected={() => {}}
+        onError={() => {}}
       />
     </View>
   );

@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
-import { render } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
+
 import TabContainer from "../TabStack";
+import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-vector-icons/Ionicons", () => "Ionicons");
 jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
@@ -20,12 +21,11 @@ jest.mock("expo-splash-screen", () => ({
 
 describe("TabContainer", () => {
   it("renders all tabs with correct properties", () => {
-    const { getByText } = render(
+    const { getByText } = renderWithProviders(
       <NavigationContainer>
         <TabContainer />
       </NavigationContainer>
     );
-
     expect(getByText("홈")).toBeTruthy();
     expect(getByText("내 주변")).toBeTruthy();
     expect(getByText("함께하기")).toBeTruthy();

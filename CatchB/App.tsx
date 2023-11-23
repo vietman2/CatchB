@@ -6,10 +6,10 @@ import { store } from "./src/store/store";
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Provider store={store}>
+    <Provider store={store}>
+      <NavigationContainer>
         <TabContainer />
-      </Provider>
-    </NavigationContainer>
+      </NavigationContainer>
+    </Provider>
   );
 }

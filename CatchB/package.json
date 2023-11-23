@@ -27,7 +27,9 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts",
       "!src/**/*/types.ts",
-      "!src/**/*/navigation.ts"
+      "!src/**/*/navigation.ts",
+      "!src/**/*/store.ts",
+      "!src/**/*/apiConfig.ts"
     ]
   },
   "dependencies": {

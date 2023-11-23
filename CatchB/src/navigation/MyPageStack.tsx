@@ -18,7 +18,7 @@ export default function MyPageContainer() {
     >
       <MyPageStack.Screen name="MyPageScreen" component={MyPage} />
       <MyPageStack.Screen name="Login" component={Login} />
-      <MyPageStack.Screen name="SignUp" component={SignUp} options={{}} />
+      <MyPageStack.Screen name="SignUp" component={SignUp} />
     </MyPageStack.Navigator>
   );
 }

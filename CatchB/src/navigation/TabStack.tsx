@@ -31,7 +31,7 @@ export default function TabContainer() {
             iconName = "people-outline";
           } else if (route.name === "Calendar") {
             iconName = "calendar-outline";
-          } else if (route.name === "MyPage") {
+          } else {
             iconName = "person-circle-outline";
           }
 
