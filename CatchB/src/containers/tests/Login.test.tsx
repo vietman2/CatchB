@@ -18,7 +18,7 @@ const Stack = createStackNavigator();
 
 describe("[Login] screen rendering test", () => {
   it("should render correctly", () => {
-    const { getByText, getByPlaceholderText } = renderWithProviders(
+    renderWithProviders(
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
