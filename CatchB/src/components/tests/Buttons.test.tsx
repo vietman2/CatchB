@@ -1,5 +1,10 @@
 import { render, fireEvent } from "@testing-library/react-native";
-import { LoginButton, PortalLoginButton, TextButton } from "../Buttons";
+import {
+  LoginButton,
+  KakaoLoginButton,
+  NaverLoginButton,
+  TextButton,
+} from "../Buttons";
 
 jest.mock("react-native-vector-icons/Ionicons", () => "Ionicons");
 
@@ -22,17 +27,13 @@ describe("<LoginButton />", () => {
 });
 
 describe("<PortalLoginButton />", () => {
-  it("renders Kakao login image when kakao prop is true", () => {
-    const { getByTestId } = render(
-      <PortalLoginButton kakao={true} onPress={() => {}} />
-    );
+  it("renders Kakao login image", () => {
+    const { getByTestId } = render(<KakaoLoginButton onPress={() => {}} />);
     expect(getByTestId("kakaoButton")).toBeTruthy();
   });
 
-  it("renders Naver login image when kakao prop is false", () => {
-    const { getByTestId } = render(
-      <PortalLoginButton kakao={false} onPress={() => {}} />
-    );
+  it("renders Naver login image", () => {
+    const { getByTestId } = render(<NaverLoginButton onPress={() => {}} />);
     expect(getByTestId("naverButton")).toBeTruthy();
   });
 });

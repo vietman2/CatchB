@@ -1,6 +1,8 @@
-import authReducer, { login, logout } from "./authSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
+
+import authReducer, { login, logout } from "./authSlice";
+import { admin } from "../../variables/mvp_dummy_data/user";
 
 // Create a mock store for testing
 const createStore = () => {
@@ -17,6 +19,7 @@ describe("authSlice", () => {
   it("should handle initial state", () => {
     expect(authReducer(undefined, { type: "unknown" })).toEqual({
       token: null,
+      user: null,
     });
   });
 
@@ -24,8 +27,9 @@ describe("authSlice", () => {
   it("should handle login", async () => {
     const store = createStore();
     const token = "user-token";
+    const user = admin;
 
-    await store.dispatch(login(token));
+    await store.dispatch(login({token, user}));
 
     const state = store.getState().auth;
     expect(state.token).toEqual(token);

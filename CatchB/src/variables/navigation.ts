@@ -1,6 +1,5 @@
 import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { CoachInfoType, FacilityInfoType } from "./types";
 
 export type RootTabParamList = {
   Home: undefined;
@@ -8,22 +7,29 @@ export type RootTabParamList = {
   Community: undefined;
   Calendar: undefined;
   MyPage: undefined;
-  Login: undefined;
 };
 
 export type RootTabScreenProps<T extends keyof RootTabParamList> =
   StackScreenProps<RootTabParamList, T>;
 
 export type HomeStackParamList = {
-  Login: undefined;
-  SignUp: undefined;
   SplashScreen: undefined;
-  CoachDetail: { coach: CoachInfoType };
-  FacilityDetail: { facility: FacilityInfoType };
 };
 
 export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
   CompositeScreenProps<
     StackScreenProps<HomeStackParamList, T>,
     RootTabScreenProps<"Home">
+  >;
+
+export type MyPageStackParamList = {
+  MyPageScreen: undefined;
+  Login: undefined;
+  SignUp: undefined;
+};
+
+export type MyPageStackScreenProps<T extends keyof MyPageStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<MyPageStackParamList, T>,
+    RootTabScreenProps<"MyPage">
   >;
