@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactElement } from "react";
 import { Provider } from "react-redux";
+import { PaperProvider } from "react-native-paper";
 import { PreloadedState } from "@reduxjs/toolkit";
 import { render, RenderOptions } from "@testing-library/react-native";
 
@@ -19,8 +20,14 @@ export function renderWithProviders(
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
-  function Wrapper({ children }: PropsWithChildren): JSX.Element {
-    return <Provider store={store}>{children}</Provider>;
+  function AllProviders({ children }: PropsWithChildren): JSX.Element {
+    return (
+      <Provider store={store}>
+        <PaperProvider>{children}
+        </PaperProvider>
+      </Provider>
+    );
   }
-  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+
+  return { store, ...render(ui, { wrapper: AllProviders, ...renderOptions })};
 }

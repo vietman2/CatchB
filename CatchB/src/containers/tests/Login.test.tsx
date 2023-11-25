@@ -5,132 +5,114 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { renderWithProviders } from "../../utils/test-utils";
 import Login from "../Login";
 
-jest.mock("react-native-vector-icons/Ionicons", () => "Ionicons");
+jest.mock("react-native-vector-icons/MaterialCommunityIcons", () => "Icon");
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("react-native-paper", () => ({
-  Checkbox: "Checkbox",
-  Provider: "Provider",
-}));
+jest.requireActual("react-native-paper");
 
 const Stack = createStackNavigator();
 
-describe("[Login] screen rendering test", () => {
+const render = () => {
+  return renderWithProviders(
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen name="SignUp" component={Login} />
+        <Stack.Screen name="MyPageScreen" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+describe("<Login />", () => {
   it("should render correctly", () => {
-    renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerTitle: "",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+    render();
   });
 
-  it("should render error text correctly", async () => {
-    const { getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerTitle: "",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+  it("should handle login error", async () => {
+    const { getByTestId, getByText } = render();
 
-    fireEvent.press(getByText("Login"));
-    await waitFor(() =>
-      expect(
-        getByText("아이디 또는 비밀번호가 일치하지 않습니다.")
-      ).toBeTruthy()
-    );
-  });
+    const usernameInput = getByTestId("username-input");
+    const passwordInput = getByTestId("password-input");
+    const loginButton = getByTestId("login-button");
 
-  it("should handle toggle correctly", () => {
-    const { getByTestId } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerTitle: "",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-
-    fireEvent.press(getByTestId("checkbox"));
-  });
-
-  it("should handle login correctly", async () => {
-    const { getByText, getByPlaceholderText } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerTitle: "",
-            }}
-          />
-          <Stack.Screen
-            name="MyPageScreen"
-            component={Login}
-            options={{
-              headerTitle: "",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-
-    const idInput = getByPlaceholderText("아이디");
-    const passwordInput = getByPlaceholderText("비밀번호");
-
-    fireEvent.changeText(idInput, "admin");
-    fireEvent.changeText(passwordInput, "admin");
-
-    await waitFor(() => {
-      expect(idInput.props.value).toBe("admin");
-      expect(passwordInput.props.value).toBe("admin");
+    await act(async () => {
+      fireEvent.changeText(usernameInput, "test");
+      fireEvent.changeText(passwordInput, "test");
+      fireEvent.press(loginButton);
     });
 
-    await act(() => fireEvent.press(getByText("Login")));
+    await waitFor(() => {
+      expect(
+        getByText("아이디 또는 비밀번호가 일치하지 않습니다.")
+      ).toBeTruthy();
+    });
   });
 
-  it("should handle button press correctly", async () => {
-    const { getByText, getByTestId } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerTitle: "",
-            }}
-          />
-          <Stack.Screen name="SignUp" component={Login} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+  it("should handle login success", async () => {
+    const { getByTestId } = render();
 
-    await act(() => {
-      fireEvent.press(getByText("회원가입"));
-      fireEvent.press(getByText("비밀번호 찾기"));
-      fireEvent.press(getByTestId("kakaoButton"));
-      fireEvent.press(getByTestId("naverButton"));
+    const usernameInput = getByTestId("username-input");
+    const passwordInput = getByTestId("password-input");
+    const loginButton = getByTestId("login-button");
+
+    fireEvent.changeText(usernameInput, "exampleuser");
+    fireEvent.changeText(passwordInput, "examplepassword");
+
+    await act(async () => {
+      fireEvent.press(loginButton);
+    });
+  });
+
+  it("should handle kakao and naver login", async () => {
+    const { getByTestId } = render();
+
+    const kakaoButton = getByTestId("kakao-button");
+    const naverButton = getByTestId("naver-button");
+
+    await act(async () => {
+      fireEvent.press(kakaoButton);
+      fireEvent.press(naverButton);
+    });
+  });
+
+  it("should handle text buttons", async () => {
+    const { getByText } = render();
+
+    const findIdButton = getByText("아이디 찾기");
+    const findPasswordButton = getByText("비밀번호 찾기");
+
+    await act(async () => {
+      fireEvent.press(findIdButton);
+      fireEvent.press(findPasswordButton);
+    });
+  });
+
+  it("should handle sign up button", async () => {
+    const { getByText } = render();
+
+    const signUpButton = getByText("회원가입");
+
+    await act(async () => {
+      fireEvent.press(signUpButton);
+    });
+  });
+
+  it("should handle eye icon", async () => {
+    const { getByTestId } = render();
+
+    const eyeIcon = getByTestId("password-eye-icon");
+
+    await act(async () => {
+      fireEvent.press(eyeIcon);
+      fireEvent.press(eyeIcon);
     });
   });
 });

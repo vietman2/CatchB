@@ -1,39 +1,34 @@
-import { useCallback } from "react";
-import { View, Text, SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
+import { Text } from "react-native-paper";
 
-import SearchBar from "../components/SearchBar";
-
-SplashScreen.preventAutoHideAsync();
+import { RootState } from "../store/store";
 
 export default function Home() {
-  const [fontsLoaded] = useFonts({
-    "KBO Dia Gothic_medium": require("assets/fonts/KBO_Dia_Gothic_medium.ttf"),
-    "KBO Dia Gothic_bold": require("assets/fonts/KBO_Dia_Gothic_bold.ttf"),
-    "KBO Dia Gothic_light": require("assets/fonts/KBO_Dia_Gothic_light.ttf"),
-  });
+  const mode = useSelector((state: RootState) => state.mode.mode);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
-  return (
-    <SafeAreaView onLayout={onLayoutRootView}>
+  if (mode === "basic") {
+    return (
       <ScrollView style={styles.container}>
-        <SearchBar />
         <View style={styles.ads}>
-          <Text style={styles.text}>광고</Text>
+          <Text variant="displayMedium" style={{ color: "yellow" }}>
+            광고
+          </Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
-  );
+    );
+  }
+  else {
+    return (
+      <ScrollView style={styles.container}>
+        <View style={styles.ads}>
+          <Text variant="displayMedium" style={{ color: "yellow" }}>
+            프로모드
+          </Text>
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -47,9 +42,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 15,
-  },
-  text: {
-    fontSize: 30,
-    color: "yellow",
   },
 });

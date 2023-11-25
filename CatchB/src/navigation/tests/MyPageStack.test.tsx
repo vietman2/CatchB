@@ -4,10 +4,18 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MyPageContainer from "../MyPageStack";
 import { renderWithProviders } from "../../utils/test-utils";
 
+jest.mock("react-native-paper", () => {
+  const { View } = require("react-native");
+  return {
+    ...jest.requireActual("react-native-paper"),
+    Avatar: {
+      Icon: (props: any) => <View testID="avatar-icon" {...props} />,
+    },
+  };
+});
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("react-native-vector-icons/Ionicons", () => "Ionicons");
 
 const Tab = createBottomTabNavigator();
 
@@ -19,9 +27,6 @@ describe("<MyPageStack />", () => {
           <Tab.Screen
             name="MyPage"
             component={MyPageContainer}
-            options={{
-              headerTitle: "",
-            }}
           />
         </Tab.Navigator>
       </NavigationContainer>

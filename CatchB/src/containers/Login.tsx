@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { View, KeyboardAvoidingView, Text, ScrollView } from "react-native";
+import { View, KeyboardAvoidingView, ScrollView } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Checkbox } from "react-native-paper";
+import { Divider, Text, TextInput } from "react-native-paper";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { styles } from "./styles";
-import { MyTextInput } from "../components/TextInput";
 import {
   LoginButton,
   TextButton,
   KakaoLoginButton,
   NaverLoginButton,
 } from "../components/Buttons";
-import { LoginLogo } from "../components/Icons";
 import { MyPageStackParamList } from "../variables/navigation";
 import { login } from "../services/account";
 import { login as setUserState } from "../store/slices/authSlice";
 import { AppDispatch } from "../store/store";
+import { colors } from "../variables/colors";
+import LoginLogo from "../components/LoginLogo";
 
 type LoginNavigationProp = StackNavigationProp<MyPageStackParamList, "Login">;
 interface LoginProps {
@@ -27,7 +28,7 @@ export default function Login({ navigation }: LoginProps) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [checked, setChecked] = useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogin = async () => {
@@ -52,55 +53,105 @@ export default function Login({ navigation }: LoginProps) {
     setError("네이버 로그인 기능은 아직 구현되지 않았습니다.");
   };
 
+  const onPressEyeIcon = () => setIsPasswordVisible(!isPasswordVisible);
+
   return (
     <ScrollView style={styles.mainContainer}>
       <KeyboardAvoidingView behavior="position">
         <LoginLogo />
-        <View style={styles.textInputContainer}>
-          <MyTextInput
-            iconName="person-circle"
-            placeholder="아이디"
-            onChangeText={(text) => {
-              setUsername(text);
-            }}
+        <View style={styles.container}>
+          <TextInput
+            label="아이디"
+            onChangeText={(text) => setUsername(text)}
             value={username}
+            left={
+              <TextInput.Icon
+                icon={() => (
+                  <MaterialCommunityIcons
+                    name="account-outline"
+                    size={24}
+                    color={colors.primary}
+                  />
+                )}
+              />
+            }
+            style={{ marginVertical: 5 }}
+            testID="username-input"
           />
-          <MyTextInput
-            iconName="lock-closed"
-            placeholder="비밀번호"
+          <TextInput
+            label="비밀번호"
             onChangeText={(text) => setPassword(text)}
             value={password}
-            secureTextEntry={true}
+            secureTextEntry={!isPasswordVisible}
+            left={
+              <TextInput.Icon
+                icon={() => (
+                  <MaterialCommunityIcons
+                    name="lock-outline"
+                    size={24}
+                    color={colors.primary}
+                  />
+                )}
+              />
+            }
+            right={
+              <TextInput.Icon
+                icon={() => (
+                  <MaterialCommunityIcons
+                    name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+                    size={24}
+                    color={colors.primary}
+                    onPress={onPressEyeIcon}
+                    testID="password-eye-icon"
+                  />
+                )}
+              />
+            }
+            style={{ marginVertical: 5 }}
+            testID="password-input"
           />
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={{ alignItems: "flex-end" }}>
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
+        </View>
+        <View style={styles.container}>
+          <LoginButton
+            text="로그인"
+            onPress={handleLogin}
+            testID="login-button"
+          />
           <View style={styles.textButtonContainer}>
-            <View style={styles.checkboxContainer}>
-              <Checkbox
-                status={checked ? "checked" : "unchecked"}
-                onPress={() => setChecked(!checked)}
-                testID="checkbox"
-              />
-              <Text style={styles.checkboxText}>자동 로그인</Text>
-            </View>
-
+            <TextButton
+              text="아이디 찾기"
+              onPress={() =>
+                setError("아이디 찾기 기능은 아직 구현되지 않았습니다")
+              }
+            />
             <TextButton
               text="비밀번호 찾기"
               onPress={() =>
                 setError("비밀번호 찾기 기능은 아직 구현되지 않았습니다")
-              } /*() => navigation.navigate("FindPassword")*/
-            />
-            <TextButton
-              text="회원가입"
-              onPress={() => navigation.navigate("SignUp")}
+              }
             />
           </View>
-          <LoginButton text="Login" onPress={handleLogin} />
-          <View style={styles.divider}>
+          <View style={styles.textButtonContainer}>
             <KakaoLoginButton onPress={handleKakaoLogin} />
             <NaverLoginButton onPress={handleNaverLogin} />
           </View>
+        </View>
+        <Divider style={{ marginTop: 10 }} />
+        <View style={styles.container}>
+          <Text style={styles.registerText}>
+            아직{" "}
+            <Text style={{ ...styles.registerText, color: colors.primary }}>
+              Catch B{" "}
+            </Text>
+            회원이 아니신가요?
+          </Text>
+          <LoginButton
+            text="회원가입"
+            onPress={() => navigation.navigate("SignUp")}
+          />
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
