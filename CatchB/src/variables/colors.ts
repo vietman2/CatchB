@@ -5,4 +5,7 @@ export const colors = {
   secondary: "brown",
   icon: "black",
   error: "red",
+  secondaryText: "grey",
+  whiteText: "white",
+  blackText: "black",
 };

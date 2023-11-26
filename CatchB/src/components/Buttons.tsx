@@ -1,17 +1,31 @@
-import { Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, Dimensions } from "react-native";
+import { Text, TouchableRipple } from "react-native-paper";
 
 import { colors } from "../variables/colors";
+
+const { width } = Dimensions.get("window");
 
 interface loginButtonProps {
   text: string;
   onPress: () => void;
+  testID?: string;
 }
 
-export const LoginButton = ({ text, onPress }: loginButtonProps) => {
+export const LoginButton = ({ text, onPress, testID }: loginButtonProps) => {
   return (
-    <TouchableOpacity style={buttonStyles.button} onPress={onPress}>
-      <Text style={buttonStyles.buttonText}>{text}</Text>
-    </TouchableOpacity>
+    <TouchableRipple
+      style={buttonStyles.button}
+      onPress={onPress}
+      rippleColor="rgba(0, 0, 0, .32)"
+      testID={testID}
+    >
+      <Text
+        variant="titleMedium"
+        style={{ color: colors.whiteText, fontFamily: "Catch B ExtraBold" }}
+      >
+        {text}
+      </Text>
+    </TouchableRipple>
   );
 };
 
@@ -21,25 +35,25 @@ interface portalLoginButtonProps {
 
 export const KakaoLoginButton = ({ onPress }: portalLoginButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableRipple onPress={onPress}>
       <Image
-        source={require("assets/images/kakao_login_large.png")}
-        style={buttonStyles.portalButton}
-        testID={"kakaoButton"}
+        source={require("assets/images/kakao_login_large_narrow.png")}
+        style={{ ...buttonStyles.portalButton, width: width * 0.38 }}
+        testID={"kakao-button"}
       />
-    </TouchableOpacity>
+    </TouchableRipple>
   );
 };
 
 export const NaverLoginButton = ({ onPress }: portalLoginButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableRipple onPress={onPress}>
       <Image
-        source={require("assets/images/btnG_축약형.png")}
-        style={buttonStyles.portalButton}
-        testID="naverButton"
+        source={require("assets/images/btnG_완성형.png")}
+        style={{ ...buttonStyles.portalButton, width: width * 0.35 }}
+        testID="naver-button"
       />
-    </TouchableOpacity>
+    </TouchableRipple>
   );
 };
 
@@ -50,39 +64,30 @@ interface textButtonProps {
 
 export const TextButton = ({ text, onPress }: textButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={buttonStyles.textButton}>
-      <Text style={buttonStyles.normalText}>{text}</Text>
-    </TouchableOpacity>
+    <TouchableRipple onPress={onPress}>
+      <Text variant="bodySmall" style={buttonStyles.text}>
+        {text}
+      </Text>
+    </TouchableRipple>
   );
 };
 
 const buttonStyles = StyleSheet.create({
   button: {
     height: 40,
-    backgroundColor: colors.greybackground,
+    backgroundColor: colors.primary,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10,
   },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
   portalButton: {
-    borderRadius: 25,
-    padding: 10,
     resizeMode: "contain",
     height: 50,
-    width: 120,
   },
-  textButton: {
-    marginTop: 10,
-  },
-  normalText: {
-    fontSize: 15,
-    fontWeight: "normal",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+  text: {
+    color: colors.blackText,
+    fontSize: 14,
+    padding: 5,
   },
 });

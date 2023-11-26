@@ -1,40 +1,48 @@
-import { render, fireEvent } from "@testing-library/react-native";
+import { fireEvent } from "@testing-library/react-native";
 
+import { renderWithProviders } from "../../utils/test-utils";
 import SignUp from "../SignUp";
 
-jest.mock("react-native-vector-icons/Ionicons", () => "Ionicons");
-
-describe("[SignUp] screen rendering test", () => {
+describe("<SignUp />", () => {
   it("should render correctly", () => {
-    const { getByText, getByPlaceholderText } = render(<SignUp />);
-
-    expect(getByText("회원가입")).toBeTruthy();
-    expect(getByPlaceholderText("아이디")).toBeTruthy();
-    expect(getByPlaceholderText("비밀번호")).toBeTruthy();
-    expect(getByPlaceholderText("비밀번호 확인")).toBeTruthy();
+    renderWithProviders(<SignUp />);
   });
 
-  it("should render error message correctly", () => {
-    const { getByText } = render(<SignUp />);
-    expect(getByText("")).toBeTruthy();
+  it("should handle text input change", () => {
+    const { getByTestId } = renderWithProviders(<SignUp />);
 
-    fireEvent.press(getByText("회원가입"));
-    expect(getByText("회원가입 기능은 아직 구현되지 않았습니다.")).toBeTruthy();
-  });
+    const usernameInput = getByTestId("username-input");
+    const emailInput = getByTestId("email-input");
+    const passwordInput = getByTestId("password-input");
+    const passwordCheckInput = getByTestId("password-check-input");
+    const firstNameInput = getByTestId("first-name-input");
+    const lastNameInput = getByTestId("last-name-input");
+    const phoneNumberInput = getByTestId("phone-number-input");
 
-  it("should change text correctly", () => {
-    const { getByPlaceholderText } = render(<SignUp />);
-
-    const idInput = getByPlaceholderText("아이디");
-    fireEvent.changeText(idInput, "test");
-
-    const emailInput = getByPlaceholderText("이메일");
-    fireEvent.changeText(emailInput, "test@email.com");
-
-    const passwordInput = getByPlaceholderText("비밀번호");
+    fireEvent.changeText(usernameInput, "test");
+    fireEvent.changeText(emailInput, "test");
     fireEvent.changeText(passwordInput, "test");
-
-    const passwordCheckInput = getByPlaceholderText("비밀번호 확인");
     fireEvent.changeText(passwordCheckInput, "test");
+    fireEvent.changeText(firstNameInput, "test");
+    fireEvent.changeText(lastNameInput, "test");
+    fireEvent.changeText(phoneNumberInput, "test");
+  });
+
+  it("should handle sign up button press", () => {
+    const { getByTestId } = renderWithProviders(<SignUp />);
+
+    const signUpButton = getByTestId("sign-up-button");
+
+    fireEvent.press(signUpButton);
+  });
+
+  it("should handle password eye icon press", () => {
+    const { getByTestId } = renderWithProviders(<SignUp />);
+
+    const passwordEyeIcon = getByTestId("password-eye-icon");
+    const passwordCheckEyeIcon = getByTestId("password-check-eye-icon");
+
+    fireEvent.press(passwordEyeIcon);
+    fireEvent.press(passwordCheckEyeIcon);
   });
 });

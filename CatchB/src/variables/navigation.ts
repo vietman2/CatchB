@@ -7,19 +7,36 @@ export type RootTabParamList = {
   Community: undefined;
   Calendar: undefined;
   MyPage: undefined;
+  MyStore: undefined;
 };
-
 export type RootTabScreenProps<T extends keyof RootTabParamList> =
   StackScreenProps<RootTabParamList, T>;
 
 export type HomeStackParamList = {
   SplashScreen: undefined;
 };
-
 export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
   CompositeScreenProps<
     StackScreenProps<HomeStackParamList, T>,
     RootTabScreenProps<"Home">
+  >;
+
+export type CommunityStackParamList = {
+  CommunityScreen: undefined;
+};
+export type CommunityStackScreenProps<T extends keyof CommunityStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<CommunityStackParamList, T>,
+    RootTabScreenProps<"Community">
+  >;
+
+export type CalendarStackParamList = {
+  CalendarScreen: undefined;
+};
+export type CalendarStackScreenProps<T extends keyof CalendarStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<CalendarStackParamList, T>,
+    RootTabScreenProps<"Calendar">
   >;
 
 export type MyPageStackParamList = {
@@ -27,7 +44,6 @@ export type MyPageStackParamList = {
   Login: undefined;
   SignUp: undefined;
 };
-
 export type MyPageStackScreenProps<T extends keyof MyPageStackParamList> =
   CompositeScreenProps<
     StackScreenProps<MyPageStackParamList, T>,

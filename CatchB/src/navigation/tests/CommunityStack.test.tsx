@@ -1,17 +1,17 @@
 import { NavigationContainer } from "@react-navigation/native";
 
 import { renderWithProviders } from "../../utils/test-utils";
-import HomeStack from "../HomeStack";
+import CommunityStack from "../CommunityStack";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
 
-describe("<HomeStack />", () => {
+describe("<CommunityStack />", () => {
   it("renders correctly", () => {
     renderWithProviders(
       <NavigationContainer>
-        <HomeStack />
+        <CommunityStack />
       </NavigationContainer>
     );
   });

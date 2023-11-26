@@ -6,7 +6,7 @@ import {
   TextButton,
 } from "../Buttons";
 
-jest.mock("react-native-vector-icons/Ionicons", () => "Ionicons");
+jest.requireActual("react-native-paper")
 
 describe("<LoginButton />", () => {
   it("renders the button with the correct text", () => {
@@ -29,12 +29,12 @@ describe("<LoginButton />", () => {
 describe("<PortalLoginButton />", () => {
   it("renders Kakao login image", () => {
     const { getByTestId } = render(<KakaoLoginButton onPress={() => {}} />);
-    expect(getByTestId("kakaoButton")).toBeTruthy();
+    expect(getByTestId("kakao-button")).toBeTruthy();
   });
 
   it("renders Naver login image", () => {
     const { getByTestId } = render(<NaverLoginButton onPress={() => {}} />);
-    expect(getByTestId("naverButton")).toBeTruthy();
+    expect(getByTestId("naver-button")).toBeTruthy();
   });
 });
 

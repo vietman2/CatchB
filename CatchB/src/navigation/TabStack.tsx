@@ -1,67 +1,129 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { useSelector, useDispatch } from "react-redux";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 
-import HomeStack from "./HomeStack";
+import HomeContainer from "./HomeStack";
 import NearbyScreen from "../tabs/Nearby";
-import CommunityScreen from "../tabs/Community";
-import CalendarScreen from "../tabs/Calendar";
-import MyPageStack from "./MyPageStack";
+import CommunityContainer from "./CommunityStack";
+import CalendarContainer from "./CalendarStack";
+import MyPageContainer from "./MyPageStack";
 import { RootTabParamList } from "../variables/navigation";
+import { colors } from "../variables/colors";
+import { setMode } from "../store/slices/modeSlice";
+import { RootState } from "../store/store";
 
 /**
  * TabContainer
  * 하단 탭의 구성을 담당한다.
  */
 
-const Tab = createBottomTabNavigator<RootTabParamList>();
+const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
 export default function TabContainer() {
+  const mode = useSelector((state: RootState) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const handleLongPress = () => {
+    if (mode === "basic") {
+      dispatch(setMode("pro"));
+    }
+    else {
+      dispatch(setMode("basic"));
+    }
+  };
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName = "";
-
-          if (route.name === "Home") {
-            iconName = "home";
-          } else if (route.name === "Nearby") {
-            iconName = "location-outline";
-          } else if (route.name === "Community") {
-            iconName = "people-outline";
-          } else if (route.name === "Calendar") {
-            iconName = "calendar-outline";
-          } else {
-            iconName = "person-circle-outline";
-          }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        headerShown: false,
-        tabBarActiveTintColor: "#15249F",
-        tabBarInactiveTintColor: "gray",
-      })}
+      barStyle={{ backgroundColor: colors.whitebackground, marginBottom: -15 }}
     >
-      <Tab.Screen name="Home" component={HomeStack} options={{ title: "홈" }} />
       <Tab.Screen
-        name="Nearby"
-        component={NearbyScreen}
-        options={{ title: "내 주변" }}
+        name="Home"
+        component={HomeContainer}
+        options={{
+          tabBarLabel: "홈",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
       />
+      {mode === "basic" ? (
+        <Tab.Screen
+          name="Nearby"
+          component={NearbyScreen}
+          options={{
+            tabBarLabel: "내 주변",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="map-marker"
+                color={color}
+                size={26}
+              />
+            ),
+          }}
+        />
+      ) : (
+        <Tab.Screen
+          name="MyStore"
+          component={NearbyScreen}
+          options={{
+            tabBarLabel: "우리가게",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="store"
+                color={color}
+                size={26}
+              />
+            ),
+          }}
+        />
+      )}
+
       <Tab.Screen
         name="Community"
-        component={CommunityScreen}
-        options={{ title: "함께하기" }}
+        component={CommunityContainer}
+        options={{
+          tabBarLabel: "함께하기",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="account-group"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
       />
       <Tab.Screen
         name="Calendar"
-        component={CalendarScreen}
-        options={{ title: "캘린더" }}
+        component={CalendarContainer}
+        options={{
+          tabBarLabel: "캘린더",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="calendar-check"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
       />
       <Tab.Screen
         name="MyPage"
-        component={MyPageStack}
-        options={{ title: "마이페이지" }}
+        component={MyPageContainer}
+        options={{
+          tabBarLabel: "마이페이지",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="account-box"
+              color={color}
+              size={26}
+              testID="MyPageIcon"
+            />
+          ),
+        }}
+        listeners={{
+          tabLongPress: handleLongPress,
+        }}
       />
     </Tab.Navigator>
   );

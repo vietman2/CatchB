@@ -4,19 +4,20 @@ import {
   configureStore,
 } from "@reduxjs/toolkit";
 
-import { RootState } from "../store";
 import authReducer from "./authSlice";
-
+import modeReducer from "./modeSlice";
+import { RootState } from "../store";
 
 const rootReducer = combineReducers({
-    auth: authReducer,
+  auth: authReducer,
+  mode: modeReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
-    return configureStore({
-        reducer: rootReducer,
-        preloadedState,
-    });
-}
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+};
 
 export default rootReducer;

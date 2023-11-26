@@ -1,8 +1,8 @@
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { Divider, Text, TouchableRipple } from "react-native-paper";
 
-import TopBar from "../components/TopBar";
 import ProfileBadge from "../components/ProfileBadge";
 import { TextButton } from "../components/Buttons";
 import { colors } from "../variables/colors";
@@ -17,31 +17,39 @@ export default function MyPage() {
   const handleBadgePress = () => {
     if (user) {
       //navigation.navigate("Profile");
-    }
-    else {
+    } else {
       navigation.navigate("Login");
     }
-  }
+  };
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <TopBar />
-        <TouchableOpacity onPress={handleBadgePress}>
+        <TouchableRipple onPress={handleBadgePress}>
           <ProfileBadge user={user} />
-        </TouchableOpacity>
-        <View>
-          <Text>이벤트</Text>
+        </TouchableRipple>
+        <View style={styles.menus}>
+          <Divider style={styles.divider} />
+          <Text variant="titleLarge" style={styles.subtitle}>
+            이벤트
+          </Text>
           <TextButton text="친구 초대하기" onPress={() => {}} />
           <TextButton text="레슨 코치 초대하기" onPress={() => {}} />
           <TextButton text="매장 정보 제보하기" onPress={() => {}} />
-          <Text>결제</Text>
+          <Divider style={styles.divider} />
+          <Text variant="titleLarge" style={styles.subtitle}>
+            결제
+          </Text>
           <TextButton text="결제수단" onPress={() => {}} />
-          <Text>고객센터 및 설정</Text>
+          <Divider style={styles.divider} />
+          <Text variant="titleLarge" style={styles.subtitle}>
+            고객센터 및 설정
+          </Text>
           <TextButton text="1:1 문의" onPress={() => {}} />
           <TextButton text="공지사항" onPress={() => {}} />
           <TextButton text="자주 묻는 질문" onPress={() => {}} />
           <TextButton text="알림 맞춤 설정" onPress={() => {}} />
+          <Divider style={styles.divider} />
         </View>
       </View>
       <View style={styles.docs}>
@@ -57,10 +65,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.whitebackground,
+    paddingVertical: 10,
+  },
+  menus: {
+    padding: 10,
   },
   docs: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-  }
+    marginVertical: 10,
+  },
+  divider: {
+    marginVertical: 10,
+  },
+  subtitle: {
+    color: colors.blackText,
+    fontWeight: "bold",
+    padding: 5,
+    marginBottom: 10,
+  },
 });
