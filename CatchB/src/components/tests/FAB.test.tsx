@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react-native";
+import { fireEvent } from "@testing-library/react-native";
 
 import { FABGroup } from "../FAB";
 import { renderWithProviders } from "../../utils/test-utils";
