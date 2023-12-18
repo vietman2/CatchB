@@ -1,6 +1,7 @@
 import { PropsWithChildren, ReactElement } from "react";
 import { Provider } from "react-redux";
 import { PaperProvider } from "react-native-paper";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { PreloadedState } from "@reduxjs/toolkit";
 import { render, RenderOptions } from "@testing-library/react-native";
 
@@ -15,19 +16,20 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
 export function renderWithProviders(
   ui: ReactElement,
   {
-    preloadedState,
+    preloadedState = {},
     store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
-  function AllProviders({ children }: PropsWithChildren): JSX.Element {
+  function Wrapper({ children }: PropsWithChildren): JSX.Element {
     return (
       <Provider store={store}>
-        <PaperProvider>{children}
+        <PaperProvider>
+          <SafeAreaProvider>{children}</SafeAreaProvider>
         </PaperProvider>
       </Provider>
     );
   }
 
-  return { store, ...render(ui, { wrapper: AllProviders, ...renderOptions })};
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
