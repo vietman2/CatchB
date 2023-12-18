@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Dimensions } from "react-native";
 import { Text, TouchableRipple } from "react-native-paper";
 
-import { colors } from "../variables/colors";
+import { themeColors } from "../variables/colors";
 
 const { width } = Dimensions.get("window");
 
@@ -21,7 +21,10 @@ export const LoginButton = ({ text, onPress, testID }: loginButtonProps) => {
     >
       <Text
         variant="titleMedium"
-        style={{ color: colors.whiteText, fontFamily: "Catch B ExtraBold" }}
+        style={{
+          color: themeColors.onPrimary,
+          fontFamily: "Catch B ExtraBold",
+        }}
       >
         {text}
       </Text>
@@ -65,7 +68,7 @@ interface textButtonProps {
 export const TextButton = ({ text, onPress }: textButtonProps) => {
   return (
     <TouchableRipple onPress={onPress}>
-      <Text variant="bodySmall" style={buttonStyles.text}>
+      <Text variant="titleLarge" style={buttonStyles.text}>
         {text}
       </Text>
     </TouchableRipple>
@@ -75,7 +78,7 @@ export const TextButton = ({ text, onPress }: textButtonProps) => {
 const buttonStyles = StyleSheet.create({
   button: {
     height: 40,
-    backgroundColor: colors.primary,
+    backgroundColor: themeColors.primary,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -86,8 +89,6 @@ const buttonStyles = StyleSheet.create({
     height: 50,
   },
   text: {
-    color: colors.blackText,
-    fontSize: 14,
-    padding: 5,
+    padding: 10,
   },
 });

@@ -1,3 +1,5 @@
+import mockSafeAreaContext from "react-native-safe-area-context/jest/mock"
+
 jest.mock("../hooks/useFonts", () => jest.fn().mockReturnValue(true));
 jest.mock("expo-font", () => ({
   Font: {
@@ -16,3 +18,4 @@ jest.mock("react-native-gesture-handler", () => ({
   dropGestureHandler: jest.fn(),
   GestureHandlerRootView: jest.fn(),
 }));
+jest.mock("react-native-safe-area-context", () => mockSafeAreaContext);

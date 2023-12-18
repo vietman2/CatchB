@@ -21,6 +21,16 @@ export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
     RootTabScreenProps<"Home">
   >;
 
+export type MyStoreStackParamList = {
+  MyStoreScreen: undefined;
+  WorkProgress: undefined;
+};
+export type MyStoreStackScreenProps<T extends keyof MyStoreStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<MyStoreStackParamList, T>,
+    RootTabScreenProps<"MyStore">
+  >;
+
 export type CommunityStackParamList = {
   CommunityScreen: undefined;
 };

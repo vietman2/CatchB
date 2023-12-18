@@ -8,3 +8,9 @@ export type UserProfile = {
   phone_number: string;
   date_joined: string;
 }
+
+export type Todo = {
+  id: number;
+  title: string;
+  done: boolean;
+}
