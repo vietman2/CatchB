@@ -90,4 +90,18 @@ const ReservationStatus = {
     FINISHED: { value: "FI", label: "완료" },
 }
 
-
+export {
+    CouponStatus,
+    CouponType,
+    PointStatus,
+    UserType,
+    ExperienceTier,
+    RegisterRoute,
+    LessonStatus,
+    Stars,
+    PaymentStatus,
+    PaymentMethod,
+    ForumCategory,
+    ReportReason,
+    ReservationStatus,
+}
