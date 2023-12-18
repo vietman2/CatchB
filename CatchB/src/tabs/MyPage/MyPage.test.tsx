@@ -19,8 +19,12 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("../../components/ProfileBadge", () => {
-  const { Text } = jest.requireActual("react-native");
-  return () => <Text testID="badge">"ProfileBadge"</Text>;
+  const { View } = jest.requireActual("react-native");
+  const mockedBadge = () => (<View testID="badge">ProfileBadge</View>);
+  mockedBadge.displayName = "ProfileBadge";
+  return {
+    ProfileBadge: mockedBadge,
+  };
 });
 jest.mock("../../components/Buttons", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
