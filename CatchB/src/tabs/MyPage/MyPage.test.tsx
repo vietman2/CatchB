@@ -22,7 +22,7 @@ jest.mock("../../components/ProfileBadge", () => {
   const { View } = jest.requireActual("react-native");
   return () => (<View testID="badge">ProfileBadge</View>);
 });
-jest.mock("../../components/Buttons", () => {
+jest.mock("../../components/Buttons/Buttons", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return {
     TextButton: ({ text, onPress }: any) => (
