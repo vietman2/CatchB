@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { KeyboardAvoidingView, View, ScrollView } from "react-native";
+import {
+  KeyboardAvoidingView,
+  View,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { Text, TextInput } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { LoginButton } from "../../components/Buttons";
-import { styles } from "./styles";
+import { LoginButton } from "../../components/Buttons/Buttons";
 import { themeColors } from "../../variables/colors";
 
 export default function SignUp() {
@@ -17,7 +21,8 @@ export default function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const [isPasswordCheckVisible, setIsPasswordCheckVisible] = useState<boolean>(false);
+  const [isPasswordCheckVisible, setIsPasswordCheckVisible] =
+    useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
   const handleSignUp = () => {
@@ -25,12 +30,13 @@ export default function SignUp() {
   };
 
   const onPressEyeIcon = () => setIsPasswordVisible(!isPasswordVisible);
-  const onPressEyeIcon2 = () => setIsPasswordCheckVisible(!isPasswordCheckVisible);
+  const onPressEyeIcon2 = () =>
+    setIsPasswordCheckVisible(!isPasswordCheckVisible);
 
   return (
     <ScrollView style={styles.mainContainer}>
       <KeyboardAvoidingView behavior={"position"}>
-        <View style={{ ...styles.container, marginTop: 120 }}>
+        <View style={styles.container}>
           <TextInput
             label="아이디"
             placeholder="로그인에 사용할 아이디를 입력하세요."
@@ -130,3 +136,20 @@ export default function SignUp() {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: themeColors.primaryContainer,
+  },
+  container: {
+    marginHorizontal: 50,
+    justifyContent: "center",
+    marginTop: 120,
+  },
+  errorText: {
+    color: themeColors.error,
+    marginHorizontal: 50,
+    marginTop: 5,
+  },
+});

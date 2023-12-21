@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Dimensions } from "react-native";
 import { Text, TouchableRipple } from "react-native-paper";
 
-import { themeColors } from "../variables/colors";
+import { themeColors } from "../../variables/colors";
 
 const { width } = Dimensions.get("window");
 

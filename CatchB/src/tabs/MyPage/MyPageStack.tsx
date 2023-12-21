@@ -1,8 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import MyPage from "./MyPage";
-import Login from "../../containers/auth/Login";
-import SignUp from "../../containers/auth/SignUp";
+import Login from "../../containers/Login/Login";
+import SignUp from "../../containers/SignUp/SignUp";
 import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
 import { MyPageStackParamList } from "../../variables/navigation";
 

@@ -1,7 +1,7 @@
 import { fireEvent } from "@testing-library/react-native";
 
 import { renderWithProviders } from "../../utils/test-utils";
-import SignUp from "../auth/SignUp";
+import SignUp from "./SignUp";
 
 describe("<SignUp />", () => {
   it("should render correctly", () => {

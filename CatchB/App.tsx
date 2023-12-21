@@ -15,6 +15,7 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...themeColors,
+    ...DefaultTheme.colors,
   },
 };
 

@@ -34,12 +34,12 @@ export default function SegmentedButtons({ tab, onPress }: Props) {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => onPress("Reservation")}
-          style={tab === "Reservation" ? styles.active : styles.box}
+          onPress={() => onPress("Reservations")}
+          style={tab === "Reservations" ? styles.active : styles.box}
         >
           <Text
             style={
-              tab === "Reservation" ? styles.activeText : styles.inactiveText
+              tab === "Reservations" ? styles.activeText : styles.inactiveText
             }
           >
             예약관리

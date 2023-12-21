@@ -1,5 +1,5 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { CheckStatus, ProgressBanner } from "../../components/Progress";
+import { CheckStatus, ProgressBanner } from "../../components/ProgressBar/Progress";
 import { useNavigation } from "@react-navigation/native";
 import { MyStoreStackScreenProps } from "../../variables/navigation";
 

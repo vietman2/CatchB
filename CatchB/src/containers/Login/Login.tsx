@@ -5,19 +5,19 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Divider, Text, TextInput } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { styles } from "./styles";
 import {
   LoginButton,
   TextButton,
   KakaoLoginButton,
   NaverLoginButton,
-} from "../../components/Buttons";
+} from "../../components/Buttons/Buttons";
 import { MyPageStackParamList } from "../../variables/navigation";
 import { login } from "../../services/account";
 import { login as setUserState } from "../../store/slices/authSlice";
 import { AppDispatch } from "../../store/store";
 import { themeColors } from "../../variables/colors";
 import LoginLogo from "../../components/Logos/LoginLogo";
+import { StyleSheet } from "react-native";
 
 type LoginNavigationProp = StackNavigationProp<MyPageStackParamList, "Login">;
 interface LoginProps {
@@ -159,3 +159,32 @@ export default function Login({ navigation }: LoginProps) {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: themeColors.primaryContainer,
+  },
+  container: {
+    marginHorizontal: 50,
+    justifyContent: "center",
+    marginTop: 120,
+  },
+  textButtonContainer: {
+    marginVertical: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  registerText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  errorText: {
+    color: themeColors.error,
+    marginHorizontal: 50,
+    marginTop: 5,
+  },
+});

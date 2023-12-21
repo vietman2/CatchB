@@ -41,16 +41,16 @@ export default function StoreDashboard() {
         }}
       >
         <View>
-          <Text variant="headlineSmall">총 매출</Text>
-          <Text variant="headlineSmall">0원</Text>
+          <Text variant="headlineSmall">예약 건수</Text>
+          <Text variant="headlineSmall">1,364(0)</Text>
         </View>
         <View>
-          <Text variant="headlineSmall">총 예약</Text>
-          <Text variant="headlineSmall">0건</Text>
+          <Text variant="headlineSmall">지난 월 대비 매출</Text>
+          <Text variant="headlineSmall">+350,000원</Text>
         </View>
         <View>
-          <Text variant="headlineSmall">총 코치</Text>
-          <Text variant="headlineSmall">0명</Text>
+          <Text variant="headlineSmall">문의</Text>
+          <Text variant="headlineSmall">97</Text>
         </View>
       </View>
       <Divider style={{ marginTop: 20 }} />

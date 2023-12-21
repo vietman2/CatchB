@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import IconTab from "../IconTab";
+import IconButton from "./IconButton";
 
 jest.mock("react-native-paper", () => ({
   Surface: "Surface",
@@ -8,8 +8,8 @@ jest.mock("react-native-paper", () => ({
   Icon: "Icon",
 }));
 
-describe("<IconTab />", () => {
+describe("<IconButton />", () => {
   it("renders correctly", () => {
-    render(<IconTab icon="home" title="Home" />);
+    render(<IconButton icon="home" title="Home" />);
   });
 });
