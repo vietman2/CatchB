@@ -8,8 +8,11 @@ import MyStore from "./MyStore";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("../../containers/mystore/StoreDashboard", () => "StoreDashboard");
-jest.mock("../../containers/mystore/TaskBoard", () => "TaskBoard");
+jest.mock(
+  "../../containers/StoreDashboard/StoreDashboard",
+  () => "StoreDashboard"
+);
+jest.mock("../../containers/TaskBoard/TaskBoard", () => "TaskBoard");
 
 const Stack = createStackNavigator();
 

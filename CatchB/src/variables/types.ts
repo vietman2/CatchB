@@ -1,3 +1,5 @@
+import { ReservationStatus } from "./enums";
+
 export type UserProfile = {
   uuid: string;
   username: string;
@@ -14,3 +16,26 @@ export type Todo = {
   title: string;
   done: boolean;
 }
+
+export type ReservationProduct = {
+  title: string;
+  description: string;
+  price: number;
+  facility: string;
+  hours: number;
+  minutes: number;
+}
+
+type ReservationStatusKey = keyof typeof ReservationStatus;
+
+export type Reservation = {
+  uuid: string;
+  product: ReservationProduct;
+  reserved_user: string;
+  lesson_session: string | null;
+  start_datetime: string;
+  end_datetime: string;
+  status: ReservationStatusKey;
+  created_at: string;
+  confirmed_at: string | null;
+};

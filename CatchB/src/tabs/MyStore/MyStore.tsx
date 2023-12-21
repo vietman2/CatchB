@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import MySegmentedButtons from "../../components/Buttons/SegmentedButtons";
-import StoreDashboard from "../../containers/mystore/StoreDashboard";
-import TaskBoard from "../../containers/mystore/TaskBoard";
+import StoreDashboard from "../../containers/StoreDashboard/StoreDashboard";
+import TaskBoard from "../../containers/TaskBoard/TaskBoard";
+import ManageReservations from "../../containers/ManageReservations/ManageReservations";
 
 export default function MyStore() {
   const [mode, setMode] = useState("Dashboard");
@@ -14,15 +15,18 @@ export default function MyStore() {
     else if (mode === "Tasks") {
       return <TaskBoard />;
     }
+    else if (mode === "Reservations") {
+      return <ManageReservations />;
+    }
     else {
       return null;
     }
   }
 
   return (
-    <ScrollView>
-      <MySegmentedButtons tab={mode} onPress={(value) => setMode(value)}/>
-      {render()}
-    </ScrollView>
+    <View>
+      <MySegmentedButtons tab={mode} onPress={(value) => setMode(value)} />
+      <ScrollView>{render()}</ScrollView>
+    </View>
   );
 }

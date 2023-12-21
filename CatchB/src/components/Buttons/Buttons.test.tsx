@@ -4,7 +4,7 @@ import {
   KakaoLoginButton,
   NaverLoginButton,
   TextButton,
-} from "../Buttons";
+} from "./Buttons";
 
 jest.requireActual("react-native-paper")
 

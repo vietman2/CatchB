@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react-native";
-import { SimpleCard, Box } from "../Card";
+import { SimpleCard, Box } from "./Card";
 
 jest.mock("react-native-paper", () => {
   const { View, Text } = jest.requireActual("react-native");

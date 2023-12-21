@@ -8,9 +8,9 @@ import {
 import { useSelector } from "react-redux";
 import { Banner, Icon, Text } from "react-native-paper";
 
-import IconTab from "../../components/IconTab";
-import { NotificationChip } from "../../components/Chips";
-import { Box, SimpleCard } from "../../components/Card";
+import IconButton from "../../components/Buttons/IconButton";
+import { NotificationChip } from "../../components/Chips/Chips";
+import { Box, SimpleCard } from "../../components/Cards/Card";
 import { themeColors } from "../../variables/colors";
 import { RootState } from "../../store/store";
 
@@ -61,7 +61,9 @@ export default function Home() {
       >
         <Text variant="headlineSmall">
           {"예약접수율이 좋아지려면?\n\n"}
-          <Text variant="labelLarge">CatchB 컨설턴팅 서비스를 이용해보세요!</Text>
+          <Text variant="labelLarge">
+            CatchB 컨설턴팅 서비스를 이용해보세요!
+          </Text>
         </Text>
       </Banner>
       <AdContainer />
@@ -98,10 +100,10 @@ export default function Home() {
             padding: 10,
           }}
         >
-          <IconTab icon="form-select" title="예약관리" />
-          <IconTab icon="storefront-outline" title="가게관리" />
-          <IconTab icon="pencil" title="리뷰관리" />
-          <IconTab icon="cog-outline" title="앱 설정" />
+          <IconButton icon="form-select" title="예약관리" />
+          <IconButton icon="storefront-outline" title="가게관리" />
+          <IconButton icon="pencil" title="리뷰관리" />
+          <IconButton icon="cog-outline" title="앱 설정" />
         </View>
       </SimpleCard>
       <SimpleCard title="우리가게 Now" icon="store-outline">
