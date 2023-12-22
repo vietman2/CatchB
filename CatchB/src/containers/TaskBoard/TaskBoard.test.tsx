@@ -32,7 +32,7 @@ describe("<TaskBoard />", () => {
   });
 
   it("navigates to WorkProgress screen when clicked", async () => {
-    const { getByTestId, debug } = render();
+    const { getByTestId } = render();
 
     await act(async () => {
       fireEvent.press(getByTestId("WorkProgressTouchable"));
