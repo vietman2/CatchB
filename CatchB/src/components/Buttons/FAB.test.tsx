@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react-native";
 
-import { FABGroup } from "../FAB";
+import { FABGroup } from "./FAB";
 import { renderWithProviders } from "../../utils/test-utils";
 
 jest.requireActual("react-native-paper");
