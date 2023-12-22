@@ -13,6 +13,8 @@ jest.mock(
   () => "StoreDashboard"
 );
 jest.mock("../../containers/TaskBoard/TaskBoard", () => "TaskBoard");
+jest.mock("../../containers/ManageReservations/ManageReservations", () => "ManageReservations");
+jest.mock("../../containers/Sales/Sales", () => "Sales");
 
 const Stack = createStackNavigator();
 

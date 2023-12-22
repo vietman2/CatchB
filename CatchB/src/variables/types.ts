@@ -39,3 +39,12 @@ export type Reservation = {
   created_at: string;
   confirmed_at: string | null;
 };
+
+export type DailySalesInfo = {
+  date: string;
+  totalSales: number;
+  individualSales: {
+    name: string;
+    sales: number;
+  }[];
+};

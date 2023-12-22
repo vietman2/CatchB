@@ -1,15 +1,7 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Icon } from "react-native-paper";
 import { themeColors } from "../../variables/colors";
-
-export type DailySalesInfo = {
-  date: string;
-  totalSales: number;
-  individualSales: {
-    name: string;
-    sales: number;
-  }[];
-};
+import { DailySalesInfo } from "../../variables/types";
 
 interface Props {
   sales: DailySalesInfo;
@@ -26,7 +18,20 @@ export default function DailySales({ sales }: Props) {
   };
 
   const renderNumberWithCommas = (number: number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // print number with commas
+    // without using regex
+    const numberString = number.toString();
+    let result = "";
+    let count = 0;
+    for (let i = numberString.length - 1; i >= 0; i--) {
+      if (count === 3) {
+        result = "," + result;
+        count = 0;
+      }
+      result = numberString[i] + result;
+      count++;
+    }
+    return result;
   }
 
   const renderTotalSales = () => {
@@ -48,7 +53,7 @@ export default function DailySales({ sales }: Props) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} key={sales.date}>
       <View style={styles.line}>
         <Text>{renderDate()}</Text>
         <TouchableOpacity style={styles.details}>

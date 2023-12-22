@@ -1,6 +1,7 @@
 import { TouchableOpacity } from "react-native";
-import { CheckStatus, ProgressBanner } from "../../components/ProgressBar/Progress";
 import { useNavigation } from "@react-navigation/native";
+
+import { CheckStatus, ProgressBanner } from "../../components/ProgressBar/Progress";
 import { MyStoreStackScreenProps } from "../../variables/navigation";
 
 export default function TaskBoard() {
@@ -10,7 +11,7 @@ export default function TaskBoard() {
   return (
     <>
       <ProgressBanner done={2} total={4} />
-      <TouchableOpacity onPress={() => navigation.navigate("WorkProgress")}>
+      <TouchableOpacity onPress={() => navigation.navigate("WorkProgress")} testID="WorkProgressTouchable">
         <CheckStatus done={2} total={4} />
       </TouchableOpacity>
     </>
