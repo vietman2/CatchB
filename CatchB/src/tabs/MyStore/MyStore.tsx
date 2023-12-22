@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import MySegmentedButtons from "../../components/Buttons/SegmentedButtons";
 import StoreDashboard from "../../containers/StoreDashboard/StoreDashboard";
 import TaskBoard from "../../containers/TaskBoard/TaskBoard";
