@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import ProfileBadge from "../ProfileBadge";
+import ProfileBadge from "./ProfileBadge";
 import { admin } from "../../variables/mvp_dummy_data/user";
 
 // mock react-native-paper Avatar.Icon component

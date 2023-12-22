@@ -5,7 +5,7 @@ import WorkProgress from "./WorkProgress";
 jest.mock("react-native-paper", () => ({
   Text: "Text",
 }));
-jest.mock("../../components/TodoBox", () => "TodoBox");
+jest.mock("../Todo/TodoBox", () => "TodoBox");
 
 describe("<WorkProgress />", () => {
   it("should render correctly", () => {

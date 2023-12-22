@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { Divider, Text, TouchableRipple } from "react-native-paper";
 
-import ProfileBadge from "../../components/ProfileBadge";
+import ProfileBadge from "../../components/Profile/ProfileBadge";
 import { TextButton } from "../../components/Buttons/Buttons";
 import { themeColors } from "../../variables/colors";
 import { RootState } from "../../store/store";

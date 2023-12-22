@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Divider, Icon, ProgressBar, Text } from "react-native-paper";
-import { Todo } from "../variables/types";
-import { themeColors } from "../variables/colors";
+import { Todo } from "../../variables/types";
+import { themeColors } from "../../variables/colors";
 
 interface Props {
   title: string;

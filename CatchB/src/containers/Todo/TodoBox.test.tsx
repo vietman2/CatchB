@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import TodoBox from "../TodoBox";
+import TodoBox from "./TodoBox";
 import { openTodos } from "../../variables/mvp_dummy_data/todos";
 
 jest.mock("react-native-paper", () => ({

@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
-import TodoBox from "../../components/TodoBox";
+import TodoBox from "../Todo/TodoBox";
 import { closeTodos, middleTodos, openTodos } from "../../variables/mvp_dummy_data/todos";
 
 export default function WorkProgress() {

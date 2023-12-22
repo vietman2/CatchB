@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import AddressSearch from "../AddressSearch";
+import AddressSearch from "./AddressSearch";
 
 jest.mock("@actbase/react-daum-postcode", () => "Postcode");
 
