@@ -32,10 +32,9 @@ jest.mock("../../components/Buttons/Buttons", () => {
     ),
   };
 });
-jest.mock("../../components/FAB", () => ({
+jest.mock("../../components/Buttons/FAB", () => ({
   FABGroup: () => "FABGroup",
 }));
-
 
 const Stack = createStackNavigator();
 

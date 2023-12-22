@@ -1,6 +1,7 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { CheckStatus, ProgressBanner } from "../../components/ProgressBar/Progress";
+import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+import { CheckStatus, ProgressBanner } from "../../components/ProgressBar/Progress";
 import { MyStoreStackScreenProps } from "../../variables/navigation";
 
 export default function TaskBoard() {
@@ -8,17 +9,11 @@ export default function TaskBoard() {
     useNavigation<MyStoreStackScreenProps<"MyStoreScreen">["navigation"]>();
 
   return (
-    <View style={styles.container}>
+    <>
       <ProgressBanner done={2} total={4} />
-      <TouchableOpacity onPress={() => navigation.navigate("WorkProgress")}>
+      <TouchableOpacity onPress={() => navigation.navigate("WorkProgress")} testID="WorkProgressTouchable">
         <CheckStatus done={2} total={4} />
       </TouchableOpacity>
-    </View>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

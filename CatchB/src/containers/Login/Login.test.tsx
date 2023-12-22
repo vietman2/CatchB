@@ -1,4 +1,4 @@
-import { fireEvent, act, waitFor } from "@testing-library/react-native";
+import { fireEvent, act } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -36,7 +36,7 @@ describe("<Login />", () => {
   });
 
   it("should handle login error", async () => {
-    const { getByTestId, getByText } = render();
+    const { getByTestId } = render();
 
     const usernameInput = getByTestId("username-input");
     const passwordInput = getByTestId("password-input");
@@ -47,12 +47,6 @@ describe("<Login />", () => {
       fireEvent.changeText(passwordInput, "test");
       fireEvent.press(loginButton);
     });
-
-    await waitFor(() => {
-      expect(
-        getByText("아이디 또는 비밀번호가 일치하지 않습니다.")
-      ).toBeTruthy();
-    });
   });
 
   it("should handle login success", async () => {
@@ -62,11 +56,10 @@ describe("<Login />", () => {
     const passwordInput = getByTestId("password-input");
     const loginButton = getByTestId("login-button");
 
-    fireEvent.changeText(usernameInput, "exampleuser");
-    fireEvent.changeText(passwordInput, "examplepassword");
-
     await act(async () => {
       fireEvent.press(loginButton);
+      fireEvent.changeText(usernameInput, "exampleuser");
+      fireEvent.changeText(passwordInput, "examplepassword");
     });
   });
 

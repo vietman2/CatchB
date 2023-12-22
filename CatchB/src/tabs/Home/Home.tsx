@@ -10,7 +10,8 @@ import { Banner, Icon, Text } from "react-native-paper";
 
 import IconButton from "../../components/Buttons/IconButton";
 import { NotificationChip } from "../../components/Chips/Chips";
-import { Box, SimpleCard } from "../../components/Cards/Card";
+import SimpleCard from "../../components/Cards/SimpleCard";
+import CardBox from "../../components/Cards/CardBox";
 import { themeColors } from "../../variables/colors";
 import { RootState } from "../../store/store";
 
@@ -114,14 +115,14 @@ export default function Home() {
             padding: 10,
           }}
         >
-          <Box
+          <CardBox
             title="최근 3개월 평점"
             data="4.9"
             description="상위 5%"
             icon="star"
             iconColor="gold"
           />
-          <Box title="예약접수시간" data="2분" description="상위 10%" />
+          <CardBox title="예약접수시간" data="2분" description="상위 10%" />
         </View>
       </SimpleCard>
     </ScrollView>

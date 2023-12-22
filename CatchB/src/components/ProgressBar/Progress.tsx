@@ -68,14 +68,12 @@ export const CheckStatus = ({ done, total }: Props) => {
 
 const styles = StyleSheet.create({
   banner: {
-    flex: 1,
     backgroundColor: themeColors.primary,
     margin: 10,
     padding: 15,
     borderRadius: 15,
   },
   status: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: themeColors.primaryContainer,

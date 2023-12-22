@@ -1,5 +1,7 @@
 import { render } from "@testing-library/react-native";
-import { SimpleCard, Box } from "./Card";
+
+import SimpleCard from "./SimpleCard";
+import CardBox from "./CardBox";
 
 jest.mock("react-native-paper", () => {
   const { View, Text } = jest.requireActual("react-native");
@@ -45,10 +47,10 @@ describe("<SimpleCard />", () => {
   });
 });
 
-describe("<Box />", () => {
+describe("<CardBox />", () => {
   it("renders the box with the correct title", () => {
     const { getByText } = render(
-      <Box
+      <CardBox
         title="Box Title"
         data="Box Data"
         description="Box Description"
@@ -58,5 +60,4 @@ describe("<Box />", () => {
     );
     expect(getByText("Box Title")).toBeTruthy();
   });
- 
 });

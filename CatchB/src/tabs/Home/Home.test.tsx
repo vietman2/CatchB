@@ -36,10 +36,11 @@ jest.mock("../../components/Buttons/IconButton", () => "IconButton");
 jest.mock("../../components/Chips/Chips", () => ({
   NotificationChip: () => "NotificationChip",
 }));
-jest.mock("../../components/Cards/Card", () => ({
-  Box: () => "Box",
-  SimpleCard: () => "SimpleCard",
+jest.mock("../../components/Chips/Chips", () => ({
+  NotificationChip: () => "NotificationChip",
 }));
+jest.mock("../../components/Cards/SimpleCard", () => "SimpleCard");
+jest.mock("../../components/Cards/CardBox", () => "CardBox");
 
 describe("Home", () => {
   it("renders correctly", () => {
