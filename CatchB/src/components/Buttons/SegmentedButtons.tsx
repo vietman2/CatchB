@@ -15,11 +15,7 @@ export default function SegmentedButtons({ tab, onPress }: Props) {
           onPress={() => onPress("Dashboard")}
           style={tab === "Dashboard" ? styles.active : styles.box}
         >
-          <Text
-            style={
-              tab === "Dashboard" ? styles.activeText : styles.inactiveText
-            }
-          >
+          <Text style={tab === "Dashboard" ? styles.activeText : {}}>
             대시보드
           </Text>
         </TouchableOpacity>
@@ -27,21 +23,13 @@ export default function SegmentedButtons({ tab, onPress }: Props) {
           onPress={() => onPress("Sales")}
           style={tab === "Sales" ? styles.active : styles.box}
         >
-          <Text
-            style={tab === "Sales" ? styles.activeText : styles.inactiveText}
-          >
-            매출관리
-          </Text>
+          <Text style={tab === "Sales" ? styles.activeText : {}}>매출관리</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => onPress("Reservations")}
           style={tab === "Reservations" ? styles.active : styles.box}
         >
-          <Text
-            style={
-              tab === "Reservations" ? styles.activeText : styles.inactiveText
-            }
-          >
+          <Text style={tab === "Reservations" ? styles.activeText : {}}>
             예약관리
           </Text>
         </TouchableOpacity>
@@ -49,21 +37,13 @@ export default function SegmentedButtons({ tab, onPress }: Props) {
           onPress={() => onPress("Tasks")}
           style={tab === "Tasks" ? styles.active : styles.box}
         >
-          <Text
-            style={tab === "Tasks" ? styles.activeText : styles.inactiveText}
-          >
-            업무관리
-          </Text>
+          <Text style={tab === "Tasks" ? styles.activeText : {}}>업무관리</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => onPress("Customers")}
           style={tab === "Customers" ? styles.active : styles.box}
         >
-          <Text
-            style={
-              tab === "Customers" ? styles.activeText : styles.inactiveText
-            }
-          >
+          <Text style={tab === "Customers" ? styles.activeText : {}}>
             고객관리
           </Text>
         </TouchableOpacity>
@@ -99,5 +79,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeText: { fontWeight: "bold" },
-  inactiveText: {},
 });
