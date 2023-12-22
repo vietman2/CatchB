@@ -11,12 +11,12 @@ jest.mock("react-native-paper", () => ({
 
 describe("<DailySales />", () => {
   it("renders correctly", () => {
-    const { getByText } = render(<DailySales sales={DailySalesList[0]} />);
+    render(<DailySales sales={DailySalesList[0]} />);
   });
 });
 
 describe("<MonthlySales />", () => {
   it("renders correctly", () => {
-    const { getByText } = render(<MonthlySales />);
+    render(<MonthlySales />);
   });
 });
