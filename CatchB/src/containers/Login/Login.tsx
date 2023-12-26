@@ -1,23 +1,26 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { View, KeyboardAvoidingView, ScrollView } from "react-native";
+import {
+  View,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Divider, Text, TextInput } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import {
-  LoginButton,
-  TextButton,
-  KakaoLoginButton,
-  NaverLoginButton,
-} from "../../components/Buttons/Buttons";
+import { LoginButton, TextButton } from "../../components/Buttons/Buttons";
 import { MyPageStackParamList } from "../../variables/navigation";
 import { login } from "../../services/account";
 import { login as setUserState } from "../../store/slices/authSlice";
 import { AppDispatch } from "../../store/store";
 import { themeColors } from "../../variables/colors";
 import LoginLogo from "../../components/Logos/LoginLogo";
-import { StyleSheet } from "react-native";
+import NaverButton from "../../components/Buttons/NaverButton";
+import KakaoButton from "../../components/Buttons/KakaoButton";
+import DividerWithText from "../../components/Divider/DividerWithText";
 
 type LoginNavigationProp = StackNavigationProp<MyPageStackParamList, "Login">;
 interface LoginProps {
@@ -134,10 +137,13 @@ export default function Login({ navigation }: LoginProps) {
               }
             />
           </View>
-          <View style={styles.textButtonContainer}>
-            <KakaoLoginButton onPress={handleKakaoLogin} />
-            <NaverLoginButton onPress={handleNaverLogin} />
-          </View>
+          <DividerWithText text="간편 로그인" />
+          <TouchableOpacity onPress={handleKakaoLogin} testID="kakao-button">
+            <KakaoButton />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleNaverLogin} testID="naver-button">
+            <NaverButton />
+          </TouchableOpacity>
         </View>
         <Divider style={styles.divider} />
         <View style={styles.container}>
@@ -180,7 +186,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: 20,
     marginBottom: 10,
   },
   errorText: {
@@ -191,5 +196,5 @@ const styles = StyleSheet.create({
   divider: {
     marginVertical: 10,
     marginHorizontal: 50,
-  }
+  },
 });

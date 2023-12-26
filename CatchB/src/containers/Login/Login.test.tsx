@@ -9,6 +9,11 @@ jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
 jest.requireActual("react-native-paper");
+jest.mock("../../components/Logos/LoginLogo", () => "LoginLogo");
+jest.mock("../../components/Buttons/NaverButton", () => "NaverButton");
+jest.mock("../../components/Buttons/KakaoButton", () => "KakaoButton");
+jest.mock("../../components/Divider/DividerWithText", () => "DividerWithText");
+
 
 const Stack = createStackNavigator();
 
@@ -83,6 +88,9 @@ describe("<Login />", () => {
 
     await act(async () => {
       fireEvent.press(kakaoButton);
+    });
+
+    await act(async () => {
       fireEvent.press(naverButton);
     });
   });
@@ -95,8 +103,10 @@ describe("<Login />", () => {
 
     await act(async () => {
       fireEvent.press(findIdButton);
-      fireEvent.press(findPasswordButton);
     });
+
+    
+      fireEvent.press(findPasswordButton);
   });
 
   it("should handle sign up button", async () => {
@@ -116,6 +126,9 @@ describe("<Login />", () => {
 
     await act(async () => {
       fireEvent.press(eyeIcon);
+    });
+
+    await act(async () => {
       fireEvent.press(eyeIcon);
     });
   });

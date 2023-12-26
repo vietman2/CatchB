@@ -1,12 +1,7 @@
 import { render, fireEvent } from "@testing-library/react-native";
-import {
-  LoginButton,
-  KakaoLoginButton,
-  NaverLoginButton,
-  TextButton,
-} from "./Buttons";
+import { LoginButton, TextButton } from "./Buttons";
 
-jest.requireActual("react-native-paper")
+jest.requireActual("react-native-paper");
 
 describe("<LoginButton />", () => {
   it("renders the button with the correct text", () => {
@@ -23,18 +18,6 @@ describe("<LoginButton />", () => {
     );
     fireEvent.press(getByText("Login"));
     expect(onPressMock).toHaveBeenCalled();
-  });
-});
-
-describe("<PortalLoginButton />", () => {
-  it("renders Kakao login image", () => {
-    const { getByTestId } = render(<KakaoLoginButton onPress={() => {}} />);
-    expect(getByTestId("kakao-button")).toBeTruthy();
-  });
-
-  it("renders Naver login image", () => {
-    const { getByTestId } = render(<NaverLoginButton onPress={() => {}} />);
-    expect(getByTestId("naver-button")).toBeTruthy();
   });
 });
 
