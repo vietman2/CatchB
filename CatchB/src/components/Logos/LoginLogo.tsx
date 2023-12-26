@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 120,
+    marginTop: 120,
+    marginBottom: 50,
   },
   text: {
     fontFamily: "Catch B Bold",

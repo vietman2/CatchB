@@ -57,7 +57,7 @@ export default function Login({ navigation }: LoginProps) {
 
   return (
     <ScrollView style={styles.mainContainer}>
-      <KeyboardAvoidingView behavior="position">
+      <KeyboardAvoidingView behavior="height">
         <LoginLogo />
         <View style={styles.container}>
           <TextInput
@@ -139,7 +139,7 @@ export default function Login({ navigation }: LoginProps) {
             <NaverLoginButton onPress={handleNaverLogin} />
           </View>
         </View>
-        <Divider style={{ marginTop: 10 }} />
+        <Divider style={styles.divider} />
         <View style={styles.container}>
           <Text style={styles.registerText}>
             아직{" "}
@@ -168,7 +168,8 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 50,
     justifyContent: "center",
-    marginTop: 120,
+    marginTop: 20,
+    marginBottom: 10,
   },
   textButtonContainer: {
     marginVertical: 5,
@@ -187,4 +188,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginTop: 5,
   },
+  divider: {
+    marginVertical: 10,
+    marginHorizontal: 50,
+  }
 });

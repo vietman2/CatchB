@@ -5,6 +5,7 @@ import StoreDashboard from "../../containers/StoreDashboard/StoreDashboard";
 import TaskBoard from "../../containers/TaskBoard/TaskBoard";
 import ManageReservations from "../../containers/ManageReservations/ManageReservations";
 import Sales from "../../containers/Sales/Sales";
+import ManageCustomers from "../../containers/Customers/ManageCustomers";
 
 export default function MyStore() {
   const [mode, setMode] = useState("Dashboard");
@@ -21,6 +22,9 @@ export default function MyStore() {
     }
     else if (mode === "Sales") {
       return <Sales />;
+    }
+    else if (mode === "Customers") {
+      return <ManageCustomers />;
     }
     else {
       return null;

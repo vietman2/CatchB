@@ -44,7 +44,13 @@ describe("<Login />", () => {
 
     await act(async () => {
       fireEvent.changeText(usernameInput, "test");
+    });
+
+    await act(async () => {
       fireEvent.changeText(passwordInput, "test");
+    });
+
+    await act(async () => {
       fireEvent.press(loginButton);
     });
   });
@@ -57,9 +63,15 @@ describe("<Login />", () => {
     const loginButton = getByTestId("login-button");
 
     await act(async () => {
-      fireEvent.press(loginButton);
       fireEvent.changeText(usernameInput, "exampleuser");
+    });
+
+    await act(async () => {
       fireEvent.changeText(passwordInput, "examplepassword");
+    });
+
+    await act(async () => {
+      fireEvent.press(loginButton);
     });
   });
 

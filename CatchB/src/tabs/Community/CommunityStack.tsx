@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Community from './Community';
+import Community from '../../containers/Community/Community';
 
 import { leftTitle, rightTitle } from '../../components/Logos/TopBar';
 import { CommunityStackParamList } from '../../variables/navigation';

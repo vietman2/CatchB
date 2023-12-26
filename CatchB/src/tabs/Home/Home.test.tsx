@@ -41,21 +41,45 @@ jest.mock("../../components/Chips/Chips", () => ({
 }));
 jest.mock("../../components/Cards/SimpleCard", () => "SimpleCard");
 jest.mock("../../components/Cards/CardBox", () => "CardBox");
+jest.mock("../../components/Buttons/Buttons", () => {
+  const { Text, TouchableOpacity } = jest.requireActual("react-native");
+  return {
+    TextButton: ({ text, onPress }: any) => (
+      <TouchableOpacity onPress={onPress}>
+        <Text>{text}</Text>
+      </TouchableOpacity>
+    ),
+  };
+});
 
-describe("Home", () => {
+const renderWithMode = (mode: "basic" | "pro") => {
+  return renderWithProviders(<Home />, {
+    preloadedState: { mode: { mode } },
+  });
+};
+
+describe("<NormalHome />", () => {
   it("renders correctly", () => {
-    renderWithProviders(<Home />);
+    renderWithMode("basic");
   });
 
-  it("renders correctly when mode is pro", () => {
-    renderWithProviders(<Home />, {
-      preloadedState: { mode: { mode: "pro" } },
-    });
+  it("handles button press", () => {
+    const { getByText } = renderWithMode("basic");
+
+    fireEvent.press(getByText("개인정보 처리방침"));
+    fireEvent.press(getByText("이용약관"));
+    fireEvent.press(getByText("현재 버전 0.1.0"));
+  });
+});
+
+describe("<ProHome />", () => {
+  it("renders correctly", () => {
+    renderWithMode("pro");
   });
 
   it("handles banner press", () => {
-    const { getByTestId, getByLabelText } = renderWithProviders(<Home />);
-    
+    const { getByTestId, getByLabelText } = renderWithMode("pro");
+
     fireEvent.press(getByLabelText("닫기"));
     fireEvent.press(getByTestId("banner"));
   });

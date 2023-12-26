@@ -32,30 +32,6 @@ export default function CheckReservations({ tab, reservations }: Props) {
     );
   };
 
-  const getElapsedTime = (datetime: string) => {
-    const now = new Date();
-    const datetimeObject = new Date(datetime);
-    const elapsedMilliseconds = now.getTime() - datetimeObject.getTime();
-    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-    const elapsedMinutes = Math.floor(elapsedSeconds / 60);
-    const elapsedHours = Math.floor(elapsedMinutes / 60);
-    const elapsedDays = Math.floor(elapsedHours / 24);
-
-    if (elapsedDays > 0) {
-      return `${elapsedDays}일 전`;
-    }
-    if (elapsedHours > 0) {
-      return `${elapsedHours}시간 전`;
-    }
-    if (elapsedMinutes > 0) {
-      return `${elapsedMinutes}분 전`;
-    }
-    if (elapsedSeconds > 0) {
-      return `${elapsedSeconds}초 전`;
-    }
-    return "방금 전";
-  };
-
   const renderReservation = (reservation: Reservation) => {
     return (
       <View style={styles.reservation} key={reservation.uuid}>
@@ -65,7 +41,7 @@ export default function CheckReservations({ tab, reservations }: Props) {
               {reservation.reserved_user}
             </Text>
             {"\t\t"}
-            {getElapsedTime(reservation.created_at)}
+            {reservation.created_at}
           </Text>
         </View>
         <View style={styles.line}>
@@ -78,8 +54,8 @@ export default function CheckReservations({ tab, reservations }: Props) {
           {reservation.start_datetime} ~ {reservation.end_datetime}
         </Text>
 
-        <Divider />
-        <View style={styles.line}>
+        <Divider style={styles.divider} />
+        <View style={styles.buttons}>
           <TouchableOpacity>
             <Text>확정하기</Text>
           </TouchableOpacity>
@@ -87,7 +63,7 @@ export default function CheckReservations({ tab, reservations }: Props) {
             <Text>취소하기</Text>
           </TouchableOpacity>
         </View>
-        <Divider />
+        <Divider style={styles.divider} />
       </View>
     );
   };
@@ -115,5 +91,12 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: "bold",
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  divider: {
+    marginVertical: 10,
   },
 });
