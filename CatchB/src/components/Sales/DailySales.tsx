@@ -45,7 +45,7 @@ export default function DailySales({ sales }: Props) {
 
   const renderIndividualSales = ({ name, sales }: {name: string, sales: number}) => {
     return (
-      <View style={styles.line}>
+      <View style={styles.line} key={name+sales}>
         <Text>{name} 님</Text>
         <Text>{renderNumberWithCommas(sales)}원</Text>
       </View>
