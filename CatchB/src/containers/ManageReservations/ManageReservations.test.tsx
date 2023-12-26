@@ -12,9 +12,22 @@ describe("<ManageReservations />", () => {
 
     await act(async () => {
       fireEvent.press(getByText("신규"));
-      fireEvent.press(getByText("미확정"));
+    });
+
+    await act(async () => {
+      fireEvent.press(getByText("확정"));
+    });
+
+    await act(async () => {
       fireEvent.press(getByText("취소"));
+    });
+
+    await act(async () => {
       fireEvent.press(getByText("완료"));
+    });
+
+    await act(async () => {
+      fireEvent.press(getByText("신규"));
     });
   });
 });

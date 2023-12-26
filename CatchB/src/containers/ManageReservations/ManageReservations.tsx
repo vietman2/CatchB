@@ -51,7 +51,7 @@ export default function ManageReservations() {
           style={tab === "Pending" ? styles.activeTab : styles.inactiveTab}
         >
           <Text variant="titleLarge" style={styles.tabText}>
-            미확정
+            확정
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
