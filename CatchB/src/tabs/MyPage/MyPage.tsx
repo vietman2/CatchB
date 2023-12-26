@@ -54,11 +54,6 @@ export default function MyPage() {
           <Divider style={styles.divider} />
         </View>
       </View>
-      <View style={styles.docs}>
-        <TextButton text="개인정보 처리방침" onPress={() => {}} />
-        <TextButton text="이용약관" onPress={() => {}} />
-        <TextButton text="현재 버전 0.1.0" onPress={() => {}} />
-      </View>
     </ScrollView>
     <FABGroup />
     </>
@@ -73,12 +68,6 @@ const styles = StyleSheet.create({
   },
   menus: {
     padding: 10,
-  },
-  docs: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginVertical: 10,
   },
   divider: {
     marginVertical: 10,

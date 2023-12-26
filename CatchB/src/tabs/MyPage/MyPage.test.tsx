@@ -91,8 +91,5 @@ describe("MyPage", () => {
     fireEvent.press(getByText("공지사항"));
     fireEvent.press(getByText("자주 묻는 질문"));
     fireEvent.press(getByText("알림 맞춤 설정"));
-    fireEvent.press(getByText("개인정보 처리방침"));
-    fireEvent.press(getByText("이용약관"));
-    fireEvent.press(getByText("현재 버전 0.1.0"));
   });
 });
