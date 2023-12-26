@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { View, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
+import { View, KeyboardAvoidingView, ScrollView } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Divider, Text, TextInput } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
