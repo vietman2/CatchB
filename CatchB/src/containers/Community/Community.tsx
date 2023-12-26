@@ -1,11 +1,12 @@
 import { View, StyleSheet } from "react-native";
-import CommunityDrawer from "../../components/Drawer/CommunityDrawer";
+import { Text } from "react-native-paper";
+
 import { themeColors } from "../../variables/colors";
 
 export default function Community() {
   return (
     <View style={styles.container}>
-      <CommunityDrawer />
+      <Text>Community</Text>
     </View>
   );
 }

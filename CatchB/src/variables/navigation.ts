@@ -33,6 +33,7 @@ export type MyStoreStackScreenProps<T extends keyof MyStoreStackParamList> =
 
 export type CommunityStackParamList = {
   CommunityScreen: undefined;
+  AnotherScreen: undefined;
 };
 export type CommunityStackScreenProps<T extends keyof CommunityStackParamList> =
   CompositeScreenProps<

@@ -1,15 +1,15 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Community from '../../containers/Community/Community';
 
 import { leftTitle, rightTitle } from '../../components/Logos/TopBar';
 import { CommunityStackParamList } from '../../variables/navigation';
 
-const CommunityStack = createStackNavigator<CommunityStackParamList>();
+const CommunityDrawer = createDrawerNavigator<CommunityStackParamList>();
 
 export default function CommunityContainer() {
   return (
-    <CommunityStack.Navigator
+    <CommunityDrawer.Navigator
       initialRouteName="CommunityScreen"
       screenOptions={{
         headerLeft: leftTitle,
@@ -20,7 +20,8 @@ export default function CommunityContainer() {
         headerShadowVisible: false,
       }}
     >
-      <CommunityStack.Screen name="CommunityScreen" component={Community} />
-    </CommunityStack.Navigator>
+      <CommunityDrawer.Screen name="CommunityScreen" component={Community} />
+      <CommunityDrawer.Screen name="AnotherScreen" component={Community} />
+    </CommunityDrawer.Navigator>
   );
 }
