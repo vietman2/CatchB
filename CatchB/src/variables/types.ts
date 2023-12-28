@@ -9,6 +9,11 @@ export type UserProfile = {
   email: string;
   phone_number: string;
   date_joined: string;
+  birth_date?: string;
+  gender?: string;
+  experience_tier: string;
+  register_route: string;
+  user_type: string;
 }
 
 export type Todo = {
