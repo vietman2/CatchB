@@ -59,13 +59,9 @@ describe("<Login />", () => {
 
     const { getByTestId } = render();
 
-    const usernameInput = getByTestId("username-input");
-    const passwordInput = getByTestId("password-input");
     const loginButton = getByTestId("login-button");
 
     waitFor(() => {
-      fireEvent.changeText(usernameInput, "test");
-      fireEvent.changeText(passwordInput, "test");
       fireEvent.press(loginButton);
     });
   });
@@ -80,13 +76,9 @@ describe("<Login />", () => {
 
     const { getByTestId } = render();
 
-    const usernameInput = getByTestId("username-input");
-    const passwordInput = getByTestId("password-input");
     const loginButton = getByTestId("login-button");
 
     waitFor(() => {
-      fireEvent.changeText(usernameInput, "test");
-      fireEvent.changeText(passwordInput, "test");
       fireEvent.press(loginButton);
     });
   });
@@ -139,8 +131,8 @@ describe("<Login />", () => {
     const loginButton = getByTestId("login-button");
 
     waitFor(() => {
-      fireEvent.changeText(usernameInput, "test");
-      fireEvent.changeText(passwordInput, "test");
+      fireEvent.changeText(usernameInput, "username");
+      fireEvent.changeText(passwordInput, "password");
       fireEvent.press(loginButton);
     });
   });
