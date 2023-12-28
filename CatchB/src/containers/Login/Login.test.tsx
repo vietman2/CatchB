@@ -1,21 +1,28 @@
-import { fireEvent, act } from "@testing-library/react-native";
+import axios from "axios";
+import { fireEvent, act, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { renderWithProviders } from "../../utils/test-utils";
 import Login from "./Login";
+import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.requireActual("react-native-paper");
+jest.mock("react-native-paper", () => ({
+  ...jest.requireActual("react-native-paper"),
+  ActivityIndicator: "ActivityIndicator",
+}));
 jest.mock("../../components/Logos/LoginLogo", () => "LoginLogo");
 jest.mock("../../components/Buttons/NaverButton", () => "NaverButton");
 jest.mock("../../components/Buttons/KakaoButton", () => "KakaoButton");
 jest.mock("../../components/Divider/DividerWithText", () => "DividerWithText");
 
-
 const Stack = createStackNavigator();
+
+const FakeMyPageScreen = () => {
+  return <>qwer</>;
+};
 
 const render = () => {
   return renderWithProviders(
@@ -29,7 +36,7 @@ const render = () => {
           }}
         />
         <Stack.Screen name="SignUp" component={Login} />
-        <Stack.Screen name="MyPageScreen" component={Login} />
+        <Stack.Screen name="MyPageScreen" component={FakeMyPageScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -40,59 +47,64 @@ describe("<Login />", () => {
     render();
   });
 
-  it("should handle login error", async () => {
+  it("should handle login error", () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: {
+          non_field_errors: ["주어진 자격 증명으로 로그인이 불가능합니다."],
+        },
+      })
+    );
+
     const { getByTestId } = render();
 
     const usernameInput = getByTestId("username-input");
     const passwordInput = getByTestId("password-input");
     const loginButton = getByTestId("login-button");
 
-    await act(async () => {
+    waitFor(() => {
       fireEvent.changeText(usernameInput, "test");
-    });
-
-    await act(async () => {
       fireEvent.changeText(passwordInput, "test");
-    });
-
-    await act(async () => {
       fireEvent.press(loginButton);
     });
   });
 
-  it("should handle login success", async () => {
-    const { getByTestId } = render();
+  it("should handle login success", () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: { token: "token", user: "user" },
+      })
+    );
+    const { getByTestId, getByText, debug } = render();
 
     const usernameInput = getByTestId("username-input");
     const passwordInput = getByTestId("password-input");
     const loginButton = getByTestId("login-button");
 
-    await act(async () => {
-      fireEvent.changeText(usernameInput, "exampleuser");
-    });
-
-    await act(async () => {
-      fireEvent.changeText(passwordInput, "examplepassword");
-    });
-
-    await act(async () => {
+    waitFor(() => {
+      fireEvent.changeText(usernameInput, "test");
+      fireEvent.changeText(passwordInput, "test");
       fireEvent.press(loginButton);
     });
   });
 
   it("should handle kakao and naver login", async () => {
-    const { getByTestId } = render();
+    const { getByTestId, getByText } = render();
 
     const kakaoButton = getByTestId("kakao-button");
     const naverButton = getByTestId("naver-button");
 
-    await act(async () => {
+    waitFor(() => {
       fireEvent.press(kakaoButton);
     });
+    await getByText("카카오 로그인 기능은 아직 구현되지 않았습니다.");
 
-    await act(async () => {
+    waitFor(() => {
       fireEvent.press(naverButton);
     });
+    await getByText("네이버 로그인 기능은 아직 구현되지 않았습니다.");
   });
 
   it("should handle text buttons", async () => {
@@ -103,10 +115,8 @@ describe("<Login />", () => {
 
     await act(async () => {
       fireEvent.press(findIdButton);
-    });
-
-    
       fireEvent.press(findPasswordButton);
+    });
   });
 
   it("should handle sign up button", async () => {

@@ -22,19 +22,14 @@ jest.mock("../../components/Profile/ProfileBadge", () => {
   const { View } = jest.requireActual("react-native");
   return () => (<View testID="badge">ProfileBadge</View>);
 });
-jest.mock("../../components/Buttons/Buttons", () => {
+jest.mock("../../components/Buttons/TextButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
-  return {
-    TextButton: ({ text, onPress }: any) => (
-      <TouchableOpacity onPress={onPress}>
-        <Text>{text}</Text>
-      </TouchableOpacity>
-    ),
-  };
+  return ({ text, onPress }: any) => (
+    <TouchableOpacity onPress={onPress}>
+      <Text testID="text">{text}</Text>
+    </TouchableOpacity>);
 });
-jest.mock("../../components/Buttons/FAB", () => ({
-  FABGroup: () => "FABGroup",
-}));
+jest.mock("../../components/Buttons/FAB", () => "FABGroup");
 
 const Stack = createStackNavigator();
 

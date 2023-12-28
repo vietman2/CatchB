@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
-import { TextButton } from "../../components/Buttons/Buttons";
+import TextButton from "../../components/Buttons/TextButton";
 
 export default function NormalHome() {
   return (
