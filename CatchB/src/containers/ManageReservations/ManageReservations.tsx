@@ -18,21 +18,20 @@ export default function ManageReservations() {
     if (tab === "New") {
       return <CheckReservations tab={tab} reservations={newReservations} />;
     }
-    if (tab === "Pending") {
+    else if (tab === "Pending") {
       return (
         <CheckReservations tab={tab} reservations={confirmedReservations} />
       );
-    }
-    if (tab === "Cancelled") {
+    } else if (tab === "Cancelled") {
       return (
         <CheckReservations tab={tab} reservations={cancelledReservations} />
       );
-    }
-    if (tab === "Completed") {
+    } else if (tab === "Completed") {
       return (
         <CheckReservations tab={tab} reservations={finishedReservations} />
       );
     }
+    else return null;
   };
 
   return (

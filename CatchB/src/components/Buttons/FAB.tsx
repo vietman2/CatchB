@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FAB } from "react-native-paper";
 
-export const FABGroup = () => {
+export default function FABGroup() {
   const [open, setOpen] = useState(false);
 
   const onStateChange = ({ open }: { open: boolean }) => setOpen(open);

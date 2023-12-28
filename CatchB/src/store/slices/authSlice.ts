@@ -7,12 +7,12 @@ const initialState: {
   user: UserProfile | null;
 } = {
   token: null,
-  user: null
+  user: null,
 };
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (data: { token: string, user: UserProfile }) => {
+  async (data: { access: string, user: UserProfile }) => {
     return data;
   }
 );
@@ -27,11 +27,12 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
-      state.token = action.payload.token;
+      state.token = action.payload.access;
       state.user = action.payload.user;
     });
     builder.addCase(logout.fulfilled, (state) => {
       state.token = null;
+      state.user = null;
     });
   }
 });

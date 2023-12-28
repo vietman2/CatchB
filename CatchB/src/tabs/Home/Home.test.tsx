@@ -41,15 +41,13 @@ jest.mock("../../components/Chips/Chips", () => ({
 }));
 jest.mock("../../components/Cards/SimpleCard", () => "SimpleCard");
 jest.mock("../../components/Cards/CardBox", () => "CardBox");
-jest.mock("../../components/Buttons/Buttons", () => {
+jest.mock("../../components/Buttons/TextButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
-  return {
-    TextButton: ({ text, onPress }: any) => (
-      <TouchableOpacity onPress={onPress}>
-        <Text>{text}</Text>
-      </TouchableOpacity>
-    ),
-  };
+  return ({ text, onPress }: any) => (
+    <TouchableOpacity onPress={onPress}>
+      <Text testID="text">{text}</Text>
+    </TouchableOpacity>
+  );
 });
 
 const renderWithMode = (mode: "basic" | "pro") => {

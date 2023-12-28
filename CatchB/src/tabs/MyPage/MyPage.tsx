@@ -4,11 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import { Divider, Text, TouchableRipple } from "react-native-paper";
 
 import ProfileBadge from "../../components/Profile/ProfileBadge";
-import { TextButton } from "../../components/Buttons/Buttons";
+import TextButton from "../../components/Buttons/TextButton";
+import FABGroup from "../../components/Buttons/FAB";
 import { themeColors } from "../../variables/colors";
 import { RootState } from "../../store/store";
 import { MyPageStackScreenProps } from "../../variables/navigation";
-import { FABGroup } from "../../components/Buttons/FAB";
 
 export default function MyPage() {
   const navigation =

@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { themeColors } from "../../variables/colors";
 import DividerWithText from "../../components/Divider/DividerWithText";
 import LoginLogo from "../../components/Logos/LoginLogo";
-import { LoginButton } from "../../components/Buttons/Buttons";
+import LoginButton from "../../components/Buttons/LoginButton";
 
 export default function SignUpOptions() {
     const handleSignUp = () => {};

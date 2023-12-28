@@ -26,13 +26,13 @@ describe("authSlice", () => {
   // Test for login action
   it("should handle login", async () => {
     const store = createStore();
-    const token = "user-token";
+    const access = "user-token";
     const user = admin;
 
-    await store.dispatch(login({token, user}));
+    await store.dispatch(login({access, user}));
 
     const state = store.getState().auth;
-    expect(state.token).toEqual(token);
+    expect(state.token).toEqual(access);
   });
 
   // Test for logout action

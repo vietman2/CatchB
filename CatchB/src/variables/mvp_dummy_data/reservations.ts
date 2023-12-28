@@ -24,7 +24,7 @@ export const newReservations: Reservation[] = [
     uuid: "reservation-uuid-1",
     product: reservationProducts[0],
     reserved_user: "user-uuid-1",
-    lesson_session: null,
+    lesson_session: "fake",
     start_datetime: "내일 14:00",
     end_datetime: "내일 16:00",
     status: "WAITING",

@@ -8,19 +8,25 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Divider, Text, TextInput } from "react-native-paper";
+import {
+  Divider,
+  Text,
+  TextInput,
+  ActivityIndicator,
+} from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { LoginButton, TextButton } from "../../components/Buttons/Buttons";
+import LoginLogo from "../../components/Logos/LoginLogo";
+import NaverButton from "../../components/Buttons/NaverButton";
+import KakaoButton from "../../components/Buttons/KakaoButton";
+import DividerWithText from "../../components/Divider/DividerWithText";
+import LoginButton from "../../components/Buttons/LoginButton";
+import TextButton from "../../components/Buttons/TextButton";
 import { MyPageStackParamList } from "../../variables/navigation";
 import { login } from "../../services/account";
 import { login as setUserState } from "../../store/slices/authSlice";
 import { AppDispatch } from "../../store/store";
 import { themeColors } from "../../variables/colors";
-import LoginLogo from "../../components/Logos/LoginLogo";
-import NaverButton from "../../components/Buttons/NaverButton";
-import KakaoButton from "../../components/Buttons/KakaoButton";
-import DividerWithText from "../../components/Divider/DividerWithText";
 
 type LoginNavigationProp = StackNavigationProp<MyPageStackParamList, "Login">;
 interface LoginProps {
@@ -32,18 +38,31 @@ export default function Login({ navigation }: LoginProps) {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogin = async () => {
+    setIsLoading(true);
+
     const response = await login(username, password);
 
     if (response.status === 200) {
       setError("");
       dispatch(setUserState(response.data));
       navigation.navigate("MyPageScreen");
+    } else if (response.status === 400) {
+      const error = response.data;
+      if (error.password) {
+        setError("비밀번호를 입력해주세요.");
+      } else if (error.non_field_errors[0].includes("username")) {
+        setError("아이디를 입력해주세요.");
+      } else {
+        setError("아이디와 비밀번호를 확인해주세요.");
+      }
     } else {
-      setError("아이디 또는 비밀번호가 일치하지 않습니다.");
+      setError("서버와의 연결이 원활하지 않습니다.");
     }
+    setIsLoading(false);
   };
 
   const handleKakaoLogin = () => {
@@ -64,7 +83,7 @@ export default function Login({ navigation }: LoginProps) {
         <LoginLogo />
         <View style={styles.container}>
           <TextInput
-            label="아이디"
+            label="이메일"
             onChangeText={(text) => setUsername(text)}
             value={username}
             left={
@@ -118,11 +137,15 @@ export default function Login({ navigation }: LoginProps) {
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
         </View>
         <View style={styles.container}>
-          <LoginButton
-            text="로그인"
-            onPress={handleLogin}
-            testID="login-button"
-          />
+          {isLoading ? (
+            <ActivityIndicator animating={true} color={themeColors.primary} />
+          ) : (
+            <LoginButton
+              text="로그인"
+              onPress={handleLogin}
+              testID="login-button"
+            />
+          )}
           <View style={styles.textButtonContainer}>
             <TextButton
               text="아이디 찾기"

@@ -6,7 +6,7 @@ interface Props {
   title: string;
 }
 
-export default function IconTab({ icon, title }: Props) {
+export default function IconButton({ icon, title }: Props) {
   return (
     <Surface elevation={4} style={styles.surface}>
       <Icon source={icon} size={45} />

@@ -47,4 +47,12 @@ describe("<MyStore />", () => {
     fireEvent.press(getByText("업무관리"));
     fireEvent.press(getByText("고객관리"));
   });
+
+  it("handles wrong tab state", () => {
+    const react = jest.requireActual("react");
+    react.useState = jest.fn().mockReturnValue(["wrong", jest.fn()]);
+
+    const { getByText } = render();
+    fireEvent.press(getByText("대시보드"));
+  });
 });

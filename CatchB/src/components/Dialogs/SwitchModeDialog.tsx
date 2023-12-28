@@ -27,10 +27,13 @@ export default function SwitchModeDialog({
       if (user === null) {
         setContents("로그인이 필요합니다.");
       }
-      // 유저 타입 확인 else if ()
-      else {
+      else if (user.user_type !== "normal_user") {
         setContents("프로모드로 전환합니다.");
         setPossible(true);
+      }
+      else {
+        setContents("시설 관리자 혹은 코치만 프로모드를 사용할 수 있습니다.");
+        setPossible(false);
       }
     }
 

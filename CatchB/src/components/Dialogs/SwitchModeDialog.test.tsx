@@ -2,7 +2,7 @@ import { fireEvent } from "@testing-library/react-native";
 
 import SwitchModeDialog from "./SwitchModeDialog";
 import { renderWithProviders } from "../../utils/test-utils";
-import { admin } from "../../variables/mvp_dummy_data/user";
+import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
 
 describe("SwitchModeDialog", () => {
   it("renders basic mode correctly, and handles button press", () => {
@@ -38,7 +38,7 @@ describe("SwitchModeDialog", () => {
     fireEvent.press(getByText("확인"));
   });
 
-  it("renders basic mode correctly with user", () => {
+  it("renders basic mode correctly with admin", () => {
     const { getByText } = renderWithProviders(
       <SwitchModeDialog
         visible={true}
@@ -52,6 +52,23 @@ describe("SwitchModeDialog", () => {
       }
     );
     
+    fireEvent.press(getByText("확인"));
+  });
+
+  it("renders basic mode correctly with normal user", () => {
+    const { getByText } = renderWithProviders(
+      <SwitchModeDialog
+        visible={true}
+        currentMode="basic"
+        user={exampleUser}
+        onClose={() => {}}
+        setMode={() => {}}
+      />,
+      {
+        preloadedState: { mode: { mode: "basic" } },
+      }
+    );
+
     fireEvent.press(getByText("확인"));
   });
 });

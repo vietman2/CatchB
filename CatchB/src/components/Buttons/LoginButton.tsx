@@ -9,7 +9,7 @@ interface loginButtonProps {
   testID?: string;
 }
 
-export const LoginButton = ({ text, onPress, testID }: loginButtonProps) => {
+export default function LoginButton({ text, onPress, testID }: loginButtonProps) {
   return (
     <TouchableRipple
       style={buttonStyles.button}
@@ -30,21 +30,6 @@ export const LoginButton = ({ text, onPress, testID }: loginButtonProps) => {
   );
 };
 
-interface textButtonProps {
-  text: string;
-  onPress: () => void;
-}
-
-export const TextButton = ({ text, onPress }: textButtonProps) => {
-  return (
-    <TouchableRipple onPress={onPress}>
-      <Text variant="titleLarge" style={buttonStyles.text}>
-        {text}
-      </Text>
-    </TouchableRipple>
-  );
-};
-
 const buttonStyles = StyleSheet.create({
   button: {
     height: 40,
@@ -54,7 +39,5 @@ const buttonStyles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
   },
-  text: {
-    padding: 10,
-  },
 });
+

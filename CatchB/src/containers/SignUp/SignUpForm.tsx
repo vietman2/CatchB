@@ -8,7 +8,7 @@ import {
 import { Text, TextInput } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { LoginButton } from "../../components/Buttons/Buttons";
+import LoginButton from "../../components/Buttons/LoginButton";
 import { themeColors } from "../../variables/colors";
 
 export default function SignUpForm() {
