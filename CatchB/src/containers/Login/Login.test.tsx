@@ -132,7 +132,7 @@ describe("<Login />", () => {
         data: { token: "token", user: "user" },
       })
     );
-    const { getByTestId, getByText, debug } = render();
+    const { getByTestId } = render();
 
     const usernameInput = getByTestId("username-input");
     const passwordInput = getByTestId("password-input");
