@@ -53,10 +53,8 @@ export default function Login({ navigation }: LoginProps) {
     } else if (response.status === 400) {
       const error = response.data;
       if (error.password) {
-        if (error.password[0].includes("blank")) {
-          setError("비밀번호를 입력해주세요.");
-        }
-      } else if (error.non_field_errors[0].includes('"username"')) {
+        setError("비밀번호를 입력해주세요.");
+      } else if (error.non_field_errors[0].includes("username")) {
         setError("아이디를 입력해주세요.");
       } else {
         setError("아이디와 비밀번호를 확인해주세요.");

@@ -15,14 +15,14 @@ export default function CheckReservations({ tab, reservations }: Props) {
     if (tab === "New") {
       message = "신규";
     }
-    if (tab === "Pending") {
+    else if (tab === "Pending") {
       message = "미확정인";
-    }
-    if (tab === "Cancelled") {
+    } else if (tab === "Cancelled") {
       message = "취소된";
-    }
-    if (tab === "Completed") {
+    } else if (tab === "Completed") {
       message = "완료된";
+    } else {
+      message = "";
     }
 
     return (

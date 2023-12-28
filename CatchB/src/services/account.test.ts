@@ -37,4 +37,18 @@ describe("login", () => {
 
     expect(response.status).toBe(400);
   });
+
+  it("should fail to get response", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.reject({
+        response: {
+          data: { detail: "서버에 문제가 있습니다." },
+        },
+      })
+    );
+    const username = "exampleuser";
+    const password = "wrongpassword";
+
+    await act(() => login(username, password));
+  });
 });

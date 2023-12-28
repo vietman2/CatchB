@@ -47,7 +47,7 @@ describe("<Login />", () => {
     render();
   });
 
-  it("should handle login error", () => {
+  it("should handle login error: wrong credentials", () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
       Promise.resolve({
         status: 400,
@@ -66,6 +66,61 @@ describe("<Login />", () => {
     waitFor(() => {
       fireEvent.changeText(usernameInput, "test");
       fireEvent.changeText(passwordInput, "test");
+      fireEvent.press(loginButton);
+    });
+  });
+
+  it("should handle login error: server error", () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 500,
+        data: {},
+      })
+    );
+
+    const { getByTestId } = render();
+
+    const usernameInput = getByTestId("username-input");
+    const passwordInput = getByTestId("password-input");
+    const loginButton = getByTestId("login-button");
+
+    waitFor(() => {
+      fireEvent.changeText(usernameInput, "test");
+      fireEvent.changeText(passwordInput, "test");
+      fireEvent.press(loginButton);
+    });
+  });
+
+  it("should handle login error: blank password", () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: { password: ["This field may not be blank."] },
+      })
+    );
+
+    const { getByTestId } = render();
+
+    const loginButton = getByTestId("login-button");
+
+    waitFor(() => {
+      fireEvent.press(loginButton);
+    });
+  });
+
+  it("should handle login error: blank username", () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: { non_field_errors: ["username field may not be blank."] },
+      })
+    );
+
+    const { getByTestId } = render();
+
+    const loginButton = getByTestId("login-button");
+
+    waitFor(() => {
       fireEvent.press(loginButton);
     });
   });

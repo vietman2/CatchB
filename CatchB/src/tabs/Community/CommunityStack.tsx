@@ -13,9 +13,6 @@ export default function CommunityContainer() {
       initialRouteName="CommunityScreen"
       screenOptions={{
         headerLeft: leftTitle,
-        headerTitle: () => {
-          return "";
-        },
         headerRight: rightTitle,
         headerShadowVisible: false,
       }}
