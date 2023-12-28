@@ -1,42 +1,21 @@
-//import { API_LOCAL_URL } from "./apiConfig";
+import axios from "axios";
+
+import { API_LOCAL_URL } from "./apiConfig";
 import { admin, exampleUser } from "../variables/mvp_dummy_data/user";
 
 export async function login(username: string, password: string) {
-  // Temporary
-  if (username === "admin" && password === "admin") {
-    return {
-      status: 200,
-      data: {
-        token: "admin",
-        user: admin,
-      },
-    };
-  }
+  const url = `${API_LOCAL_URL}/api/users/login/`;
 
-  if (username === "exampleuser" && password === "examplepassword") {
-    return {
-      status: 200,
-      data: {
-        token: "user",
-        user: exampleUser,
-      },
-    };
-  }
+  const response = await axios
+    .post(url, { username, password })
+    .catch((err) => {
+      return err.response;
+    });
 
   return {
-    status: 400,
-    data: {
-      token: "user",
-      user: exampleUser,
-    },
+    status: response.status,
+    data: response.data,
   };
-  /*
-    const url = `${API_LOCAL_URL}/api/users/login`;
-
-    const response = await axios.post(url, { username, password });
-
-    return response.data;
-    */
 }
 
 /*
