@@ -1,4 +1,4 @@
-import { act, fireEvent } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -31,10 +31,10 @@ describe("<TaskBoard />", () => {
     render();
   });
 
-  it("navigates to WorkProgress screen when clicked", async () => {
+  it("navigates to WorkProgress screen when clicked", () => {
     const { getByTestId } = render();
 
-    await act(async () => {
+    waitFor(() => {
       fireEvent.press(getByTestId("WorkProgressTouchable"));
     });
   });
