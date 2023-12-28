@@ -3,18 +3,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { UserProfile } from "../../variables/types";
 
 const initialState: {
-  accessToken: string | null;
-  refreshToken: string | null;
+  token: string | null;
   user: UserProfile | null;
 } = {
-  accessToken: null,
-  refreshToken: null,
-  user: null
+  token: null,
+  user: null,
 };
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (data: { access: string, refresh: string, user: UserProfile }) => {
+  async (data: { access: string, user: UserProfile }) => {
     return data;
   }
 );
@@ -29,14 +27,11 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
-      console.log(action.payload);
-      state.accessToken = action.payload.access;
-      state.refreshToken = action.payload.refresh;
+      state.token = action.payload.access;
       state.user = action.payload.user;
     });
     builder.addCase(logout.fulfilled, (state) => {
-      state.accessToken = null;
-      state.refreshToken = null;
+      state.token = null;
       state.user = null;
     });
   }
