@@ -1,4 +1,4 @@
-import { act, fireEvent } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -60,18 +60,18 @@ describe("MyPage", () => {
     renderWithProviders(components());
   });
 
-  it("navigates to Login screen when user is not logged in", async () => {
+  it("navigates to Login screen when user is not logged in", () => {
     const { getByTestId } = renderWithProviders(components());
-    await act(() => {
+    waitFor(() => {
       fireEvent.press(getByTestId("badge"));
     });
   });
 
-  it("navigates to Profile screen when user is logged in", async () => {
+  it("navigates to Profile screen when user is logged in", () => {
     const { getByTestId } = renderWithProviders(components(), {
       preloadedState: { auth: { user: admin, token: "" } },
     });
-    await act(() => {
+    waitFor(() => {
       fireEvent.press(getByTestId("badge"));
     });
   });
