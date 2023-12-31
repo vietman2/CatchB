@@ -14,6 +14,7 @@ export default function CommunityContainer() {
       screenOptions={{
         headerLeft: leftTitle,
         headerRight: rightTitle,
+        headerTitle: '',
         headerShadowVisible: false,
       }}
     >
