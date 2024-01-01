@@ -49,6 +49,7 @@ jest.mock("../../components/Buttons/TextButton", () => {
     </TouchableOpacity>
   );
 });
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 const renderWithMode = (mode: "basic" | "pro") => {
   return renderWithProviders(<Home />, {
