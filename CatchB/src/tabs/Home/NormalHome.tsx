@@ -2,6 +2,7 @@ import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
 import TextButton from "../../components/Buttons/TextButton";
+import Welcome from "../../components/BottomSheets/Welcome";
 
 export default function NormalHome() {
   return (
@@ -16,6 +17,7 @@ export default function NormalHome() {
         <TextButton text="이용약관" onPress={() => {}} />
         <TextButton text="현재 버전 0.1.0" onPress={() => {}} />
       </View>
+      <Welcome />
     </>
   );
 }

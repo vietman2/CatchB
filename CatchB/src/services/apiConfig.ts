@@ -1,1 +1,1 @@
-export const API_LOCAL_URL = "https://6fee-112-171-241-157.ngrok-free.app";
+export const API_LOCAL_URL = "https://localhost:8000/api";

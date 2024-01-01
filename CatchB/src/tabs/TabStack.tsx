@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
@@ -13,8 +13,11 @@ import SwitchModeDialog from "../components/Dialogs/SwitchModeDialog";
 import { RootTabParamList, RootTabScreenProps } from "../variables/navigation";
 import { themeColors } from "../variables/colors";
 import { setMode } from "../store/slices/modeSlice";
-import { RootState } from "../store/store";
+import { AppDispatch, RootState } from "../store/store";
 import { useNavigation } from "@react-navigation/native";
+import { get } from "../store/secure";
+import { getUserProfile, renewToken } from "../services/account";
+import { setUserProfile, setNewToken } from "../store/slices/authSlice";
 
 /**
  * TabContainer
@@ -27,8 +30,33 @@ export default function TabContainer() {
   const [visible, setVisible] = useState(false);
   const mode = useSelector((state: RootState) => state.mode.mode);
   const user = useSelector((state: RootState) => state.auth.user);
-  const dispatch = useDispatch();
+  const access = useSelector((state: RootState) => state.auth.token);
+  const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation<RootTabScreenProps<"Home">["navigation"]>();
+
+  useEffect(() => {
+    get("refresh_token").then(async (token) => {
+      if (token) {
+        const response = await renewToken(token);
+
+        if (response.status === 200) {
+          dispatch(setNewToken(response.data.access));
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    get("uuid").then(async (uuid) => {
+      if (uuid) {
+        const response = await getUserProfile(uuid, access);
+
+        if (response.status === 200) {
+          dispatch(setUserProfile(response.data));
+        }
+      }
+    });
+  }, [access])
 
   const handleLongPress = () => {
     setVisible(true);
@@ -38,11 +66,11 @@ export default function TabContainer() {
     setVisible(false);
     dispatch(setMode(screen));
     navigation.navigate("Home");
-  }
+  };
 
   const onClose = () => {
     setVisible(false);
-  }
+  };
 
   return (
     <>

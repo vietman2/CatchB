@@ -19,3 +19,8 @@ jest.mock("react-native-gesture-handler", () => ({
   GestureHandlerRootView: jest.fn(),
 }));
 jest.mock("react-native-safe-area-context", () => mockSafeAreaContext);
+jest.mock("expo-secure-store", () => ({
+  deleteItemAsync: jest.fn(),
+  getItemAsync: jest.fn(),
+  setItemAsync: jest.fn(),
+}));

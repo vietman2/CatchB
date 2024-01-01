@@ -15,7 +15,7 @@ jest.mock("./Calendar/CalendarStack", () => "CalendarStack");
 jest.mock("./MyPage/MyPageStack", () => "MyPageStack");
 jest.mock("./MyStore/MyStoreStack", () => "MyStoreStack");
 
-describe("TabContainer", () => {
+describe("<TabContainer />", () => {
   it("renders all tabs with correct properties", () => {
     renderWithProviders(
       <NavigationContainer>
@@ -61,5 +61,23 @@ describe("TabContainer", () => {
     const button = getByText("확인");
 
     fireEvent.press(button);
+  });
+
+  it("handles token renewal and auto login", async () => {
+    jest.mock("../services/account", () => ({
+      renewToken: jest
+        .fn()
+        .mockResolvedValue({ status: 200, data: { access: "access" } }),
+      getUserProfile: jest.fn().mockResolvedValue({ status: 200, data: {} }),
+    }));
+    jest.mock("../store/secure", () => ({
+      get: jest.fn().mockReturnValue("refresh_token"),
+    }));
+
+    renderWithProviders(
+      <NavigationContainer>
+        <TabContainer />
+      </NavigationContainer>
+    );
   });
 });
