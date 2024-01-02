@@ -14,7 +14,7 @@ jest.mock("../../components/Avatar/AvatarImage", () => "AvatarImage");
 jest.mock("../../components/Divider/VerticalDivider", () => "VerticalDivider");
 jest.mock("../../components/Buttons/TabButton", () => {
   const { View, Text } = require("react-native");
-  return ({ title, detail, onPress }) => {
+  return ({ title, detail, onPress }: any) => {
     return (
       <View testID="tab-button" onPress={onPress}>
         <Text>{title}</Text>
