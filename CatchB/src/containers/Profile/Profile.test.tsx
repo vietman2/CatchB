@@ -28,10 +28,10 @@ jest.mock("../../components/Buttons/TabButton", () => {
 
 const Stack = createStackNavigator();
 
-const render = (initialRoute: string) => {
+const renderEditProfile = () => {
   return renderWithProviders(
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialRoute}>
+      <Stack.Navigator>
         <Stack.Screen
           name="EditProfile"
           component={EditProfile}
@@ -48,11 +48,11 @@ const render = (initialRoute: string) => {
 
 describe("<EditProfile />", () => {
   it("renders correctly", () => {
-    render("EditProfile");
+    renderEditProfile();
   });
 
   it("should handle text input", () => {
-    const { getByTestId } = render("EditProfile")
+    const { getByTestId } = renderEditProfile();
 
     const textInput = getByTestId("edit-profile-text-input");
 
@@ -62,19 +62,8 @@ describe("<EditProfile />", () => {
   });
 });
 
-describe("<UserProfile />", () => {
-  it("renders correctly", () => {
-    const { getByText } = render("Profile");
-
-    waitFor(() => {
-      fireEvent.press(getByText("닉네임"));
-      fireEvent.press(getByText("이메일"));
-      fireEvent.press(getByText("휴대폰 번호"));
-    });
-  });
-
-  it("renders correctly with user", () => {
-    const { getByText } = renderWithProviders(
+const renderUserProfile = () => {
+  return renderWithProviders(
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="UserProfile" component={UserProfile} />
@@ -90,6 +79,12 @@ describe("<UserProfile />", () => {
         },
       }
     );
+}
+
+
+describe("<UserProfile />", () => {
+  it("renders correctly with user", () => {
+    const { getByText } = renderUserProfile();
 
     waitFor(() => {
       fireEvent.press(getByText("닉네임"));
@@ -106,22 +101,7 @@ describe("<UserProfile />", () => {
     });
     jest.spyOn(SecureStore, "get").mockImplementation(() => Promise.resolve("refresh"));
 
-    const { getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-          <Stack.Screen name="EditProfile" component={UserProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>,
-      {
-        preloadedState: {
-          auth: {
-            user: admin,
-            token: "token",
-          },
-        },
-      }
-    );
+    const { getByText } = renderUserProfile();
 
     waitFor(() => {
       fireEvent.press(getByText("로그아웃"));
@@ -138,22 +118,7 @@ describe("<UserProfile />", () => {
       .spyOn(SecureStore, "get")
       .mockImplementation(() => Promise.resolve("refresh"));
 
-    const { getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-          <Stack.Screen name="EditProfile" component={UserProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>,
-      {
-        preloadedState: {
-          auth: {
-            user: admin,
-            token: "token",
-          },
-        },
-      }
-    );
+    const { getByText } = renderUserProfile();
 
     waitFor(() => {
       fireEvent.press(getByText("로그아웃"));
@@ -165,22 +130,7 @@ describe("<UserProfile />", () => {
       .spyOn(SecureStore, "get")
       .mockImplementation(() => Promise.resolve(null));
 
-    const { getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-          <Stack.Screen name="EditProfile" component={UserProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>,
-      {
-        preloadedState: {
-          auth: {
-            user: admin,
-            token: "token",
-          },
-        },
-      }
-    );
+    const { getByText } = renderUserProfile();
 
     waitFor(() => {
       fireEvent.press(getByText("로그아웃"));
