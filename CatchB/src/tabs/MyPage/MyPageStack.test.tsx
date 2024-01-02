@@ -20,6 +20,7 @@ jest.mock("react-native-paper", () => {
     Icon: "Icon",
     IconButton: "IconButton",
     Button: "Button",
+    Snackbar: "Snackbar",
   };
 });
 jest.mock("../../components/Buttons/FAB", () => "FABGroup");

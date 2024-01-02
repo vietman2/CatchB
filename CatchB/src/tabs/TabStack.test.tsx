@@ -4,6 +4,9 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import TabContainer from "./TabStack";
 import { renderWithProviders } from "../utils/test-utils";
 import { admin } from "../variables/mvp_dummy_data/user";
+import * as SecureStore from "../store/secure";
+import * as userService from "../services/account";
+import { store } from "../store/store";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -51,7 +54,8 @@ describe("<TabContainer />", () => {
     const { getAllByTestId, getByText } = renderWithProviders(
       <NavigationContainer>
         <TabContainer />
-      </NavigationContainer>);
+      </NavigationContainer>
+    );
     const tab = getAllByTestId("MyPageIcon")[0];
 
     waitFor(() => {
@@ -64,20 +68,93 @@ describe("<TabContainer />", () => {
   });
 
   it("handles token renewal and auto login", async () => {
-    jest.mock("../services/account", () => ({
-      renewToken: jest
-        .fn()
-        .mockResolvedValue({ status: 200, data: { access: "access" } }),
-      getUserProfile: jest.fn().mockResolvedValue({ status: 200, data: {} }),
-    }));
-    jest.mock("../store/secure", () => ({
-      get: jest.fn().mockReturnValue("refresh_token"),
-    }));
+    jest.spyOn(SecureStore, "get").mockImplementation((key) => {
+      if (key === "refresh_token") {
+        return Promise.resolve("refresh");
+      }
+      if (key === "uuid") {
+        return Promise.resolve("uuid");
+      } else return Promise.reject();
+    });
+    jest.spyOn(userService, "renewToken").mockImplementation(async () =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          access: "access",
+        },
+      })
+    );
+    jest.spyOn(userService, "getUserProfile").mockImplementation(async () =>
+      Promise.resolve({
+        status: 200,
+        data: {},
+      })
+    );
 
-    renderWithProviders(
+    waitFor(() => renderWithProviders(
       <NavigationContainer>
         <TabContainer />
       </NavigationContainer>
+    ));
+  });
+
+  it("handles token renewal and auto login: fail", async () => {
+    jest.spyOn(SecureStore, "get").mockImplementation((key) => {
+      if (key === "refresh_token") {
+        return Promise.resolve("refresh");
+      }
+      if (key === "uuid") {
+        return Promise.resolve("uuid");
+      } else return Promise.reject();
+    });
+    jest.spyOn(userService, "renewToken").mockImplementation(async () =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          access: "access",
+        },
+      })
+    );
+    jest.spyOn(userService, "getUserProfile").mockImplementation(async () =>
+      Promise.resolve({
+        status: 400,
+        data: {},
+      })
+    );
+
+    waitFor(() =>
+      renderWithProviders(
+        <NavigationContainer>
+          <TabContainer />
+        </NavigationContainer>
+      )
+    );
+  });
+
+  it("handles token renewal and auto login: fail2", async () => {
+    jest.spyOn(SecureStore, "get").mockImplementation((key) => {
+      if (key === "refresh_token") {
+        return Promise.resolve("refresh");
+      }
+      if (key === "uuid") {
+        return Promise.resolve("uuid");
+      } else return Promise.reject();
+    });
+    jest.spyOn(userService, "renewToken").mockImplementation(async () =>
+      Promise.resolve({
+        status: 400,
+        data: {
+          access: "access",
+        },
+      })
+    );
+
+    waitFor(() =>
+      renderWithProviders(
+        <NavigationContainer>
+          <TabContainer />
+        </NavigationContainer>
+      )
     );
   });
 });
