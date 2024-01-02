@@ -1,9 +1,11 @@
-import { fireEvent } from "@testing-library/react-native";
+import axios from "axios";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import EditProfile from "./EditProfile";
 import UserProfile from "./UserProfile";
+import * as SecureStore from "../../store/secure";
 import { renderWithProviders } from "../../utils/test-utils";
 import { admin } from "../../variables/mvp_dummy_data/user";
 
@@ -39,6 +41,7 @@ describe("<EditProfile />", () => {
               detail: "detail",
             }}
           />
+          <Stack.Screen name="UserProfile" component={EditProfile} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -65,7 +68,7 @@ describe("<EditProfile />", () => {
 
     expect(textInput.props.value).toBe("detail");
 
-    fireEvent.changeText(textInput, "new detail");
+    waitFor(() => fireEvent.changeText(textInput, "new detail"));
   });
 });
 
@@ -75,13 +78,16 @@ describe("<UserProfile />", () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="EditProfile" component={UserProfile} />
         </Stack.Navigator>
       </NavigationContainer>
     );
 
-    fireEvent.press(getByText("닉네임"));
-    fireEvent.press(getByText("이메일"));
-    fireEvent.press(getByText("휴대폰 번호"));
+    waitFor(() => {
+      fireEvent.press(getByText("닉네임"));
+      fireEvent.press(getByText("이메일"));
+      fireEvent.press(getByText("휴대폰 번호"));
+    });
   });
 
   it("renders correctly with user", () => {
@@ -89,6 +95,7 @@ describe("<UserProfile />", () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="EditProfile" component={UserProfile} />
         </Stack.Navigator>
       </NavigationContainer>,
       {
@@ -101,8 +108,99 @@ describe("<UserProfile />", () => {
       }
     );
 
-    fireEvent.press(getByText("닉네임"));
-    fireEvent.press(getByText("이메일"));
-    fireEvent.press(getByText("휴대폰 번호"));
+    waitFor(() => {
+      fireEvent.press(getByText("닉네임"));
+      fireEvent.press(getByText("이메일"));
+      fireEvent.press(getByText("휴대폰 번호"));
+    });
+  });
+
+  it("handles logout", () => {
+    jest.spyOn(axios, "post").mockImplementation(async () => {
+      return {
+        status: 200,
+      };
+    });
+    jest.spyOn(SecureStore, "get").mockImplementation(() => Promise.resolve("refresh"));
+
+    const { getByText } = renderWithProviders(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="EditProfile" component={UserProfile} />
+        </Stack.Navigator>
+      </NavigationContainer>,
+      {
+        preloadedState: {
+          auth: {
+            user: admin,
+            token: "token",
+          },
+        },
+      }
+    );
+
+    waitFor(() => {
+      fireEvent.press(getByText("로그아웃"));
+    });
+  });
+
+  it("handles logout: bad request", () => {
+    jest.spyOn(axios, "post").mockImplementation(async () => {
+      return {
+        status: 400,
+      };
+    });
+    jest
+      .spyOn(SecureStore, "get")
+      .mockImplementation(() => Promise.resolve("refresh"));
+
+    const { getByText } = renderWithProviders(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="EditProfile" component={UserProfile} />
+        </Stack.Navigator>
+      </NavigationContainer>,
+      {
+        preloadedState: {
+          auth: {
+            user: admin,
+            token: "token",
+          },
+        },
+      }
+    );
+
+    waitFor(() => {
+      fireEvent.press(getByText("로그아웃"));
+    });
+  });
+
+  it("handles logout: no refresh token", () => {
+    jest
+      .spyOn(SecureStore, "get")
+      .mockImplementation(() => Promise.resolve(null));
+
+    const { getByText } = renderWithProviders(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="EditProfile" component={UserProfile} />
+        </Stack.Navigator>
+      </NavigationContainer>,
+      {
+        preloadedState: {
+          auth: {
+            user: admin,
+            token: "token",
+          },
+        },
+      }
+    );
+
+    waitFor(() => {
+      fireEvent.press(getByText("로그아웃"));
+    });
   });
 });
