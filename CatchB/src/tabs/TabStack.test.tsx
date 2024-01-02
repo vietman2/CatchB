@@ -6,7 +6,6 @@ import { renderWithProviders } from "../utils/test-utils";
 import { admin } from "../variables/mvp_dummy_data/user";
 import * as SecureStore from "../store/secure";
 import * as userService from "../services/account";
-import { store } from "../store/store";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -18,13 +17,17 @@ jest.mock("./Calendar/CalendarStack", () => "CalendarStack");
 jest.mock("./MyPage/MyPageStack", () => "MyPageStack");
 jest.mock("./MyStore/MyStoreStack", () => "MyStoreStack");
 
+const render = () => {
+  return renderWithProviders(
+    <NavigationContainer>
+      <TabContainer />
+    </NavigationContainer>
+  );
+}
+
 describe("<TabContainer />", () => {
   it("renders all tabs with correct properties", () => {
-    renderWithProviders(
-      <NavigationContainer>
-        <TabContainer />
-      </NavigationContainer>
-    );
+    render();
   });
 
   it("handles long press: successfully change mode", () => {
@@ -51,11 +54,7 @@ describe("<TabContainer />", () => {
   });
 
   it("handles long press: change mode fail", () => {
-    const { getAllByTestId, getByText } = renderWithProviders(
-      <NavigationContainer>
-        <TabContainer />
-      </NavigationContainer>
-    );
+    const { getAllByTestId, getByText } = render();
     const tab = getAllByTestId("MyPageIcon")[0];
 
     waitFor(() => {
@@ -91,11 +90,7 @@ describe("<TabContainer />", () => {
       })
     );
 
-    waitFor(() => renderWithProviders(
-      <NavigationContainer>
-        <TabContainer />
-      </NavigationContainer>
-    ));
+    waitFor(() => render());
   });
 
   it("handles token renewal and auto login: fail", async () => {
@@ -122,13 +117,7 @@ describe("<TabContainer />", () => {
       })
     );
 
-    waitFor(() =>
-      renderWithProviders(
-        <NavigationContainer>
-          <TabContainer />
-        </NavigationContainer>
-      )
-    );
+    waitFor(() => render());
   });
 
   it("handles token renewal and auto login: fail2", async () => {
@@ -149,12 +138,6 @@ describe("<TabContainer />", () => {
       })
     );
 
-    waitFor(() =>
-      renderWithProviders(
-        <NavigationContainer>
-          <TabContainer />
-        </NavigationContainer>
-      )
-    );
+    waitFor(() => render());
   });
 });
