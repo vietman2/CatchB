@@ -16,6 +16,14 @@ jest.mock("./Community/CommunityStack", () => "CommunityStack");
 jest.mock("./Calendar/CalendarStack", () => "CalendarStack");
 jest.mock("./MyPage/MyPageStack", () => "MyPageStack");
 jest.mock("./MyStore/MyStoreStack", () => "MyStoreStack");
+jest.spyOn(SecureStore, "get").mockImplementation((key) => {
+  if (key === "refresh_token") {
+    return Promise.resolve("refresh");
+  }
+  if (key === "uuid") {
+    return Promise.resolve("uuid");
+  } else return Promise.reject();
+});
 
 const render = () => {
   return renderWithProviders(
@@ -67,14 +75,6 @@ describe("<TabContainer />", () => {
   });
 
   it("handles token renewal and auto login", async () => {
-    jest.spyOn(SecureStore, "get").mockImplementation((key) => {
-      if (key === "refresh_token") {
-        return Promise.resolve("refresh");
-      }
-      if (key === "uuid") {
-        return Promise.resolve("uuid");
-      } else return Promise.reject();
-    });
     jest.spyOn(userService, "renewToken").mockImplementation(async () =>
       Promise.resolve({
         status: 200,
@@ -94,14 +94,6 @@ describe("<TabContainer />", () => {
   });
 
   it("handles token renewal and auto login: fail", async () => {
-    jest.spyOn(SecureStore, "get").mockImplementation((key) => {
-      if (key === "refresh_token") {
-        return Promise.resolve("refresh");
-      }
-      if (key === "uuid") {
-        return Promise.resolve("uuid");
-      } else return Promise.reject();
-    });
     jest.spyOn(userService, "renewToken").mockImplementation(async () =>
       Promise.resolve({
         status: 200,
@@ -121,14 +113,6 @@ describe("<TabContainer />", () => {
   });
 
   it("handles token renewal and auto login: fail2", async () => {
-    jest.spyOn(SecureStore, "get").mockImplementation((key) => {
-      if (key === "refresh_token") {
-        return Promise.resolve("refresh");
-      }
-      if (key === "uuid") {
-        return Promise.resolve("uuid");
-      } else return Promise.reject();
-    });
     jest.spyOn(userService, "renewToken").mockImplementation(async () =>
       Promise.resolve({
         status: 400,
