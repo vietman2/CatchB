@@ -32,7 +32,7 @@ jest.mock("react-native-paper", () => {
     Icon: "Icon",
   };
 });
-jest.mock("../../components/Buttons/IconButton", () => "IconButton");
+jest.mock("../../components/Buttons/SurfaceButton", () => "SurfaceButton");
 jest.mock("../../components/Chips/Chips", () => ({
   NotificationChip: () => "NotificationChip",
 }));
