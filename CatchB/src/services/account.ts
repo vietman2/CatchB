@@ -5,48 +5,59 @@ import { API_LOCAL_URL } from "./apiConfig";
 export async function login(username: string, password: string) {
   const url = `${API_LOCAL_URL}/api/users/login/`;
 
-  const response = await axios
-    .post(url, { username, password })
-    .catch((err) => {
-      return err.response;
-    });
+  try {
+    const response = await axios.post(url, { username, password });
 
-  return {
-    status: response.status,
-    data: response.data,
-  };
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
 }
 
 export async function renewToken(refresh: string) {
   const url = `${API_LOCAL_URL}/api/users/token/refresh/`;
 
-  const response = await axios.post(url, { refresh }).catch((err) => {
-    return err.response;
-  });
-
-  return {
-    status: response.status,
-    data: response.data,
-  };
+  try {
+    const response = await axios.post(url, { refresh });
+    // TODO: 만료된 토큰이라면 Dialog를 띄워서 로그인을 유도한다.
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
 }
 
 export async function getUserProfile(uuid: string, access: string) {
   const url = `${API_LOCAL_URL}/api/users/${uuid}/`;
 
-  const response = await axios
-    .get(url, {
+  try {
+    const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${access}`,
       },
-    })
-    .catch((err) => {
-      return err.response;
     });
 
-  return {
-    status: response.status,
-    data: response.data,
-  };
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
 }
 
 /*
