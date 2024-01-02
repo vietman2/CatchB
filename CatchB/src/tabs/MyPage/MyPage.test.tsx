@@ -2,8 +2,8 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { renderWithProviders } from "../../utils/test-utils";
 import MyPage from "./MyPage";
+import { renderWithProviders } from "../../utils/test-utils";
 import { admin } from "../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
@@ -18,18 +18,38 @@ jest.mock("react-native-paper", () => {
     TouchableRipple: "TouchableRipple",
   };
 });
-jest.mock("../../components/Profile/ProfileBadge", () => {
+jest.mock("../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
-  return () => (<View testID="badge">ProfileBadge</View>);
+  return () => <View testID="badge">ProfileBadge</View>;
 });
 jest.mock("../../components/Buttons/TextButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return ({ text, onPress }: any) => (
     <TouchableOpacity onPress={onPress}>
       <Text testID="text">{text}</Text>
-    </TouchableOpacity>);
+    </TouchableOpacity>
+  );
 });
 jest.mock("../../components/Buttons/FAB", () => "FABGroup");
+jest.mock("../../components/Buttons/IconButton", () => {
+  const { Text, TouchableOpacity } = jest.requireActual("react-native");
+  return ({ icon, title, onPress }: any) => (
+    <TouchableOpacity onPress={onPress}>
+      <Text testID="icon">{icon}</Text>
+      <Text testID="title">{title}</Text>
+    </TouchableOpacity>
+  );
+});
+jest.mock("../../components/Buttons/TabButton", () => {
+  const { Text, TouchableOpacity } = jest.requireActual("react-native");
+  return ({ title, detail }: any) => (
+    <TouchableOpacity>
+      <Text testID="title">{title}</Text>
+      <Text testID="detail">{detail}</Text>
+    </TouchableOpacity>
+  );
+});
+jest.mock("../../components/Divider/VerticalDivider", () => "VerticalDivider");
 
 const Stack = createStackNavigator();
 
@@ -51,11 +71,26 @@ const components = () => {
             headerTitle: "",
           }}
         />
+        <Stack.Screen
+          name="Profile"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="EditProfile"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
       </Stack.Navigator>
-    </NavigationContainer>);
+    </NavigationContainer>
+  );
 };
 
-describe("MyPage", () => {
+describe("<MyPage />", () => {
   it("renders correctly", async () => {
     renderWithProviders(components());
   });
