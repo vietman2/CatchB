@@ -1,5 +1,6 @@
-import { StyleSheet } from "react-native";
-import { Icon, Surface, Text } from "react-native-paper";
+import { View, StyleSheet } from "react-native";
+import { Icon, Text } from "react-native-paper";
+import { themeColors } from "../../variables/colors";
 
 interface Props {
   icon: string;
@@ -8,23 +9,15 @@ interface Props {
 
 export default function IconButton({ icon, title }: Props) {
   return (
-    <Surface elevation={4} style={styles.surface}>
-      <Icon source={icon} size={45} />
-      <Text variant="titleLarge" style={styles.text}>
-        {title}
-      </Text>
-    </Surface>
+    <View style={styles.container}>
+      <Icon source={icon} size={20} color={themeColors.primary} />
+      <Text>{title}</Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  surface: {
-    padding: 10,
+  container: {
     alignItems: "center",
-    borderRadius: 10,
-  },
-  text: {
-    fontWeight: "bold",
-    marginTop: 10,
   },
 });

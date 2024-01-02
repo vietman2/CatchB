@@ -1,18 +1,22 @@
 import { render, fireEvent } from "@testing-library/react-native";
 
+import BackButton from "./BackButton";
 import LoginButton from "./LoginButton";
 import TextButton from "./TextButton";
-import IconButton from "./IconButton";
+import SurfaceButton from "./SurfaceButton";
 import SegmentedButtons from "./SegmentedButtons";
 import FABGroup from "./FAB";
 import KakaoButton from "./KakaoButton";
 import NaverButton from "./NaverButton";
+import IconButton from "./IconButton";
+import TabButton from "./TabButton";
 import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),
   Surface: (props: any) => props.children,
   Icon: (props: any) => props.children,
+  IconButton: (props: any) => props.children,
 }));
 jest.requireActual("react-native-paper");
 jest.mock("react", () => ({
@@ -56,9 +60,9 @@ describe("<TextButton />", () => {
   });
 });
 
-describe("<IconButton />", () => {
+describe("<SurfaceButton />", () => {
   it("renders correctly", () => {
-    render(<IconButton icon="home" title="Home" />);
+    render(<SurfaceButton icon="home" title="Home" />);
   });
 });
 
@@ -125,5 +129,23 @@ describe("<KakaoButton />", () => {
 describe("<NaverButton />", () => {
   it("renders correctly", () => {
     render(<NaverButton />);
+  });
+});
+
+describe("<BackButton />", () => {
+  it("renders correctly", () => {
+    render(<BackButton onPress={() => {}} />);
+  });
+});
+
+describe("<IconButton />", () => {
+  it("renders correctly", () => {
+    render(<IconButton icon="home" title="Home" />);
+  });
+});
+
+describe("<TabButton />", () => {
+  it("renders correctly", () => {
+    render(<TabButton title="Home" detail="Detail" />);
   });
 });
