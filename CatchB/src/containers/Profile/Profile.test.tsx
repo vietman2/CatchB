@@ -28,41 +28,31 @@ jest.mock("../../components/Buttons/TabButton", () => {
 
 const Stack = createStackNavigator();
 
+const render = (initialRoute: string) => {
+  return renderWithProviders(
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={initialRoute}>
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          initialParams={{
+            title: "title",
+            detail: "detail",
+          }}
+        />
+        <Stack.Screen name="Profile" component={UserProfile} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
 describe("<EditProfile />", () => {
   it("renders correctly", () => {
-    renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="EditProfile"
-            component={EditProfile}
-            initialParams={{
-              title: "title",
-              detail: "detail",
-            }}
-          />
-          <Stack.Screen name="UserProfile" component={EditProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+    render("EditProfile");
   });
 
   it("should handle text input", () => {
-    const { getByTestId } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="EditProfile"
-            component={EditProfile}
-            initialParams={{
-              title: "title",
-              detail: "detail",
-            }}
-          />
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+    const { getByTestId } = render("EditProfile")
 
     const textInput = getByTestId("edit-profile-text-input");
 
@@ -74,14 +64,7 @@ describe("<EditProfile />", () => {
 
 describe("<UserProfile />", () => {
   it("renders correctly", () => {
-    const { getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-          <Stack.Screen name="EditProfile" component={UserProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+    const { getByText } = render("Profile");
 
     waitFor(() => {
       fireEvent.press(getByText("닉네임"));
