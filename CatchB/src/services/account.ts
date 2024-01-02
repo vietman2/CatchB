@@ -13,6 +13,12 @@ export async function login(username: string, password: string) {
       data: response.data,
     };
   } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
     return {
       status: 500,
       data: "Server Error",
@@ -31,6 +37,12 @@ export async function renewToken(refresh: string) {
       data: response.data,
     };
   } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
     return {
       status: 500,
       data: "Server Error",
@@ -53,6 +65,35 @@ export async function getUserProfile(uuid: string, access: string) {
       data: response.data,
     };
   } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
+export async function logout(refresh: string) {
+  const url = `${API_LOCAL_URL}/api/users/logout/`;
+
+  try {
+    const response = await axios.post(url, { refresh });
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
     return {
       status: 500,
       data: "Server Error",
