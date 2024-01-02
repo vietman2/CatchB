@@ -1,7 +1,7 @@
 import axios from "axios";
 import { act } from "@testing-library/react-native";
 
-import { login, renewToken, getUserProfile } from "./account";
+import { login, renewToken, getUserProfile, logout } from "./account";
 
 describe("login", () => {
   it("should successfully login", async () => {
@@ -23,12 +23,12 @@ describe("login", () => {
 
   it("should fail login", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.resolve({
+      Promise.reject({response: {
         status: 400,
         data: {
           non_field_errors: ["주어진 자격 증명으로 로그인이 불가능합니다."],
         },
-      })
+      }})
     );
     const username = "exampleuser";
     const password = "wrongpassword";
@@ -78,12 +78,12 @@ describe("renewToken", () => {
 
   it("should fail to renew token", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.resolve({
+      Promise.reject({response: {
         status: 400,
         data: {
           detail: "토큰이 만료되었습니다.",
         },
-      })
+      }})
     );
 
     const refresh = "refresh";
@@ -125,18 +125,62 @@ describe("getUserProfile", () => {
 
   it("should fail to get user profile", async () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
-      Promise.resolve({
+      Promise.reject({response: {
         status: 400,
         data: {
           detail: "토큰이 만료되었습니다.",
         },
-      })
+      }})
     );
 
     const uuid = "uuid";
     const access = "access";
 
     const response = await act(() => getUserProfile(uuid, access));
+
+    expect(response.status).toBe(400);
+  });
+});
+
+describe("logout", () => {
+  it("should successfully logout", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 204,
+        data: {},
+      })
+    );
+
+    const refresh = "refresh";
+
+    const response = await act(() => logout(refresh));
+
+    expect(response.status).toBe(204);
+  });
+
+  it("should fail to get response", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.reject(new Error("Network Error"))
+    );
+
+    const refresh = "refresh";
+
+    await act(() => logout(refresh));
+  });
+
+  it("should fail to logout", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.reject({response: {
+        status: 400,
+        data: {
+          detail: "토큰이 만료되었습니다.",
+        },
+      }})
+    );
+
+    const refresh = "refresh";
+
+    const response = await act(() => logout(refresh));
 
     expect(response.status).toBe(400);
   });

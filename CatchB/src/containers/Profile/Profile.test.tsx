@@ -1,9 +1,11 @@
-import { fireEvent } from "@testing-library/react-native";
+import axios from "axios";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import EditProfile from "./EditProfile";
 import UserProfile from "./UserProfile";
+import * as SecureStore from "../../store/secure";
 import { renderWithProviders } from "../../utils/test-utils";
 import { admin } from "../../variables/mvp_dummy_data/user";
 
@@ -26,69 +28,46 @@ jest.mock("../../components/Buttons/TabButton", () => {
 
 const Stack = createStackNavigator();
 
+const renderEditProfile = () => {
+  return renderWithProviders(
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          initialParams={{
+            title: "title",
+            detail: "detail",
+          }}
+        />
+        <Stack.Screen name="Profile" component={UserProfile} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
 describe("<EditProfile />", () => {
   it("renders correctly", () => {
-    renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="EditProfile"
-            component={EditProfile}
-            initialParams={{
-              title: "title",
-              detail: "detail",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+    renderEditProfile();
   });
 
   it("should handle text input", () => {
-    const { getByTestId } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="EditProfile"
-            component={EditProfile}
-            initialParams={{
-              title: "title",
-              detail: "detail",
-            }}
-          />
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+    const { getByTestId } = renderEditProfile();
 
     const textInput = getByTestId("edit-profile-text-input");
 
     expect(textInput.props.value).toBe("detail");
 
-    fireEvent.changeText(textInput, "new detail");
+    waitFor(() => fireEvent.changeText(textInput, "new detail"));
   });
 });
 
-describe("<UserProfile />", () => {
-  it("renders correctly", () => {
-    const { getByText } = renderWithProviders(
+const renderUserProfile = () => {
+  return renderWithProviders(
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="UserProfile" component={UserProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-
-    fireEvent.press(getByText("닉네임"));
-    fireEvent.press(getByText("이메일"));
-    fireEvent.press(getByText("휴대폰 번호"));
-  });
-
-  it("renders correctly with user", () => {
-    const { getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="EditProfile" component={UserProfile} />
         </Stack.Navigator>
       </NavigationContainer>,
       {
@@ -100,9 +79,61 @@ describe("<UserProfile />", () => {
         },
       }
     );
+}
 
-    fireEvent.press(getByText("닉네임"));
-    fireEvent.press(getByText("이메일"));
-    fireEvent.press(getByText("휴대폰 번호"));
+
+describe("<UserProfile />", () => {
+  it("renders correctly with user", () => {
+    const { getByText } = renderUserProfile();
+
+    waitFor(() => {
+      fireEvent.press(getByText("닉네임"));
+      fireEvent.press(getByText("이메일"));
+      fireEvent.press(getByText("휴대폰 번호"));
+    });
+  });
+
+  it("handles logout", () => {
+    jest.spyOn(axios, "post").mockImplementation(async () => {
+      return {
+        status: 200,
+      };
+    });
+    jest.spyOn(SecureStore, "get").mockImplementation(() => Promise.resolve("refresh"));
+
+    const { getByText } = renderUserProfile();
+
+    waitFor(() => {
+      fireEvent.press(getByText("로그아웃"));
+    });
+  });
+
+  it("handles logout: bad request", () => {
+    jest.spyOn(axios, "post").mockImplementation(async () => {
+      return {
+        status: 400,
+      };
+    });
+    jest
+      .spyOn(SecureStore, "get")
+      .mockImplementation(() => Promise.resolve("refresh"));
+
+    const { getByText } = renderUserProfile();
+
+    waitFor(() => {
+      fireEvent.press(getByText("로그아웃"));
+    });
+  });
+
+  it("handles logout: no refresh token", () => {
+    jest
+      .spyOn(SecureStore, "get")
+      .mockImplementation(() => Promise.resolve(null));
+
+    const { getByText } = renderUserProfile();
+
+    waitFor(() => {
+      fireEvent.press(getByText("로그아웃"));
+    });
   });
 });
