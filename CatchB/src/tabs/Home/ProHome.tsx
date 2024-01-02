@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { Banner, Icon, Text } from "react-native-paper";
 
-import IconButton from "../../components/Buttons/IconButton";
+import SurfaceButton from "../../components/Buttons/SurfaceButton";
 import { NotificationChip } from "../../components/Chips/Chips";
 import SimpleCard from "../../components/Cards/SimpleCard";
 import CardBox from "../../components/Cards/CardBox";
@@ -45,10 +45,10 @@ export default function ProHome() {
         </Text>
       </Banner>
       <View style={styles.ads}>
-          <Text variant="displayMedium" style={{ color: "yellow" }}>
-            프로모드
-          </Text>
-        </View>
+        <Text variant="displayMedium" style={{ color: "yellow" }}>
+          프로모드
+        </Text>
+      </View>
       <SimpleCard title={"오늘의 알림"} icon="bell-alert-outline">
         <View style={{ paddingHorizontal: 5 }}>
           <NotificationChip
@@ -82,10 +82,10 @@ export default function ProHome() {
             padding: 10,
           }}
         >
-          <IconButton icon="form-select" title="예약관리" />
-          <IconButton icon="storefront-outline" title="가게관리" />
-          <IconButton icon="pencil" title="리뷰관리" />
-          <IconButton icon="cog-outline" title="앱 설정" />
+          <SurfaceButton icon="form-select" title="예약관리" />
+          <SurfaceButton icon="storefront-outline" title="가게관리" />
+          <SurfaceButton icon="pencil" title="리뷰관리" />
+          <SurfaceButton icon="cog-outline" title="앱 설정" />
         </View>
       </SimpleCard>
       <SimpleCard title="우리가게 Now" icon="store-outline">

@@ -14,6 +14,7 @@ export type UserProfile = {
   experience_tier: string;
   register_route: string;
   user_type: string;
+  profile_image?: string;
 }
 
 export type Todo = {

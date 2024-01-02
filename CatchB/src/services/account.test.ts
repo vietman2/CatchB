@@ -39,13 +39,9 @@ describe("login", () => {
   });
 
   it("should fail to get response", async () => {
-    jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.reject({
-        response: {
-          data: { detail: "서버에 문제가 있습니다." },
-        },
-      })
-    );
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
     const username = "exampleuser";
     const password = "wrongpassword";
 
@@ -72,16 +68,29 @@ describe("renewToken", () => {
 
   it("should fail to get response", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.reject({
-        response: {
-          data: { detail: "서버에 문제가 있습니다." },
+      Promise.reject(new Error("Network Error"))
+    );
+
+    const refresh = "refresh";
+
+    await act(() => renewToken(refresh));
+  });
+
+  it("should fail to renew token", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: {
+          detail: "토큰이 만료되었습니다.",
         },
       })
     );
 
     const refresh = "refresh";
 
-    await act(() => renewToken(refresh));
+    const response = await act(() => renewToken(refresh));
+
+    expect(response.status).toBe(400);
   });
 });
 
@@ -105,9 +114,21 @@ describe("getUserProfile", () => {
 
   it("should fail to get response", async () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
-      Promise.reject({
-        response: {
-          data: { detail: "서버에 문제가 있습니다." },
+      Promise.reject(new Error("Network Error"))
+    );
+
+    const uuid = "uuid";
+    const access = "access";
+
+    await act(() => getUserProfile(uuid, access));
+  });
+
+  it("should fail to get user profile", async () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: {
+          detail: "토큰이 만료되었습니다.",
         },
       })
     );
@@ -115,6 +136,8 @@ describe("getUserProfile", () => {
     const uuid = "uuid";
     const access = "access";
 
-    await act(() => getUserProfile(uuid, access));
+    const response = await act(() => getUserProfile(uuid, access));
+
+    expect(response.status).toBe(400);
   });
 });

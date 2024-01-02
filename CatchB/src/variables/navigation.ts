@@ -54,6 +54,8 @@ export type MyPageStackParamList = {
   MyPageScreen: undefined;
   Login: undefined;
   SignUp: undefined;
+  Profile: undefined;
+  EditProfile: { title: string, detail: string };
 };
 export type MyPageStackScreenProps<T extends keyof MyPageStackParamList> =
   CompositeScreenProps<

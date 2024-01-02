@@ -8,7 +8,7 @@ interface ProfileBadgeProps {
   user: UserProfile | null;
 }
 
-export default function ProfileBadge(props: ProfileBadgeProps) {
+export default function AvatarHorizontal(props: ProfileBadgeProps) {
   return (
     <View style={styles.container}>
       <Avatar.Icon
@@ -17,10 +17,7 @@ export default function ProfileBadge(props: ProfileBadgeProps) {
         style={{ backgroundColor: themeColors.primary }}
       />
       <View style={styles.textBox}>
-        <Text
-          variant="titleMedium"
-          style={{ color: themeColors.tertiary }}
-        >
+        <Text variant="titleMedium" style={{ color: themeColors.tertiary }}>
           {props.user === null
             ? "로그인 후 편하게 서비스를 이용하세요!"
             : "일반 회원"}
