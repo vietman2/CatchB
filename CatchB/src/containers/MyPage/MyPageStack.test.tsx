@@ -30,7 +30,6 @@ jest.mock("../../components/Buttons/TextButton", () => "TextButton");
 jest.mock("../../components/Divider/VerticalDivider", () => "VerticalDivider");
 jest.mock("../../components/Avatar/AvatarImage", () => "AvatarImage");
 jest.mock("../../components/Buttons/IconButton", () => "IconButton");
-
 jest.mock("../../components/Logos/TopBar", () => ({
   leftTitle: () => "leftTitle",
   rightTitle: () => "rightTitle",
@@ -41,6 +40,24 @@ jest.mock("../../components/Avatar/AvatarHorizontal", () => {
 });
 
 const Tab = createBottomTabNavigator();
+
+const render = () => {
+  return renderWithProviders(
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="MyPage" component={MyPageContainer} />
+      </Tab.Navigator>
+    </NavigationContainer>,
+    {
+      preloadedState: {
+        auth: {
+          user: admin,
+          token: "token",
+        },
+      },
+    }
+  );
+}
 
 describe("<MyPageStack />", () => {
   it("renders correctly", () => {
@@ -54,21 +71,7 @@ describe("<MyPageStack />", () => {
   });
 
   it("navigates to <Profile /> then back", () => {
-    const { getByTestId, getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="MyPage" component={MyPageContainer} />
-        </Tab.Navigator>
-      </NavigationContainer>,
-      {
-        preloadedState: {
-          auth: {
-            user: admin,
-            token: "token",
-          },
-        },
-      }
-    );
+    const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByTestId("badge")));
     expect(getByText("닉네임")).toBeTruthy();
@@ -77,24 +80,24 @@ describe("<MyPageStack />", () => {
   });
 
   it("navigates to <Profile /> then <EditProfile /> then back", () => {
-    const { getByTestId, getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="MyPage" component={MyPageContainer} />
-        </Tab.Navigator>
-      </NavigationContainer>,
-      {
-        preloadedState: {
-          auth: {
-            user: admin,
-            token: "token",
-          },
-        },
-      }
-    );
+    const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByTestId("badge")));
     waitFor(() => fireEvent.press(getByText("닉네임")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+  });
+
+  it("navigates to <Coupons /> then back", () => {
+    const { getByTestId, getByText } = render();
+
+    waitFor(() => fireEvent.press(getByText("쿠폰함")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+  });
+
+  it("navigates to <Points /> then back", () => {
+    const { getByTestId, getByText } = render();
+
+    waitFor(() => fireEvent.press(getByText("포인트")));
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
 });
