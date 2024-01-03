@@ -7,7 +7,7 @@ import {
 } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import TabContainer from "./src/tabs/TabStack";
+import TabContainer from "./src/containers/Base/TabStack";
 import useFonts from "./src/hooks/useFonts";
 import { store } from "./src/store/store";
 import { themeColors } from "./src/variables/colors";
