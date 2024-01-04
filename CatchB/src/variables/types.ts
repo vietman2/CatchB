@@ -1,4 +1,4 @@
-import { ReservationStatus } from "./enums";
+import { ReservationStatus, CouponIssuerType, CouponStatus, CouponType } from "./enums";
 
 export type UserProfile = {
   uuid: string;
@@ -15,6 +15,37 @@ export type UserProfile = {
   register_route: string;
   user_type: string;
   profile_image?: string;
+}
+
+type CouponStatusKey = keyof typeof CouponStatus;
+type CouponTypeKey = keyof typeof CouponType;
+type CouponIssuerTypeKey = keyof typeof CouponIssuerType;
+
+export type CouponClass = {
+  code: string;
+  coupon_name: string;
+  coupon_description: string;
+  coupon_issuer_type: CouponIssuerTypeKey;
+  coupon_issuer: string;
+
+  issue_valid_days: number;
+  use_valid_days: number;
+  registered_at: string;
+
+  max_count: number;
+  current_count: number;
+
+  coupon_type: CouponTypeKey;
+  discount_value: number;
+}
+
+export type Coupon = {
+  user: string;
+  coupon_class: CouponClass;
+  issued_at: string;
+  status: CouponStatusKey;
+  valid_until: string;
+  used_at: string | null;
 }
 
 export type Todo = {

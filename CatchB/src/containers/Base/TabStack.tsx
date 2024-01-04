@@ -66,6 +66,9 @@ export default function TabContainer() {
   }, []);
 
   useEffect(() => {
+    if (!access) {
+      return;
+    }
     get("uuid").then(async (uuid) => {
       if (uuid) {
         const response = await getUserProfile(uuid, access);

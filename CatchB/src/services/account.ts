@@ -51,12 +51,15 @@ export async function renewToken(refresh: string) {
 }
 
 export async function getUserProfile(uuid: string, access: string) {
-  const url = `${API_LOCAL_URL}/api/users/${uuid}/`;
+  const url = `${API_LOCAL_URL}/api/users/`;
 
   try {
     const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${access}`,
+      },
+      params: {
+        uuid,
       },
     });
 
