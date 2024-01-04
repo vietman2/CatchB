@@ -12,6 +12,7 @@ import VerticalDivider from "../../components/Divider/VerticalDivider";
 import { themeColors } from "../../variables/colors";
 import { RootState } from "../../store/store";
 import { MyPageStackScreenProps } from "../../variables/navigation";
+import { sampleCoupons } from "../../variables/mvp_dummy_data/coupons";
 
 export default function MyPage() {
   const navigation =
@@ -27,7 +28,13 @@ export default function MyPage() {
   };
 
   const handleCouponPress = () => {
-    navigation.navigate("Coupons");
+    // TODO: replace this
+    if (user.user_type === "facility_owner") {
+      navigation.navigate("Coupons", { coupons: [] });
+    }
+    else {
+      navigation.navigate("Coupons", { coupons: sampleCoupons });
+    }
   };
 
   const handlePointPress = () => {
