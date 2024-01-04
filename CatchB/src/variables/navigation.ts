@@ -1,5 +1,6 @@
 import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
+import { Coupon } from "./types";
 
 export type RootTabParamList = {
   Home: undefined;
@@ -56,7 +57,7 @@ export type MyPageStackParamList = {
   SignUp: undefined;
   Profile: undefined;
   EditProfile: { title: string, detail: string };
-  Coupons: undefined;
+  Coupons: { coupons: Coupon[] };
   Points: undefined;
 };
 export type MyPageStackScreenProps<T extends keyof MyPageStackParamList> =
