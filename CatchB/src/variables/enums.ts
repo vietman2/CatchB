@@ -1,12 +1,20 @@
 const CouponStatus = {
-    ACTIVE: { value: 'ACTIVE', label: '사용 가능' },
-    USED: { value: 'USED', label: '사용 완료' },
-    EXPIRED: { value: 'EXPIRED', label: '기한 만료' },
+    ACTIVE: { value: 'ACT', label: '사용 가능' },
+    USED: { value: 'USE', label: '사용 완료' },
+    EXPIRED: { value: 'EXP', label: '기한 만료' },
 }
 
 const CouponType = {
-    AMOUNT: { value: 'AMOUNT', label: '금액 할인' },
-    PERCENTAGE: { value: 'PERCENTAGE', label: '비율 할인' },
+    AMOUNT: { value: 'AMNT', label: '금액 할인' },
+    PERCENTAGE: { value: 'PCNT', label: '비율 할인' },
+    FREE: { value: 'FREE', label: '무료' },
+}
+
+const CouponIssuerType = {
+    CATCH_B: { value: 'CAT', label: '캐치비' },
+    FACILITY: { value: 'FAC', label: '시설' },
+    COACH: { value: 'COA', label: '코치' },
+    NULL: { value: 'NULL', label: '없음' },
 }
 
 const PointStatus = {
@@ -93,6 +101,7 @@ const ReservationStatus = {
 export {
     CouponStatus,
     CouponType,
+    CouponIssuerType,
     PointStatus,
     UserType,
     ExperienceTier,
