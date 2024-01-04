@@ -85,6 +85,20 @@ const components = () => {
             headerTitle: "",
           }}
         />
+        <Stack.Screen
+          name="Coupons"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="Points"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

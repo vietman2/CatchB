@@ -24,9 +24,11 @@ export default function TabButton({ title, detail, onPress, paddingVertical }: P
 
 const styles = StyleSheet.create({
   tab: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 5,
     flexDirection: "row",
     justifyContent: "space-between",
+    marginLeft: 10,
+    paddingLeft: 10,
   },
   tabRight: {
     flexDirection: "row",

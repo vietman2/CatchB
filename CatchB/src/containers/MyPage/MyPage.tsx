@@ -26,16 +26,31 @@ export default function MyPage() {
     }
   };
 
+  const handleCouponPress = () => {
+    navigation.navigate("Coupons");
+  };
+
+  const handlePointPress = () => {
+    navigation.navigate("Points");
+  };
+
   return (
     <>
       <ScrollView>
         <View style={styles.container}>
-          <TouchableRipple onPress={handleBadgePress} testID="avatar-horizontal">
+          <TouchableRipple
+            onPress={handleBadgePress}
+            testID="avatar-horizontal"
+          >
             <AvatarHorizontal user={user} />
           </TouchableRipple>
           <View style={styles.mainOptions}>
             <View
-              style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 10 }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                marginBottom: 10,
+              }}
             >
               <IconButton icon="bookmark" title="즐겨찾기" />
               <VerticalDivider />
@@ -45,14 +60,22 @@ export default function MyPage() {
             </View>
             <Divider />
             <View
-              style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 10 }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                marginTop: 10,
+              }}
             >
               <View style={{ flex: 1 }}>
-                <TabButton title="쿠폰함" detail="n장" />
+                <TabButton
+                  title="쿠폰함"
+                  detail="x 장"
+                  onPress={handleCouponPress}
+                />
               </View>
               <VerticalDivider />
               <View style={{ flex: 1 }}>
-                <TabButton title="포인트" detail="n장" />
+                <TabButton title="포인트" detail="y p" onPress={handlePointPress} />
               </View>
             </View>
           </View>
