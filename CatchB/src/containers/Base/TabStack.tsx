@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import { get } from "../../store/secure";
 import { getUserProfile, renewToken } from "../../services/account";
 import { setUserProfile, setNewToken } from "../../store/slices/authSlice";
+import LoginDialog from "../../components/Dialogs/LoginDialog";
 
 /**
  * TabContainer
@@ -27,7 +28,10 @@ import { setUserProfile, setNewToken } from "../../store/slices/authSlice";
 const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
 export default function TabContainer() {
-  const [visible, setVisible] = useState(false);
+  const [switchModeVisible, setSwitchModeVisible] = useState(false);
+  const [loginVisible, setLoginVisible] = useState(false);
+  const [loginTitle, setLoginTitle] = useState("");
+  const [loginContents, setLoginContents] = useState("");
   const mode = useSelector((state: RootState) => state.mode.mode);
   const user = useSelector((state: RootState) => state.auth.user);
   const access = useSelector((state: RootState) => state.auth.token);
@@ -42,6 +46,21 @@ export default function TabContainer() {
         if (response.status === 200) {
           dispatch(setNewToken(response.data.access));
         }
+        else {
+          setLoginVisible(true);
+          setLoginTitle("다시 로그인하기.");
+          setLoginContents("마지막 로그인 후 30일이 지났습니다. 다시 로그인해주세요.");
+        }
+      }
+      else {
+        // 토큰이 없다는 것은 둘중 하나
+        // 1. 로그인을 한 적이 없다.
+        // 2. 로그아웃을 했다.
+
+        // TODO: 로그인을 한 적이 없으면 계정을 만들어보라고 알림 띄우기
+        setLoginVisible(true);
+        setLoginTitle("로그인이 필요합니다.");
+        setLoginContents("더 많은 서비스를 이용하려면 로그인을 해주세요.");
       }
     });
   }, []);
@@ -59,17 +78,18 @@ export default function TabContainer() {
   }, [access])
 
   const handleLongPress = () => {
-    setVisible(true);
+    setSwitchModeVisible(true);
   };
 
   const navigate = (screen: "basic" | "pro") => {
-    setVisible(false);
+    setSwitchModeVisible(false);
     dispatch(setMode(screen));
     navigation.navigate("Home");
   };
 
   const onClose = () => {
-    setVisible(false);
+    setSwitchModeVisible(false);
+    setLoginVisible(false);
   };
 
   return (
@@ -167,11 +187,17 @@ export default function TabContainer() {
         />
       </Tab.Navigator>
       <SwitchModeDialog
-        visible={visible}
+        visible={switchModeVisible}
         currentMode={mode}
         user={user}
         onClose={onClose}
         setMode={navigate}
+      />
+      <LoginDialog
+        visible={loginVisible}
+        title={loginTitle}
+        contents={loginContents}
+        onClose={onClose}
       />
     </>
   );
