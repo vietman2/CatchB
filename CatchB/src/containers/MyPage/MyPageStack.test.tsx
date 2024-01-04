@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import MyPageContainer from "./MyPageStack";
 import { renderWithProviders } from "../../utils/test-utils";
-import { admin } from "../../variables/mvp_dummy_data/user";
+import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -38,6 +38,9 @@ jest.mock("../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
 });
+jest.mock("expo-linear-gradient", () => ({
+  LinearGradient: "LinearGradient",
+}));
 
 const Tab = createBottomTabNavigator();
 
@@ -57,7 +60,7 @@ const render = () => {
       },
     }
   );
-}
+};
 
 describe("<MyPageStack />", () => {
   it("renders correctly", () => {
@@ -92,6 +95,27 @@ describe("<MyPageStack />", () => {
 
     waitFor(() => fireEvent.press(getByText("쿠폰함")));
     waitFor(() => fireEvent.press(getByTestId("back")));
+  });
+
+  it("navigates to Coupon screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="MyPage" component={MyPageContainer} />
+        </Tab.Navigator>
+      </NavigationContainer>,
+      {
+        preloadedState: {
+          auth: {
+            user: exampleUser,
+            token: "token",
+          },
+        },
+      }
+    );
+    waitFor(() => {
+      fireEvent.press(getByText("쿠폰함"));
+    });
   });
 
   it("navigates to <Points /> then back", () => {

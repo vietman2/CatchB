@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import MyPage from "./MyPage";
 import { renderWithProviders } from "../../utils/test-utils";
-import { admin } from "../../variables/mvp_dummy_data/user";
+import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -122,6 +122,15 @@ describe("<MyPage />", () => {
     });
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
+    });
+  });
+
+  it("navigates to Coupon screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: { auth: { user: exampleUser, token: "" } },
+    });
+    waitFor(() => {
+      fireEvent.press(getByText("쿠폰함"));
     });
   });
 
