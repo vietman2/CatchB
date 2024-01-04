@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
+import { Coupon as CouponType } from "../../../variables/types";
 
 export default function Coupons() {
   const route = useRoute<MyPageStackScreenProps<"Coupons">["route"]>();
@@ -28,7 +29,7 @@ export default function Coupons() {
     );
   };
 
-  const Coupon = ({ coupon }) => {
+  const Coupon = ({ coupon }: { coupon: CouponType }) => {
     return (
       <View style={styles.coupon}>
         <LinearGradient
