@@ -9,7 +9,7 @@ import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import UserProfile from "./Profile/UserProfile";
 import EditProfile from "./Profile/EditProfile";
-import Coupons from "./Coupon/Coupons";
+import CouponList from "./Coupon/CouponList";
 import BackButton from "../../components/Buttons/BackButton";
 import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
 import { MyPageStackParamList } from "../../variables/navigation";
@@ -97,8 +97,8 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
         }}
       />
       <MyPageStack.Screen
-        name="Coupons"
-        component={Coupons}
+        name="CouponList"
+        component={CouponList}
         options={{
           headerLeft: () => {
             return (
