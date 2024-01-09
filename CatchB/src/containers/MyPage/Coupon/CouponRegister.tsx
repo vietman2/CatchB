@@ -7,10 +7,10 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { Button, TextInput, Text } from "react-native-paper";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { registerCoupon, checkStatus } from "../../../services/coupon";
-import { AppDispatch, RootState } from "../../../store/store";
+import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 
 export default function CouponRegister() {
@@ -18,11 +18,11 @@ export default function CouponRegister() {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const access = useSelector((state: RootState) => state.auth.token);
-  const dispatch = useDispatch<AppDispatch>();
+  //const dispatch = useDispatch<AppDispatch>();
 
   const handleCodeInput = (text: string) => {
-    let cleaned = text.replace(/[^a-zA-Z0-9]/g, "");
-    let chunks = cleaned.match(/.{1,4}/g) || [];
+    const cleaned = text.replace(/[^a-zA-Z0-9]/g, "");
+    const chunks = cleaned.match(/.{1,4}/g) || [];
     let formatted = chunks.join("-");
 
     formatted = formatted.toUpperCase();

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { fireEvent } from "@testing-library/react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
