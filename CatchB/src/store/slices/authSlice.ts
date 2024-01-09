@@ -1,16 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { Coupon, UserProfile } from "../../variables/types";
+import { UserProfile } from "../../variables/types";
 import { save, remove } from "../secure";
 
 const initialState: {
   token: string;
   user: UserProfile | null;
-  coupons: Coupon[];
 } = {
   token: "",
   user: null,
-  coupons: [],
 };
 
 export const login = createAsyncThunk(
