@@ -82,6 +82,7 @@ export default function CouponRegister() {
             style={styles.button}
             labelStyle={styles.buttonText}
             loading={loading}
+            testID="coupon-register-button"
           >
             {loading ? null : "쿠폰 등록"}
           </Button>

@@ -11,7 +11,7 @@ import { RootState } from "../../../store/store";
 
 export default function CouponList() {
   const navigation = useNavigation<MyPageStackScreenProps<"CouponList">["navigation"]>();
-  const coupons = useSelector((state: RootState) => state.auth.coupons);
+  const coupons = useSelector((state: RootState) => state.coupon.coupons);
 
   const NoCoupon = () => {
     return (
