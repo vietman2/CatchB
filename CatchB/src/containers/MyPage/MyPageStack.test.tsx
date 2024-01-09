@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MyPageContainer from "./MyPageStack";
 import { renderWithProviders } from "../../utils/test-utils";
 import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
+import { sampleCoupons } from "../../variables/mvp_dummy_data/coupons";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -94,6 +95,8 @@ describe("<MyPageStack />", () => {
     const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByText("쿠폰함")));
+    waitFor(() => fireEvent.press(getByText("+ 쿠폰등록")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
@@ -109,6 +112,10 @@ describe("<MyPageStack />", () => {
           auth: {
             user: exampleUser,
             token: "token",
+          },
+          coupon: {
+            coupons: sampleCoupons,
+            selectedCoupon: null,
           },
         },
       }

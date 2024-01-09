@@ -29,11 +29,11 @@ export default function MyPage() {
 
   const handleCouponPress = () => {
     // TODO: replace this
-    if (user.user_type === "facility_owner") {
-      navigation.navigate("Coupons", { coupons: [] });
+    if (!user) {
+      navigation.navigate("Login");
     }
     else {
-      navigation.navigate("Coupons", { coupons: sampleCoupons });
+      navigation.navigate("CouponList");
     }
   };
 
