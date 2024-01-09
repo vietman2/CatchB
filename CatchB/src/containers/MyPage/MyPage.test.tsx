@@ -86,7 +86,7 @@ const components = () => {
           }}
         />
         <Stack.Screen
-          name="Coupons"
+          name="CouponList"
           component={MyPage}
           options={{
             headerTitle: "",
