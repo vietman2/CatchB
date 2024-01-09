@@ -1,15 +1,17 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { Icon, Text } from "react-native-paper";
-import { useRoute } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 import { Coupon as CouponType } from "../../../variables/types";
+import { RootState } from "../../../store/store";
 
 export default function CouponList() {
-  const route = useRoute<MyPageStackScreenProps<"CouponList">["route"]>();
-  const { coupons } = route.params;
+  const navigation = useNavigation<MyPageStackScreenProps<"CouponList">["navigation"]>();
+  const coupons = useSelector((state: RootState) => state.auth.coupons);
 
   const NoCoupon = () => {
     return (
@@ -59,11 +61,21 @@ export default function CouponList() {
     );
   };
 
+  const getNumberCoupons = () => {
+    return coupons.length;
+  };
+
+  const handleCouponRegister = () => {
+    navigation.navigate("CouponRegister");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
-        <Text variant="titleMedium">사용가능쿠폰 n장</Text>
-        <Text variant="titleMedium">+ 쿠폰등록</Text>
+        <Text variant="titleMedium">사용가능쿠폰 {getNumberCoupons()}장</Text>
+        <TouchableOpacity onPress={handleCouponRegister}>
+          <Text variant="titleMedium">+ 쿠폰등록</Text>
+        </TouchableOpacity>
       </View>
       {coupons.length === 0 ? (
         <NoCoupon />

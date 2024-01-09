@@ -58,6 +58,7 @@ export type MyPageStackParamList = {
   Profile: undefined;
   EditProfile: { title: string, detail: string };
   CouponList: { coupons: Coupon[] };
+  CouponRegister: undefined;
   Points: undefined;
 };
 export type MyPageStackScreenProps<T extends keyof MyPageStackParamList> =

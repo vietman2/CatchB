@@ -32,11 +32,8 @@ export default function MyPage() {
     if (!user) {
       navigation.navigate("Login");
     }
-    else if (user.user_type === "facility_owner") {
-      navigation.navigate("Coupons", { coupons: [] });
-    }
     else {
-      navigation.navigate("Coupons", { coupons: sampleCoupons });
+      navigation.navigate("CouponList");
     }
   };
 

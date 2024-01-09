@@ -10,6 +10,7 @@ import SignUp from "./SignUp/SignUp";
 import UserProfile from "./Profile/UserProfile";
 import EditProfile from "./Profile/EditProfile";
 import CouponList from "./Coupon/CouponList";
+import CouponRegister from "./Coupon/CouponRegister";
 import BackButton from "../../components/Buttons/BackButton";
 import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
 import { MyPageStackParamList } from "../../variables/navigation";
@@ -109,6 +110,28 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
             return (
               <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
                 쿠폰함
+              </Text>
+            );
+          },
+          headerRight: () => {
+            return null;
+          },
+          headerTitleAlign: "center",
+        }}
+      />
+      <MyPageStack.Screen
+        name="CouponRegister"
+        component={CouponRegister}
+        options={{
+          headerLeft: () => {
+            return (
+              <BackButton onPress={() => navigation.navigate("CouponList")} />
+            );
+          },
+          headerTitle: () => {
+            return (
+              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
+                쿠폰 등록
               </Text>
             );
           },
