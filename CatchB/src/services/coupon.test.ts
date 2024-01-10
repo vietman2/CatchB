@@ -1,7 +1,54 @@
 import axios from "axios";
 import { act } from "@testing-library/react-native";
 
-import { registerCoupon, checkStatus } from "./coupon";
+import { getCouponList, registerCoupon, checkStatus } from "./coupon";
+
+describe("getCouponList", () => {
+  it("should successfully get coupon list", async () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: { coupon_list: [] },
+      })
+    );
+
+    const access = "access";
+
+    const response = await act(() => getCouponList(access));
+
+    expect(response.status).toBe(200);
+    expect(response.data.coupon_list).toStrictEqual([]);
+  });
+
+  it("should fail to get coupon list", async () => {
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    const access = "access";
+
+    await act(() => getCouponList(access));
+  });
+
+  it("should fail to get coupon list", async () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.reject({
+        response: {
+          status: 400,
+          data: {
+            detail: "토큰이 만료되었습니다.",
+          },
+        },
+      })
+    );
+
+    const access = "access";
+
+    const response = await act(() => getCouponList(access));
+
+    expect(response.status).toBe(400);
+  });
+});
 
 describe("registerCoupon", () => {
   it("should successfully register coupon", async () => {
