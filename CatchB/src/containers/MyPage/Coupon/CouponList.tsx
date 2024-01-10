@@ -31,8 +31,13 @@ export default function CouponList() {
   useEffect(() => {
     const getCoupons = async () => {
       const response = await getCouponList(token);
-      dispatch(setCouponListState(response.data));
-      setLoading(false);
+      if (response.status === 200) {
+        dispatch(setCouponListState(response.data));
+        setLoading(false);
+      }
+      else {
+        console.log("error");
+      }
     };
     getCoupons();
   }, []);
@@ -46,7 +51,11 @@ export default function CouponList() {
         </TouchableOpacity>
       </View>
       {loading ? (
-        <ActivityIndicator size={"large"} color={themeColors.primary} style={{ flex: 1, marginBottom: 30 }} />
+        <ActivityIndicator
+          size={"large"}
+          color={themeColors.primary}
+          style={{ flex: 1, marginBottom: 30 }}
+        />
       ) : coupons.length === 0 ? (
         <NoCoupon />
       ) : (

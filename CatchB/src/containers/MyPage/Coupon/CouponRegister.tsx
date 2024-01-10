@@ -6,7 +6,7 @@ import {
   View,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Button, TextInput, Text } from "react-native-paper";
+import { Button, TextInput, Text, ActivityIndicator } from "react-native-paper";
 import { useSelector } from "react-redux";
 
 import { registerCoupon, checkStatus } from "../../../services/coupon";
@@ -38,7 +38,6 @@ export default function CouponRegister() {
 
     if (response.status === 202) {
       setError("");
-      //setCode("");
 
       const taskId = response.data.task_id;
 
@@ -76,16 +75,19 @@ export default function CouponRegister() {
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
           </View>
 
-          <Button
-            onPress={handleRegister}
-            mode="contained-tonal"
-            style={styles.button}
-            labelStyle={styles.buttonText}
-            loading={loading}
-            testID="coupon-register-button"
-          >
-            {loading ? null : "쿠폰 등록"}
-          </Button>
+          {loading ? (
+            <ActivityIndicator size="small" color={themeColors.primary} />
+          ) : (
+            <Button
+              onPress={handleRegister}
+              mode="contained-tonal"
+              style={styles.button}
+              labelStyle={styles.buttonText}
+              testID="coupon-register-button"
+            >
+              쿠폰 등록
+            </Button>
+          )}
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

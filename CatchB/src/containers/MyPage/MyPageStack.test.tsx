@@ -1,3 +1,4 @@
+import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -22,6 +23,7 @@ jest.mock("react-native-paper", () => {
     IconButton: "IconButton",
     Button: "Button",
     Snackbar: "Snackbar",
+    ActivityIndicator: "ActivityIndicator",
   };
 });
 jest.mock("./Login/Login", () => "Login");
@@ -92,6 +94,14 @@ describe("<MyPageStack />", () => {
   });
 
   it("navigates to <Coupons /> then back", () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          sampleCoupons,
+        },
+      })
+    );
     const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByText("쿠폰함")));
@@ -101,6 +111,12 @@ describe("<MyPageStack />", () => {
   });
 
   it("navigates to Coupon screen when user is logged in", () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: [],
+      })
+    );
     const { getByText } = renderWithProviders(
       <NavigationContainer>
         <Tab.Navigator>
@@ -114,7 +130,7 @@ describe("<MyPageStack />", () => {
             token: "token",
           },
           coupon: {
-            coupons: sampleCoupons,
+            coupons: [],
             selectedCoupon: null,
           },
         },
