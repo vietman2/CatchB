@@ -3,7 +3,6 @@ import { render } from "@testing-library/react-native";
 import AvailableCoupon from "./AvailableCoupon";
 import MyCoupon from "./MyCoupon";
 import NoCoupon from "./NoCoupon";
-import { renderWithProviders } from "../../utils/test-utils";
 import { sampleCoupons } from "../../variables/mvp_dummy_data/coupons";
 
 jest.mock("expo-linear-gradient", () => {

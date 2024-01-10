@@ -31,17 +31,6 @@ const CouponListComponents = () => {
   );
 };
 
-const CouponRegisterComponents = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="CouponRegister" component={CouponRegister} />
-        <Stack.Screen name="CouponList" component={CouponRegister} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
-
 describe("<CouponList />", () => {
   it("loads coupons correctly", async () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
