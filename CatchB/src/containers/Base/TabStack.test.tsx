@@ -1,3 +1,4 @@
+import axios from "axios";
 import { NavigationContainer } from "@react-navigation/native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
@@ -24,6 +25,22 @@ jest.spyOn(SecureStore, "get").mockImplementation((key) => {
     return Promise.resolve("uuid");
   } else return Promise.reject();
 });
+jest.spyOn(axios, "get").mockImplementation(() =>
+  Promise.resolve({
+    status: 200,
+    data: {
+      access: "access",
+    },
+  })
+);
+jest.spyOn(axios, "post").mockImplementation(() =>
+  Promise.resolve({
+    status: 200,
+    data: {
+      access: "access",
+    },
+  })
+);
 
 const render = () => {
   return renderWithProviders(
@@ -34,10 +51,6 @@ const render = () => {
 }
 
 describe("<TabContainer />", () => {
-  it("renders all tabs with correct properties", () => {
-    render();
-  });
-
   it("handles long press: successfully change mode", () => {
     const { getAllByTestId, getByText } = renderWithProviders(
       <NavigationContainer>

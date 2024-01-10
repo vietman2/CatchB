@@ -1,3 +1,4 @@
+import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -5,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MyPageContainer from "./MyPageStack";
 import { renderWithProviders } from "../../utils/test-utils";
 import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
+import { sampleCoupons } from "../../variables/mvp_dummy_data/coupons";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -21,6 +23,7 @@ jest.mock("react-native-paper", () => {
     IconButton: "IconButton",
     Button: "Button",
     Snackbar: "Snackbar",
+    ActivityIndicator: "ActivityIndicator",
   };
 });
 jest.mock("./Login/Login", () => "Login");
@@ -91,13 +94,29 @@ describe("<MyPageStack />", () => {
   });
 
   it("navigates to <Coupons /> then back", () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          sampleCoupons,
+        },
+      })
+    );
     const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByText("쿠폰함")));
+    waitFor(() => fireEvent.press(getByText("+ 쿠폰등록")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
   it("navigates to Coupon screen when user is logged in", () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: [],
+      })
+    );
     const { getByText } = renderWithProviders(
       <NavigationContainer>
         <Tab.Navigator>
@@ -109,6 +128,10 @@ describe("<MyPageStack />", () => {
           auth: {
             user: exampleUser,
             token: "token",
+          },
+          coupon: {
+            coupons: [],
+            selectedCoupon: null,
           },
         },
       }

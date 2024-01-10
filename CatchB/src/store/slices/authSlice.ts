@@ -32,7 +32,6 @@ export const setNewToken = createAsyncThunk(
 export const setUserProfile = createAsyncThunk(
   "auth/getUserProfile",
   async (data: UserProfile ) => {
-
     return data;
   }
 );
