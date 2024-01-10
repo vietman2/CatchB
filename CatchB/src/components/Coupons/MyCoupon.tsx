@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { Text, Icon } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Coupon as CouponType } from "../../variables/types";

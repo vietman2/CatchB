@@ -2,13 +2,7 @@ import { View, StyleSheet } from "react-native";
 import { Text, Icon } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { Coupon as CouponType } from "../../variables/types";
-
-interface Props {
-  coupon: CouponType;
-}
-
-export default function AvailableCoupon({ coupon }: Props) {
+export default function AvailableCoupon() {
   return (
     <View style={styles.coupon}>
       <LinearGradient
@@ -19,16 +13,7 @@ export default function AvailableCoupon({ coupon }: Props) {
         locations={[0.4, 0.9]}
       >
         <View style={styles.couponInfo}>
-          <Text
-            variant="headlineMedium"
-            style={{ fontFamily: "Catch B ExtraBold", marginBottom: 5 }}
-          >
-            {coupon.coupon_class.coupon_name}
-          </Text>
-          <Text variant="bodyLarge">
-            {coupon.coupon_class.coupon_description}
-          </Text>
-          <Text variant="bodySmall">만료기한 {coupon.valid_until}</Text>
+          <Text variant="headlineMedium">다운 가능한 쿠폰</Text>
         </View>
         <View style={styles.download}>
           <Icon source="tray-arrow-down" size={32} />
