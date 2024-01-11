@@ -19,7 +19,19 @@ export default function Points() {
   const dispatch = useDispatch<AppDispatch>();
 
   const formatTotal = () => {
-    return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // format to 1,000,000 without using regex
+    const totalString = total.toString();
+    const totalLength = totalString.length;
+    let formattedTotal = "";
+
+    for (let i = 0; i < totalLength; i++) {
+      formattedTotal += totalString[i];
+      if ((totalLength - i - 1) % 3 === 0 && i !== totalLength - 1) {
+        formattedTotal += ",";
+      }
+    }
+
+    return formattedTotal;
   };
 
   useEffect(() => {
