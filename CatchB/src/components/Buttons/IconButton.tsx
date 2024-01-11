@@ -19,5 +19,6 @@ export default function IconButton({ icon, title }: Props) {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    marginVertical: 5,
   },
 });

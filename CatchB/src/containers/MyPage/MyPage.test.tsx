@@ -11,26 +11,26 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
   return {
     PaperProvider: Provider,
     Divider: "Divider",
     Text: "Text",
     TouchableRipple: "TouchableRipple",
+    Button: ({ onPress, children }: any) => (
+      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
   };
 });
 jest.mock("../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
 });
-jest.mock("../../components/Buttons/TextButton", () => {
-  const { Text, TouchableOpacity } = jest.requireActual("react-native");
-  return ({ text, onPress }: any) => (
-    <TouchableOpacity onPress={onPress}>
-      <Text testID="text">{text}</Text>
-    </TouchableOpacity>
-  );
-});
 jest.mock("../../components/Buttons/FAB", () => "FABGroup");
+jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
 jest.mock("../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return ({ icon, title, onPress }: any) => (
@@ -139,9 +139,9 @@ describe("<MyPage />", () => {
     fireEvent.press(getByText("친구 초대하기"));
     fireEvent.press(getByText("레슨 코치 초대하기"));
     fireEvent.press(getByText("매장 정보 제보하기"));
-    fireEvent.press(getByText("결제수단"));
+    fireEvent.press(getByText("결제수단 관리"));
     fireEvent.press(getByText("1:1 문의"));
-    fireEvent.press(getByText("공지사항"));
+    fireEvent.press(getByText("..?"));
     fireEvent.press(getByText("자주 묻는 질문"));
     fireEvent.press(getByText("알림 맞춤 설정"));
   });

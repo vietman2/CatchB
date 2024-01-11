@@ -2,7 +2,6 @@ import { render, fireEvent } from "@testing-library/react-native";
 
 import BackButton from "./BackButton";
 import LoginButton from "./LoginButton";
-import TextButton from "./TextButton";
 import SurfaceButton from "./SurfaceButton";
 import SegmentedButtons from "./SegmentedButtons";
 import FABGroup from "./FAB";
@@ -38,24 +37,6 @@ describe("<LoginButton />", () => {
       <LoginButton text="Login" onPress={onPressMock} />
     );
     fireEvent.press(getByText("Login"));
-    expect(onPressMock).toHaveBeenCalled();
-  });
-});
-
-describe("<TextButton />", () => {
-  it("renders the button with the correct text", () => {
-    const { getByText } = render(
-      <TextButton text="Submit" onPress={() => {}} />
-    );
-    expect(getByText("Submit")).toBeTruthy();
-  });
-
-  it("calls onPress when the button is pressed", () => {
-    const onPressMock = jest.fn();
-    const { getByText } = render(
-      <TextButton text="Submit" onPress={onPressMock} />
-    );
-    fireEvent.press(getByText("Submit"));
     expect(onPressMock).toHaveBeenCalled();
   });
 });
