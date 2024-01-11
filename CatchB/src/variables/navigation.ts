@@ -60,6 +60,8 @@ export type MyPageStackParamList = {
   CouponList: { coupons: Coupon[] };
   CouponRegister: undefined;
   Points: undefined;
+  CoachRegister: undefined;
+  FacilityRegister: undefined;
 };
 export type MyPageStackScreenProps<T extends keyof MyPageStackParamList> =
   CompositeScreenProps<
