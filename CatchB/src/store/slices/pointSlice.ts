@@ -13,7 +13,6 @@ const initialState: {
 export const setPointsState = createAsyncThunk(
   "point/setPointsState",
   async (data: { total: number; details: Points[] }) => {
-    console.log(data)
     return data;
   }
 );
