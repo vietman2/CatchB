@@ -68,6 +68,7 @@ export default function CouponRegister() {
             onChangeText={(text) => handleCodeInput(text)}
             mode="outlined"
             showSoftInputOnFocus={true}
+            contextMenuHidden={true}
             placeholder="쿠폰 코드를 입력해주세요"
             testID="coupon-register-text-input"
           />

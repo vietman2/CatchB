@@ -12,7 +12,6 @@ import VerticalDivider from "../../components/Divider/VerticalDivider";
 import { themeColors } from "../../variables/colors";
 import { RootState } from "../../store/store";
 import { MyPageStackScreenProps } from "../../variables/navigation";
-import { sampleCoupons } from "../../variables/mvp_dummy_data/coupons";
 
 export default function MyPage() {
   const navigation =
@@ -31,8 +30,7 @@ export default function MyPage() {
     // TODO: replace this
     if (!user) {
       navigation.navigate("Login");
-    }
-    else {
+    } else {
       navigation.navigate("CouponList");
     }
   };
@@ -76,13 +74,17 @@ export default function MyPage() {
               <View style={{ flex: 1 }}>
                 <TabButton
                   title="쿠폰함"
-                  detail="x 장"
+                  detail={`${user === null ? 0 : user.num_coupons} 장`}
                   onPress={handleCouponPress}
                 />
               </View>
               <VerticalDivider />
               <View style={{ flex: 1 }}>
-                <TabButton title="포인트" detail="y p" onPress={handlePointPress} />
+                <TabButton
+                  title="포인트"
+                  detail={`${user === null ? 0 : user.total_points} P`}
+                  onPress={handlePointPress}
+                />
               </View>
             </View>
           </View>
