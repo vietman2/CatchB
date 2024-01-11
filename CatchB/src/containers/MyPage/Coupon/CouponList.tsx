@@ -4,8 +4,8 @@ import { ActivityIndicator, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import NoCoupon from "../../../components/Coupons/NoCoupon";
-import MyCoupon from "../../../components/Coupons/MyCoupon";
+import NoCoupon from "../../../components/CouponsDetail/NoCoupon";
+import MyCoupon from "../../../components/CouponsDetail/MyCoupon";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 import { getCouponList } from "../../../services/coupon";
