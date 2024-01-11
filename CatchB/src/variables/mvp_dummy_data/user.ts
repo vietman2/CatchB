@@ -12,6 +12,8 @@ export const admin: UserProfile = {
   experience_tier: "UNDEFINED",
   register_route: "UNDEFINED",
   user_type: "facility_owner",
+  num_coupons: 0,
+  total_points: "0",
 };
 
 export const exampleUser: UserProfile = {
@@ -26,4 +28,6 @@ export const exampleUser: UserProfile = {
   experience_tier: "UNDEFINED",
   register_route: "UNDEFINED",
   user_type: "normal_user",
+  num_coupons: 0,
+  total_points: "0",
 };
