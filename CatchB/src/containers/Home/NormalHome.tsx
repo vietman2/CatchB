@@ -1,10 +1,13 @@
 import { View, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
+import { Text, Button } from "react-native-paper";
 
-import TextButton from "../../components/Buttons/TextButton";
 import Welcome from "../../components/BottomSheets/Welcome";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 export default function NormalHome() {
+  const user = useSelector((state: RootState) => state.auth.user);
+
   return (
     <>
       <View style={styles.ads}>
@@ -13,11 +16,19 @@ export default function NormalHome() {
         </Text>
       </View>
       <View style={styles.docs}>
-        <TextButton text="개인정보 처리방침" onPress={() => {}} />
-        <TextButton text="이용약관" onPress={() => {}} />
-        <TextButton text="현재 버전 0.1.0" onPress={() => {}} />
+        <Button mode="text" onPress={() => {}} labelStyle={styles.labelText}>
+          개인정보 처리방침
+        </Button>
+
+        <Button mode="text" onPress={() => {}} labelStyle={styles.labelText}>
+          이용약관
+        </Button>
+
+        <Button mode="text" onPress={() => {}} labelStyle={styles.labelText}>
+          현재 버전 0.1.0
+        </Button>
       </View>
-      <Welcome />
+      <Welcome text={user === null ? "로그인좀해라" : "왔냐"} />
     </>
   );
 }
@@ -31,11 +42,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 15,
   },
-
   docs: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginVertical: 10,
+  },
+  labelText: {
+    fontSize: 18,
+    color: "black",
   },
 });
