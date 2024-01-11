@@ -1,25 +1,112 @@
-import { View, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
+import { useEffect, useState } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
+import { ActivityIndicator, Divider, Text } from "react-native-paper";
+import { useSelector, useDispatch } from "react-redux";
 
+import NoPoints from "../../../components/PointsDetail/NoPoints";
 import { themeColors } from "../../../variables/colors";
+import { getPointsList } from "../../../services/point";
+import { AppDispatch, RootState } from "../../../store/store";
+import PointsDetail from "../../../components/PointsDetail/PointsDetail";
+import { setPointsState } from "../../../store/slices/pointSlice";
 
 export default function Points() {
+  const [loading, setLoading] = useState(true);
+  const total = useSelector((state: RootState) => state.point.totalPoints);
+  const details = useSelector((state: RootState) => state.point.pointsDetails);
+  const user = useSelector((state: RootState) => state.auth.user);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const formatTotal = () => {
+    return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  useEffect(() => {
+    const fetchPointsList = async () => {
+      const response = await getPointsList(token, user.uuid);
+      setLoading(false);
+      dispatch(setPointsState(response.data));
+    };
+    fetchPointsList();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>포인트</Text>
-    </View>
+    <>
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <>
+          <View style={styles.container}>
+            <View style={styles.totalPoints}>
+              <Text variant="titleLarge" style={styles.title}>
+                보유포인트
+              </Text>
+              <Text variant="displaySmall" style={styles.total}>
+                {formatTotal()}P
+              </Text>
+            </View>
+            <View style={styles.upcomingExpire}>
+              <Text variant="bodyLarge" style={styles.title}>
+                15일 이내 소멸 예정 포인트
+              </Text>
+              <Text variant="bodyLarge" style={styles.title}>
+                0P
+              </Text>
+            </View>
+            <Divider />
+            <View style={styles.details}>
+              <Text variant="bodyLarge" style={styles.title}>
+                포인트 적립 내역
+              </Text>
+            </View>
+          </View>
+          {total > 0 ? (
+            <ScrollView style={styles.list}>
+              {details.map((detail, index) => {
+                return <PointsDetail key={index} detail={detail} />
+              })}
+            </ScrollView>
+          ) : (
+            <NoPoints />
+          )}
+        </>
+      )}
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: themeColors.primaryContainer,
   },
-  topBar: {
+  totalPoints: {
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  title: {
+    marginTop: 20,
+    fontWeight: "bold",
+  },
+  total: {
+    marginTop: 10,
+    fontWeight: "bold",
+    fontFamily: "Catch B Bold",
+    color: themeColors.primary,
+  },
+  upcomingExpire: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginHorizontal: 20,
+    marginBottom: 10,
+  },
+  details: {
+    marginHorizontal: 20,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  list: {
+    backgroundColor: themeColors.primaryContainer,
     paddingHorizontal: 20,
-    marginBottom: 80,
   },
 });
