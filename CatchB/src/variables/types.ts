@@ -104,3 +104,9 @@ export type DailySalesInfo = {
     sales: number;
   }[];
 };
+
+export type FacilityType = {
+  name: string;
+  location: string;
+  rating: number;
+};
