@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+import { requestForegroundPermissionsAsync } from "expo-location";
 
 import HomeContainer from "../Home/HomeStack";
-import NearbyScreen from "../Nearby/Nearby";
+import NearbyContainer from "../Nearby/NearbyStack";
 import CommunityContainer from "../Community/CommunityStack";
 import CalendarContainer from "../Calendar/CalendarStack";
 import MyPageContainer from "../MyPage/MyPageStack";
 import MyStoreContainer from "../MyStore/MyStoreStack";
 import SwitchModeDialog from "../../components/Dialogs/SwitchModeDialog";
-import { RootTabParamList, RootTabScreenProps } from "../../variables/navigation";
+import {
+  RootTabParamList,
+  RootTabScreenProps,
+} from "../../variables/navigation";
 import { themeColors } from "../../variables/colors";
 import { setMode } from "../../store/slices/modeSlice";
 import { AppDispatch, RootState } from "../../store/store";
@@ -32,27 +36,39 @@ export default function TabContainer() {
   const [loginVisible, setLoginVisible] = useState(false);
   const [loginTitle, setLoginTitle] = useState("");
   const [loginContents, setLoginContents] = useState("");
+  const [permission, setPermission] = useState(false);
   const mode = useSelector((state: RootState) => state.mode.mode);
   const user = useSelector((state: RootState) => state.auth.user);
   const access = useSelector((state: RootState) => state.auth.token);
   const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation<RootTabScreenProps<"Home">["navigation"]>();
 
+  const getPermission = async () => {
+    const { status } = await requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      alert("Permission to access location was denied");
+      return;
+    } else {
+      setPermission(true);
+    }
+  };
+
   useEffect(() => {
+    getPermission();
     get("refresh_token").then(async (token) => {
       if (token) {
         const response = await renewToken(token);
 
         if (response.status === 200) {
           dispatch(setNewToken(response.data.access));
-        }
-        else {
+        } else {
           setLoginVisible(true);
           setLoginTitle("다시 로그인하기.");
-          setLoginContents("마지막 로그인 후 30일이 지났습니다. 다시 로그인해주세요.");
+          setLoginContents(
+            "마지막 로그인 후 30일이 지났습니다. 다시 로그인해주세요."
+          );
         }
-      }
-      else {
+      } else {
         // 토큰이 없다는 것은 둘중 하나
         // 1. 로그인을 한 적이 없다.
         // 2. 로그아웃을 했다.
@@ -78,7 +94,7 @@ export default function TabContainer() {
         }
       }
     });
-  }, [access])
+  }, [access]);
 
   const handleLongPress = () => {
     setSwitchModeVisible(true);
@@ -117,7 +133,7 @@ export default function TabContainer() {
         {mode === "basic" ? (
           <Tab.Screen
             name="Nearby"
-            component={NearbyScreen}
+            component={NearbyContainer}
             options={{
               tabBarLabel: "내 주변",
               tabBarIcon: ({ color }) => (

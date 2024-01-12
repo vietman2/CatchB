@@ -1,6 +1,6 @@
 import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Coupon } from "./types";
+import { Coupon, FacilityType } from "./types";
 
 export type RootTabParamList = {
   Home: undefined;
@@ -20,6 +20,17 @@ export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
   CompositeScreenProps<
     StackScreenProps<HomeStackParamList, T>,
     RootTabScreenProps<"Home">
+  >;
+
+export type NearbyStackParamList = {
+  NearbyScreen: undefined;
+  FacilityDetail: undefined;
+};
+
+export type NearbyStackScreenProps<T extends keyof NearbyStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<NearbyStackParamList, T>,
+    RootTabScreenProps<"Nearby">
   >;
 
 export type MyStoreStackParamList = {
