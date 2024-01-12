@@ -1,6 +1,7 @@
 import axios from "axios";
 import { NavigationContainer } from "@react-navigation/native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
+import * as expoLocation from "expo-location";
 
 import TabContainer from "./TabStack";
 import { renderWithProviders } from "../../utils/test-utils";
@@ -41,6 +42,16 @@ jest.spyOn(axios, "post").mockImplementation(() =>
     },
   })
 );
+jest
+  .spyOn(expoLocation, "requestForegroundPermissionsAsync")
+  .mockImplementation(() => {
+    return Promise.resolve({
+      status: expoLocation.PermissionStatus.GRANTED,
+      expires: "never",
+      granted: true,
+      canAskAgain: true,
+    });
+  });
 
 const render = () => {
   return renderWithProviders(
@@ -48,11 +59,11 @@ const render = () => {
       <TabContainer />
     </NavigationContainer>
   );
-}
+};
 
 describe("<TabContainer />", () => {
-  it("handles long press: successfully change mode", () => {
-    const { getAllByTestId, getByText } = renderWithProviders(
+  it("handles long press: successfully change mode", async () => {
+    const { getAllByTestId, getByText } = await waitFor(() => renderWithProviders(
       <NavigationContainer>
         <TabContainer />
       </NavigationContainer>,
@@ -62,7 +73,7 @@ describe("<TabContainer />", () => {
           auth: { user: admin, token: "token" },
         },
       }
-    );
+    ));
     const tab = getAllByTestId("MyPageIcon")[0];
 
     waitFor(() => {
@@ -74,8 +85,8 @@ describe("<TabContainer />", () => {
     fireEvent.press(button);
   });
 
-  it("handles long press: change mode fail", () => {
-    const { getAllByTestId, getByText } = render();
+  it("handles long press: change mode fail", async () => {
+    const { getAllByTestId, getByText } = await waitFor(() => render());
     const tab = getAllByTestId("MyPageIcon")[0];
 
     waitFor(() => {
@@ -103,7 +114,7 @@ describe("<TabContainer />", () => {
       })
     );
 
-    waitFor(() => render());
+    await waitFor(() => render());
   });
 
   it("handles token renewal and auto login: fail", async () => {
@@ -122,7 +133,7 @@ describe("<TabContainer />", () => {
       })
     );
 
-    waitFor(() => render());
+    await waitFor(() => render());
   });
 
   it("handles token renewal and auto login: fail2", async () => {
@@ -135,6 +146,6 @@ describe("<TabContainer />", () => {
       })
     );
 
-    waitFor(() => render());
+    await waitFor(() => render());
   });
 });
