@@ -10,7 +10,7 @@ import { NearbyStackParamList } from "../../variables/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
-const NearbyStack = createStackNavigator<NearbyStackParamList>();
+const NearbyNavStack = createStackNavigator<NearbyStackParamList>();
 type NearbyNavigationProp = StackNavigationProp<
   NearbyStackParamList,
   "NearbyScreen"
@@ -19,21 +19,21 @@ interface NearbyProps {
   navigation: NearbyNavigationProp;
 }
 
-export default function NearbyContainer({ navigation }: NearbyProps) {
+export default function NearbyStack({ navigation }: NearbyProps) {
   const selectedFacility = useSelector(
     (store: RootState) => store.facility.selectedFacility
   );
 
   return (
-    <NearbyStack.Navigator
+    <NearbyNavStack.Navigator
       initialRouteName="NearbyScreen"
       screenOptions={{
         headerShown: false,
         headerShadowVisible: false,
       }}
     >
-      <NearbyStack.Screen name="NearbyScreen" component={Nearby} />
-      <NearbyStack.Screen
+      <NearbyNavStack.Screen name="NearbyScreen" component={Nearby} />
+      <NearbyNavStack.Screen
         name="FacilityDetail"
         component={FacilityDetail}
         options={{
@@ -47,6 +47,6 @@ export default function NearbyContainer({ navigation }: NearbyProps) {
           headerBackTitleVisible: false,
         }}
       />
-    </NearbyStack.Navigator>
+    </NearbyNavStack.Navigator>
   );
 }

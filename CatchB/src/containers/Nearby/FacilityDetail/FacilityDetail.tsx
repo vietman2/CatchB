@@ -26,7 +26,7 @@ export default function FacilityDetail() {
           <Text>{facility.rating}/10</Text>
         </View>
         <View style={styles.interactions}>
-          <TouchableOpacity onPress={() => setIsLiked(!isLiked)}>
+          <TouchableOpacity onPress={() => setIsLiked(!isLiked)} testID="like">
             <Icon
               source={isLiked ? "heart" : "heart-outline"}
               size={20}

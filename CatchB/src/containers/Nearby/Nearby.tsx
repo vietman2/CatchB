@@ -6,7 +6,7 @@ import { getCurrentPositionAsync } from "expo-location";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import FacilitySimple from "./FacilityDetail/FacilitySimple";
+import FacilitySimple from "../../components/Facility/FacilitySimple";
 import MapBottomSheet from "../../components/BottomSheets/MapBottomSheet";
 import { sampleFacilities } from "../../variables/mvp_dummy_data/facilities";
 import { FacilityType } from "../../variables/types";
