@@ -36,7 +36,6 @@ export default function TabContainer() {
   const [loginVisible, setLoginVisible] = useState(false);
   const [loginTitle, setLoginTitle] = useState("");
   const [loginContents, setLoginContents] = useState("");
-  const [permission, setPermission] = useState(false);
   const mode = useSelector((state: RootState) => state.mode.mode);
   const user = useSelector((state: RootState) => state.auth.user);
   const access = useSelector((state: RootState) => state.auth.token);
@@ -44,13 +43,7 @@ export default function TabContainer() {
   const navigation = useNavigation<RootTabScreenProps<"Home">["navigation"]>();
 
   const getPermission = async () => {
-    const { status } = await requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      console.log("Permission to access location was denied");
-      return;
-    } else {
-      setPermission(true);
-    }
+    await requestForegroundPermissionsAsync();
   };
 
   useEffect(() => {

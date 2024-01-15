@@ -18,7 +18,7 @@ import { setSelectedFacility } from "../../store/slices/facilitySlice";
 export default function Nearby() {
   const [searchQuery, setSearchQuery] = useState("");
   const [facilities, setFacilities] =
-    useState<FacilityType[]>(sampleFacilities);
+    useState<FacilityType[]>([]);
   const [region, setRegion] = useState({
     latitude: 37.541,
     longitude: 126.986,
@@ -45,6 +45,7 @@ export default function Nearby() {
 
   useEffect(() => {
     getLocation();
+    setFacilities(sampleFacilities);
   }, []);
 
   return (

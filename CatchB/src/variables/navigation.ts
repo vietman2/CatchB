@@ -1,6 +1,6 @@
 import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Coupon, FacilityType } from "./types";
+import { Coupon } from "./types";
 
 export type RootTabParamList = {
   Home: undefined;
