@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import {
-  Portal,
-  Modal,
-  Text,
-  Divider,
-  Dialog,
-  ActivityIndicator,
-  Chip,
-} from "react-native-paper";
+import { Portal, Text, Divider, Dialog, Chip } from "react-native-paper";
 
 import { getList } from "../../services/address";
 
@@ -31,17 +23,17 @@ export default function AreaPicker({ visible, onDismiss }: Props) {
   };
 
   const handleSigunguPress = (sigungu: string) => {
-    let name = '';
+    let name = "";
     if (selectedSido === "세종특별자치시") {
       name = "세종특별자치시";
     } else {
       name = selectedSido + " " + sigungu;
     }
-      if (selectedSigungu.includes(name)) {
-        setSelectedSigungu(selectedSigungu.filter((item) => item !== name));
-      } else {
-        setSelectedSigungu([...selectedSigungu, name]);
-      }
+    if (selectedSigungu.includes(name)) {
+      setSelectedSigungu(selectedSigungu.filter((item) => item !== name));
+    } else {
+      setSelectedSigungu([...selectedSigungu, name]);
+    }
   };
 
   useEffect(() => {

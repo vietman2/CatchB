@@ -6,9 +6,9 @@ import * as DocumentPicker from "expo-document-picker";
 
 import SingleCheck from "../../../components/Checkboxes/SingleCheck";
 import MultiCheck from "../../../components/Checkboxes/MultiCheck";
+import AreaPicker from "../../../components/Dialogs/AreaPicker";
 import { themeColors } from "../../../variables/colors";
 import { RootState } from "../../../store/store";
-import AreaPicker from "../../../components/Dialogs/AreaPicker";
 
 export default function CoachRegister() {
   const [visible, setVisible] = useState<boolean>(false);
