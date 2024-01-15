@@ -42,7 +42,6 @@ jest.mock("expo-document-picker", () => ({
 }));
 jest.mock("./Login/Login", () => "Login");
 jest.mock("./SignUp/SignUp", () => "SignUp");
-jest.mock("../../components/Buttons/FAB", () => "FABGroup");
 jest.mock("../../components/Divider/VerticalDivider", () => "VerticalDivider");
 jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
 jest.mock("../../components/Avatar/AvatarImage", () => "AvatarImage");

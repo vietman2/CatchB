@@ -29,7 +29,6 @@ jest.mock("../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
 });
-jest.mock("../../components/Buttons/FAB", () => "FABGroup");
 jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
 jest.mock("../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
