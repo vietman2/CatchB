@@ -109,4 +109,6 @@ export type FacilityType = {
   name: string;
   location: string;
   rating: number;
+  bulletPoints?: string[];
+  description: string;
 };
