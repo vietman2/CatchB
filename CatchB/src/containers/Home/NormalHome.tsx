@@ -19,16 +19,14 @@ export default function NormalHome() {
         <Button mode="text" onPress={() => {}} labelStyle={styles.labelText}>
           개인정보 처리방침
         </Button>
-
         <Button mode="text" onPress={() => {}} labelStyle={styles.labelText}>
           이용약관
         </Button>
-
         <Button mode="text" onPress={() => {}} labelStyle={styles.labelText}>
           현재 버전 0.1.0
         </Button>
       </View>
-      <Welcome text={user === null ? "로그인좀해라" : "왔냐"} />
+      <Welcome text={user === null ? "로그인좀해라" : "왔냐?"} />
     </>
   );
 }
