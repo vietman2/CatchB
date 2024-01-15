@@ -9,7 +9,11 @@ interface loginButtonProps {
   testID?: string;
 }
 
-export default function LoginButton({ text, onPress, testID }: loginButtonProps) {
+export default function LoginButton({
+  text,
+  onPress,
+  testID,
+}: loginButtonProps) {
   return (
     <TouchableRipple
       style={buttonStyles.button}
@@ -28,7 +32,7 @@ export default function LoginButton({ text, onPress, testID }: loginButtonProps)
       </Text>
     </TouchableRipple>
   );
-};
+}
 
 const buttonStyles = StyleSheet.create({
   button: {
@@ -40,4 +44,3 @@ const buttonStyles = StyleSheet.create({
     marginTop: 10,
   },
 });
-

@@ -17,13 +17,7 @@ export default function AvatarImage({ profileImage }: Props) {
       />
     );
   }
-  return (
-    <Avatar.Icon
-      size={64}
-      icon="account"
-      style={styles.avatar}
-    />
-  );
+  return <Avatar.Icon size={64} icon="account" style={styles.avatar} />;
 }
 
 const styles = StyleSheet.create({

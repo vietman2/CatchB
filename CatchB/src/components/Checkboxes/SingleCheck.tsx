@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { Chip } from "react-native-paper";
+
 import { themeColors } from "../../variables/colors";
 
 interface Props {
@@ -9,7 +10,6 @@ interface Props {
 }
 
 export default function SingleCheck({ options, selected, setSelected }: Props) {
-
   const isSelected = (option: string) => {
     return selected === option;
   };
@@ -27,7 +27,13 @@ export default function SingleCheck({ options, selected, setSelected }: Props) {
         {options.map((option, index) => (
           <Chip
             key={index}
-            style={{ marginRight: 10, marginBottom: 10, backgroundColor: isSelected(option) ? themeColors.primary : themeColors.tertiary }}
+            style={{
+              marginRight: 10,
+              marginBottom: 10,
+              backgroundColor: isSelected(option)
+                ? themeColors.primary
+                : themeColors.tertiary,
+            }}
             mode="flat"
             showSelectedCheck
             showSelectedOverlay

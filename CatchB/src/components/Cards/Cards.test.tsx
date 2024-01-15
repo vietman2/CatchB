@@ -5,18 +5,16 @@ import CardBox from "./CardBox";
 
 jest.mock("react-native-paper", () => {
   const { View, Text } = jest.requireActual("react-native");
-  
+
   const MockTitle = (props: any) => (
     <View testID="CardTitle">
       <Text>{props.title}</Text>
       {props.left && <View testID="icon">{props.left()}</View>}
     </View>
   );
-  
+
   const MockContent = (props: any) => (
-    <View testID="CardContent">
-      {props.children}
-    </View>
+    <View testID="CardContent">{props.children}</View>
   );
 
   const MockCard = (props: any) => (
@@ -31,12 +29,11 @@ jest.mock("react-native-paper", () => {
   return {
     ...jest.requireActual("react-native-paper"),
     Card: MockCard,
-    Icon: "Icon"
-  }
-})
+    Icon: "Icon",
+  };
+});
 
 describe("<SimpleCard />", () => {
-  
   it("renders the card with the correct title", () => {
     const { getByText } = render(
       <SimpleCard title="Card Title" icon="home">

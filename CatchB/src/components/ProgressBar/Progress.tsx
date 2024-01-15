@@ -1,7 +1,8 @@
 import { View, StyleSheet } from "react-native";
 import { Icon, Text } from "react-native-paper";
-import { themeColors } from "../../variables/colors";
 import { PieChart } from "react-native-gifted-charts";
+
+import { themeColors } from "../../variables/colors";
 
 interface Props {
   done: number;

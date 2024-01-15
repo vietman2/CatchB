@@ -15,7 +15,9 @@ describe("<FacilitySimple />", () => {
   });
 
   it("handles the like button correctly", () => {
-    const { getByTestId } = render(<FacilitySimple facility={sampleFacilities[0]} />);
+    const { getByTestId } = render(
+      <FacilitySimple facility={sampleFacilities[0]} />
+    );
 
     fireEvent.press(getByTestId("like-icon"));
   });

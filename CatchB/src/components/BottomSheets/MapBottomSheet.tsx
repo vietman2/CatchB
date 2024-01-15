@@ -10,11 +10,7 @@ export default function MapBottomSheet({ children }: Props) {
   const snapPoints = useMemo(() => ["3%", "70%"], []);
 
   return (
-    <BottomSheet
-      ref={bottomSheetRef}
-      index={0}
-      snapPoints={snapPoints}
-    >
+    <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
       {children}
     </BottomSheet>
   );
