@@ -46,10 +46,8 @@ jest.mock("../../components/Buttons/FAB", () => "FABGroup");
 jest.mock("../../components/Divider/VerticalDivider", () => "VerticalDivider");
 jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
 jest.mock("../../components/Avatar/AvatarImage", () => "AvatarImage");
-jest.mock("../../components/Buttons/IconButton", () => "IconButton");
 jest.mock("../../components/Logos/TopBar", () => ({
   leftTitle: () => "leftTitle",
-  rightTitle: () => "rightTitle",
 }));
 jest.mock("../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
@@ -79,16 +77,6 @@ const render = () => {
 };
 
 describe("<MyPageStack />", () => {
-  it("renders correctly", () => {
-    renderWithProviders(
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="MyPage" component={MyPageContainer} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    );
-  });
-
   it("navigates to <Profile /> then back", () => {
     const { getByTestId, getByText } = render();
 
@@ -123,7 +111,7 @@ describe("<MyPageStack />", () => {
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
-  it("navigates to Coupon screen when user is logged in", () => {
+  it("navigates to <Coupon /> when user is logged in", () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
         status: 400,
@@ -172,6 +160,29 @@ describe("<MyPageStack />", () => {
     const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByText("시설 등록하기")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+  });
+
+  it("navigates to <Payments /> then back", () => {
+    const { getByTestId, getByText } = render();
+
+    waitFor(() => fireEvent.press(getByText("결제수단 관리")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+  });
+
+  it("navigates to <FAQ /> then back", () => {
+    const { getByTestId, getByText } = render();
+
+    waitFor(() => fireEvent.press(getByText("자주 묻는 질문")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+  });
+
+  it("navigates to <Reviews /> then back", () => {
+    const { getByTestId, getByText } = render();
+
+
+
+    waitFor(() => fireEvent.press(getByText("리뷰")));
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
 });

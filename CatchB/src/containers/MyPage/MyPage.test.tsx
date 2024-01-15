@@ -113,6 +113,27 @@ const components = () => {
             headerTitle: "",
           }}
         />
+        <Stack.Screen
+          name="Payments"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="Reviews"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="FAQ"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -124,6 +145,8 @@ describe("<MyPage />", () => {
     waitFor(() => {
       fireEvent.press(getByText("쿠폰함"));
       fireEvent.press(getByText("포인트"));
+      fireEvent.press(getByText("결제수단 관리"));
+      fireEvent.press(getByText("리뷰"));
     });
   });
 
@@ -170,15 +193,42 @@ describe("<MyPage />", () => {
     });
   });
 
+  it("navigates to Payments screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: { auth: { user: admin, token: "" } },
+    });
+    waitFor(() => {
+      fireEvent.press(getByText("결제수단 관리"));
+    });
+  });
+
+  it("navigates to Reviews screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: { auth: { user: admin, token: "" } },
+    });
+    waitFor(() => {
+      fireEvent.press(getByText("리뷰"));
+    });
+  });
+
+  it("navigates to FAQ screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: { auth: { user: admin, token: "" } },
+    });
+    waitFor(() => {
+      fireEvent.press(getByText("자주 묻는 질문"));
+    });
+  });
+
   it("handles menu press", () => {
     const { getByText } = renderWithProviders(components());
     fireEvent.press(getByText("친구 초대하기"));
     fireEvent.press(getByText("레슨 코치 초대하기"));
     fireEvent.press(getByText("매장 정보 제보하기"));
-    fireEvent.press(getByText("결제수단 관리"));
     fireEvent.press(getByText("1:1 문의"));
     fireEvent.press(getByText("..?"));
-    fireEvent.press(getByText("자주 묻는 질문"));
     fireEvent.press(getByText("알림 맞춤 설정"));
+    fireEvent.press(getByText("즐겨찾기"));
+    fireEvent.press(getByText("최근 본"));
   });
 });
