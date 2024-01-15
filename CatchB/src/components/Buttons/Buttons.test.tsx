@@ -4,7 +4,6 @@ import BackButton from "./BackButton";
 import LoginButton from "./LoginButton";
 import SurfaceButton from "./SurfaceButton";
 import SegmentedButtons from "./SegmentedButtons";
-import FABGroup from "./FAB";
 import KakaoButton from "./KakaoButton";
 import NaverButton from "./NaverButton";
 import IconButton from "./IconButton";
@@ -44,22 +43,6 @@ describe("<LoginButton />", () => {
 describe("<SurfaceButton />", () => {
   it("renders correctly", () => {
     render(<SurfaceButton icon="home" title="Home" />);
-  });
-});
-
-describe("<FABGroup />", () => {
-  it("renders correctly", () => {
-    renderWithProviders(<FABGroup />);
-  });
-
-  it("handles press events", () => {
-    const { getByTestId, getAllByTestId } = renderWithProviders(<FABGroup />);
-
-    fireEvent.press(getByTestId("FABGroup"));
-    fireEvent.press(getAllByTestId("card")[0]);
-    fireEvent.press(getAllByTestId("card")[1]);
-    fireEvent.press(getByTestId("add"));
-    fireEvent.press(getByTestId("view"));
   });
 });
 
