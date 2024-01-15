@@ -13,6 +13,7 @@ export default function SingleCheck({ options, selected, setSelected }: Props) {
   const isSelected = (option: string) => {
     return selected === option;
   };
+
   const toggleSelected = (option: string) => {
     if (selected === option) {
       setSelected("");

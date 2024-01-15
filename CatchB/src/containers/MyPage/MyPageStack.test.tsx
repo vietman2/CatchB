@@ -77,30 +77,20 @@ const render = () => {
 };
 
 describe("<MyPageStack />", () => {
-  it("navigates to <Profile /> then back", () => {
-    const { getByTestId, getByText } = render();
-
-    waitFor(() => fireEvent.press(getByTestId("badge")));
-    expect(getByText("닉네임")).toBeTruthy();
-
-    waitFor(() => fireEvent.press(getByTestId("back")));
-  });
-
   it("navigates to <Profile /> then <EditProfile /> then back", () => {
     const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByTestId("badge")));
     waitFor(() => fireEvent.press(getByText("닉네임")));
     waitFor(() => fireEvent.press(getByTestId("back")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
-  it("navigates to <Coupons /> then back", () => {
+  it("navigates to <Coupons /> and <Points />", () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
-        status: 200,
-        data: {
-          sampleCoupons,
-        },
+        status: 400,
+        data: [],
       })
     );
     const { getByTestId, getByText } = render();
@@ -109,15 +99,21 @@ describe("<MyPageStack />", () => {
     waitFor(() => fireEvent.press(getByText("+ 쿠폰등록")));
     waitFor(() => fireEvent.press(getByTestId("back")));
     waitFor(() => fireEvent.press(getByTestId("back")));
+
+    waitFor(() => fireEvent.press(getByText("포인트")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
   it("navigates to <Coupon /> when user is logged in", () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
-        status: 400,
-        data: [],
+        status: 200,
+        data: {
+          sampleCoupons,
+        },
       })
     );
+
     const { getByText } = renderWithProviders(
       <NavigationContainer>
         <Tab.Navigator>
@@ -142,44 +138,23 @@ describe("<MyPageStack />", () => {
     });
   });
 
-  it("navigates to <Points /> then back", () => {
-    const { getByTestId, getByText } = render();
-
-    waitFor(() => fireEvent.press(getByText("포인트")));
-    waitFor(() => fireEvent.press(getByTestId("back")));
-  });
-
-  it("navigates to <CoachRegister /> then back", () => {
+  it("navigates to <CoachRegister /> and <FacilityRegister />", () => {
     const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByText("코치 등록하기")));
     waitFor(() => fireEvent.press(getByTestId("back")));
-  });
-
-  it("navigates to <FacilityRegister /> then back", () => {
-    const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByText("시설 등록하기")));
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
-  it("navigates to <Payments /> then back", () => {
+  it("navigates to <Payments />, <FAQ /> and <Reviews />", () => {
     const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByText("결제수단 관리")));
     waitFor(() => fireEvent.press(getByTestId("back")));
-  });
-
-  it("navigates to <FAQ /> then back", () => {
-    const { getByTestId, getByText } = render();
-
     waitFor(() => fireEvent.press(getByText("자주 묻는 질문")));
     waitFor(() => fireEvent.press(getByTestId("back")));
-  });
-
-  it("navigates to <Reviews /> then back", () => {
-    const { getByTestId, getByText } = render();
-
     waitFor(() => fireEvent.press(getByText("리뷰")));
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
