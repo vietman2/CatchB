@@ -52,11 +52,11 @@ export default function UserProfile({ navigation }: Props) {
         <View style={styles.tabs}>
           <Tab
             title="닉네임"
-            detail={user?.full_name || ""}
+            detail={user?.nickname || ""}
             onPress={() =>
               navigation.navigate("EditProfile", {
                 title: "닉네임",
-                detail: user?.full_name || "",
+                detail: user?.nickname || "",
               })
             }
             paddingVertical={15}
@@ -98,7 +98,11 @@ export default function UserProfile({ navigation }: Props) {
           <Text>회원탈퇴</Text>
         </TouchableOpacity>
       </View>
-      <Snackbar visible={visible} onDismiss={() => setVisible(false)} duration={2000}>
+      <Snackbar
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        duration={2000}
+      >
         {message}
       </Snackbar>
     </>
