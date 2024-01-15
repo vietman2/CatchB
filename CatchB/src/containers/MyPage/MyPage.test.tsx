@@ -91,65 +91,17 @@ describe("<MyPage />", () => {
     });
   });
 
-  it("navigates to Profile screen when user is logged in", () => {
-    const { getByTestId } = renderWithProviders(components(), {
+  it("navigates to all screens when user is logged in", () => {
+    const { getByTestId, getByText } = renderWithProviders(components(), {
       preloadedState: { auth: { user: admin, token: "" } },
     });
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
-    });
-  });
-
-  it("navigates to Coupon screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: exampleUser, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("쿠폰함"));
-    });
-  });
-
-  it("navigates to CoachRegister screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("코치 등록하기"));
-    });
-  });
-
-  it("navigates to FacilityRegister screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("시설 등록하기"));
-    });
-  });
-
-  it("navigates to Payments screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("결제수단 관리"));
-    });
-  });
-
-  it("navigates to Reviews screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("리뷰"));
-    });
-  });
-
-  it("navigates to FAQ screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("자주 묻는 질문"));
     });
   });
