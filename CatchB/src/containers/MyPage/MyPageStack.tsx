@@ -9,12 +9,14 @@ import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import UserProfile from "./Profile/UserProfile";
 import EditProfile from "./Profile/EditProfile";
+import Points from "./Point/Points";
 import CouponList from "./Coupon/CouponList";
 import CouponRegister from "./Coupon/CouponRegister";
+import CoachRegister from "./CoachRegister/CoachRegister";
+import FacilityRegister from "./FacilityRegister/FacilityRegister";
 import BackButton from "../../components/Buttons/BackButton";
-import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
+import { leftTitle } from "../../components/Logos/TopBar";
 import { MyPageStackParamList } from "../../variables/navigation";
-import Points from "./Point/Points";
 
 const MyPageStack = createStackNavigator<MyPageStackParamList>();
 type MyPageNavigationProp = StackNavigationProp<
@@ -30,11 +32,7 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
     <MyPageStack.Navigator
       initialRouteName="MyPageScreen"
       screenOptions={{
-        headerLeft: leftTitle,
-        headerTitle: () => {
-          return null;
-        },
-        headerRight: rightTitle,
+        headerTitle: leftTitle,
         headerShadowVisible: false,
       }}
     >
@@ -69,9 +67,6 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
               </Text>
             );
           },
-          headerRight: () => {
-            return null;
-          },
           headerTitleAlign: "center",
         }}
       />
@@ -90,9 +85,6 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
                 프로필 수정
               </Text>
             );
-          },
-          headerRight: () => {
-            return null;
           },
           headerTitleAlign: "center",
         }}
@@ -113,9 +105,6 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
               </Text>
             );
           },
-          headerRight: () => {
-            return null;
-          },
           headerTitleAlign: "center",
         }}
       />
@@ -134,9 +123,6 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
                 쿠폰 등록
               </Text>
             );
-          },
-          headerRight: () => {
-            return null;
           },
           headerTitleAlign: "center",
         }}
@@ -157,8 +143,43 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
               </Text>
             );
           },
-          headerRight: () => {
-            return null;
+          headerTitleAlign: "center",
+        }}
+      />
+      <MyPageStack.Screen
+        name="CoachRegister"
+        component={CoachRegister}
+        options={{
+          headerLeft: () => {
+            return (
+              <BackButton onPress={() => navigation.navigate("MyPageScreen")} />
+            );
+          },
+          headerTitle: () => {
+            return (
+              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
+                Catch B 레슨 코치 등록
+              </Text>
+            );
+          },
+          headerTitleAlign: "center",
+        }}
+      />
+      <MyPageStack.Screen
+        name="FacilityRegister"
+        component={FacilityRegister}
+        options={{
+          headerLeft: () => {
+            return (
+              <BackButton onPress={() => navigation.navigate("MyPageScreen")} />
+            );
+          },
+          headerTitle: () => {
+            return (
+              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
+                Catch B 시설 등록
+              </Text>
+            );
           },
           headerTitleAlign: "center",
         }}

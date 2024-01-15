@@ -22,6 +22,17 @@ export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
     RootTabScreenProps<"Home">
   >;
 
+export type NearbyStackParamList = {
+  NearbyScreen: undefined;
+  FacilityDetail: undefined;
+};
+
+export type NearbyStackScreenProps<T extends keyof NearbyStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<NearbyStackParamList, T>,
+    RootTabScreenProps<"Nearby">
+  >;
+
 export type MyStoreStackParamList = {
   MyStoreScreen: undefined;
   WorkProgress: undefined;
@@ -60,6 +71,8 @@ export type MyPageStackParamList = {
   CouponList: { coupons: Coupon[] };
   CouponRegister: undefined;
   Points: undefined;
+  CoachRegister: undefined;
+  FacilityRegister: undefined;
 };
 export type MyPageStackScreenProps<T extends keyof MyPageStackParamList> =
   CompositeScreenProps<

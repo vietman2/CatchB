@@ -13,6 +13,7 @@ import {
   Text,
   TextInput,
   ActivityIndicator,
+  Button,
 } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -21,7 +22,6 @@ import NaverButton from "../../../components/Buttons/NaverButton";
 import KakaoButton from "../../../components/Buttons/KakaoButton";
 import DividerWithText from "../../../components/Divider/DividerWithText";
 import LoginButton from "../../../components/Buttons/LoginButton";
-import TextButton from "../../../components/Buttons/TextButton";
 import { MyPageStackParamList } from "../../../variables/navigation";
 import { login } from "../../../services/account";
 import { login as setUserState } from "../../../store/slices/authSlice";
@@ -147,18 +147,24 @@ export default function Login({ navigation }: LoginProps) {
             />
           )}
           <View style={styles.textButtonContainer}>
-            <TextButton
-              text="아이디 찾기"
+            <Button
+              mode="text"
               onPress={() =>
                 setError("아이디 찾기 기능은 아직 구현되지 않았습니다")
               }
-            />
-            <TextButton
-              text="비밀번호 찾기"
+              labelStyle={styles.textButton}
+            >
+              아이디 찾기
+            </Button>
+            <Button
+              mode="text"
               onPress={() =>
                 setError("비밀번호 찾기 기능은 아직 구현되지 않았습니다")
               }
-            />
+              labelStyle={styles.textButton}
+            >
+              비밀번호 찾기
+            </Button>
           </View>
           <DividerWithText text="간편 로그인" />
           <TouchableOpacity onPress={handleKakaoLogin} testID="kakao-button">
@@ -219,5 +225,9 @@ const styles = StyleSheet.create({
   divider: {
     marginVertical: 10,
     marginHorizontal: 50,
+  },
+  textButton: {
+    color: "black",
+    fontSize: 20,
   },
 });

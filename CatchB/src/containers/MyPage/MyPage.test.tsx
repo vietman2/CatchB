@@ -11,26 +11,26 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
   return {
     PaperProvider: Provider,
     Divider: "Divider",
     Text: "Text",
     TouchableRipple: "TouchableRipple",
+    Button: ({ onPress, children }: any) => (
+      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
   };
 });
 jest.mock("../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
 });
-jest.mock("../../components/Buttons/TextButton", () => {
-  const { Text, TouchableOpacity } = jest.requireActual("react-native");
-  return ({ text, onPress }: any) => (
-    <TouchableOpacity onPress={onPress}>
-      <Text testID="text">{text}</Text>
-    </TouchableOpacity>
-  );
-});
 jest.mock("../../components/Buttons/FAB", () => "FABGroup");
+jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
 jest.mock("../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return ({ icon, title, onPress }: any) => (
@@ -99,14 +99,32 @@ const components = () => {
             headerTitle: "",
           }}
         />
+        <Stack.Screen
+          name="CoachRegister"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="FacilityRegister"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 describe("<MyPage />", () => {
-  it("renders correctly", async () => {
-    renderWithProviders(components());
+  it("handles dialog", () => {
+    const { getByText } = renderWithProviders(components());
+    waitFor(() => {
+      fireEvent.press(getByText("쿠폰함"));
+      fireEvent.press(getByText("포인트"));
+    });
   });
 
   it("navigates to Login screen when user is not logged in", () => {
@@ -134,14 +152,32 @@ describe("<MyPage />", () => {
     });
   });
 
+  it("navigates to CoachRegister screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: { auth: { user: admin, token: "" } },
+    });
+    waitFor(() => {
+      fireEvent.press(getByText("코치 등록하기"));
+    });
+  });
+
+  it("navigates to FacilityRegister screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: { auth: { user: admin, token: "" } },
+    });
+    waitFor(() => {
+      fireEvent.press(getByText("시설 등록하기"));
+    });
+  });
+
   it("handles menu press", () => {
     const { getByText } = renderWithProviders(components());
     fireEvent.press(getByText("친구 초대하기"));
     fireEvent.press(getByText("레슨 코치 초대하기"));
     fireEvent.press(getByText("매장 정보 제보하기"));
-    fireEvent.press(getByText("결제수단"));
+    fireEvent.press(getByText("결제수단 관리"));
     fireEvent.press(getByText("1:1 문의"));
-    fireEvent.press(getByText("공지사항"));
+    fireEvent.press(getByText("..?"));
     fireEvent.press(getByText("자주 묻는 질문"));
     fireEvent.press(getByText("알림 맞춤 설정"));
   });

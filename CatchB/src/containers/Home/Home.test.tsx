@@ -5,7 +5,7 @@ import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
-  const { View, TouchableOpacity } = jest.requireActual("react-native");
+  const { View, TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
     PaperProvider: Provider,
@@ -30,6 +30,11 @@ jest.mock("react-native-paper", () => {
     },
     Text: "Text",
     Icon: "Icon",
+    Button: ({ onPress, children }: any) => (
+      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
   };
 });
 jest.mock("../../components/Buttons/SurfaceButton", () => "SurfaceButton");
@@ -41,14 +46,6 @@ jest.mock("../../components/Chips/Chips", () => ({
 }));
 jest.mock("../../components/Cards/SimpleCard", () => "SimpleCard");
 jest.mock("../../components/Cards/CardBox", () => "CardBox");
-jest.mock("../../components/Buttons/TextButton", () => {
-  const { Text, TouchableOpacity } = jest.requireActual("react-native");
-  return ({ text, onPress }: any) => (
-    <TouchableOpacity onPress={onPress}>
-      <Text testID="text">{text}</Text>
-    </TouchableOpacity>
-  );
-});
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 const renderWithMode = (mode: "basic" | "pro") => {
