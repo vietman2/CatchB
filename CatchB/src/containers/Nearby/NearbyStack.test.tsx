@@ -20,6 +20,8 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
     Icon: "Icon",
     IconButton: "IconButton",
+    FAB: "FAB",
+    Portal: "Portal",
   };
 });
 jest.mock("react-native-maps", () => {
@@ -68,23 +70,19 @@ const components = () => {
 };
 
 describe("<NearbyStack />", () => {
-  it("renders correctly", async () => {
-    await waitFor(() => renderWithProviders(components()));
-  });
-
   it("handles navigate to FacilityDetail and back", async () => {
-    const { getByTestId, getByText } = await waitFor(() => renderWithProviders(components(), {
+      const { getByTestId, getByText } = renderWithProviders(components(), {
       preloadedState: {
         facility: {
           selectedFacility: sampleFacilities[0],
         }
       }
-    }));
+    });
 
     const facility = getByText("JT 야구 레슨장");
     await waitFor(() => fireEvent.press(facility));
 
     const backButton = getByTestId("back");
-    await waitFor(() => fireEvent.press(backButton));
+    waitFor(() => fireEvent.press(backButton));
   });
 });

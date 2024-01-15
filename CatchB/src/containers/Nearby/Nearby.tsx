@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import { View, StyleSheet, Keyboard, ScrollView, TouchableOpacity } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Divider, FAB, Portal, Searchbar } from "react-native-paper";
 import { getCurrentPositionAsync } from "expo-location";
-import { useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
 
 import FacilitySimple from "../../components/Facility/FacilitySimple";
 import MapBottomSheet from "../../components/BottomSheets/MapBottomSheet";
 import { sampleFacilities } from "../../variables/mvp_dummy_data/facilities";
 import { FacilityType } from "../../variables/types";
 import { NearbyStackScreenProps } from "../../variables/navigation";
+import { themeColors } from "../../variables/colors";
 import { AppDispatch } from "../../store/store";
 import { setSelectedFacility } from "../../store/slices/facilitySlice";
-import { themeColors } from "../../variables/colors";
 
 export default function Nearby() {
   const [searchQuery, setSearchQuery] = useState("");

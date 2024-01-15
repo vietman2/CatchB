@@ -16,6 +16,8 @@ jest.mock("react-native-paper", () => {
     PaperProvider: Provider,
     Divider: "Divider",
     Searchbar: "Searchbar",
+    FAB: "FAB",
+    Portal: "Portal",
   };
 });
 jest.mock("react-native-maps", () => {

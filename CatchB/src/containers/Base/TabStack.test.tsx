@@ -117,7 +117,7 @@ describe("<TabContainer />", () => {
     await waitFor(() => render());
   });
 
-  it("handles token renewal and auto login: fail", async () => {
+  it("handles token renewal and auto login fail: no profile", async () => {
     jest.spyOn(userService, "renewToken").mockImplementation(async () =>
       Promise.resolve({
         status: 200,
@@ -136,7 +136,7 @@ describe("<TabContainer />", () => {
     await waitFor(() => render());
   });
 
-  it("handles token renewal and auto login: fail2", async () => {
+  it("handles token renewal and auto login fail: no token", async () => {
     jest.spyOn(userService, "renewToken").mockImplementation(async () =>
       Promise.resolve({
         status: 400,
@@ -145,6 +145,21 @@ describe("<TabContainer />", () => {
         },
       })
     );
+
+    await waitFor(() => render());
+  });
+
+  it("handles permission rejection", async () => {
+    jest
+      .spyOn(expoLocation, "requestForegroundPermissionsAsync")
+      .mockImplementation(() => {
+        return Promise.resolve({
+          status: expoLocation.PermissionStatus.DENIED,
+          expires: "never",
+          granted: false,
+          canAskAgain: true,
+        });
+      });
 
     await waitFor(() => render());
   });

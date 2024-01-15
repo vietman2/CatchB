@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { requestForegroundPermissionsAsync } from "expo-location";
@@ -18,7 +19,6 @@ import {
 import { themeColors } from "../../variables/colors";
 import { setMode } from "../../store/slices/modeSlice";
 import { AppDispatch, RootState } from "../../store/store";
-import { useNavigation } from "@react-navigation/native";
 import { get } from "../../store/secure";
 import { getUserProfile, renewToken } from "../../services/account";
 import { setUserProfile, setNewToken } from "../../store/slices/authSlice";
@@ -46,7 +46,7 @@ export default function TabContainer() {
   const getPermission = async () => {
     const { status } = await requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      alert("Permission to access location was denied");
+      console.log("Permission to access location was denied");
       return;
     } else {
       setPermission(true);

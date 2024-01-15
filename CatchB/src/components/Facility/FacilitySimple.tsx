@@ -26,7 +26,7 @@ export default function FacilitySimple({ facility }: Props) {
         <Text>{facility.location}</Text>
       </View>
       <View style={styles.interactionBox}>
-        <TouchableOpacity onPress={() => setIsLiked(!isLiked)}>
+        <TouchableOpacity onPress={() => setIsLiked(!isLiked)} testID="like-icon">
           <Icon
             source={isLiked ? "heart" : "heart-outline"}
             size={20}

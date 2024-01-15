@@ -99,14 +99,32 @@ const components = () => {
             headerTitle: "",
           }}
         />
+        <Stack.Screen
+          name="CoachRegister"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="FacilityRegister"
+          component={MyPage}
+          options={{
+            headerTitle: "",
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 describe("<MyPage />", () => {
-  it("renders correctly", async () => {
-    renderWithProviders(components());
+  it("handles dialog", () => {
+    const { getByText } = renderWithProviders(components());
+    waitFor(() => {
+      fireEvent.press(getByText("쿠폰함"));
+      fireEvent.press(getByText("포인트"));
+    });
   });
 
   it("navigates to Login screen when user is not logged in", () => {
@@ -131,6 +149,24 @@ describe("<MyPage />", () => {
     });
     waitFor(() => {
       fireEvent.press(getByText("쿠폰함"));
+    });
+  });
+
+  it("navigates to CoachRegister screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: { auth: { user: admin, token: "" } },
+    });
+    waitFor(() => {
+      fireEvent.press(getByText("코치 등록하기"));
+    });
+  });
+
+  it("navigates to FacilityRegister screen when user is logged in", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: { auth: { user: admin, token: "" } },
+    });
+    waitFor(() => {
+      fireEvent.press(getByText("시설 등록하기"));
     });
   });
 
