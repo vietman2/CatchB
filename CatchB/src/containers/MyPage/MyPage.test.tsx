@@ -57,83 +57,17 @@ const components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="MyPage"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="EditProfile"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="CouponList"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Points"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="CoachRegister"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="FacilityRegister"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Payments"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Reviews"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="FAQ"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
+        <Stack.Screen name="MyPage" component={MyPage} />
+        <Stack.Screen name="Login" component={MyPage} />
+        <Stack.Screen name="Profile" component={MyPage} />
+        <Stack.Screen name="EditProfile" component={MyPage} />
+        <Stack.Screen name="CouponList" component={MyPage} />
+        <Stack.Screen name="Points" component={MyPage} />
+        <Stack.Screen name="CoachRegister" component={MyPage} />
+        <Stack.Screen name="FacilityRegister" component={MyPage} />
+        <Stack.Screen name="Payments" component={MyPage} />
+        <Stack.Screen name="Reviews" component={MyPage} />
+        <Stack.Screen name="FAQ" component={MyPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
