@@ -10,9 +10,9 @@ import IconButton from "../../components/Buttons/IconButton";
 import TabButton from "../../components/Buttons/TabButton";
 import VerticalDivider from "../../components/Divider/VerticalDivider";
 import LoginDialog from "../../components/Dialogs/LoginDialog";
+import { RootState } from "../../store/store";
 import { themeColors } from "../../variables/colors";
 import { MyPageStackScreenProps } from "../../variables/navigation";
-import { RootState } from "../../store/store";
 
 export default function MyPage() {
   const [dialogVisible, setDialogVisible] = useState(false);

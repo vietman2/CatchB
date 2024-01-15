@@ -4,11 +4,11 @@ import { ActivityIndicator, Divider, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 
 import NoPoints from "../../../components/PointsDetail/NoPoints";
-import { themeColors } from "../../../variables/colors";
+import PointsDetail from "../../../components/PointsDetail/PointsDetail";
 import { getPointsList } from "../../../services/point";
 import { AppDispatch, RootState } from "../../../store/store";
-import PointsDetail from "../../../components/PointsDetail/PointsDetail";
 import { setPointsState } from "../../../store/slices/pointSlice";
+import { themeColors } from "../../../variables/colors";
 
 export default function Points() {
   const [loading, setLoading] = useState(true);
@@ -76,7 +76,7 @@ export default function Points() {
           {total > 0 ? (
             <ScrollView style={styles.list}>
               {details.map((detail, index) => {
-                return <PointsDetail key={index} detail={detail} />
+                return <PointsDetail key={index} detail={detail} />;
               })}
             </ScrollView>
           ) : (

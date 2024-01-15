@@ -3,7 +3,11 @@ import { Text } from "react-native-paper";
 
 import TodoBox from "../Todo/TodoBox";
 import TodoList from "../../../components/Lists/TodoList";
-import { closeTodos, middleTodos, openTodos } from "../../../variables/mvp_dummy_data/todos";
+import {
+  closeTodos,
+  middleTodos,
+  openTodos,
+} from "../../../variables/mvp_dummy_data/todos";
 
 export default function WorkProgress() {
   return (

@@ -42,14 +42,16 @@ describe("<CouponList />", () => {
       })
     );
 
-    await waitFor(() => renderWithProviders(CouponListComponents(), {
-      preloadedState: {
-        auth: {
-          token: "token",
-          user: null
-        }
-      }
-    }));
+    await waitFor(() =>
+      renderWithProviders(CouponListComponents(), {
+        preloadedState: {
+          auth: {
+            token: "token",
+            user: null,
+          },
+        },
+      })
+    );
   });
 
   it("doesn't load coupons correctly", async () => {
@@ -62,14 +64,16 @@ describe("<CouponList />", () => {
       })
     );
 
-    await waitFor(() => renderWithProviders(CouponListComponents(), {
-      preloadedState: {
-        auth: {
-          token: "token",
-          user: null
-        }
-      }
-    }));
+    await waitFor(() =>
+      renderWithProviders(CouponListComponents(), {
+        preloadedState: {
+          auth: {
+            token: "token",
+            user: null,
+          },
+        },
+      })
+    );
   });
 });
 

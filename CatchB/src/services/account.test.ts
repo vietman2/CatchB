@@ -23,12 +23,14 @@ describe("login", () => {
 
   it("should fail login", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.reject({response: {
-        status: 400,
-        data: {
-          non_field_errors: ["주어진 자격 증명으로 로그인이 불가능합니다."],
+      Promise.reject({
+        response: {
+          status: 400,
+          data: {
+            non_field_errors: ["주어진 자격 증명으로 로그인이 불가능합니다."],
+          },
         },
-      }})
+      })
     );
     const username = "exampleuser";
     const password = "wrongpassword";
@@ -67,9 +69,9 @@ describe("renewToken", () => {
   });
 
   it("should fail to get response", async () => {
-    jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.reject(new Error("Network Error"))
-    );
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
     const refresh = "refresh";
 
@@ -78,12 +80,14 @@ describe("renewToken", () => {
 
   it("should fail to renew token", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.reject({response: {
-        status: 400,
-        data: {
-          detail: "토큰이 만료되었습니다.",
+      Promise.reject({
+        response: {
+          status: 400,
+          data: {
+            detail: "토큰이 만료되었습니다.",
+          },
         },
-      }})
+      })
     );
 
     const refresh = "refresh";
@@ -113,9 +117,9 @@ describe("getUserProfile", () => {
   });
 
   it("should fail to get response", async () => {
-    jest.spyOn(axios, "get").mockImplementation(() =>
-      Promise.reject(new Error("Network Error"))
-    );
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
     const uuid = "uuid";
     const access = "access";
@@ -125,12 +129,14 @@ describe("getUserProfile", () => {
 
   it("should fail to get user profile", async () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
-      Promise.reject({response: {
-        status: 400,
-        data: {
-          detail: "토큰이 만료되었습니다.",
+      Promise.reject({
+        response: {
+          status: 400,
+          data: {
+            detail: "토큰이 만료되었습니다.",
+          },
         },
-      }})
+      })
     );
 
     const uuid = "uuid";
@@ -159,9 +165,9 @@ describe("logout", () => {
   });
 
   it("should fail to get response", async () => {
-    jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.reject(new Error("Network Error"))
-    );
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
     const refresh = "refresh";
 
@@ -170,12 +176,14 @@ describe("logout", () => {
 
   it("should fail to logout", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.reject({response: {
-        status: 400,
-        data: {
-          detail: "토큰이 만료되었습니다.",
+      Promise.reject({
+        response: {
+          status: 400,
+          data: {
+            detail: "토큰이 만료되었습니다.",
+          },
         },
-      }})
+      })
     );
 
     const refresh = "refresh";

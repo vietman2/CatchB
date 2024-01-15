@@ -1,10 +1,10 @@
+import { waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as expoLocation from "expo-location";
 
 import Nearby from "./Nearby";
 import { renderWithProviders } from "../../utils/test-utils";
-import { waitFor } from "@testing-library/react-native";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

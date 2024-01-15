@@ -1,7 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
+import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
 
-import modeReducer, { setMode } from './modeSlice';
+import modeReducer, { setMode } from "./modeSlice";
 
 // Create a mock store for testing
 const createStore = () => {
@@ -13,18 +13,18 @@ const createStore = () => {
   });
 };
 
-describe('modeSlice', () => {
+describe("modeSlice", () => {
   // Test for initial state
-  it('should handle initial state', () => {
-    expect(modeReducer(undefined, { type: 'unknown' })).toEqual({
-      mode: 'basic',
+  it("should handle initial state", () => {
+    expect(modeReducer(undefined, { type: "unknown" })).toEqual({
+      mode: "basic",
     });
   });
 
   // Test for setMode action
-  it('should handle setMode', async () => {
+  it("should handle setMode", async () => {
     const store = createStore();
-    const mode = 'pro';
+    const mode = "pro";
 
     store.dispatch(setMode(mode));
 

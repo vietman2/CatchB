@@ -1,9 +1,8 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import Community from './Community';
-
-import { leftTitle, rightTitle } from '../../components/Logos/TopBar';
-import { CommunityStackParamList } from '../../variables/navigation';
+import Community from "./Community";
+import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
+import { CommunityStackParamList } from "../../variables/navigation";
 
 const CommunityDrawer = createDrawerNavigator<CommunityStackParamList>();
 
@@ -14,7 +13,7 @@ export default function CommunityContainer() {
       screenOptions={{
         headerLeft: leftTitle,
         headerRight: rightTitle,
-        headerTitle: '',
+        headerTitle: "",
         headerShadowVisible: false,
       }}
     >

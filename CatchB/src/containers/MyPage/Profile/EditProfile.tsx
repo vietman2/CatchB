@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { StyleSheet, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, View } from "react-native";
+import {
+  StyleSheet,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useRoute } from "@react-navigation/native";
 
@@ -14,7 +20,7 @@ export default function EditProfile() {
   return (
     <KeyboardAvoidingView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
             새로운 {title}을 입력해주세요
           </Text>
@@ -41,5 +47,5 @@ const styles = StyleSheet.create({
   textInput: {
     marginTop: 20,
     backgroundColor: themeColors.secondaryContainer,
-  }
+  },
 });

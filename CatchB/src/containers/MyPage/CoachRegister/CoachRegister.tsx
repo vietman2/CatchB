@@ -4,10 +4,10 @@ import { ScrollView, StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import * as DocumentPicker from "expo-document-picker";
 
-import { themeColors } from "../../../variables/colors";
-import { RootState } from "../../../store/store";
 import SingleCheck from "../../../components/Checkboxes/SingleCheck";
 import MultiCheck from "../../../components/Checkboxes/MultiCheck";
+import { themeColors } from "../../../variables/colors";
+import { RootState } from "../../../store/store";
 
 export default function CoachRegister() {
   const [selectedGender, setSelectedGender] = useState<string>("");

@@ -1,9 +1,8 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from "@react-navigation/stack";
 
-import Calendar from './Calendar';
-
-import { leftTitle, rightTitle } from '../../components/Logos/TopBar';
-import { CalendarStackParamList } from '../../variables/navigation';
+import Calendar from "./Calendar";
+import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
+import { CalendarStackParamList } from "../../variables/navigation";
 
 const CalendarStack = createStackNavigator<CalendarStackParamList>();
 

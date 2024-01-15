@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, Keyboard, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Keyboard,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Divider, FAB, Portal, Searchbar } from "react-native-paper";
 import { getCurrentPositionAsync } from "expo-location";
@@ -17,15 +23,15 @@ import { setSelectedFacility } from "../../store/slices/facilitySlice";
 
 export default function Nearby() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [facilities, setFacilities] =
-    useState<FacilityType[]>([]);
+  const [facilities, setFacilities] = useState<FacilityType[]>([]);
   const [region, setRegion] = useState({
     latitude: 37.541,
     longitude: 126.986,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  const navigation = useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
+  const navigation =
+    useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
   const getLocation = async () => {

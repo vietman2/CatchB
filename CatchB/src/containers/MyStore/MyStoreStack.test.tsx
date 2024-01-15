@@ -21,10 +21,7 @@ describe("<MyStoreStack />", () => {
     renderWithProviders(
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen
-            name="MyStore"
-            component={MyStoreContainer}
-          />
+          <Tab.Screen name="MyStore" component={MyStoreContainer} />
         </Tab.Navigator>
       </NavigationContainer>
     );

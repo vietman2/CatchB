@@ -1,12 +1,12 @@
 import { View, StyleSheet } from "react-native";
 
-import { themeColors } from "../../../variables/colors";
 import DividerWithText from "../../../components/Divider/DividerWithText";
 import LoginLogo from "../../../components/Logos/LoginLogo";
 import LoginButton from "../../../components/Buttons/LoginButton";
+import { themeColors } from "../../../variables/colors";
 
 export default function SignUpOptions() {
-    const handleSignUp = () => {};
+  const handleSignUp = () => {};
 
   return (
     <View style={styles.mainContainer}>
@@ -27,5 +27,5 @@ const styles = StyleSheet.create({
   },
   container: {
     marginHorizontal: 50,
-  }
+  },
 });

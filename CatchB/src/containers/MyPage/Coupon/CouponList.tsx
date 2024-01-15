@@ -6,11 +6,11 @@ import { useNavigation } from "@react-navigation/native";
 
 import NoCoupon from "../../../components/CouponsDetail/NoCoupon";
 import MyCoupon from "../../../components/CouponsDetail/MyCoupon";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
 import { getCouponList } from "../../../services/coupon";
 import { setCouponListState } from "../../../store/slices/couponSlice";
 import { AppDispatch, RootState } from "../../../store/store";
+import { MyPageStackScreenProps } from "../../../variables/navigation";
+import { themeColors } from "../../../variables/colors";
 
 export default function CouponList() {
   const [loading, setLoading] = useState(true);
@@ -34,8 +34,7 @@ export default function CouponList() {
       if (response.status === 200) {
         dispatch(setCouponListState(response.data));
         setLoading(false);
-      }
-      else {
+      } else {
         console.log("error");
       }
     };

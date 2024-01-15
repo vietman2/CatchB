@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   createStackNavigator,
   StackNavigationProp,
@@ -7,7 +8,6 @@ import Nearby from "./Nearby";
 import FacilityDetail from "./FacilityDetail/FacilityDetail";
 import BackButton from "../../components/Buttons/BackButton";
 import { NearbyStackParamList } from "../../variables/navigation";
-import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
 const NearbyNavStack = createStackNavigator<NearbyStackParamList>();

@@ -22,10 +22,10 @@ import NaverButton from "../../../components/Buttons/NaverButton";
 import KakaoButton from "../../../components/Buttons/KakaoButton";
 import DividerWithText from "../../../components/Divider/DividerWithText";
 import LoginButton from "../../../components/Buttons/LoginButton";
-import { MyPageStackParamList } from "../../../variables/navigation";
 import { login } from "../../../services/account";
 import { login as setUserState } from "../../../store/slices/authSlice";
 import { AppDispatch } from "../../../store/store";
+import { MyPageStackParamList } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 
 type LoginNavigationProp = StackNavigationProp<MyPageStackParamList, "Login">;

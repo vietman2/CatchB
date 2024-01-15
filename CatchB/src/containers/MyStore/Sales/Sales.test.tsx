@@ -10,4 +10,3 @@ describe("<Sales />", () => {
     render(<Sales />);
   });
 });
-

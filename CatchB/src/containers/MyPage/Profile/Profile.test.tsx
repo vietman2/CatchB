@@ -13,7 +13,10 @@ jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
 jest.mock("../../../components/Avatar/AvatarImage", () => "AvatarImage");
-jest.mock("../../../components/Divider/VerticalDivider", () => "VerticalDivider");
+jest.mock(
+  "../../../components/Divider/VerticalDivider",
+  () => "VerticalDivider"
+);
 jest.mock("../../../components/Buttons/TabButton", () => {
   const { View, Text } = require("react-native");
   return ({ title, detail, onPress }: any) => {
@@ -44,7 +47,7 @@ const renderEditProfile = () => {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 describe("<EditProfile />", () => {
   it("renders correctly", () => {
@@ -64,23 +67,23 @@ describe("<EditProfile />", () => {
 
 const renderUserProfile = () => {
   return renderWithProviders(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-          <Stack.Screen name="EditProfile" component={UserProfile} />
-          <Stack.Screen name="MyPageScreen" component={UserProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>,
-      {
-        preloadedState: {
-          auth: {
-            user: admin,
-            token: "token",
-          },
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="UserProfile" component={UserProfile} />
+        <Stack.Screen name="EditProfile" component={UserProfile} />
+        <Stack.Screen name="MyPageScreen" component={UserProfile} />
+      </Stack.Navigator>
+    </NavigationContainer>,
+    {
+      preloadedState: {
+        auth: {
+          user: admin,
+          token: "token",
         },
-      }
-    );
-}
+      },
+    }
+  );
+};
 
 describe("<UserProfile />", () => {
   it("renders correctly with user", () => {
@@ -100,7 +103,9 @@ describe("<UserProfile />", () => {
         status: 200,
       };
     });
-    jest.spyOn(SecureStore, "get").mockImplementation(() => Promise.resolve("refresh"));
+    jest
+      .spyOn(SecureStore, "get")
+      .mockImplementation(() => Promise.resolve("refresh"));
 
     const { getByText } = renderUserProfile();
 

@@ -50,7 +50,7 @@ export const confirmedReservations: Reservation[] = [
     product: reservationProducts[0],
     reserved_user: "user-uuid-3",
     lesson_session: null,
-    start_datetime:  "오늘 17:30",
+    start_datetime: "오늘 17:30",
     end_datetime: "오늘 19:30",
     status: "CONFIRMED",
     created_at: "지난주 일요일",

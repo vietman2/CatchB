@@ -3,6 +3,7 @@ import {
   CalendarList as CalendarComponent,
   CalendarProvider,
 } from "react-native-calendars";
+
 import { themeColors } from "../../variables/colors";
 
 export default function Calendar() {

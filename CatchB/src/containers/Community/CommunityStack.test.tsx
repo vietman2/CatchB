@@ -14,7 +14,7 @@ jest.mock("@react-navigation/drawer", () => ({
       Navigator: "Navigator",
       Screen: "Screen",
     };
-  }
+  },
 }));
 jest.mock("../../components/Logos/TopBar", () => ({
   leftTitle: "leftTitle",
@@ -29,10 +29,7 @@ describe("<CommunityStack />", () => {
     renderWithProviders(
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen
-            name="Community"
-            component={CommunityStack}
-          />
+          <Tab.Screen name="Community" component={CommunityStack} />
         </Tab.Navigator>
       </NavigationContainer>
     );

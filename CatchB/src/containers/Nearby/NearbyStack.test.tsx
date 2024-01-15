@@ -55,7 +55,10 @@ jest
       timestamp: 1627663200000,
     });
   });
-jest.mock("../../components/BottomSheets/MapBottomSheet", () => "MapBottomSheet");
+jest.mock(
+  "../../components/BottomSheets/MapBottomSheet",
+  () => "MapBottomSheet"
+);
 
 const Tab = createBottomTabNavigator();
 
@@ -71,12 +74,12 @@ const components = () => {
 
 describe("<NearbyStack />", () => {
   it("handles navigate to FacilityDetail and back", async () => {
-      const { getByTestId, getByText } = renderWithProviders(components(), {
+    const { getByTestId, getByText } = renderWithProviders(components(), {
       preloadedState: {
         facility: {
           selectedFacility: sampleFacilities[0],
-        }
-      }
+        },
+      },
     });
 
     const facility = getByText("JT 야구 레슨장");

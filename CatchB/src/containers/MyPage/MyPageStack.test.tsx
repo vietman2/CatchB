@@ -180,8 +180,6 @@ describe("<MyPageStack />", () => {
   it("navigates to <Reviews /> then back", () => {
     const { getByTestId, getByText } = render();
 
-
-
     waitFor(() => fireEvent.press(getByText("리뷰")));
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
