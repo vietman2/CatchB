@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, Keyboard, ScrollView, TouchableOpacity } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { Divider, Searchbar } from "react-native-paper";
+import { Divider, FAB, Portal, Searchbar } from "react-native-paper";
 import { getCurrentPositionAsync } from "expo-location";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +13,7 @@ import { FacilityType } from "../../variables/types";
 import { NearbyStackScreenProps } from "../../variables/navigation";
 import { AppDispatch } from "../../store/store";
 import { setSelectedFacility } from "../../store/slices/facilitySlice";
+import { themeColors } from "../../variables/colors";
 
 export default function Nearby() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -76,6 +77,15 @@ export default function Nearby() {
           ))}
         </ScrollView>
       </MapBottomSheet>
+      <Portal>
+        <FAB
+          style={styles.filters}
+          label="인기순"
+          size="large"
+          onPress={() => console.log("Pressed")}
+          visible={false}
+        />
+      </Portal>
     </View>
   );
 }
@@ -94,5 +104,13 @@ const styles = StyleSheet.create({
     top: 55,
     width: "90%",
     backgroundColor: "white",
+  },
+  filters: {
+    position: "absolute",
+    bottom: "15.5%",
+    left: 20,
+    backgroundColor: themeColors.onPrimary,
+    borderColor: themeColors.primary,
+    borderWidth: 1,
   },
 });

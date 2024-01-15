@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { useSelector } from "react-redux";
 import { Icon, Text } from "react-native-paper";
 
@@ -10,7 +16,9 @@ const { width, height } = Dimensions.get("window");
 
 export default function FacilityDetail() {
   const [isLiked, setIsLiked] = useState(false);
-  const facility = useSelector((state: RootState) => state.facility.selectedFacility);
+  const facility = useSelector(
+    (state: RootState) => state.facility.selectedFacility
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -20,7 +28,9 @@ export default function FacilityDetail() {
         <View style={{ ...styles.image, backgroundColor: "yellow" }} />
       </ScrollView>
       <View style={styles.topLine}>
-        <Text variant="titleLarge" style={styles.name}>{facility.name}</Text>
+        <Text variant="titleLarge" style={styles.title}>
+          {facility.name}
+        </Text>
         <View style={styles.rating}>
           <Icon source="star" size={20} color="gold" />
           <Text>{facility.rating}/10</Text>
@@ -37,6 +47,31 @@ export default function FacilityDetail() {
             <Icon source="share-outline" size={20} />
           </TouchableOpacity>
         </View>
+      </View>
+      <View style={styles.bulletPoints}>
+        {facility.bulletPoints.map((bulletPoint, index) => (
+          <Text key={index} variant="bodyLarge">
+            {"\u2022"} {bulletPoint}
+          </Text>
+        ))}
+        <Text variant="bodyLarge" style={styles.description}>
+          {facility.description}
+        </Text>
+      </View>
+      <View style={styles.location}>
+        <Text variant="titleLarge" style={styles.title}>
+          위치
+        </Text>
+      </View>
+      <View style={styles.reservations}>
+        <Text variant="titleLarge" style={styles.title}>
+          예약
+        </Text>
+      </View>
+      <View style={styles.reviews}>
+        <Text variant="titleLarge" style={styles.title}>
+          리뷰
+        </Text>
       </View>
     </ScrollView>
   );
@@ -60,7 +95,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
   },
-  name: {
+  title: {
     flex: 5,
     fontWeight: "bold",
   },
@@ -74,5 +109,23 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: "row",
     justifyContent: "flex-end",
-  }
+  },
+  bulletPoints: {
+    paddingHorizontal: 20,
+  },
+  description: {
+    marginTop: 10,
+  },
+  location: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  reservations: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  reviews: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
 });
