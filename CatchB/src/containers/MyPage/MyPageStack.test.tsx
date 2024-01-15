@@ -108,9 +108,7 @@ describe("<MyPageStack />", () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
         status: 200,
-        data: {
-          sampleCoupons,
-        },
+        data: sampleCoupons,
       })
     );
 
@@ -127,7 +125,7 @@ describe("<MyPageStack />", () => {
             token: "token",
           },
           coupon: {
-            coupons: [],
+            coupons: sampleCoupons,
             selectedCoupon: null,
           },
         },

@@ -20,10 +20,6 @@ export default function CouponList() {
   const coupons = useSelector((state: RootState) => state.coupon.coupons);
   const dispatch = useDispatch<AppDispatch>();
 
-  const getNumberCoupons = () => {
-    return coupons.length;
-  };
-
   const handleCouponRegister = () => {
     navigation.navigate("CouponRegister");
   };
@@ -44,7 +40,7 @@ export default function CouponList() {
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
-        <Text variant="titleMedium">사용가능쿠폰 {getNumberCoupons()}장</Text>
+        <Text variant="titleMedium">사용가능쿠폰 {coupons.length}장</Text>
         <TouchableOpacity onPress={handleCouponRegister}>
           <Text variant="titleMedium">+ 쿠폰등록</Text>
         </TouchableOpacity>
