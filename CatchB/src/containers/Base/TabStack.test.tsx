@@ -63,17 +63,19 @@ const render = () => {
 
 describe("<TabContainer />", () => {
   it("handles long press: successfully change mode", async () => {
-    const { getAllByTestId, getByText } = await waitFor(() => renderWithProviders(
-      <NavigationContainer>
-        <TabContainer />
-      </NavigationContainer>,
-      {
-        preloadedState: {
-          mode: { mode: "pro" },
-          auth: { user: admin, token: "token" },
-        },
-      }
-    ));
+    const { getAllByTestId, getByText } = await waitFor(() =>
+      renderWithProviders(
+        <NavigationContainer>
+          <TabContainer />
+        </NavigationContainer>,
+        {
+          preloadedState: {
+            mode: { mode: "pro" },
+            auth: { user: admin, token: "token" },
+          },
+        }
+      )
+    );
     const tab = getAllByTestId("MyPageIcon")[0];
 
     waitFor(() => {
@@ -136,7 +138,7 @@ describe("<TabContainer />", () => {
     await waitFor(() => render());
   });
 
-  it("handles token renewal and auto login fail: no token", async () => {
+  it("handles token renewal and auto login fail: token renew fail", async () => {
     jest.spyOn(userService, "renewToken").mockImplementation(async () =>
       Promise.resolve({
         status: 400,
@@ -145,6 +147,19 @@ describe("<TabContainer />", () => {
         },
       })
     );
+
+    await waitFor(() => render());
+  });
+
+  it("handles token renewal and auto login fail: no token", async () => {
+    jest.spyOn(SecureStore, "get").mockImplementation((key) => {
+      if (key === "refresh_token") {
+        return Promise.resolve(null);
+      }
+      if (key === "uuid") {
+        return Promise.resolve("uuid");
+      } else return Promise.reject();
+    });
 
     await waitFor(() => render());
   });

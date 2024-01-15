@@ -12,17 +12,17 @@ import CalendarContainer from "../Calendar/CalendarStack";
 import MyPageContainer from "../MyPage/MyPageStack";
 import MyStoreContainer from "../MyStore/MyStoreStack";
 import SwitchModeDialog from "../../components/Dialogs/SwitchModeDialog";
+import LoginDialog from "../../components/Dialogs/LoginDialog";
 import {
   RootTabParamList,
   RootTabScreenProps,
 } from "../../variables/navigation";
 import { themeColors } from "../../variables/colors";
+import { getUserProfile, renewToken } from "../../services/account";
 import { setMode } from "../../store/slices/modeSlice";
 import { AppDispatch, RootState } from "../../store/store";
 import { get } from "../../store/secure";
-import { getUserProfile, renewToken } from "../../services/account";
 import { setUserProfile, setNewToken } from "../../store/slices/authSlice";
-import LoginDialog from "../../components/Dialogs/LoginDialog";
 
 /**
  * TabContainer
@@ -112,6 +112,8 @@ export default function TabContainer() {
           backgroundColor: themeColors.primaryContainer,
           marginBottom: -15,
         }}
+        activeColor={themeColors.primary}
+        shifting
       >
         <Tab.Screen
           name="Home"
