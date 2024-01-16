@@ -1,4 +1,4 @@
-import mockSafeAreaContext from "react-native-safe-area-context/jest/mock"
+import mockSafeAreaContext from "react-native-safe-area-context/jest/mock";
 
 jest.mock("../hooks/useFonts", () => jest.fn().mockReturnValue(true));
 jest.mock("expo-font", () => ({

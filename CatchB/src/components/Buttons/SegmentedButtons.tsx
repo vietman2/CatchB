@@ -1,5 +1,6 @@
 import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
+
 import { themeColors } from "../../variables/colors";
 
 interface Props {

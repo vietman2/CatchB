@@ -57,62 +57,17 @@ const components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="MyPage"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="EditProfile"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="CouponList"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Points"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="CoachRegister"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="FacilityRegister"
-          component={MyPage}
-          options={{
-            headerTitle: "",
-          }}
-        />
+        <Stack.Screen name="MyPage" component={MyPage} />
+        <Stack.Screen name="Login" component={MyPage} />
+        <Stack.Screen name="Profile" component={MyPage} />
+        <Stack.Screen name="EditProfile" component={MyPage} />
+        <Stack.Screen name="CouponList" component={MyPage} />
+        <Stack.Screen name="Points" component={MyPage} />
+        <Stack.Screen name="CoachRegister" component={MyPage} />
+        <Stack.Screen name="FacilityRegister" component={MyPage} />
+        <Stack.Screen name="Payments" component={MyPage} />
+        <Stack.Screen name="Reviews" component={MyPage} />
+        <Stack.Screen name="FAQ" component={MyPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -124,6 +79,8 @@ describe("<MyPage />", () => {
     waitFor(() => {
       fireEvent.press(getByText("쿠폰함"));
       fireEvent.press(getByText("포인트"));
+      fireEvent.press(getByText("결제수단 관리"));
+      fireEvent.press(getByText("리뷰"));
     });
   });
 
@@ -134,39 +91,18 @@ describe("<MyPage />", () => {
     });
   });
 
-  it("navigates to Profile screen when user is logged in", () => {
-    const { getByTestId } = renderWithProviders(components(), {
+  it("navigates to all screens when user is logged in", () => {
+    const { getByTestId, getByText } = renderWithProviders(components(), {
       preloadedState: { auth: { user: admin, token: "" } },
     });
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
-    });
-  });
-
-  it("navigates to Coupon screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: exampleUser, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("쿠폰함"));
-    });
-  });
-
-  it("navigates to CoachRegister screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("코치 등록하기"));
-    });
-  });
-
-  it("navigates to FacilityRegister screen when user is logged in", () => {
-    const { getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-    waitFor(() => {
       fireEvent.press(getByText("시설 등록하기"));
+      fireEvent.press(getByText("결제수단 관리"));
+      fireEvent.press(getByText("리뷰"));
+      fireEvent.press(getByText("자주 묻는 질문"));
     });
   });
 
@@ -175,10 +111,10 @@ describe("<MyPage />", () => {
     fireEvent.press(getByText("친구 초대하기"));
     fireEvent.press(getByText("레슨 코치 초대하기"));
     fireEvent.press(getByText("매장 정보 제보하기"));
-    fireEvent.press(getByText("결제수단 관리"));
     fireEvent.press(getByText("1:1 문의"));
     fireEvent.press(getByText("..?"));
-    fireEvent.press(getByText("자주 묻는 질문"));
     fireEvent.press(getByText("알림 맞춤 설정"));
+    fireEvent.press(getByText("즐겨찾기"));
+    fireEvent.press(getByText("최근 본"));
   });
 });

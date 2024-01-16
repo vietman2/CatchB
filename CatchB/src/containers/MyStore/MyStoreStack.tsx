@@ -2,7 +2,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import MyStore from "./MyStore";
 import WorkProgress from "./WorkProgress/WorkProgress";
-
 import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
 import { MyStoreStackParamList } from "../../variables/navigation";
 

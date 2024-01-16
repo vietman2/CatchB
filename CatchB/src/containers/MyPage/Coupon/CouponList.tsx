@@ -6,11 +6,11 @@ import { useNavigation } from "@react-navigation/native";
 
 import NoCoupon from "../../../components/CouponsDetail/NoCoupon";
 import MyCoupon from "../../../components/CouponsDetail/MyCoupon";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
 import { getCouponList } from "../../../services/coupon";
 import { setCouponListState } from "../../../store/slices/couponSlice";
 import { AppDispatch, RootState } from "../../../store/store";
+import { MyPageStackScreenProps } from "../../../variables/navigation";
+import { themeColors } from "../../../variables/colors";
 
 export default function CouponList() {
   const [loading, setLoading] = useState(true);
@@ -19,10 +19,6 @@ export default function CouponList() {
   const token = useSelector((state: RootState) => state.auth.token);
   const coupons = useSelector((state: RootState) => state.coupon.coupons);
   const dispatch = useDispatch<AppDispatch>();
-
-  const getNumberCoupons = () => {
-    return coupons.length;
-  };
 
   const handleCouponRegister = () => {
     navigation.navigate("CouponRegister");
@@ -34,8 +30,7 @@ export default function CouponList() {
       if (response.status === 200) {
         dispatch(setCouponListState(response.data));
         setLoading(false);
-      }
-      else {
+      } else {
         console.log("error");
       }
     };
@@ -45,7 +40,7 @@ export default function CouponList() {
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
-        <Text variant="titleMedium">사용가능쿠폰 {getNumberCoupons()}장</Text>
+        <Text variant="titleMedium">사용가능쿠폰 {coupons.length}장</Text>
         <TouchableOpacity onPress={handleCouponRegister}>
           <Text variant="titleMedium">+ 쿠폰등록</Text>
         </TouchableOpacity>

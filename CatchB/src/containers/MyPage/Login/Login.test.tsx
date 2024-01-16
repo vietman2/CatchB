@@ -16,7 +16,10 @@ jest.mock("react-native-paper", () => ({
 jest.mock("../../../components/Logos/LoginLogo", () => "LoginLogo");
 jest.mock("../../../components/Buttons/NaverButton", () => "NaverButton");
 jest.mock("../../../components/Buttons/KakaoButton", () => "KakaoButton");
-jest.mock("../../../components/Divider/DividerWithText", () => "DividerWithText");
+jest.mock(
+  "../../../components/Divider/DividerWithText",
+  () => "DividerWithText"
+);
 
 const Stack = createStackNavigator();
 

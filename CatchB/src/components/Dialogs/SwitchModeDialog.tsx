@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Dialog, Portal, Text, Button } from "react-native-paper";
+
 import { UserProfile } from "../../variables/types";
 
 interface Props {
@@ -26,12 +27,10 @@ export default function SwitchModeDialog({
       setTitle("프로모드로 전환");
       if (user === null) {
         setContents("로그인이 필요합니다.");
-      }
-      else if (user.user_type !== "normal_user") {
+      } else if (user.user_type !== "normal_user") {
         setContents("프로모드로 전환합니다.");
         setPossible(true);
-      }
-      else {
+      } else {
         setContents("시설 관리자 혹은 코치만 프로모드를 사용할 수 있습니다.");
         setPossible(false);
       }

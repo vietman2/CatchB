@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
-import { Button, Divider, Text, TouchableRipple } from "react-native-paper";
+import { Button, Divider, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 import AvatarHorizontal from "../../components/Avatar/AvatarHorizontal";
@@ -10,8 +10,8 @@ import IconButton from "../../components/Buttons/IconButton";
 import TabButton from "../../components/Buttons/TabButton";
 import VerticalDivider from "../../components/Divider/VerticalDivider";
 import LoginDialog from "../../components/Dialogs/LoginDialog";
-import { themeColors } from "../../variables/colors";
 import { RootState } from "../../store/store";
+import { themeColors } from "../../variables/colors";
 import { MyPageStackScreenProps } from "../../variables/navigation";
 
 export default function MyPage() {
@@ -44,33 +44,49 @@ export default function MyPage() {
     }
   };
 
-  const handleCoachRegisterPress = () => {
-    navigation.navigate("CoachRegister");
+  const handlePaymentsPress = () => {
+    if (!user) {
+      setDialogVisible(true);
+    } else {
+      navigation.navigate("Payments");
+    }
   };
 
-  const handleFacilityRegisterPress = () => {
-    navigation.navigate("FacilityRegister");
+  const handleReviewPress = () => {
+    if (!user) {
+      setDialogVisible(true);
+    } else {
+      navigation.navigate("Reviews");
+    }
   };
 
   return (
     <>
       <ScrollView>
         <View style={styles.container}>
-          <TouchableRipple
+          <TouchableOpacity
             onPress={handleBadgePress}
             testID="avatar-horizontal"
           >
             <AvatarHorizontal user={user} />
-          </TouchableRipple>
+          </TouchableOpacity>
           <View style={styles.mainOptions}>
             <View style={styles.menuHorizontal}>
-              <IconButton icon="bookmark" title="즐겨찾기" />
+              <TouchableOpacity style={{ flex: 1 }}>
+                <IconButton icon="bookmark" title="즐겨찾기" />
+              </TouchableOpacity>
               <VerticalDivider />
-              <IconButton icon="history" title="최근 본" />
+              <TouchableOpacity style={{ flex: 1 }}>
+                <IconButton icon="history" title="최근 본" />
+              </TouchableOpacity>
               <VerticalDivider />
-              <IconButton icon="star" title="평가하기" />
+              <TouchableOpacity style={{ flex: 1 }} onPress={handleReviewPress}>
+                <IconButton icon="star" title="리뷰" />
+              </TouchableOpacity>
             </View>
-            <Divider />
+            <View style={{ paddingHorizontal: 10 }}>
+              <Divider />
+            </View>
             <View style={styles.menuHorizontal}>
               <View style={styles.benefits}>
                 <TabButton
@@ -93,7 +109,7 @@ export default function MyPage() {
             <View style={styles.registerButtons}>
               <Button
                 mode="elevated"
-                onPress={handleCoachRegisterPress}
+                onPress={() => navigation.navigate("CoachRegister")}
                 style={{ flex: 1, marginRight: 5 }}
                 textColor="white"
                 buttonColor="green"
@@ -102,7 +118,7 @@ export default function MyPage() {
               </Button>
               <Button
                 mode="elevated"
-                onPress={handleFacilityRegisterPress}
+                onPress={() => navigation.navigate("FacilityRegister")}
                 style={{ flex: 1, marginLeft: 5 }}
                 textColor="white"
                 buttonColor="green"
@@ -152,7 +168,7 @@ export default function MyPage() {
             <View style={{ flexDirection: "row" }}>
               <Button
                 mode="text"
-                onPress={() => {}}
+                onPress={handlePaymentsPress}
                 style={{ flex: 1 }}
                 labelStyle={styles.labelText}
               >
@@ -175,7 +191,7 @@ export default function MyPage() {
               </Button>
               <Button
                 mode="text"
-                onPress={() => {}}
+                onPress={() => navigation.navigate("FAQ")}
                 style={{ flex: 1 }}
                 labelStyle={styles.labelText}
               >
@@ -226,7 +242,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: themeColors.secondaryContainer,
-    paddingHorizontal: 5,
   },
   menus: {
     padding: 10,
@@ -250,9 +265,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 20,
   },
-  benefits: { flex: 1, marginVertical: 5 },
+  benefits: {
+    flex: 1,
+    marginVertical: 5,
+  },
   labelText: {
     fontSize: 20,
     color: "black",
-  }
+  },
 });

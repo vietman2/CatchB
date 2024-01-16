@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { Chip } from "react-native-paper";
+
 import { themeColors } from "../../variables/colors";
 
 interface Props {
@@ -9,7 +10,6 @@ interface Props {
 }
 
 export default function MultiCheck({ options, selected, setSelected }: Props) {
-
   const isSelected = (option: string) => {
     return selected.includes(option);
   };

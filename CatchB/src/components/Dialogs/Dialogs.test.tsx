@@ -14,7 +14,8 @@ describe("<SwitchModeDialog />", () => {
         user={null}
         onClose={() => {}}
         setMode={() => {}}
-      />, {
+      />,
+      {
         preloadedState: { mode: { mode: "basic" } },
       }
     );
@@ -52,7 +53,7 @@ describe("<SwitchModeDialog />", () => {
         preloadedState: { mode: { mode: "basic" } },
       }
     );
-    
+
     fireEvent.press(getByText("확인"));
   });
 

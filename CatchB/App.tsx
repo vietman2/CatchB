@@ -15,8 +15,8 @@ import { themeColors } from "./src/variables/colors";
 const theme = {
   ...DefaultTheme,
   colors: {
-    ...themeColors,
     ...DefaultTheme.colors,
+    ...themeColors,
   },
 };
 

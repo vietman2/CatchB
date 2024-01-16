@@ -1,5 +1,6 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Icon } from "react-native-paper";
+
 import { themeColors } from "../../variables/colors";
 import { DailySalesInfo } from "../../variables/types";
 
@@ -32,25 +33,35 @@ export default function DailySales({ sales }: Props) {
       count++;
     }
     return result;
-  }
+  };
 
   const renderTotalSales = () => {
     return (
       <View style={styles.line}>
-        <Text variant="titleSmall" style={styles.bold}>매출</Text>
-        <Text style={styles.bold}>{renderNumberWithCommas(sales.totalSales)}원</Text>
+        <Text variant="titleSmall" style={styles.bold}>
+          매출
+        </Text>
+        <Text style={styles.bold}>
+          {renderNumberWithCommas(sales.totalSales)}원
+        </Text>
       </View>
     );
-  }
+  };
 
-  const renderIndividualSales = ({ name, sales }: {name: string, sales: number}) => {
+  const renderIndividualSales = ({
+    name,
+    sales,
+  }: {
+    name: string;
+    sales: number;
+  }) => {
     return (
-      <View style={styles.line} key={name+sales}>
+      <View style={styles.line} key={name + sales}>
         <Text>{name} 님</Text>
         <Text>{renderNumberWithCommas(sales)}원</Text>
       </View>
     );
-  }
+  };
 
   return (
     <View style={styles.container} key={sales.date}>
@@ -86,5 +97,5 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: "bold",
-  }
+  },
 });

@@ -8,22 +8,22 @@ interface CardProps {
 }
 
 export default function SimpleCard({ children, title, icon }: CardProps) {
-    return (
-      <Card style={styles.card}>
-        <Card.Title
-          title={title}
-          titleVariant="headlineSmall"
-          titleStyle={styles.title}
-          left={() => <Icon source={icon} size={24} />}
-          leftStyle={{ marginRight: 0 }}
-        />
-        {children}
-      </Card>
-    );
+  return (
+    <Card style={styles.card}>
+      <Card.Title
+        title={title}
+        titleVariant="headlineSmall"
+        titleStyle={styles.title}
+        left={() => <Icon source={icon} size={24} />}
+        leftStyle={{ marginRight: 0 }}
+      />
+      {children}
+    </Card>
+  );
 }
 
 const styles = StyleSheet.create({
-    card: {
+  card: {
     margin: 10,
     borderRadius: 10,
     elevation: 5,

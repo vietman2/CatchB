@@ -14,6 +14,9 @@ import CouponList from "./Coupon/CouponList";
 import CouponRegister from "./Coupon/CouponRegister";
 import CoachRegister from "./CoachRegister/CoachRegister";
 import FacilityRegister from "./FacilityRegister/FacilityRegister";
+import Payments from "./Payment/Payments";
+import FAQ from "./FAQ/FAQ";
+import Reviews from "./Review/Reviews";
 import BackButton from "../../components/Buttons/BackButton";
 import { leftTitle } from "../../components/Logos/TopBar";
 import { MyPageStackParamList } from "../../variables/navigation";
@@ -28,6 +31,18 @@ interface MyPageProps {
 }
 
 export default function MyPageContainer({ navigation }: MyPageProps) {
+  const backToMyPage = () => {
+    return <BackButton onPress={() => navigation.navigate("MyPageScreen")} />;
+  };
+
+  const headerTitle = (title: string) => {
+    return (
+      <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
+        {title}
+      </Text>
+    );
+  };
+
   return (
     <MyPageStack.Navigator
       initialRouteName="MyPageScreen"
@@ -55,18 +70,8 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
         name="Profile"
         component={UserProfile}
         options={{
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("MyPageScreen")} />
-            );
-          },
-          headerTitle: () => {
-            return (
-              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                프로필
-              </Text>
-            );
-          },
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("프로필"),
           headerTitleAlign: "center",
         }}
       />
@@ -79,13 +84,7 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
               <BackButton onPress={() => navigation.navigate("Profile")} />
             );
           },
-          headerTitle: () => {
-            return (
-              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                프로필 수정
-              </Text>
-            );
-          },
+          headerTitle: () => headerTitle("프로필 수정"),
           headerTitleAlign: "center",
         }}
       />
@@ -93,18 +92,8 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
         name="CouponList"
         component={CouponList}
         options={{
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("MyPageScreen")} />
-            );
-          },
-          headerTitle: () => {
-            return (
-              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                쿠폰함
-              </Text>
-            );
-          },
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("쿠폰함"),
           headerTitleAlign: "center",
         }}
       />
@@ -117,13 +106,7 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
               <BackButton onPress={() => navigation.navigate("CouponList")} />
             );
           },
-          headerTitle: () => {
-            return (
-              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                쿠폰 등록
-              </Text>
-            );
-          },
+          headerTitle: () => headerTitle("쿠폰 등록"),
           headerTitleAlign: "center",
         }}
       />
@@ -131,18 +114,8 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
         name="Points"
         component={Points}
         options={{
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("MyPageScreen")} />
-            );
-          },
-          headerTitle: () => {
-            return (
-              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                포인트
-              </Text>
-            );
-          },
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("포인트"),
           headerTitleAlign: "center",
         }}
       />
@@ -150,18 +123,8 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
         name="CoachRegister"
         component={CoachRegister}
         options={{
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("MyPageScreen")} />
-            );
-          },
-          headerTitle: () => {
-            return (
-              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                Catch B 레슨 코치 등록
-              </Text>
-            );
-          },
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("Catch B 레슨 코치 등록"),
           headerTitleAlign: "center",
         }}
       />
@@ -169,18 +132,35 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
         name="FacilityRegister"
         component={FacilityRegister}
         options={{
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("MyPageScreen")} />
-            );
-          },
-          headerTitle: () => {
-            return (
-              <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                Catch B 시설 등록
-              </Text>
-            );
-          },
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("Catch B 시설 등록"),
+          headerTitleAlign: "center",
+        }}
+      />
+      <MyPageStack.Screen
+        name="Payments"
+        component={Payments}
+        options={{
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("결제수단 관리"),
+          headerTitleAlign: "center",
+        }}
+      />
+      <MyPageStack.Screen
+        name="FAQ"
+        component={FAQ}
+        options={{
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("자주 묻는 질문"),
+          headerTitleAlign: "center",
+        }}
+      />
+      <MyPageStack.Screen
+        name="Reviews"
+        component={Reviews}
+        options={{
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("내가 남긴 리뷰"),
           headerTitleAlign: "center",
         }}
       />

@@ -36,7 +36,7 @@ describe("<Points />", () => {
         status: 200,
         data: {
           total: 25000,
-          details: samplePoints
+          details: samplePoints,
         },
       });
     });

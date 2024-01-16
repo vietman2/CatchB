@@ -2,18 +2,18 @@ import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { renderWithProviders } from "../../utils/test-utils";
 import MyStore from "./MyStore";
+import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock(
-  "./StoreDashboard/StoreDashboard",
-  () => "StoreDashboard"
-);
+jest.mock("./StoreDashboard/StoreDashboard", () => "StoreDashboard");
 jest.mock("./TaskBoard/TaskBoard", () => "TaskBoard");
-jest.mock("./ManageReservations/ManageReservations", () => "ManageReservations");
+jest.mock(
+  "./ManageReservations/ManageReservations",
+  () => "ManageReservations"
+);
 jest.mock("./Sales/Sales", () => "Sales");
 
 const Stack = createStackNavigator();

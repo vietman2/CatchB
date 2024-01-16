@@ -8,9 +8,17 @@ interface Props {
   paddingVertical?: number;
 }
 
-export default function TabButton({ title, detail, onPress, paddingVertical }: Props) {
+export default function TabButton({
+  title,
+  detail,
+  onPress,
+  paddingVertical,
+}: Props) {
   return (
-    <TouchableOpacity style={{ ...styles.tab, paddingVertical: paddingVertical }} onPress={onPress}>
+    <TouchableOpacity
+      style={{ ...styles.tab, paddingVertical: paddingVertical }}
+      onPress={onPress}
+    >
       <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
         {title}
       </Text>

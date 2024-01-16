@@ -91,7 +91,9 @@ export default function SignUpForm() {
             style={{ marginVertical: 5 }}
             testID="password-check-input"
           />
-          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
             <TextInput
               label="성"
               placeholder="성을 입력하세요."

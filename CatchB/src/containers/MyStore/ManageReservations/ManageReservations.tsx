@@ -17,8 +17,7 @@ export default function ManageReservations() {
   const render = () => {
     if (tab === "New") {
       return <CheckReservations tab={tab} reservations={newReservations} />;
-    }
-    else if (tab === "Pending") {
+    } else if (tab === "Pending") {
       return (
         <CheckReservations tab={tab} reservations={confirmedReservations} />
       );
@@ -30,8 +29,7 @@ export default function ManageReservations() {
       return (
         <CheckReservations tab={tab} reservations={finishedReservations} />
       );
-    }
-    else return null;
+    } else return null;
   };
 
   return (

@@ -28,5 +28,4 @@ describe("<ManageReservations />", () => {
       fireEvent.press(getByText("신규"));
     });
   });
-
 });

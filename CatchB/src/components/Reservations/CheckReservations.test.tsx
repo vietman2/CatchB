@@ -12,32 +12,22 @@ describe("<CheckReservations />", () => {
   });
 
   it("renders Pending tab correctly", () => {
-    render(
-      <CheckReservations tab="Pending" reservations={[]} />
-    );
+    render(<CheckReservations tab="Pending" reservations={[]} />);
   });
 
   it("renders Cancelled tab correctly", () => {
-    render(
-      <CheckReservations tab="Cancelled" reservations={[]} />
-    );
+    render(<CheckReservations tab="Cancelled" reservations={[]} />);
   });
 
   it("renders Completed tab correctly", () => {
-    render(
-      <CheckReservations tab="Completed" reservations={[]} />
-    );
+    render(<CheckReservations tab="Completed" reservations={[]} />);
   });
 
   it("renders correctly with reservations", () => {
-    render(
-      <CheckReservations tab="New" reservations={newReservations} />
-    );
+    render(<CheckReservations tab="New" reservations={newReservations} />);
   });
 
   it("handles wrong tab prop", () => {
-    render(
-      <CheckReservations tab="wrong" reservations={[]} />
-    );
+    render(<CheckReservations tab="wrong" reservations={[]} />);
   });
 });

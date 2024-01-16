@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Banner, Icon, Text } from "react-native-paper";
 
 import SurfaceButton from "../../components/Buttons/SurfaceButton";

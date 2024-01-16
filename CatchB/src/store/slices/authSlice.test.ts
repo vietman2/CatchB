@@ -1,7 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
-import authReducer, { login, logout, setNewToken, setUserProfile } from "./authSlice";
+import authReducer, {
+  login,
+  logout,
+  setNewToken,
+  setUserProfile,
+} from "./authSlice";
 import { admin } from "../../variables/mvp_dummy_data/user";
 
 // Create a mock store for testing
@@ -30,7 +35,7 @@ describe("authSlice", () => {
     const refresh = "user-refresh-token";
     const user = admin;
 
-    await store.dispatch(login({access, refresh, user}));
+    await store.dispatch(login({ access, refresh, user }));
 
     const state = store.getState().auth;
     expect(state.token).toEqual(access);
@@ -49,7 +54,7 @@ describe("authSlice", () => {
   it("should handle setNewToken", async () => {
     const store = createStore();
     const newToken = "new-token";
-    
+
     await store.dispatch(setNewToken(newToken));
 
     const state = store.getState().auth;
@@ -58,7 +63,7 @@ describe("authSlice", () => {
 
   it("should handle setUserProfile", async () => {
     const store = createStore();
-    
+
     await store.dispatch(setUserProfile(admin));
 
     const state = store.getState().auth;

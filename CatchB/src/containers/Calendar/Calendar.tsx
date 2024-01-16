@@ -1,14 +1,45 @@
-import { View } from 'react-native';
-import { Calendar as CalendarComponent } from 'react-native-calendars';
-import { Text } from 'react-native-paper';
+import { useEffect, useState } from "react";
+import {
+  CalendarList as CalendarComponent,
+  CalendarProvider,
+} from "react-native-calendars";
+
+import { themeColors } from "../../variables/colors";
 
 export default function Calendar() {
+  const [today, setToday] = useState<string>("");
+  const [ready, setReady] = useState<boolean>(false);
+
+  useEffect(() => {
+    // getToday's date
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+
+    setToday(
+      `${year}-${month < 10 ? `0${month}` : month}-${
+        date < 10 ? `0${date}` : date
+      }`
+    );
+
+    setReady(true);
+  }, []);
+
   return (
     <>
-      <CalendarComponent />
-      <View style={{ padding: 15 }}>
-        <Text variant="headlineMedium" style={{ fontWeight: "bold" }}>내 예약 목록</Text>
-      </View>
+      <CalendarProvider date="2024-01-15">
+        <CalendarComponent
+          displayLoadingIndicator={!ready}
+          horizontal
+          pagingEnabled
+          pastScrollRange={24}
+          futureScrollRange={24}
+          markedDates={{
+            [today]: { selected: true, selectedColor: themeColors.primary },
+          }}
+        />
+      </CalendarProvider>
     </>
   );
 }

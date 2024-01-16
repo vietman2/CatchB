@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { View } from "react-native";
-import MySegmentedButtons from "../../components/Buttons/SegmentedButtons";
+
 import StoreDashboard from "./StoreDashboard/StoreDashboard";
 import TaskBoard from "./TaskBoard/TaskBoard";
 import ManageReservations from "./ManageReservations/ManageReservations";
 import Sales from "./Sales/Sales";
 import ManageCustomers from "./Customers/ManageCustomers";
+import MySegmentedButtons from "../../components/Buttons/SegmentedButtons";
 
 export default function MyStore() {
   const [mode, setMode] = useState("Dashboard");
@@ -13,23 +14,18 @@ export default function MyStore() {
   const render = () => {
     if (mode === "Dashboard") {
       return <StoreDashboard />;
-    }
-    else if (mode === "Tasks") {
+    } else if (mode === "Tasks") {
       return <TaskBoard />;
-    }
-    else if (mode === "Reservations") {
+    } else if (mode === "Reservations") {
       return <ManageReservations />;
-    }
-    else if (mode === "Sales") {
+    } else if (mode === "Sales") {
       return <Sales />;
-    }
-    else if (mode === "Customers") {
+    } else if (mode === "Customers") {
       return <ManageCustomers />;
-    }
-    else {
+    } else {
       return null;
     }
-  }
+  };
 
   return (
     <View>

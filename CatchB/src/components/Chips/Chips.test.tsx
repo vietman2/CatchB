@@ -1,6 +1,10 @@
 import { render } from "@testing-library/react-native";
 
-import { NotificationChip, NotificationChipWithSurface, SimpleChip } from "./Chips";
+import {
+  NotificationChip,
+  NotificationChipWithSurface,
+  SimpleChip,
+} from "./Chips";
 
 jest.mock("react-native-paper", () => ({
   Chip: "Chip",

@@ -11,6 +11,7 @@ export type UserProfile = {
   first_name: string;
   last_name: string;
   full_name: string;
+  nickname: string;
   email: string;
   phone_number: string;
   date_joined: string;

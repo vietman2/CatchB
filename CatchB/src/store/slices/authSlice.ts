@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { UserProfile } from "../../variables/types";
 import { save, remove } from "../secure";
+import { UserProfile } from "../../variables/types";
 
 const initialState: {
   token: string;
@@ -13,7 +13,7 @@ const initialState: {
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (data: { access: string, refresh: string, user: UserProfile }) => {
+  async (data: { access: string; refresh: string; user: UserProfile }) => {
     // Save the token to SecureStore
     await save("refresh_token", data.refresh);
     await save("uuid", data.user.uuid);
@@ -31,7 +31,7 @@ export const setNewToken = createAsyncThunk(
 
 export const setUserProfile = createAsyncThunk(
   "auth/getUserProfile",
-  async (data: UserProfile ) => {
+  async (data: UserProfile) => {
     return data;
   }
 );
@@ -63,7 +63,7 @@ export const authSlice = createSlice({
     builder.addCase(setUserProfile.fulfilled, (state, action) => {
       state.user = action.payload;
     });
-  }
+  },
 });
 
 export default authSlice.reducer;

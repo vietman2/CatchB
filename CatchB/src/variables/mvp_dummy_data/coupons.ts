@@ -53,5 +53,5 @@ export const sampleCoupons: Coupon[] = [
     status: "ACTIVE",
     valid_until: "2024-02-01",
     used_at: null,
-  }
+  },
 ];

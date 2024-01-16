@@ -12,7 +12,12 @@ export default function Welcome({ text }: Props) {
   const snapPoints = useMemo(() => ["3%", "50%"], []);
 
   return (
-    <BottomSheet ref={bottomSheetRef} index={1} snapPoints={snapPoints} style={styles.container}>
+    <BottomSheet
+      ref={bottomSheetRef}
+      index={1}
+      snapPoints={snapPoints}
+      style={styles.container}
+    >
       <Text variant="displaySmall">{text}</Text>
     </BottomSheet>
   );
@@ -22,6 +27,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
 });
