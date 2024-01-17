@@ -54,6 +54,7 @@ jest.mock("../../components/Avatar/AvatarHorizontal", () => {
 });
 jest.mock("../../components/Checkboxes/SingleCheck", () => "SingleCheck");
 jest.mock("../../components/Checkboxes/MultiCheck", () => "MultiCheck");
+jest.mock("../../components/Dialogs/AreaPicker", () => "AreaPicker");
 
 const Tab = createBottomTabNavigator();
 

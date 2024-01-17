@@ -3,33 +3,24 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Dimensions,
   ScrollView,
   KeyboardAvoidingView,
   Keyboard,
 } from "react-native";
-import { Button, Portal, Text, TextInput, Modal } from "react-native-paper";
-import Postcode from "@actbase/react-daum-postcode";
+import { Button, Text, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
 
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 
-const { width } = Dimensions.get("window");
 
 export default function FacilityRegister() {
-  const [visible, setVisible] = useState(false);
   const [addressData, setAddressData] = useState(null);
   const [facilityName, setFacilityName] = useState("");
   const [contact, setContact] = useState("");
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [address2, setAddress2] = useState("");
   const user = useSelector((state: RootState) => state.auth.user);
-
-  const onSelected = (data: any) => {
-    setVisible(false);
-    setAddressData(data);
-  };
 
   return (
     <>
@@ -71,7 +62,7 @@ export default function FacilityRegister() {
             <TextInput
               mode="outlined"
               value={registrationNumber}
-              placeholder="- 없이 숫자만 입력하세요"
+              placeholder="사업자 등록번호를 입력하세요 (- 제외)"
               onChangeText={(text) => setRegistrationNumber(text)}
               dense
               textColor="black"
@@ -99,7 +90,7 @@ export default function FacilityRegister() {
               />
               <TouchableOpacity
                 style={{ flex: 3, marginLeft: 10 }}
-                onPress={() => setVisible(true)}
+                onPress={() => {}}
               >
                 <Button
                   mode="contained-tonal"
@@ -147,20 +138,6 @@ export default function FacilityRegister() {
           </>
         </ScrollView>
       </KeyboardAvoidingView>
-      <Portal>
-        <Modal
-          visible={visible}
-          onDismiss={() => setVisible(false)}
-          style={{ marginHorizontal: (width - 320) * 0.5 }}
-        >
-          <Postcode
-            style={{ width: 320, height: 320 }}
-            jsOptions={{ animation: true, hideMapBtn: true }}
-            onSelected={(data) => onSelected(data)}
-            onError={() => {}}
-          />
-        </Modal>
-      </Portal>
     </>
   );
 }

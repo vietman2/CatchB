@@ -55,10 +55,6 @@ const renderWithMode = (mode: "basic" | "pro") => {
 };
 
 describe("<NormalHome />", () => {
-  it("renders correctly", () => {
-    renderWithMode("basic");
-  });
-
   it("handles button press", () => {
     const { getByText } = renderWithMode("basic");
 
