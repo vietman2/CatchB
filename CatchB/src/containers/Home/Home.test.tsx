@@ -2,6 +2,7 @@ import { fireEvent } from "@testing-library/react-native";
 
 import Home from "./Home";
 import { renderWithProviders } from "../../utils/test-utils";
+import { admin } from "../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
@@ -61,6 +62,15 @@ describe("<NormalHome />", () => {
     fireEvent.press(getByText("개인정보 처리방침"));
     fireEvent.press(getByText("이용약관"));
     fireEvent.press(getByText("현재 버전 0.1.0"));
+  });
+
+  it("renders with user", () => {
+    renderWithProviders(<Home />, {
+      preloadedState: {
+        mode: { mode: "basic" },
+        auth: { user: admin, token: "" },
+      },
+    });
   });
 });
 
