@@ -25,8 +25,6 @@ export default function Calendar() {
       }`
     );
 
-    console.log(today)
-
     setReady(true);
   }, []);
 

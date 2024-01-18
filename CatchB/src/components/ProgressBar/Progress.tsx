@@ -31,7 +31,7 @@ export const CheckStatus = ({ done, total }: Props) => {
   const getData = () => {
     return [
       { value: done, label: "완료", color: themeColors.primary },
-      { value: total - done, label: "미완료", color: themeColors.notDone },
+      { value: total - done, label: "미완료", color: themeColors.outline },
     ];
   };
 

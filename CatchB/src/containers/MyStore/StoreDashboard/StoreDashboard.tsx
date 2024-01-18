@@ -12,8 +12,8 @@ export default function StoreDashboard() {
   ];
 
   const pieData = [
-    { value: 19, label: "성공", color: themeColors.success },
-    { value: 1, label: "실패", color: themeColors.failure },
+    { value: 19, label: "성공", color: "green" },
+    { value: 1, label: "실패", color: "red" },
   ];
 
   const getSuccessRate = () => {
