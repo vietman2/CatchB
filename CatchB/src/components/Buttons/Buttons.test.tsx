@@ -1,15 +1,12 @@
 import { render, fireEvent } from "@testing-library/react-native";
 
 import BackButton from "./BackButton";
-import LoginButton from "./LoginButton";
 import SurfaceButton from "./SurfaceButton";
 import SegmentedButtons from "./SegmentedButtons";
-import FABGroup from "./FAB";
 import KakaoButton from "./KakaoButton";
 import NaverButton from "./NaverButton";
 import IconButton from "./IconButton";
 import TabButton from "./TabButton";
-import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),
@@ -23,43 +20,9 @@ jest.mock("react", () => ({
   useState: (initial: any) => [initial, jest.fn()],
 }));
 
-describe("<LoginButton />", () => {
-  it("renders the button with the correct text", () => {
-    const { getByText } = render(
-      <LoginButton text="Login" onPress={() => {}} />
-    );
-    expect(getByText("Login")).toBeTruthy();
-  });
-
-  it("calls onPress when the button is pressed", () => {
-    const onPressMock = jest.fn();
-    const { getByText } = render(
-      <LoginButton text="Login" onPress={onPressMock} />
-    );
-    fireEvent.press(getByText("Login"));
-    expect(onPressMock).toHaveBeenCalled();
-  });
-});
-
 describe("<SurfaceButton />", () => {
   it("renders correctly", () => {
     render(<SurfaceButton icon="home" title="Home" />);
-  });
-});
-
-describe("<FABGroup />", () => {
-  it("renders correctly", () => {
-    renderWithProviders(<FABGroup />);
-  });
-
-  it("handles press events", () => {
-    const { getByTestId, getAllByTestId } = renderWithProviders(<FABGroup />);
-
-    fireEvent.press(getByTestId("FABGroup"));
-    fireEvent.press(getAllByTestId("card")[0]);
-    fireEvent.press(getAllByTestId("card")[1]);
-    fireEvent.press(getByTestId("add"));
-    fireEvent.press(getByTestId("view"));
   });
 });
 

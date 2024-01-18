@@ -29,7 +29,6 @@ jest.mock("../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
 });
-jest.mock("../../components/Buttons/FAB", () => "FABGroup");
 jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
 jest.mock("../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
@@ -114,7 +113,7 @@ describe("<MyPage />", () => {
     fireEvent.press(getByText("1:1 문의"));
     fireEvent.press(getByText("..?"));
     fireEvent.press(getByText("알림 맞춤 설정"));
-    fireEvent.press(getByText("즐겨찾기"));
-    fireEvent.press(getByText("최근 본"));
+    fireEvent.press(getByText("즐겨찾기?"));
+    fireEvent.press(getByText("최근 본?"));
   });
 });

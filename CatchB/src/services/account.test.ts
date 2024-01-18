@@ -1,7 +1,7 @@
 import axios from "axios";
 import { act } from "@testing-library/react-native";
 
-import { login, renewToken, getUserProfile, logout } from "./account";
+import { login, renewToken, getUserProfile, logout, register, deleteAccount } from "./account";
 
 describe("login", () => {
   it("should successfully login", async () => {
@@ -191,5 +191,126 @@ describe("logout", () => {
     const response = await act(() => logout(refresh));
 
     expect(response.status).toBe(400);
+  });
+});
+
+describe("register", () => {
+  const username = "test"
+  const email = "test"
+  const first_name = "test"
+  const last_name = "test"
+  const phone_number = "test"
+  const password = "test"
+  const password2 = "test"
+  const gender = "M"
+
+  it("should successfully register", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 201,
+        data: {},
+      })
+    );
+
+    await act(() => register(
+      username,
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      password,
+      password2,
+      gender
+    ));
+  });
+
+  it("should fail to get response", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() =>
+      register(
+        username,
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        password,
+        password2,
+        gender
+      )
+    );
+  });
+
+  it("should fail to register", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.reject({
+        response: {
+          status: 400,
+          data: {
+            username: ["이미 사용중인 이름입니다."],
+          },
+        },
+      })
+    );
+
+    await act(() =>
+      register(
+        username,
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        password,
+        password2,
+        gender
+      )
+    );
+  });
+});
+
+describe("deleteAccount", () => {
+  it("should successfully delete account", async () => {
+    jest.spyOn(axios, "delete").mockImplementation(() =>
+      Promise.resolve({
+        status: 204,
+        data: {},
+      })
+    );
+
+    const uuid = "uuid";
+    const access = "access";
+
+    await act(() => deleteAccount(uuid, access));
+  });
+
+  it("should fail to get response", async () => {
+    jest
+      .spyOn(axios, "delete")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    const uuid = "uuid";
+    const access = "access";
+
+    await act(() => deleteAccount(uuid, access));
+  });
+
+  it("should fail to delete account", async () => {
+    jest.spyOn(axios, "delete").mockImplementation(() =>
+      Promise.reject({
+        response: {
+          status: 400,
+          data: {
+            detail: "토큰이 만료되었습니다.",
+          },
+        },
+      })
+    );
+
+    const uuid = "uuid";
+    const access = "access";
+
+    await act(() => deleteAccount(uuid, access));
   });
 });

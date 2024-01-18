@@ -28,7 +28,7 @@ export default function SwitchModeDialog({
       if (user === null) {
         setContents("로그인이 필요합니다.");
       } else if (user.user_type !== "normal_user") {
-        setContents("프로모드로 전환합니다.");
+        setContents("프로모드로 전환하시겠습니까?");
         setPossible(true);
       } else {
         setContents("시설 관리자 혹은 코치만 프로모드를 사용할 수 있습니다.");
@@ -38,7 +38,7 @@ export default function SwitchModeDialog({
 
     if (currentMode === "pro") {
       setTitle("일반모드로 전환");
-      setContents("일반모드로 전환합니다.");
+      setContents("일반모드로 전환하시겠습니까?");
       setPossible(true);
     }
   }, [currentMode, user]);
@@ -56,9 +56,10 @@ export default function SwitchModeDialog({
       <Dialog visible={visible}>
         <Dialog.Title>{title}</Dialog.Title>
         <Dialog.Content>
-          <Text>{contents}</Text>
+          <Text variant="titleMedium">{contents}</Text>
         </Dialog.Content>
         <Dialog.Actions>
+          <Button onPress={onClose}>취소</Button>
           <Button onPress={handlePress}>확인</Button>
         </Dialog.Actions>
       </Dialog>

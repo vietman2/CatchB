@@ -36,8 +36,12 @@ export default function FacilitySimple({ facility }: Props) {
             color={themeColors.primary}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
-          <Icon source="share-outline" size={20} />
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Pressed");
+          }}
+        >
+          <Icon source="share-outline" size={20} testID="share-icon" />
         </TouchableOpacity>
       </View>
     </View>

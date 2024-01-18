@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Alert, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { Text, Snackbar } from "react-native-paper";
+import { Text, Portal, Dialog, Button } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import AvatarImage from "../../../components/Avatar/AvatarImage";
 import Tab from "../../../components/Buttons/TabButton";
 import VerticalDivider from "../../../components/Divider/VerticalDivider";
-import { logout } from "../../../services/account";
-import { logout as resetUserState } from "../../../store/slices/authSlice";
+import { deleteAccount, logout } from "../../../services/account";
 import { RootState, AppDispatch } from "../../../store/store";
 import { get } from "../../../store/secure";
+import { logout as resetUserState } from "../../../store/slices/authSlice";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackParamList } from "../../../variables/navigation";
 
@@ -21,8 +21,8 @@ interface Props {
 
 export default function UserProfile({ navigation }: Props) {
   const [visible, setVisible] = useState(false);
-  const [message, setMessage] = useState("");
   const user = useSelector((state: RootState) => state.auth.user);
+  const token = useSelector((state: RootState) => state.auth.token);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogout = async () => {
@@ -30,81 +30,144 @@ export default function UserProfile({ navigation }: Props) {
       if (token) {
         const response = await logout(token);
         if (response.status === 200) {
+          Alert.alert("로그아웃 되었습니다.");
           dispatch(resetUserState());
-          //TODO: 로그아웃 시 유저에게 알리고 피드백 받기
           navigation.navigate("MyPageScreen");
         } else {
-          setMessage("로그아웃에 실패했습니다.");
-          setVisible(true);
+          Alert.alert("로그아웃에 실패했습니다.");
         }
       } else {
-        setMessage("로그아웃에 실패했습니다2.");
-        setVisible(true);
+        Alert.alert("로그아웃에 실패했습니다2.");
       }
     });
   };
 
+  const onDeleteAccountPress = () => {
+    setVisible(true);
+  };
+
+  const handleDeleteAccount = async () => {
+    // TODO: 맞다고 하면 비밀번호 입력받고
+    // TODO: 비밀번호가 맞으면 회원탈퇴
+    const response = await deleteAccount(user.uuid, token);
+    if (response.status === 200) {
+      Alert.alert("회원탈퇴 되었습니다.");
+      dispatch(resetUserState());
+      navigation.navigate("MyPageScreen");
+    } else {
+      Alert.alert("회원탈퇴에 실패했습니다.");
+    }
+  };
+
   return (
     <>
-      <View style={styles.container}>
-        <AvatarImage profileImage={user?.profile_image} />
-        <Text variant="titleLarge">{user?.username}</Text>
-        <View style={styles.tabs}>
-          <Tab
-            title="닉네임"
-            detail={user?.nickname || ""}
-            onPress={() =>
-              navigation.navigate("EditProfile", {
-                title: "닉네임",
-                detail: user?.nickname || "",
-              })
-            }
-            paddingVertical={15}
-          />
-          <Tab
-            title="이메일"
-            detail={user?.email || ""}
-            onPress={() =>
-              navigation.navigate("EditProfile", {
-                title: "이메일",
-                detail: user?.email || "",
-              })
-            }
-            paddingVertical={15}
-          />
-          <Tab title="비밀번호" detail="" paddingVertical={15} />
-          <Tab
-            title="휴대폰 번호"
-            detail={user?.phone_number || ""}
-            onPress={() =>
-              navigation.navigate("EditProfile", {
-                title: "휴대폰 번호",
-                detail: user?.phone_number || "",
-              })
-            }
-            paddingVertical={15}
-          />
+      <ScrollView style={styles.container}>
+        <View style={styles.body}>
+          <AvatarImage profileImage={user?.profile_image} />
+          <Text variant="titleLarge">{`${user?.full_name} (${user?.gender})`}</Text>
+          <View style={styles.tabs}>
+            <Tab
+              title="아이디"
+              detail={user?.username || ""}
+              paddingVertical={15}
+            />
+            <Tab
+              title="이메일"
+              detail={user?.email || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "이메일",
+                  detail: user?.email || "",
+                })
+              }
+              paddingVertical={15}
+            />
+            <Tab
+              title="휴대폰 번호"
+              detail={user?.phone_number || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "휴대폰 번호",
+                  detail: user?.phone_number || "",
+                })
+              }
+              paddingVertical={15}
+            />
+          </View>
+          <View style={styles.tabs}>
+            <Tab
+              title="닉네임"
+              detail={user?.nickname || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "닉네임",
+                  detail: user?.nickname || "",
+                })
+              }
+              paddingVertical={15}
+            />
+            <Tab
+              title="야구 경력"
+              detail={user?.experience_tier || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "야구 경력",
+                  detail: user?.experience_tier || "",
+                })
+              }
+              paddingVertical={15}
+            />
+            <Tab
+              title="생년월일"
+              detail={user?.birth_date || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "생년월일",
+                  detail: user?.birth_date || "",
+                })
+              }
+              paddingVertical={15}
+            />
+          </View>
+          <View style={styles.tabs}>
+            <Tab title="비밀번호 변경하기" detail="" paddingVertical={15} />
+          </View>
+          <View style={styles.tabs}>
+            <Tab title="연동된 소셜 계정" detail="없음" paddingVertical={15} />
+            <Tab
+              title="가입 날짜"
+              detail={user?.date_joined || ""}
+              paddingVertical={15}
+            />
+          </View>
         </View>
-        <View style={styles.tabs}>
-          <Tab title="연동된 소셜 계정" detail="없음" paddingVertical={15} />
-        </View>
-      </View>
+      </ScrollView>
       <View style={styles.others}>
         <TouchableOpacity style={{ marginRight: 10 }} onPress={handleLogout}>
           <Text>로그아웃</Text>
         </TouchableOpacity>
         <VerticalDivider />
-        <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => {}}>
+        <TouchableOpacity
+          style={{ marginLeft: 10 }}
+          onPress={onDeleteAccountPress}
+        >
           <Text>회원탈퇴</Text>
         </TouchableOpacity>
       </View>
-      <Snackbar
-        visible={visible}
-        onDismiss={() => setVisible(false)}
-        duration={2000}
-      >
-        {message}
-      </Snackbar>
+      <Portal>
+        <Dialog visible={visible}>
+          <Dialog.Title>회원 탈퇴</Dialog.Title>
+          <Dialog.Content>
+            <Text>정말로 회원 탈퇴 하시겠습니까?</Text>
+            <Text>{"\n(30일안에 다시 돌아오면 계정 복구 가능?)"}</Text>
+            <Text>(아니면 되돌릴 수 없음?)</Text>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => setVisible(false)}>취소</Button>
+            <Button onPress={handleDeleteAccount}>확인</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </>
   );
 }
@@ -113,7 +176,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: themeColors.primaryContainer,
+  },
+  body: {
     alignItems: "center",
+    paddingBottom: 20,
   },
   tabs: {
     marginTop: 20,

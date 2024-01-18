@@ -21,7 +21,6 @@ import LoginLogo from "../../../components/Logos/LoginLogo";
 import NaverButton from "../../../components/Buttons/NaverButton";
 import KakaoButton from "../../../components/Buttons/KakaoButton";
 import DividerWithText from "../../../components/Divider/DividerWithText";
-import LoginButton from "../../../components/Buttons/LoginButton";
 import { login } from "../../../services/account";
 import { login as setUserState } from "../../../store/slices/authSlice";
 import { AppDispatch } from "../../../store/store";
@@ -140,11 +139,14 @@ export default function Login({ navigation }: LoginProps) {
           {isLoading ? (
             <ActivityIndicator animating={true} color={themeColors.primary} />
           ) : (
-            <LoginButton
-              text="로그인"
+            <Button
+              mode="contained"
               onPress={handleLogin}
+              labelStyle={styles.buttonText}
               testID="login-button"
-            />
+            >
+              로그인
+            </Button>
           )}
           <View style={styles.textButtonContainer}>
             <Button
@@ -185,10 +187,14 @@ export default function Login({ navigation }: LoginProps) {
             </Text>
             회원이 아니신가요?
           </Text>
-          <LoginButton
-            text="회원가입"
+          <Button
+            mode="contained"
             onPress={() => navigation.navigate("SignUp")}
-          />
+            labelStyle={styles.buttonText}
+            testID="sign-up-button"
+          >
+            회원가입
+          </Button>
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
@@ -229,5 +235,10 @@ const styles = StyleSheet.create({
   textButton: {
     color: "black",
     fontSize: 20,
+  },
+  buttonText: {
+    fontFamily: "Catch B ExtraBold",
+    fontSize: 16,
+    paddingVertical: 2,
   },
 });

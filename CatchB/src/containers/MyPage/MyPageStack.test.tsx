@@ -14,6 +14,7 @@ jest.mock("react-native-gesture-handler", () => ({
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
+  const { Dialog } = jest.requireActual("react-native-paper");
 
   const mockButton = ({ children, onPress }) => (
     <TouchableOpacity onPress={onPress}>
@@ -32,6 +33,8 @@ jest.mock("react-native-paper", () => {
     Button: mockButton,
     Snackbar: "Snackbar",
     ActivityIndicator: "ActivityIndicator",
+    Portal: "Portal",
+    Dialog: Dialog,
   };
 });
 jest.mock("expo-linear-gradient", () => ({
@@ -42,7 +45,6 @@ jest.mock("expo-document-picker", () => ({
 }));
 jest.mock("./Login/Login", () => "Login");
 jest.mock("./SignUp/SignUp", () => "SignUp");
-jest.mock("../../components/Buttons/FAB", () => "FABGroup");
 jest.mock("../../components/Divider/VerticalDivider", () => "VerticalDivider");
 jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
 jest.mock("../../components/Avatar/AvatarImage", () => "AvatarImage");
@@ -55,6 +57,7 @@ jest.mock("../../components/Avatar/AvatarHorizontal", () => {
 });
 jest.mock("../../components/Checkboxes/SingleCheck", () => "SingleCheck");
 jest.mock("../../components/Checkboxes/MultiCheck", () => "MultiCheck");
+jest.mock("../../components/Dialogs/AreaPicker", () => "AreaPicker");
 
 const Tab = createBottomTabNavigator();
 

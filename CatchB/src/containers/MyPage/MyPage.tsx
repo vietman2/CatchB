@@ -5,7 +5,6 @@ import { Button, Divider, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 import AvatarHorizontal from "../../components/Avatar/AvatarHorizontal";
-import FABGroup from "../../components/Buttons/FAB";
 import IconButton from "../../components/Buttons/IconButton";
 import TabButton from "../../components/Buttons/TabButton";
 import VerticalDivider from "../../components/Divider/VerticalDivider";
@@ -73,11 +72,11 @@ export default function MyPage() {
           <View style={styles.mainOptions}>
             <View style={styles.menuHorizontal}>
               <TouchableOpacity style={{ flex: 1 }}>
-                <IconButton icon="bookmark" title="즐겨찾기" />
+                <IconButton icon="bookmark" title="즐겨찾기?" />
               </TouchableOpacity>
               <VerticalDivider />
               <TouchableOpacity style={{ flex: 1 }}>
-                <IconButton icon="history" title="최근 본" />
+                <IconButton icon="history" title="최근 본?" />
               </TouchableOpacity>
               <VerticalDivider />
               <TouchableOpacity style={{ flex: 1 }} onPress={handleReviewPress}>
@@ -127,7 +126,7 @@ export default function MyPage() {
               </Button>
             </View>
           )}
-          <View style={styles.menus}>
+          <View style={styles.others}>
             <Divider style={styles.divider} />
             <Text variant="titleLarge" style={styles.subtitle}>
               이벤트
@@ -220,7 +219,6 @@ export default function MyPage() {
           </View>
         </View>
       </ScrollView>
-      <FABGroup />
       <LoginDialog
         visible={dialogVisible}
         title="로그인"
@@ -243,7 +241,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: themeColors.secondaryContainer,
   },
-  menus: {
+  menuHorizontal: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginVertical: 5,
+  },
+  others: {
     padding: 10,
   },
   divider: {
@@ -254,11 +257,6 @@ const styles = StyleSheet.create({
     padding: 5,
     marginBottom: 10,
   },
-  menuHorizontal: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginVertical: 5,
-  },
   registerButtons: {
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -268,6 +266,7 @@ const styles = StyleSheet.create({
   benefits: {
     flex: 1,
     marginVertical: 5,
+    paddingRight: 5,
   },
   labelText: {
     fontSize: 20,
