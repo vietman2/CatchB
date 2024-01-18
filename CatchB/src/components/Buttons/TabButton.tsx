@@ -24,7 +24,7 @@ export default function TabButton({
       </Text>
       <View style={styles.tabRight}>
         <Text variant="titleMedium">{detail}</Text>
-        <Icon size={20} source="chevron-right" />
+        {onPress && <Icon size={20} source="chevron-right" />}
       </View>
     </TouchableOpacity>
   );

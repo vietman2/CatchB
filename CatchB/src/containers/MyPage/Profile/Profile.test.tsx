@@ -87,8 +87,8 @@ const renderUserProfile = () => {
 };
 
 describe("<UserProfile />", () => {
-  it("renders correctly without user", () => {
-    renderWithProviders(
+  it("renders correctly without user", async () => {
+    const { getByText } = renderWithProviders(
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="UserProfile" component={UserProfile} />
@@ -104,6 +104,14 @@ describe("<UserProfile />", () => {
         },
       }
     );
+
+    waitFor(() => {
+      fireEvent.press(getByText("닉네임"));
+      fireEvent.press(getByText("이메일"));
+      fireEvent.press(getByText("휴대폰 번호"));
+      fireEvent.press(getByText("야구 경력"));
+      fireEvent.press(getByText("생년월일"));
+    });
   });
 
   it("renders correctly with user", () => {
@@ -113,6 +121,8 @@ describe("<UserProfile />", () => {
       fireEvent.press(getByText("닉네임"));
       fireEvent.press(getByText("이메일"));
       fireEvent.press(getByText("휴대폰 번호"));
+      fireEvent.press(getByText("야구 경력"));
+      fireEvent.press(getByText("생년월일"));
       fireEvent.press(getByText("로그아웃"));
     });
   });

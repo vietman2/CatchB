@@ -11,13 +11,13 @@ export default function GenderButton({ gender, setGender }: Props) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => setGender("M")} testID="male-button">
-        <Surface style={gender === "M" ? styles.chosen : styles.notChosen}>
-          <Text style={{ color: "white" }}>남</Text>
+        <Surface mode="flat" style={gender === "M" ? styles.chosen : styles.notChosen}>
+          <Text>남</Text>
         </Surface>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => setGender("F")} testID="female-button">
-        <Surface style={gender === "F" ? styles.chosen : styles.notChosen}>
-          <Text style={{ color: "white" }}>여</Text>
+        <Surface mode="flat" style={gender === "F" ? styles.chosen : styles.notChosen}>
+          <Text>여</Text>
         </Surface>
       </TouchableOpacity>
     </View>
@@ -25,15 +25,18 @@ export default function GenderButton({ gender, setGender }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row", justifyContent: "center" },
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   chosen: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: "green",
+    backgroundColor: "rgba(64, 196, 20, 0.75)",
   },
   notChosen: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: "rgba(64, 196, 20, 0.25)",
+    backgroundColor: "rgba(64, 196, 20, 0.05)",
   },
 });

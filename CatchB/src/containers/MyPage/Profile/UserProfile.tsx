@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity, View, Alert } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Alert, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Text, Portal, Dialog, Button } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -61,51 +61,87 @@ export default function UserProfile({ navigation }: Props) {
 
   return (
     <>
-      <View style={styles.container}>
-        <AvatarImage profileImage={user?.profile_image} />
-        <Text variant="titleLarge">{user?.username}</Text>
-        <View style={styles.tabs}>
-          <Tab
-            title="닉네임"
-            detail={user?.nickname || ""}
-            onPress={() =>
-              navigation.navigate("EditProfile", {
-                title: "닉네임",
-                detail: user?.nickname || "",
-              })
-            }
-            paddingVertical={15}
-          />
-          <Tab
-            title="이메일"
-            detail={user?.email || ""}
-            onPress={() =>
-              navigation.navigate("EditProfile", {
-                title: "이메일",
-                detail: user?.email || "",
-              })
-            }
-            paddingVertical={15}
-          />
-          <Tab
-            title="휴대폰 번호"
-            detail={user?.phone_number || ""}
-            onPress={() =>
-              navigation.navigate("EditProfile", {
-                title: "휴대폰 번호",
-                detail: user?.phone_number || "",
-              })
-            }
-            paddingVertical={15}
-          />
+      <ScrollView style={styles.container}>
+        <View style={styles.body}>
+          <AvatarImage profileImage={user?.profile_image} />
+          <Text variant="titleLarge">{`${user?.full_name} (${user?.gender})`}</Text>
+          <View style={styles.tabs}>
+            <Tab
+              title="아이디"
+              detail={user?.username || ""}
+              paddingVertical={15}
+            />
+            <Tab
+              title="이메일"
+              detail={user?.email || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "이메일",
+                  detail: user?.email || "",
+                })
+              }
+              paddingVertical={15}
+            />
+            <Tab
+              title="휴대폰 번호"
+              detail={user?.phone_number || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "휴대폰 번호",
+                  detail: user?.phone_number || "",
+                })
+              }
+              paddingVertical={15}
+            />
+          </View>
+          <View style={styles.tabs}>
+            <Tab
+              title="닉네임"
+              detail={user?.nickname || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "닉네임",
+                  detail: user?.nickname || "",
+                })
+              }
+              paddingVertical={15}
+            />
+            <Tab
+              title="야구 경력"
+              detail={user?.experience_tier || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "야구 경력",
+                  detail: user?.experience_tier || "",
+                })
+              }
+              paddingVertical={15}
+            />
+            <Tab
+              title="생년월일"
+              detail={user?.birth_date || ""}
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  title: "생년월일",
+                  detail: user?.birth_date || "",
+                })
+              }
+              paddingVertical={15}
+            />
+          </View>
+          <View style={styles.tabs}>
+            <Tab title="비밀번호 변경하기" detail="" paddingVertical={15} />
+          </View>
+          <View style={styles.tabs}>
+            <Tab title="연동된 소셜 계정" detail="없음" paddingVertical={15} />
+            <Tab
+              title="가입 날짜"
+              detail={user?.date_joined || ""}
+              paddingVertical={15}
+            />
+          </View>
         </View>
-        <View style={styles.tabs}>
-          <Tab title="비밀번호 변경하기" detail="" paddingVertical={15} />
-        </View>
-        <View style={styles.tabs}>
-          <Tab title="연동된 소셜 계정" detail="없음" paddingVertical={15} />
-        </View>
-      </View>
+      </ScrollView>
       <View style={styles.others}>
         <TouchableOpacity style={{ marginRight: 10 }} onPress={handleLogout}>
           <Text>로그아웃</Text>
@@ -140,7 +176,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: themeColors.primaryContainer,
+  },
+  body: {
     alignItems: "center",
+    paddingBottom: 20,
   },
   tabs: {
     marginTop: 20,
