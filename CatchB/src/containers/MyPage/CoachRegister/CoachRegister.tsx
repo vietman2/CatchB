@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { ScrollView, StyleSheet } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { Button, Text, TextInput, Chip } from "react-native-paper";
 import * as DocumentPicker from "expo-document-picker";
 
 import SingleCheck from "../../../components/Checkboxes/SingleCheck";
@@ -61,14 +61,20 @@ export default function CoachRegister() {
         <Text variant="titleSmall" style={styles.subtitle}>
           활동 지역 (최대 5개 지역까지 선택 가능) *
         </Text>
+        <View style={styles.chips}>
+          {selectedAreas.map((area) => (
+            <Chip key={area} style={{backgroundColor: "green", marginRight: 10, marginBottom: 5}}>
+              {area}
+            </Chip>
+          ))}
+        </View>
         <Button
           mode="contained-tonal"
           icon="playlist-check"
           buttonColor={themeColors.primary}
-          textColor={themeColors.onPrimary}
           onPress={() => setVisible(true)}
         >
-          선택하기
+          {selectedAreas.length === 0 ? "선택하기" : "다시 선택하기"}
         </Button>
         <Text variant="titleSmall" style={styles.subtitle}>
           경력 *
@@ -80,13 +86,16 @@ export default function CoachRegister() {
           mode="contained-tonal"
           icon="upload"
           buttonColor={themeColors.primary}
-          textColor={themeColors.onPrimary}
           onPress={handleUpload}
         >
           업로드
         </Button>
       </ScrollView>
-      <AreaPicker visible={visible} onDismiss={() => setVisible(false)} />
+      <AreaPicker
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        setSelectedAreas={(areas) => setSelectedAreas(areas)}
+      />
     </>
   );
 }
@@ -109,4 +118,8 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.secondaryContainer,
     fontWeight: "bold",
   },
+  chips: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  }
 });
