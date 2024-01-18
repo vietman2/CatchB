@@ -7,14 +7,16 @@ import {
   KeyboardAvoidingView,
   Keyboard,
 } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Dialog, Portal, Text, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
+import PostCode from "@actbase/react-daum-postcode";
+import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 
-
 export default function FacilityRegister() {
+  const [visible, setVisible] = useState(false);
   const [addressData, setAddressData] = useState(null);
   const [facilityName, setFacilityName] = useState("");
   const [contact, setContact] = useState("");
@@ -22,10 +24,15 @@ export default function FacilityRegister() {
   const [address2, setAddress2] = useState("");
   const user = useSelector((state: RootState) => state.auth.user);
 
+  const handleAddressSelected = (data: OnCompleteParams) => {
+    setAddressData(data);
+    setVisible(false);
+  };
+
   return (
     <>
       <KeyboardAvoidingView style={styles.container}>
-        <ScrollView onScroll={Keyboard.dismiss} scrollEventThrottle={16}>
+        <ScrollView onTouchStart={Keyboard.dismiss}>
           <Text variant="titleLarge" style={styles.title}>
             기본 정보
           </Text>
@@ -40,6 +47,7 @@ export default function FacilityRegister() {
               onChangeText={(text) => setFacilityName(text)}
               dense
               textColor="black"
+              style={facilityName === "" ? {} : styles.bold}
             />
           </>
           <>
@@ -53,6 +61,7 @@ export default function FacilityRegister() {
               dense
               textColor="black"
               onChangeText={(text) => setContact(text)}
+              style={contact === "" ? {} : styles.bold}
             />
           </>
           <>
@@ -66,6 +75,7 @@ export default function FacilityRegister() {
               onChangeText={(text) => setRegistrationNumber(text)}
               dense
               textColor="black"
+              style={registrationNumber === "" ? {} : styles.bold}
             />
           </>
           <>
@@ -86,11 +96,11 @@ export default function FacilityRegister() {
                 dense
                 textColor="black"
                 editable={false}
-                style={{ flex: 7 }}
+                style={{ flex: 7, fontWeight: "bold" }}
               />
               <TouchableOpacity
                 style={{ flex: 3, marginLeft: 10 }}
-                onPress={() => {}}
+                onPress={() => setVisible(true)}
               >
                 <Button
                   mode="contained-tonal"
@@ -108,6 +118,7 @@ export default function FacilityRegister() {
               onChangeText={(text) => setAddress2(text)}
               dense
               textColor="black"
+              style={address2 === "" ? {} : styles.bold}
             />
           </>
           <>
@@ -138,6 +149,22 @@ export default function FacilityRegister() {
           </>
         </ScrollView>
       </KeyboardAvoidingView>
+      <Portal>
+        <Dialog visible={visible} style={{ backgroundColor: "white" }}>
+          <Dialog.Title>주소 검색</Dialog.Title>
+          <Dialog.Content>
+            <PostCode
+              style={{ width: "100%", height: 500 }}
+              jsOptions={{ animation: true }}
+              onSelected={(data) => handleAddressSelected(data)}
+              onError={(error) => console.log(error)}
+            />
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => setVisible(false)}>취소</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </>
   );
 }
@@ -158,6 +185,9 @@ const styles = StyleSheet.create({
   },
   uneditable: {
     backgroundColor: themeColors.secondaryContainer,
+    fontWeight: "bold",
+  },
+  bold: {
     fontWeight: "bold",
   },
 });
