@@ -62,11 +62,15 @@ export default function CoachRegister() {
         <Text variant="titleSmall" style={styles.subtitle}>
           활동 지역 (최대 5개 지역까지 선택 가능) *
         </Text>
-        <MultiCheck
-          options={["서울", "경기", "인천"]}
-          selected={selectedAreas}
-          setSelected={setSelectedAreas}
-        />
+        <Button
+          mode="contained-tonal"
+          icon="playlist-check"
+          buttonColor={themeColors.primary}
+          textColor={themeColors.onPrimary}
+          onPress={() => setVisible(true)}
+        >
+          선택하기
+        </Button>
         <Text variant="titleSmall" style={styles.subtitle}>
           경력 *
         </Text>
@@ -81,9 +85,6 @@ export default function CoachRegister() {
           onPress={handleUpload}
         >
           업로드
-        </Button>
-        <Button mode="contained-tonal" onPress={() => setVisible(true)}>
-          Example
         </Button>
       </ScrollView>
       <AreaPicker visible={visible} onDismiss={() => setVisible(false)} />

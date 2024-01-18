@@ -5,6 +5,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   View,
+  Alert
 } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useRoute } from "@react-navigation/native";
@@ -17,6 +18,17 @@ export default function EditProfile() {
   const { title, detail } = route.params;
   const [value, setValue] = useState<string>(detail);
 
+  const handleButton = () => {
+    if (value === "") {
+      Alert.alert("내용을 입력해주세요");
+      return;
+    }
+    if (value === detail) {
+      Alert.alert("변경된 내용이 없습니다");
+      return;
+    }
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -27,12 +39,13 @@ export default function EditProfile() {
           <TextInput
             style={styles.textInput}
             value={value}
+            mode="outlined"
             onChangeText={(text) => setValue(text)}
             testID="edit-profile-text-input"
           />
+          <Button mode="contained" onPress={handleButton}>확인</Button>
         </View>
       </TouchableWithoutFeedback>
-      <Button>확인</Button>
     </KeyboardAvoidingView>
   );
 }
@@ -45,7 +58,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   textInput: {
-    marginTop: 20,
-    backgroundColor: themeColors.secondaryContainer,
+    marginVertical: 20,
   },
 });

@@ -72,11 +72,11 @@ export default function MyPage() {
           <View style={styles.mainOptions}>
             <View style={styles.menuHorizontal}>
               <TouchableOpacity style={{ flex: 1 }}>
-                <IconButton icon="bookmark" title="즐겨찾기" />
+                <IconButton icon="bookmark" title="즐겨찾기?" />
               </TouchableOpacity>
               <VerticalDivider />
               <TouchableOpacity style={{ flex: 1 }}>
-                <IconButton icon="history" title="최근 본" />
+                <IconButton icon="history" title="최근 본?" />
               </TouchableOpacity>
               <VerticalDivider />
               <TouchableOpacity style={{ flex: 1 }} onPress={handleReviewPress}>

@@ -39,6 +39,6 @@ describe("<CoachRegister />", () => {
       },
     });
 
-    await waitFor(() => fireEvent.press(getByText("Example")));
+    await waitFor(() => fireEvent.press(getByText("선택하기")));
   });
 });
