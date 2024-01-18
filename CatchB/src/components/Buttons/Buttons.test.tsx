@@ -7,7 +7,6 @@ import KakaoButton from "./KakaoButton";
 import NaverButton from "./NaverButton";
 import IconButton from "./IconButton";
 import TabButton from "./TabButton";
-import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),

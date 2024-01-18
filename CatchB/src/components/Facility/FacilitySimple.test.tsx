@@ -10,15 +10,12 @@ jest.mock("react-native-paper", () => ({
 }));
 
 describe("<FacilitySimple />", () => {
-  it("renders correctly", () => {
-    render(<FacilitySimple facility={sampleFacilities[0]} />);
-  });
-
-  it("handles the like button correctly", () => {
+  it("handles the like and share button correctly", () => {
     const { getByTestId } = render(
       <FacilitySimple facility={sampleFacilities[0]} />
     );
 
     fireEvent.press(getByTestId("like-icon"));
+    fireEvent.press(getByTestId("share-icon"));
   });
 });

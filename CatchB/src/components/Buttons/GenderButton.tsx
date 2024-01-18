@@ -10,12 +10,12 @@ interface Props {
 export default function GenderButton({ gender, setGender }: Props) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => setGender("M")}>
+      <TouchableOpacity onPress={() => setGender("M")} testID="male-button">
         <Surface style={gender === "M" ? styles.chosen : styles.notChosen}>
           <Text style={{ color: "white" }}>남</Text>
         </Surface>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setGender("F")}>
+      <TouchableOpacity onPress={() => setGender("F")} testID="female-button">
         <Surface style={gender === "F" ? styles.chosen : styles.notChosen}>
           <Text style={{ color: "white" }}>여</Text>
         </Surface>

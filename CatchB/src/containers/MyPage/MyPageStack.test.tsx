@@ -14,6 +14,7 @@ jest.mock("react-native-gesture-handler", () => ({
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
+  const { Dialog } = jest.requireActual("react-native-paper");
 
   const mockButton = ({ children, onPress }) => (
     <TouchableOpacity onPress={onPress}>
@@ -32,6 +33,8 @@ jest.mock("react-native-paper", () => {
     Button: mockButton,
     Snackbar: "Snackbar",
     ActivityIndicator: "ActivityIndicator",
+    Portal: "Portal",
+    Dialog: Dialog,
   };
 });
 jest.mock("expo-linear-gradient", () => ({

@@ -166,7 +166,6 @@ export async function deleteAccount(uuid: string, access: string) {
       data: response.data,
     };
   } catch (err) {
-    console.log(err);
     if (err.response) {
       return {
         status: err.response.status,

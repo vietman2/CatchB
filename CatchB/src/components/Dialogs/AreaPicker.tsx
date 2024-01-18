@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { View, ScrollView, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import {
   Portal,
   Text,
@@ -41,7 +41,7 @@ export default function AreaPicker({ visible, onDismiss }: Props) {
       setSelectedSigungu(selectedSigungu.filter((item) => item !== name));
     } else {
       if (selectedSigungu.length >= 5) {
-        alert("최대 5개까지 선택 가능합니다.");
+        Alert.alert("최대 5개까지 선택 가능합니다.");
         return;
       }
       setSelectedSigungu([...selectedSigungu, name]);
@@ -62,7 +62,7 @@ export default function AreaPicker({ visible, onDismiss }: Props) {
 
   return (
     <Portal>
-      <Dialog visible={visible} onDismiss={onDismiss} style={styles.modal}>
+      <Dialog visible={visible} style={styles.modal}>
         <Dialog.Title>
           <Text variant="titleLarge">활동지역 선택 (최대 5지역)</Text>
         </Dialog.Title>

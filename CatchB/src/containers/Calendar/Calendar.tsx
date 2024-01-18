@@ -18,10 +18,14 @@ export default function Calendar() {
     const date = today.getDate();
 
     setToday(
-      `${year}-${month < 10 ? `0${month}` : month}-${
+      `${year}-
+      ${month < 10 ? `0${month}` : month}-
+      ${
         date < 10 ? `0${date}` : date
       }`
     );
+
+    console.log(today)
 
     setReady(true);
   }, []);

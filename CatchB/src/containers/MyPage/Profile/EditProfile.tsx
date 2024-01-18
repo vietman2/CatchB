@@ -27,6 +27,8 @@ export default function EditProfile() {
       Alert.alert("변경된 내용이 없습니다");
       return;
     }
+
+    Alert.alert("변경되었습니다", "");
   };
 
   return (

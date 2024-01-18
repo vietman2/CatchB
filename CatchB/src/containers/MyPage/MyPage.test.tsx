@@ -113,7 +113,7 @@ describe("<MyPage />", () => {
     fireEvent.press(getByText("1:1 문의"));
     fireEvent.press(getByText("..?"));
     fireEvent.press(getByText("알림 맞춤 설정"));
-    fireEvent.press(getByText("즐겨찾기"));
-    fireEvent.press(getByText("최근 본"));
+    fireEvent.press(getByText("즐겨찾기?"));
+    fireEvent.press(getByText("최근 본?"));
   });
 });

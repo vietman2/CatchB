@@ -30,15 +30,9 @@ export default function UserProfile({ navigation }: Props) {
       if (token) {
         const response = await logout(token);
         if (response.status === 200) {
-          Alert.alert("로그아웃 되었습니다.", "", [
-            {
-              text: "확인",
-              onPress: () => {
-                dispatch(resetUserState());
-                navigation.navigate("MyPageScreen");
-              },
-            },
-          ]);
+          Alert.alert("로그아웃 되었습니다.");
+          dispatch(resetUserState());
+          navigation.navigate("MyPageScreen");
         } else {
           Alert.alert("로그아웃에 실패했습니다.");
         }
@@ -53,12 +47,11 @@ export default function UserProfile({ navigation }: Props) {
   };
 
   const handleDeleteAccount = async () => {
-    // TODO: 확실하냐고 한번 더 물어보고
     // TODO: 맞다고 하면 비밀번호 입력받고
     // TODO: 비밀번호가 맞으면 회원탈퇴
-    // TODO: 회원탈퇴 성공하면 로그아웃하고 Alert
     const response = await deleteAccount(user.uuid, token);
     if (response.status === 200) {
+      Alert.alert("회원탈퇴 되었습니다.");
       dispatch(resetUserState());
       navigation.navigate("MyPageScreen");
     } else {
@@ -126,7 +119,7 @@ export default function UserProfile({ navigation }: Props) {
         </TouchableOpacity>
       </View>
       <Portal>
-        <Dialog visible={visible} onDismiss={() => setVisible(false)}>
+        <Dialog visible={visible}>
           <Dialog.Title>회원 탈퇴</Dialog.Title>
           <Dialog.Content>
             <Text>정말로 회원 탈퇴 하시겠습니까?</Text>
