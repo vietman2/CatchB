@@ -15,12 +15,12 @@ import { themeColors } from "../../variables/colors";
 interface Props {
   visible: boolean;
   onDismiss: () => void;
+  setSelectedAreas: (selectedSigungu: string[]) => void;
 }
 
-export default function AreaPicker({ visible, onDismiss }: Props) {
+export default function AreaPicker({ visible, onDismiss, setSelectedAreas }: Props) {
   const [sidoList, setSidoList] = useState([]);
   const [selectedSido, setSelectedSido] = useState<string>("서울특별시");
-  const [sigunguList, setSigunguList] = useState([]);
   const [sigunguDisplay, setSigunguDisplay] = useState([]);
   const [sigunguBySido, setSigunguBySido] = useState({});
   const [selectedSigungu, setSelectedSigungu] = useState<string[]>([]);
@@ -48,11 +48,15 @@ export default function AreaPicker({ visible, onDismiss }: Props) {
     }
   };
 
+  const handleConfirm = () => {
+    onDismiss();
+    setSelectedAreas(selectedSigungu);
+  }
+
   useEffect(() => {
     async function getData() {
       const response = await getList();
       setSidoList(response.data.sido);
-      setSigunguList(response.data.sigungu);
       setSigunguBySido(response.data.sigungu_by_sido);
       setSigunguDisplay(response.data.sigungu_by_sido.서울특별시);
     }
@@ -154,7 +158,7 @@ export default function AreaPicker({ visible, onDismiss }: Props) {
         </Dialog.Content>
         <Dialog.Actions>
           <Button onPress={onDismiss}>취소</Button>
-          <Button onPress={onDismiss}>확인</Button>
+          <Button onPress={handleConfirm}>확인</Button>
         </Dialog.Actions>
       </Dialog>
     </Portal>

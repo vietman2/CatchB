@@ -128,7 +128,14 @@ describe("<AreaPicker />", () => {
           { code: "0100000000", name: "세종특별자치시" },
         ],
         sigungu_by_sido: {
-          서울특별시: ["관악구", "강남구", "송파구", "구로구", "종로구", "강동구"],
+          서울특별시: [
+            "관악구",
+            "강남구",
+            "송파구",
+            "구로구",
+            "종로구",
+            "강동구",
+          ],
           부산광역시: ["연제구"],
           세종특별자치시: ["세종특별자치시"],
         },
@@ -138,7 +145,13 @@ describe("<AreaPicker />", () => {
 
   it("renders and handles onPresses correctly", async () => {
     const { getByText, getAllByText } = await waitFor(() =>
-      renderWithProviders(<AreaPicker visible={true} onDismiss={() => {}} />)
+      renderWithProviders(
+        <AreaPicker
+          visible={true}
+          onDismiss={() => {}}
+          setSelectedAreas={() => {}}
+        />
+      )
     );
 
     await waitFor(() => {
@@ -152,7 +165,13 @@ describe("<AreaPicker />", () => {
 
   it("handles over 5 presses correctly", async () => {
     const { getByText } = await waitFor(() =>
-      renderWithProviders(<AreaPicker visible={true} onDismiss={() => {}} />)
+      renderWithProviders(
+        <AreaPicker
+          visible={true}
+          onDismiss={() => {}}
+          setSelectedAreas={() => {}}
+        />
+      )
     );
 
     await waitFor(() => {
@@ -167,7 +186,13 @@ describe("<AreaPicker />", () => {
 
   it("handles chip close correctly", async () => {
     const { getByText } = await waitFor(() =>
-      renderWithProviders(<AreaPicker visible={true} onDismiss={() => {}} />)
+      renderWithProviders(
+        <AreaPicker
+          visible={true}
+          onDismiss={() => {}}
+          setSelectedAreas={() => {}}
+        />
+      )
     );
 
     await waitFor(() => {
