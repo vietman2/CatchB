@@ -203,7 +203,6 @@ describe("register", () => {
   const password = "test"
   const password2 = "test"
   const gender = "M"
-  const register_route = 1
 
   it("should successfully register", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
