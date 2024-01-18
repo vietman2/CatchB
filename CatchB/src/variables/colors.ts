@@ -3,10 +3,11 @@ export const themeColors = {
   onPrimary: "white",
   primaryContainer: "#fff",
   secondary: "brown",
-  secondaryContainer: "rgba(0, 0, 0, 0.25)",
-  onSecondaryContainer: "yellow", // 탭 아이콘 색상, 칩 오른쪽 아이콘 색상
+  secondaryContainer: "silver",
+  onSecondaryContainer: "white", // 탭 아이콘 색상, 칩 오른쪽 아이콘 색상
   tertiary: "gray",
   tertiaryContainer: "rgba(64, 196, 20, 0.5)",
+  surfaceVariant: "rgba(64, 196, 20, 0.25)",
   error: "red",
   success: "green",
   warning: "yellow",
