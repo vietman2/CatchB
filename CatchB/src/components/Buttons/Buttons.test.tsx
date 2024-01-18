@@ -1,7 +1,6 @@
 import { render, fireEvent } from "@testing-library/react-native";
 
 import BackButton from "./BackButton";
-import LoginButton from "./LoginButton";
 import SurfaceButton from "./SurfaceButton";
 import SegmentedButtons from "./SegmentedButtons";
 import KakaoButton from "./KakaoButton";
@@ -21,24 +20,6 @@ jest.mock("react", () => ({
   ...jest.requireActual("react"),
   useState: (initial: any) => [initial, jest.fn()],
 }));
-
-describe("<LoginButton />", () => {
-  it("renders the button with the correct text", () => {
-    const { getByText } = render(
-      <LoginButton text="Login" onPress={() => {}} />
-    );
-    expect(getByText("Login")).toBeTruthy();
-  });
-
-  it("calls onPress when the button is pressed", () => {
-    const onPressMock = jest.fn();
-    const { getByText } = render(
-      <LoginButton text="Login" onPress={onPressMock} />
-    );
-    fireEvent.press(getByText("Login"));
-    expect(onPressMock).toHaveBeenCalled();
-  });
-});
 
 describe("<SurfaceButton />", () => {
   it("renders correctly", () => {

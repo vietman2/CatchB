@@ -38,9 +38,9 @@ const ExperienceTier = {
 };
 
 const RegisterRoute = {
-  CATCHB: { value: 0, label: "캐치비" },
-  KAKAO: { value: 1, label: "카카오" },
-  NAVER: { value: 2, label: "네이버" },
+  CATCHB: { value: 1, label: "캐치비" },
+  KAKAO: { value: 2, label: "카카오" },
+  NAVER: { value: 3, label: "네이버" },
 };
 
 const LessonStatus = {

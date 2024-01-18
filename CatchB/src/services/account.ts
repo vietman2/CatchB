@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { API_LOCAL_URL } from "./apiConfig";
+import { RegisterRoute } from "../variables/enums";
 
 export async function login(username: string, password: string) {
   const url = `${API_LOCAL_URL}/api/users/login/`;
@@ -31,7 +32,6 @@ export async function renewToken(refresh: string) {
 
   try {
     const response = await axios.post(url, { refresh });
-    // TODO: 만료된 토큰이라면 Dialog를 띄워서 로그인을 유도한다.
     return {
       status: response.status,
       data: response.data,
@@ -104,7 +104,6 @@ export async function logout(refresh: string) {
   }
 }
 
-/*
 export async function register(
   username: string,
   first_name: string,
@@ -112,8 +111,73 @@ export async function register(
   email: string,
   phone_number: string,
   password: string,
-  password2: string
+  password2: string,
+  gender: string
 ) {
-  const url = `${API_LOCAL_URL}/api/users/register`;
+  const url = `${API_LOCAL_URL}/api/users/register/`;
+  const register_route = RegisterRoute.CATCHB.value;
+
+  try {
+    const response = await axios.post(url, {
+      username,
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      password,
+      password2,
+      gender,
+      register_route,
+    });
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
 }
-*/
+
+export async function deleteAccount(uuid: string, access: string) {
+  const url = `${API_LOCAL_URL}/api/users/`;
+
+  try {
+    const response = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+      params: {
+        uuid,
+      },
+    });
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    console.log(err);
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
+//export async function
