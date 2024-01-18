@@ -88,7 +88,7 @@ describe("<CoachRegister />", () => {
       })
     );
 
-    const { getByText, debug } = renderWithProviders(<CoachRegister />, {
+    const { getByText } = renderWithProviders(<CoachRegister />, {
       preloadedState: {
         auth: {
           user: admin,

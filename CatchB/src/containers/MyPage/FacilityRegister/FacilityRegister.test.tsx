@@ -72,7 +72,7 @@ describe("<FacilityRegister />", () => {
   });
 
   it("should handle address selection correctly", async () => {
-    const { getByText, debug } = renderWithProviders(<FacilityRegister />, {
+    const { getByText } = renderWithProviders(<FacilityRegister />, {
       preloadedState: {
         auth: {
           user: admin,
