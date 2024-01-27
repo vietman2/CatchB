@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   View,
-  StyleSheet,
   useWindowDimensions,
 } from "react-native";
 import { Text, FAB } from "react-native-paper";
@@ -46,7 +45,8 @@ export default function Community() {
       route: Route;
     }
   ) => {
-    switch (props.route.key) { // eslint-disable: prop-types
+    // eslint-disable-next-line react/prop-types
+    switch (props.route.key) {
       case "야구톡":
         return (
           <CommunityList
@@ -117,32 +117,3 @@ export default function Community() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  tabs: {
-    flexDirection: "row",
-    backgroundColor: themeColors.primaryContainer,
-  },
-  active: {
-    marginHorizontal: 5,
-    paddingHorizontal: 10,
-    alignItems: "center",
-    paddingTop: 10,
-    paddingBottom: 5,
-    backgroundColor: themeColors.secondaryContainer,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: themeColors.primary,
-  },
-  box: {
-    marginHorizontal: 5,
-    paddingHorizontal: 10,
-    alignItems: "center",
-    paddingTop: 10,
-    paddingBottom: 5,
-  },
-  activeText: {
-    fontWeight: "bold",
-  },
-});
