@@ -1,99 +1,37 @@
 import { ScrollView, View, Dimensions } from "react-native";
 
 export default function VideoList() {
+  const PlaceholderView = ({ color }: { color: string }) => (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: color,
+        height: 200,
+      }}
+    />
+  );
+
   return (
     <ScrollView>
       <View style={{ flexDirection: "row" }}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "gray",
-            height: 200,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "silver",
-            height: 200,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "brown",
-            height: 200,
-          }}
-        />
+        <PlaceholderView color="gray" />
+        <PlaceholderView color="silver" />
+        <PlaceholderView color="lightgray" />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "lemonchiffon",
-            height: 200,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "ivory",
-            height: 200,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "cornsilk",
-            height: 200,
-          }}
-        />
+        <PlaceholderView color="lemonchiffon" />
+        <PlaceholderView color="ivory" />
+        <PlaceholderView color="beige" />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "green",
-            height: 200,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "lightgreen",
-            height: 200,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "teal",
-            height: 200,
-          }}
-        />
+        <PlaceholderView color="green" />
+        <PlaceholderView color="lightgreen" />
+        <PlaceholderView color="teal" />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "blue",
-            height: 200,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "skyblue",
-            height: 200,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "lightblue",
-            height: 200,
-          }}
-        />
+        <PlaceholderView color="blue" />
+        <PlaceholderView color="skyblue" />
+        <PlaceholderView color="lightblue" />
       </View>
     </ScrollView>
   );
