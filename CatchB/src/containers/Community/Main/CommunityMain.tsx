@@ -29,9 +29,6 @@ export default function Community() {
     { key: "자세 분석", title: "자세 분석" },
   ]);
 
-  const [activeTab, setActiveTab] = useState<
-    "모집" | "야구톡" | "자세 분석" | "벼룩시장" | "내 활동"
-  >("야구톡");
   const [visible, setVisible] = useState(true);
   const navigation =
     useNavigation<CommunityStackScreenProps<"CommunityScreen">["navigation"]>();

@@ -1,4 +1,4 @@
-import { ScrollView, View, Dimensions } from "react-native";
+import { ScrollView, View } from "react-native";
 
 export default function VideoList() {
   const PlaceholderView = ({ color }: { color: string }) => (
