@@ -53,9 +53,14 @@ describe("authSlice", () => {
 
   it("should handle setNewToken", async () => {
     const store = createStore();
-    const newToken = "new-token";
+    const data = {
+      access: "new-token",
+      access_expiration: "2021-01-01T00:00:00",
+      refresh: "new-refresh-token",
+      refresh_expiration: "2021-02-01T00:00:00",
+    };
 
-    await store.dispatch(setNewToken(newToken));
+    await store.dispatch(setNewToken(data));
 
     const state = store.getState().auth;
     expect(state.token).toEqual("new-token");

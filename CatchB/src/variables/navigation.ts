@@ -77,6 +77,7 @@ export type MyPageStackParamList = {
   Payments: undefined;
   FAQ: undefined;
   Reviews: undefined;
+  PasswordChange: undefined;
 };
 export type MyPageStackScreenProps<T extends keyof MyPageStackParamList> =
   CompositeScreenProps<
