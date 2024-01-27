@@ -11,13 +11,13 @@ jest.mock("react-native-gesture-handler", () => ({
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
   const { Menu } = jest.requireActual("react-native-paper");
-  const { Text, TouchableOpacity } = require("react-native");
+  const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
   return {
     PaperProvider: Provider,
     Text: "Text",
     Menu: Menu,
-    FAB: ({ label, onPress }) => (
+    FAB: ({ label, onPress }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{label}</Text>
       </TouchableOpacity>
