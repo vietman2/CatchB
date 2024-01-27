@@ -8,7 +8,7 @@ import { renderWithProviders } from "../../../utils/test-utils";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("../../../components/ProgressBar/Progress", () => ({
+jest.mock("./Progress", () => ({
   CheckStatus: "CheckStatus",
   ProgressBanner: "ProgressBanner",
 }));

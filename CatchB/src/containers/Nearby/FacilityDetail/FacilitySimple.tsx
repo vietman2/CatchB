@@ -2,8 +2,8 @@ import { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
-import { FacilityType } from "../../variables/types";
-import { themeColors } from "../../variables/colors";
+import { FacilityType } from "../../../variables/types";
+import { themeColors } from "../../../variables/colors";
 
 interface Props {
   facility: FacilityType;

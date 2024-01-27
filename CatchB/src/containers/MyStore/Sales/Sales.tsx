@@ -1,7 +1,7 @@
 import { ScrollView } from "react-native";
 
-import MonthlySales from "../../../components/Sales/MonthlySales";
-import DailySales from "../../../components/Sales/DailySales";
+import MonthlySales from "./MonthlySales";
+import DailySales from "./DailySales";
 import { DailySalesList } from "../../../variables/mvp_dummy_data/sales";
 
 export default function Sales() {

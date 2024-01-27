@@ -1,8 +1,8 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Divider, Text } from "react-native-paper";
 
-import { Reservation } from "../../variables/types";
-import { themeColors } from "../../variables/colors";
+import { Reservation } from "../../../variables/types";
+import { themeColors } from "../../../variables/colors";
 
 interface Props {
   tab: string;

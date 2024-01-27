@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
-import { Points } from "../../variables/types";
+import { Points } from "../../../variables/types";
 
 interface Props {
   detail: Points;

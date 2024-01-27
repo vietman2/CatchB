@@ -3,14 +3,59 @@ import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
-import NoCoupon from "../../../components/CouponsDetail/NoCoupon";
-import MyCoupon from "../../../components/CouponsDetail/MyCoupon";
 import { getCouponList } from "../../../services/coupon";
 import { setCouponListState } from "../../../store/slices/couponSlice";
 import { AppDispatch, RootState } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
+import { Coupon as CouponType } from "../../../variables/types";
+
+const NoCoupon = () => {
+  return (
+    <View style={styles.noCoupon}>
+      <View
+        style={{
+          backgroundColor: "gray",
+          width: 100,
+          height: 100,
+          marginBottom: 20,
+        }}
+      />
+      <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
+        보유한 쿠폰이 없습니다.
+      </Text>
+    </View>
+  );
+};
+
+const MyCoupon = ({ coupon }: { coupon: CouponType }) => {
+  return (
+    <View style={styles.coupon}>
+      <LinearGradient
+        colors={["lightblue", "gold"]}
+        style={styles.gradient}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        locations={[0.4, 0.9]}
+      >
+        <View style={styles.couponInfo}>
+          <Text
+            variant="headlineMedium"
+            style={{ fontFamily: "Catch B ExtraBold", marginBottom: 5 }}
+          >
+            {coupon.coupon_class.coupon_name}
+          </Text>
+          <Text variant="bodyLarge">
+            {coupon.coupon_class.coupon_description}
+          </Text>
+          <Text variant="bodySmall">만료기한 {coupon.valid_until}</Text>
+        </View>
+      </LinearGradient>
+    </View>
+  );
+};
 
 export default function CouponList() {
   const [loading, setLoading] = useState(true);
@@ -75,5 +120,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 20,
     marginBottom: 10,
+  },
+  noCoupon: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  coupon: {
+    borderRadius: 10,
+    borderWidth: 1,
+    backgroundColor: "silver",
+    flexDirection: "row",
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
+  gradient: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 25,
+    borderRadius: 10,
+  },
+  couponInfo: {
+    marginVertical: 20,
   },
 });

@@ -3,12 +3,19 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { ActivityIndicator, Divider, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 
-import NoPoints from "../../../components/PointsDetail/NoPoints";
-import PointsDetail from "../../../components/PointsDetail/PointsDetail";
+import PointsDetail from "./PointsDetail";
 import { getPointsList } from "../../../services/point";
 import { AppDispatch, RootState } from "../../../store/store";
 import { setPointsState } from "../../../store/slices/pointSlice";
 import { themeColors } from "../../../variables/colors";
+
+const NoPoints = () => {
+  return (
+    <Text variant="bodyLarge" style={{ ...styles.title, textAlign: "center" }}>
+      포인트 내역이 없습니다.
+    </Text>
+  );
+}
 
 export default function Points() {
   const [loading, setLoading] = useState(true);

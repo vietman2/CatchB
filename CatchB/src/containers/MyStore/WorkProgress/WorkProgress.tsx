@@ -2,7 +2,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { Text } from "react-native-paper";
 
 import TodoBox from "../Todo/TodoBox";
-import TodoList from "../../../components/Lists/TodoList";
+import TodoList from "../Todo/TodoList";
 import {
   closeTodos,
   middleTodos,

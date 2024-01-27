@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 
 import CheckReservations from "./CheckReservations";
-import { newReservations } from "../../variables/mvp_dummy_data/reservations";
+import { newReservations } from "../../../variables/mvp_dummy_data/reservations";
 
 describe("<CheckReservations />", () => {
   it("renders New tab correctly", () => {

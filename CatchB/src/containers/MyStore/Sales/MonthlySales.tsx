@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Icon } from "react-native-paper";
 
-import { themeColors } from "../../variables/colors";
+import { themeColors } from "../../../variables/colors";
 
 export default function MonthlySales() {
   return (

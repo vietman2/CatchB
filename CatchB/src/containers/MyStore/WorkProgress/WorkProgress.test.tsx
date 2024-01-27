@@ -6,7 +6,7 @@ jest.mock("react-native-paper", () => ({
   Text: "Text",
 }));
 jest.mock("../Todo/TodoBox", () => "TodoBox");
-jest.mock("../../../components/Lists/TodoList", () => "TodoList");
+jest.mock("../Todo/TodoList", () => "TodoList");
 
 describe("<WorkProgress />", () => {
   it("should render correctly", () => {

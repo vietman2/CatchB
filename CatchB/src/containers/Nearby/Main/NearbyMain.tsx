@@ -12,7 +12,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Divider, FAB, Portal, Searchbar } from "react-native-paper";
 import { getCurrentPositionAsync } from "expo-location";
 
-import FacilitySimple from "../../../components/Facility/FacilitySimple";
+import FacilitySimple from "../FacilityDetail/FacilitySimple";
 import MapBottomSheet from "../../../components/BottomSheets/MapBottomSheet";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 import { FacilityType } from "../../../variables/types";

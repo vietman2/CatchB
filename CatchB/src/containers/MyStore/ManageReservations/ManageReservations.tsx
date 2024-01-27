@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 
-import CheckReservations from "../../../components/Reservations/CheckReservations";
+import CheckReservations from "./CheckReservations";
 import { themeColors } from "../../../variables/colors";
 import {
   newReservations,
