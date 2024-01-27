@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity, View, Alert, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Text, Portal, Dialog, Button } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -69,11 +75,13 @@ export default function UserProfile({ navigation }: Props) {
             <Tab
               title="아이디"
               detail={user?.username || ""}
+              showArrow={false}
               paddingVertical={15}
             />
             <Tab
               title="이메일"
               detail={user?.email || ""}
+              showArrow
               onPress={() =>
                 navigation.navigate("EditProfile", {
                   title: "이메일",
@@ -85,6 +93,7 @@ export default function UserProfile({ navigation }: Props) {
             <Tab
               title="휴대폰 번호"
               detail={user?.phone_number || ""}
+              showArrow
               onPress={() =>
                 navigation.navigate("EditProfile", {
                   title: "휴대폰 번호",
@@ -98,6 +107,7 @@ export default function UserProfile({ navigation }: Props) {
             <Tab
               title="닉네임"
               detail={user?.nickname || ""}
+              showArrow
               onPress={() =>
                 navigation.navigate("EditProfile", {
                   title: "닉네임",
@@ -109,6 +119,7 @@ export default function UserProfile({ navigation }: Props) {
             <Tab
               title="야구 경력"
               detail={user?.experience_tier || ""}
+              showArrow
               onPress={() =>
                 navigation.navigate("EditProfile", {
                   title: "야구 경력",
@@ -120,6 +131,7 @@ export default function UserProfile({ navigation }: Props) {
             <Tab
               title="생년월일"
               detail={user?.birth_date || ""}
+              showArrow
               onPress={() =>
                 navigation.navigate("EditProfile", {
                   title: "생년월일",
@@ -130,13 +142,25 @@ export default function UserProfile({ navigation }: Props) {
             />
           </View>
           <View style={styles.tabs}>
-            <Tab title="비밀번호 변경하기" detail="" paddingVertical={15} />
+            <Tab
+              title="비밀번호 변경하기"
+              detail=""
+              paddingVertical={15}
+              showArrow
+              onPress={() => navigation.navigate("PasswordChange")}
+            />
           </View>
           <View style={styles.tabs}>
-            <Tab title="연동된 소셜 계정" detail="없음" paddingVertical={15} />
+            <Tab
+              title="연동된 소셜 계정"
+              detail="없음"
+              paddingVertical={15}
+              showArrow
+            />
             <Tab
               title="가입 날짜"
               detail={user?.date_joined || ""}
+              showArrow={false}
               paddingVertical={15}
             />
           </View>

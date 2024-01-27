@@ -92,6 +92,7 @@ export default function MyPage() {
                   title="쿠폰함"
                   detail={`${user === null ? 0 : user.num_coupons} 장`}
                   onPress={handleCouponPress}
+                  showArrow
                 />
               </View>
               <VerticalDivider />
@@ -100,6 +101,7 @@ export default function MyPage() {
                   title="포인트"
                   detail={`${user === null ? 0 : user.total_points} P`}
                   onPress={handlePointPress}
+                  showArrow
                 />
               </View>
             </View>

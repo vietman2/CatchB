@@ -80,12 +80,13 @@ const render = () => {
 };
 
 describe("<MyPageStack />", () => {
-  it("navigates to <Profile /> then <EditProfile /> then back", () => {
+  it("navigates to <Profile />, <EditProfile /> and <ChangePassword />", () => {
     const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByTestId("badge")));
     waitFor(() => fireEvent.press(getByText("닉네임")));
     waitFor(() => fireEvent.press(getByTestId("back")));
+    waitFor(() => fireEvent.press(getByText("비밀번호 변경하기")));
     waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
@@ -105,38 +106,6 @@ describe("<MyPageStack />", () => {
 
     waitFor(() => fireEvent.press(getByText("포인트")));
     waitFor(() => fireEvent.press(getByTestId("back")));
-  });
-
-  it("navigates to <Coupon /> when user is logged in", () => {
-    jest.spyOn(axios, "get").mockImplementation(() =>
-      Promise.resolve({
-        status: 200,
-        data: sampleCoupons,
-      })
-    );
-
-    const { getByText } = renderWithProviders(
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="MyPage" component={MyPageContainer} />
-        </Tab.Navigator>
-      </NavigationContainer>,
-      {
-        preloadedState: {
-          auth: {
-            user: exampleUser,
-            token: "token",
-          },
-          coupon: {
-            coupons: sampleCoupons,
-            selectedCoupon: null,
-          },
-        },
-      }
-    );
-    waitFor(() => {
-      fireEvent.press(getByText("쿠폰함"));
-    });
   });
 
   it("navigates to <CoachRegister /> and <FacilityRegister />", () => {

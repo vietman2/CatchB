@@ -24,8 +24,16 @@ export const login = createAsyncThunk(
 
 export const setNewToken = createAsyncThunk(
   "auth/renewToken",
-  async (data: string) => {
-    return data;
+  async (data: {
+    access: string;
+    access_expiration: string;
+    refresh: string;
+    refresh_expiration: string;
+  }) => {
+    // Save the token to SecureStore
+    await save("refresh_token", data.refresh);
+
+    return data.access;
   }
 );
 

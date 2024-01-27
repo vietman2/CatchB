@@ -1,7 +1,15 @@
 import axios from "axios";
 import { act } from "@testing-library/react-native";
 
-import { login, renewToken, getUserProfile, logout, register, deleteAccount } from "./account";
+import {
+  login,
+  renewToken,
+  getUserProfile,
+  logout,
+  register,
+  deleteAccount,
+  changePassword,
+} from "./account";
 
 describe("login", () => {
   it("should successfully login", async () => {
@@ -195,14 +203,14 @@ describe("logout", () => {
 });
 
 describe("register", () => {
-  const username = "test"
-  const email = "test"
-  const first_name = "test"
-  const last_name = "test"
-  const phone_number = "test"
-  const password = "test"
-  const password2 = "test"
-  const gender = "M"
+  const username = "test";
+  const email = "test";
+  const first_name = "test";
+  const last_name = "test";
+  const phone_number = "test";
+  const password = "test";
+  const password2 = "test";
+  const gender = "M";
 
   it("should successfully register", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
@@ -212,16 +220,18 @@ describe("register", () => {
       })
     );
 
-    await act(() => register(
-      username,
-      first_name,
-      last_name,
-      email,
-      phone_number,
-      password,
-      password2,
-      gender
-    ));
+    await act(() =>
+      register(
+        username,
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        password,
+        password2,
+        gender
+      )
+    );
   });
 
   it("should fail to get response", async () => {
@@ -312,5 +322,65 @@ describe("deleteAccount", () => {
     const access = "access";
 
     await act(() => deleteAccount(uuid, access));
+  });
+});
+
+describe("changePassword", () => {
+  it("should successfully change password", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 204,
+        data: {},
+      })
+    );
+
+    const uuid = "uuid";
+    const access = "access";
+    const old_password = "old_password";
+    const new_password = "new_password";
+    const new_password2 = "new_password2";
+
+    await act(() =>
+      changePassword(uuid, access, old_password, new_password, new_password2)
+    );
+  });
+
+  it("should fail to get response", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    const uuid = "uuid";
+    const access = "access";
+    const old_password = "old_password";
+    const new_password = "new_password";
+    const new_password2 = "new_password2";
+
+    await act(() =>
+      changePassword(uuid, access, old_password, new_password, new_password2)
+    );
+  });
+
+  it("should fail to change password", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.reject({
+        response: {
+          status: 400,
+          data: {
+            detail: "토큰이 만료되었습니다.",
+          },
+        },
+      })
+    );
+
+    const uuid = "uuid";
+    const access = "access";
+    const old_password = "old_password";
+    const new_password = "new_password";
+    const new_password2 = "new_password2";
+
+    await act(() =>
+      changePassword(uuid, access, old_password, new_password, new_password2)
+    );
   });
 });

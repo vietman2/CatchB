@@ -32,6 +32,7 @@ export async function renewToken(refresh: string) {
 
   try {
     const response = await axios.post(url, { refresh });
+
     return {
       status: response.status,
       data: response.data,
@@ -148,6 +149,51 @@ export async function register(
   }
 }
 
+export async function changePassword(
+  uuid: string,
+  access: string,
+  old_password: string,
+  new_password1: string,
+  new_password2: string
+) {
+  const url = `${API_LOCAL_URL}/api/users/password_change/`;
+
+  try {
+    const response = await axios.post(
+      url,
+      {
+        old_password,
+        new_password1,
+        new_password2,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+        params: {
+          uuid,
+        },
+      }
+    );
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
 export async function deleteAccount(uuid: string, access: string) {
   const url = `${API_LOCAL_URL}/api/users/`;
 
@@ -178,5 +224,3 @@ export async function deleteAccount(uuid: string, access: string) {
     };
   }
 }
-
-//export async function

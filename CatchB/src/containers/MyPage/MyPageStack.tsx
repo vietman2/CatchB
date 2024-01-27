@@ -17,6 +17,7 @@ import FacilityRegister from "./FacilityRegister/FacilityRegister";
 import Payments from "./Payment/Payments";
 import FAQ from "./FAQ/FAQ";
 import Reviews from "./Review/Reviews";
+import PasswordChange from "./PasswordChange/PasswordChange";
 import BackButton from "../../components/Buttons/BackButton";
 import { leftTitle } from "../../components/Logos/TopBar";
 import { MyPageStackParamList } from "../../variables/navigation";
@@ -161,6 +162,15 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("내가 남긴 리뷰"),
+          headerTitleAlign: "center",
+        }}
+      />
+      <MyPageStack.Screen
+        name="PasswordChange"
+        component={PasswordChange}
+        options={{
+          headerLeft: () => backToMyPage(),
+          headerTitle: () => headerTitle("비밀번호 변경"),
           headerTitleAlign: "center",
         }}
       />
