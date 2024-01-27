@@ -1,84 +1,58 @@
 import { useState } from "react";
-import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { Text, FAB, TextInput } from "react-native-paper";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, FAB } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
+import RecruitList from "../PostLists/RecruitList";
+import CommunityList from "../PostLists/CommunityList";
 import { themeColors } from "../../../variables/colors";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
 
 export default function Community() {
-  const [activeTab, setActiveTab] = useState<"Recruit" | "Discuss">("Discuss");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState<"모집" | "야구톡" | "기타">(
+    "야구톡"
+  );
+  const [visible, setVisible] = useState(true);
   const navigation =
     useNavigation<CommunityStackScreenProps<"CommunityScreen">["navigation"]>();
 
+  const TabComponent = ({ tab }: { tab: "모집" | "야구톡" | "기타" }) => {
+    return (
+      <TouchableOpacity
+        onPress={() => setActiveTab(tab)}
+        style={activeTab === tab ? styles.active : styles.box}
+      >
+        <Text
+          style={activeTab === tab ? styles.activeText : {}}
+          variant="titleLarge"
+        >
+          {tab}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <>
-      <View>
-        <ScrollView
-          horizontal
-          style={{ backgroundColor: themeColors.primaryContainer }}
-        >
-          <View style={styles.tabs}>
-            <TouchableOpacity
-              onPress={() => setActiveTab("Discuss")}
-              style={activeTab === "Discuss" ? styles.active : styles.box}
-            >
-              <Text style={activeTab === "Discuss" ? styles.activeText : {}}>
-                야구톡
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setActiveTab("Recruit")}
-              style={activeTab === "Recruit" ? styles.active : styles.box}
-            >
-              <Text style={activeTab === "Recruit" ? styles.activeText : {}}>
-                모집
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+      <View style={styles.tabs}>
+        <TabComponent tab="야구톡" />
+        <TabComponent tab="모집" />
+        <TabComponent tab="기타" />
       </View>
-      <View style={styles.subforums}>
-        <View style={styles.choices}>
-          <View style={styles.choice}>
-            <Text variant="titleMedium">커뮤니티</Text>
-          </View>
-          <View style={styles.choice}>
-            <Text variant="titleMedium">자세 분석</Text>
-          </View>
-          <View style={styles.choice}>
-            <Text variant="titleMedium">벼룩시장</Text>
-          </View>
-        </View>
-      </View>
-      <View style={{ flexDirection: "row", marginTop: 10 }}>
-        <TextInput
-          mode="outlined"
-          placeholder="제목, 내용으로 검색하세요."
-          onChangeText={setSearchQuery}
-          value={searchQuery}
-          left={<TextInput.Icon icon="magnify" />}
-          outlineStyle={styles.searchBar}
+      {activeTab === "야구톡" ? (
+        <CommunityList
+          hideFAB={() => setVisible(false)}
+          showFAB={() => setVisible(true)}
         />
-        <Text style={{ flex: 1 }}>우리동네만 보기</Text>
-      </View>
-      <View style={styles.filters}>
-        <Text>전체</Text>
-        <Text>일반</Text>
-        <Text>KBO</Text>
-        <Text>MLB</Text>
-        <Text>장비</Text>
-      </View>
-      <View style={styles.sort}>
-        <Text>최신순</Text>
-        <Text>인기순</Text>
-        <Text>조회 많은 순</Text>
-        <Text>댓글 많은 순</Text>
-      </View>
+      ) : activeTab === "모집" ? (
+        <RecruitList />
+      ) : (
+        <></>
+      )}
       <FAB
         label="글 작성"
         icon="plus"
+        visible={visible}
         style={{ position: "absolute", right: 10, bottom: 10 }}
         onPress={() => navigation.navigate("PostCreate")}
       />
@@ -89,13 +63,14 @@ export default function Community() {
 const styles = StyleSheet.create({
   tabs: {
     flexDirection: "row",
-    marginTop: 5,
+    backgroundColor: themeColors.primaryContainer,
+    justifyContent: "center",
   },
   active: {
-    paddingHorizontal: 10,
+    flex: 1,
+    alignItems: "center",
     paddingTop: 10,
     paddingBottom: 5,
-    marginHorizontal: 5,
     backgroundColor: themeColors.secondaryContainer,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -103,36 +78,12 @@ const styles = StyleSheet.create({
     borderBottomColor: themeColors.primary,
   },
   box: {
-    paddingHorizontal: 10,
+    flex: 1,
+    alignItems: "center",
     paddingTop: 10,
     paddingBottom: 5,
-    marginHorizontal: 5,
   },
   activeText: {
     fontWeight: "bold",
-  },
-  subforums: {
-    backgroundColor: themeColors.primaryContainer,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  choices: {
-    backgroundColor: themeColors.secondaryContainer,
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  choice: {
-    paddingVertical: 10,
-  },
-  searchBar: {
-    margin: 5,
-    borderRadius: 20,
-  },
-  filters: {
-    flexDirection: "row",
-  },
-  sort: {
-    flexDirection: "row",
   },
 });

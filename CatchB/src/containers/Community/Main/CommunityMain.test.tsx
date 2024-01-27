@@ -24,6 +24,19 @@ jest.mock("react-native-paper", () => {
       ...jest.requireActual("react-native-paper").TextInput,
       Icon: "Icon",
     },
+    Chip: "Chip",
+    Divider: "Divider",
+    Icon: "Icon",
+  };
+});
+jest.mock("@gorhom/bottom-sheet", () => {
+  const { View } = jest.requireActual("react-native");
+
+  return {
+    __esModule: true,
+    default: "BottomSheet",
+    BottomSheetBackdrop: ({ children }: any) => <View>{children}</View>,
+    BottomSheetBackdropProps: "BottomSheetBackdropProps",
   };
 });
 
@@ -39,11 +52,23 @@ const components = () => {
   );
 };
 
-describe("<Community />", () => {
-  it("renders correctly", () => {
+describe("<CommunityMain />", () => {
+  it("handles tabs correctly", () => {
     const { getByText } = renderWithProviders(components());
 
     fireEvent.press(getByText("모집"));
     fireEvent.press(getByText("야구톡"));
+    fireEvent.press(getByText("기타"));
+  });
+
+  it("handles tabs correctly", () => {
+    const { getByText } = renderWithProviders(components());
+
+    fireEvent.press(getByText("최신순"));
+    fireEvent.press(getByText("인기순"));
+    fireEvent.press(getByText("인기순"));
+    fireEvent.press(getByText("조회 많은 순"));
+    fireEvent.press(getByText("조회 많은 순"));
+    fireEvent.press(getByText("댓글 많은 순"));
   });
 });
