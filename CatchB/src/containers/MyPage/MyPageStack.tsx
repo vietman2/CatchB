@@ -1,7 +1,4 @@
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { Text } from "react-native-paper";
 
 import MyPageMain from "./Main/MyPageMain";
@@ -20,18 +17,17 @@ import Reviews from "./Review/Reviews";
 import PasswordChange from "./PasswordChange/PasswordChange";
 import BackButton from "../../components/Buttons/BackButton";
 import { leftTitle } from "../../components/Logos/TopBar";
-import { MyPageStackParamList } from "../../variables/navigation";
+import {
+  MyPageStackParamList,
+  MyPageStackScreenProps,
+} from "../../variables/navigation";
+import { useNavigation } from "@react-navigation/native";
 
 const MyPageStack = createStackNavigator<MyPageStackParamList>();
-type MyPageNavigationProp = StackNavigationProp<
-  MyPageStackParamList,
-  "MyPageScreen"
->;
-interface MyPageProps {
-  navigation: MyPageNavigationProp;
-}
 
-export default function MyPageContainer({ navigation }: MyPageProps) {
+export default function MyPageContainer() {
+  const navigation =
+    useNavigation<MyPageStackScreenProps<"MyPageScreen">["navigation"]>();
   const backToMyPage = () => {
     return <BackButton onPress={() => navigation.navigate("MyPageScreen")} />;
   };
