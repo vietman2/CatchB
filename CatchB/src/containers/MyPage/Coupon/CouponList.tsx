@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { getCouponList } from "../../../services/coupon";
-import { setCouponListState } from "../../../store/slices/couponSlice";
+import { setCouponListState } from "../../../store/slices/user_management/couponSlice";
 import { AppDispatch, RootState } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";

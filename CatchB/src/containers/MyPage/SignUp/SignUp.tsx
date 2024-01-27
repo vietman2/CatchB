@@ -14,7 +14,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import GenderButton from "../../../components/Buttons/GenderButton";
 import { login, register } from "../../../services/account";
 import { AppDispatch } from "../../../store/store";
-import { login as setUserState } from "../../../store/slices/authSlice";
+import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 

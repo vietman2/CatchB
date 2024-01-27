@@ -19,10 +19,13 @@ import {
 } from "../../variables/navigation";
 import { themeColors } from "../../variables/colors";
 import { getUserProfile, renewToken } from "../../services/account";
-import { setMode } from "../../store/slices/modeSlice";
+import { setMode } from "../../store/slices/general/modeSlice";
+import {
+  setUserProfile,
+  setNewToken,
+} from "../../store/slices/user_management/authSlice";
 import { AppDispatch, RootState } from "../../store/store";
 import { get } from "../../store/secure";
-import { setUserProfile, setNewToken } from "../../store/slices/authSlice";
 
 /**
  * TabContainer

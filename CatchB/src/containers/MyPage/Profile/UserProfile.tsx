@@ -16,7 +16,7 @@ import VerticalDivider from "../../../components/Divider/VerticalDivider";
 import { deleteAccount, logout } from "../../../services/account";
 import { RootState, AppDispatch } from "../../../store/store";
 import { get } from "../../../store/secure";
-import { logout as resetUserState } from "../../../store/slices/authSlice";
+import { logout as resetUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackParamList } from "../../../variables/navigation";
 

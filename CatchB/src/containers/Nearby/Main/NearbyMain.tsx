@@ -19,7 +19,7 @@ import { FacilityType } from "../../../variables/types";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 import { AppDispatch } from "../../../store/store";
-import { setSelectedFacility } from "../../../store/slices/facilitySlice";
+import { setSelectedFacility } from "../../../store/slices/facility/facilitySlice";
 
 export default function NearbyMain() {
   const [searchQuery, setSearchQuery] = useState("");

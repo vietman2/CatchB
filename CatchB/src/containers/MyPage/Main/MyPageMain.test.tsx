@@ -29,7 +29,15 @@ jest.mock("../../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
 });
-jest.mock("../../../components/Dialogs/LoginDialog", () => "LoginDialog");
+jest.mock("../../../components/Dialogs/LoginDialog", () => {
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
+  return ({ title, onClose }: any) => (
+    <TouchableOpacity onPress={onClose}>
+      <Text>{title}</Text>
+    </TouchableOpacity>
+  );
+});
 jest.mock("../../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return ({ icon, title, onPress }: any) => (
@@ -73,7 +81,7 @@ const components = () => {
 };
 
 describe("<MyPage />", () => {
-  it("handles dialog", () => {
+  it("handles presses", () => {
     const { getByText } = renderWithProviders(components());
     waitFor(() => {
       fireEvent.press(getByText("쿠폰함"));
@@ -84,9 +92,11 @@ describe("<MyPage />", () => {
   });
 
   it("navigates to Login screen when user is not logged in", () => {
-    const { getByTestId } = renderWithProviders(components());
+    const { getByTestId, getByText, debug } = renderWithProviders(components());
+    
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
+      fireEvent.press(getByText("로그인"));
     });
   });
 

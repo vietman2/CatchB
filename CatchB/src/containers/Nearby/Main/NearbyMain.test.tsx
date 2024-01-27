@@ -1,4 +1,4 @@
-import { waitFor } from "@testing-library/react-native";
+import { waitFor, fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as expoLocation from "expo-location";
@@ -11,12 +11,17 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
     PaperProvider: Provider,
     Divider: "Divider",
     Searchbar: "Searchbar",
-    FAB: "FAB",
+    FAB: ({ label, onPress }: any) => (
+      <TouchableOpacity onPress={onPress}>
+        <Text>{label}</Text>
+      </TouchableOpacity>
+    ),
     Portal: "Portal",
   };
 });
@@ -51,7 +56,7 @@ const components = () => {
 };
 
 describe("Nearby", () => {
-  it("renders correctly", async () => {
+  it("renders correctly and handles FAB press", async () => {
     jest
       .spyOn(expoLocation, "getCurrentPositionAsync")
       .mockImplementation(async () => {
@@ -68,6 +73,8 @@ describe("Nearby", () => {
           timestamp: 1627663200000,
         });
       });
-    await waitFor(() => renderWithProviders(components()));
+    const { getByText } = await waitFor(() => renderWithProviders(components()));
+
+    fireEvent.press(getByText("인기순"));
   });
 });

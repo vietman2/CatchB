@@ -7,7 +7,7 @@ import { ActivityIndicator, Button, Text, TextInput } from "react-native-paper";
 import { changePassword, logout } from "../../../services/account";
 import { AppDispatch, RootState } from "../../../store/store";
 import { get } from "../../../store/secure";
-import { logout as resetUserState } from "../../../store/slices/authSlice";
+import { logout as resetUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
