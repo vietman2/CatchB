@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from "@testing-library/react-native";
+import { act, fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -60,45 +60,6 @@ describe("<PasswordChange />", () => {
     );
   });
 
-  it("should handle empty fields correctly and change successfully", async () => {
-    jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
-      Promise.resolve({
-        status: 200,
-        data: {},
-      })
-    );
-    jest
-      .spyOn(SecureStore, "get")
-      .mockImplementationOnce(() => Promise.resolve("refresh"));
-    jest.spyOn(account, "logout").mockImplementationOnce(() =>
-      Promise.resolve({
-        status: 200,
-        data: {},
-      })
-    );
-
-    const { getByTestId, getByText } = render();
-
-    const oldPasswordInput = getByTestId("password-input");
-    const newPasswordInput = getByTestId("new-password-input");
-    const newPasswordCheckInput = getByTestId("new-password-check-input");
-    const button = getByText("확인");
-
-    fireEvent.press(button);
-
-    await waitFor(() => fireEvent.changeText(oldPasswordInput, "oldPassword"));
-    fireEvent.press(button);
-
-    await waitFor(() => fireEvent.changeText(newPasswordInput, "newPassword"));
-    fireEvent.press(button);
-
-    await waitFor(() => {
-      fireEvent.changeText(newPasswordCheckInput, "newPassword");
-    });
-
-    waitFor(() => fireEvent.press(button));
-  });
-
   it("should handle logout failure: fail to logout", async () => {
     jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
@@ -117,16 +78,15 @@ describe("<PasswordChange />", () => {
       .mockImplementationOnce(() => Promise.resolve("refresh"));
 
     const { getByTestId, getByText } = render();
-
-    const oldPasswordInput = getByTestId("password-input");
-    const newPasswordInput = getByTestId("new-password-input");
-    const newPasswordCheckInput = getByTestId("new-password-check-input");
     const button = getByText("확인");
 
-    await waitFor(() => fireEvent.changeText(oldPasswordInput, "oldPassword"));
-    await waitFor(() => fireEvent.changeText(newPasswordInput, "newPassword"));
     await waitFor(() => {
-      fireEvent.changeText(newPasswordCheckInput, "newPasswordCheck");
+      fireEvent.changeText(getByTestId("password-input"), "oldPassword");
+      fireEvent.changeText(getByTestId("new-password-input"), "newPassword");
+      fireEvent.changeText(
+        getByTestId("new-password-check-input"),
+        "newPasswordCheck"
+      );
     });
 
     await waitFor(() => fireEvent.press(button));
@@ -145,18 +105,16 @@ describe("<PasswordChange />", () => {
 
     const { getByTestId, getByText } = render();
 
-    const oldPasswordInput = getByTestId("password-input");
-    const newPasswordInput = getByTestId("new-password-input");
-    const newPasswordCheckInput = getByTestId("new-password-check-input");
-    const button = getByText("확인");
-
-    await waitFor(() => fireEvent.changeText(oldPasswordInput, "oldPassword"));
-    await waitFor(() => fireEvent.changeText(newPasswordInput, "newPassword"));
     await waitFor(() => {
-      fireEvent.changeText(newPasswordCheckInput, "newPasswordCheck");
+      fireEvent.changeText(getByTestId("password-input"), "oldPassword");
+      fireEvent.changeText(getByTestId("new-password-input"), "newPassword");
+      fireEvent.changeText(
+        getByTestId("new-password-check-input"),
+        "newPasswordCheck"
+      );
     });
 
-    await waitFor(() => fireEvent.press(button));
+    await waitFor(() => fireEvent.press(getByText("확인")));
   });
 
   it("should handle password change failures", async () => {
@@ -167,7 +125,7 @@ describe("<PasswordChange />", () => {
           data: { errors },
         })
       );
-    }
+    };
 
     const { getByTestId, getByText } = render();
     await waitFor(() => {
@@ -201,5 +159,40 @@ describe("<PasswordChange />", () => {
       })
     );
     await waitFor(() => fireEvent.press(getByText("확인")));
+  });
+
+  it("should handle empty fields correctly", async () => {
+    jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 200,
+        data: {},
+      })
+    );
+    jest
+      .spyOn(SecureStore, "get")
+      .mockImplementationOnce(() => Promise.resolve("refresh"));
+    jest.spyOn(account, "logout").mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 200,
+        data: {},
+      })
+    );
+    const { getByTestId, getByText } = render();
+
+    const button = getByText("확인");
+
+    await waitFor(() => {
+      fireEvent.press(button);
+      fireEvent.changeText(getByTestId("password-input"), "oldPassword");
+      fireEvent.press(button);
+      fireEvent.changeText(getByTestId("new-password-input"), "newPassword");
+      fireEvent.press(button);
+      fireEvent.changeText(
+        getByTestId("new-password-check-input"),
+        "newPassword"
+      );
+    });
+
+    await waitFor(() => fireEvent.press(button));
   });
 });
