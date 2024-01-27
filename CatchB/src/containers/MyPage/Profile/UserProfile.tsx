@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   },
   tabs: {
     marginTop: 20,
-    borderColor: themeColors.secondaryContainer,
+    borderColor: "silver",
     borderWidth: 1,
     borderRadius: 10,
     width: "90%",
