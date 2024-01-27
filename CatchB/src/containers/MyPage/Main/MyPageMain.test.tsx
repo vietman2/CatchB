@@ -25,12 +25,12 @@ jest.mock("react-native-paper", () => {
     ),
   };
 });
-jest.mock("../../components/Avatar/AvatarHorizontal", () => {
+jest.mock("../../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
 });
-jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
-jest.mock("../../components/Buttons/IconButton", () => {
+jest.mock("../../../components/Dialogs/LoginDialog", () => "LoginDialog");
+jest.mock("../../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return ({ icon, title, onPress }: any) => (
     <TouchableOpacity onPress={onPress}>
@@ -39,7 +39,7 @@ jest.mock("../../components/Buttons/IconButton", () => {
     </TouchableOpacity>
   );
 });
-jest.mock("../../components/Buttons/TabButton", () => {
+jest.mock("../../../components/Buttons/TabButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return ({ title, detail }: any) => (
     <TouchableOpacity>
@@ -48,7 +48,7 @@ jest.mock("../../components/Buttons/TabButton", () => {
     </TouchableOpacity>
   );
 });
-jest.mock("../../components/Divider/VerticalDivider", () => "VerticalDivider");
+jest.mock("../../../components/Divider/VerticalDivider", () => "VerticalDivider");
 
 const Stack = createStackNavigator();
 

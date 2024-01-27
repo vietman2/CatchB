@@ -8,13 +8,13 @@ import { renderWithProviders } from "../../../utils/test-utils";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("./StoreDashboard/StoreDashboard", () => "StoreDashboard");
-jest.mock("./TaskBoard/TaskBoard", () => "TaskBoard");
+jest.mock("../StoreDashboard/StoreDashboard", () => "StoreDashboard");
+jest.mock("../TaskBoard/TaskBoard", () => "TaskBoard");
 jest.mock(
-  "./ManageReservations/ManageReservations",
+  "../ManageReservations/ManageReservations",
   () => "ManageReservations"
 );
-jest.mock("./Sales/Sales", () => "Sales");
+jest.mock("../Sales/Sales", () => "Sales");
 
 const Stack = createStackNavigator();
 

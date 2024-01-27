@@ -16,11 +16,11 @@ jest.mock("@react-navigation/drawer", () => ({
     };
   },
 }));
+jest.mock("./Main/CommunityMain", () => "CommunityMain");
 jest.mock("../../components/Logos/TopBar", () => ({
   leftTitle: "leftTitle",
   rightTitle: "rightTitle",
 }));
-jest.mock("../../containers/Community/Community", () => "Community");
 
 const Tab = createBottomTabNavigator();
 

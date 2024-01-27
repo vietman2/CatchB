@@ -5,8 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import MyPageContainer from "./MyPageStack";
 import { renderWithProviders } from "../../utils/test-utils";
-import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
-import { sampleCoupons } from "../../variables/mvp_dummy_data/coupons";
+import { admin } from "../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

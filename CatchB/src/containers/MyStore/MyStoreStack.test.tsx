@@ -11,8 +11,8 @@ jest.mock("../../components/Logos/TopBar", () => ({
   leftTitle: () => "leftTitle",
   rightTitle: () => "rightTitle",
 }));
+jest.mock("./Main/MyStoreMain", () => "MyStoreMain");
 jest.mock("./WorkProgress/WorkProgress", () => "WorkProgress");
-jest.mock("./MyStore", () => "MyStore");
 
 const Tab = createBottomTabNavigator();
 

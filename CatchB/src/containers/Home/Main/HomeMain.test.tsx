@@ -38,15 +38,15 @@ jest.mock("react-native-paper", () => {
     ),
   };
 });
-jest.mock("../../components/Buttons/SurfaceButton", () => "SurfaceButton");
-jest.mock("../../components/Chips/Chips", () => ({
+jest.mock("../../../components/Buttons/SurfaceButton", () => "SurfaceButton");
+jest.mock("../../../components/Chips/Chips", () => ({
   NotificationChip: () => "NotificationChip",
 }));
-jest.mock("../../components/Chips/Chips", () => ({
+jest.mock("../../../components/Chips/Chips", () => ({
   NotificationChip: () => "NotificationChip",
 }));
-jest.mock("../../components/Cards/SimpleCard", () => "SimpleCard");
-jest.mock("../../components/Cards/CardBox", () => "CardBox");
+jest.mock("../../../components/Cards/SimpleCard", () => "SimpleCard");
+jest.mock("../../../components/Cards/CardBox", () => "CardBox");
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 const renderWithMode = (mode: "basic" | "pro") => {
