@@ -81,7 +81,7 @@ const render = () => {
 
 describe("<MyPageStack />", () => {
   it("navigates to <Profile />, <EditProfile /> and <ChangePassword />", () => {
-    const { getByTestId, getByText, debug } = render();
+    const { getByTestId, getByText } = render();
 
     waitFor(() => fireEvent.press(getByTestId("badge")));
     waitFor(() => fireEvent.press(getByText("닉네임")));
