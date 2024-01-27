@@ -53,7 +53,7 @@ export default function TabContainer() {
         const response = await renewToken(token);
 
         if (response.status === 200) {
-          dispatch(setNewToken(response.data.access));
+          dispatch(setNewToken(response.data));
         } else {
           setLoginVisible(true);
           setLoginTitle("다시 로그인하기.");

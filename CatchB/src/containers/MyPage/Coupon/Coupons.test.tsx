@@ -8,6 +8,9 @@ import CouponRegister from "./CouponRegister";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { sampleCoupons } from "../../../variables/mvp_dummy_data/coupons";
 
+jest.mock("react-native-gesture-handler", () => ({
+  PanGestureHandler: "PanGestureHandler",
+}));
 jest.mock("expo-linear-gradient", () => {
   return {
     LinearGradient: "LinearGradient",
@@ -23,7 +26,7 @@ const Stack = createStackNavigator();
 const CouponListComponents = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="CouponList">
         <Stack.Screen name="CouponList" component={CouponList} />
         <Stack.Screen name="CouponRegister" component={CouponList} />
       </Stack.Navigator>
@@ -36,9 +39,7 @@ describe("<CouponList />", () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
         status: 200,
-        data: {
-          sampleCoupons,
-        },
+        data: sampleCoupons,
       })
     );
 
@@ -58,9 +59,26 @@ describe("<CouponList />", () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
         status: 400,
-        data: {
-          sampleCoupons,
+      })
+    );
+
+    await waitFor(() =>
+      renderWithProviders(CouponListComponents(), {
+        preloadedState: {
+          auth: {
+            token: "token",
+            user: null,
+          },
         },
+      })
+    );
+  });
+
+  it("loads no coupons correctly", async () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: [],
       })
     );
 

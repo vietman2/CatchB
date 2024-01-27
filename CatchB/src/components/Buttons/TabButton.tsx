@@ -4,6 +4,7 @@ import { Text, Icon } from "react-native-paper";
 interface Props {
   title: string;
   detail: string;
+  showArrow: boolean;
   onPress?: () => void;
   paddingVertical?: number;
 }
@@ -11,6 +12,7 @@ interface Props {
 export default function TabButton({
   title,
   detail,
+  showArrow,
   onPress,
   paddingVertical,
 }: Props) {
@@ -24,7 +26,7 @@ export default function TabButton({
       </Text>
       <View style={styles.tabRight}>
         <Text variant="titleMedium">{detail}</Text>
-        {onPress && <Icon size={20} source="chevron-right" />}
+        {showArrow && <Icon size={20} source="chevron-right" />}
       </View>
     </TouchableOpacity>
   );
