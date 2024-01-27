@@ -99,8 +99,6 @@ describe("<PasswordChange />", () => {
     waitFor(() => fireEvent.press(button));
   });
 
-  
-
   it("should handle logout failure: fail to logout", async () => {
     jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
@@ -161,14 +159,7 @@ describe("<PasswordChange />", () => {
     await waitFor(() => fireEvent.press(button));
   });
 
-  it("should handle password change failure: incorrect old password", async () => {
-    jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
-      Promise.resolve({
-        status: 400,
-        data: { errors: { old_password: ["에러"] } },
-      })
-    );
-
+  it("should handle password change failures", async () => {
     const { getByTestId, getByText } = render();
     await waitFor(() => {
       fireEvent.changeText(getByTestId("password-input"), "oldPassword");
@@ -179,16 +170,13 @@ describe("<PasswordChange />", () => {
       );
     });
 
-    await waitFor(() => fireEvent.press(getByText("확인")));
-  });
-
-  it("should handle password change failure: bad new password1", async () => {
-    const { getByTestId, getByText } = render();
-    await waitFor(() => {
-      fireEvent.changeText(getByTestId("password-input"), "asdfjkl;");
-      fireEvent.changeText(getByTestId("new-password-input"), "qweruiop");
-      fireEvent.changeText(getByTestId("new-password-check-input"), "qweruiop");
-    });
+    jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 400,
+        data: { errors: { old_password: ["에러"] } },
+      })
+    );
+    waitFor(() => fireEvent.press(getByText("확인")));
 
     jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
@@ -197,15 +185,6 @@ describe("<PasswordChange />", () => {
       })
     );
     waitFor(() => fireEvent.press(getByText("확인")));
-  });
-
-  it("should handle password change failure: bad new password2", async () => {
-    const { getByTestId, getByText } = render();
-    await waitFor(() => {
-      fireEvent.changeText(getByTestId("password-input"), "asdfjkl;");
-      fireEvent.changeText(getByTestId("new-password-input"), "qweruiop");
-      fireEvent.changeText(getByTestId("new-password-check-input"), "qweruiop");
-    });
 
     jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
@@ -214,16 +193,7 @@ describe("<PasswordChange />", () => {
       })
     );
 
-    await waitFor(() => fireEvent.press(getByText("확인")));
-  });
-
-  it("should handle password change failure: non field errors", async () => {
-    const { getByTestId, getByText } = render();
-    await waitFor(() => {
-      fireEvent.changeText(getByTestId("password-input"), "1");
-      fireEvent.changeText(getByTestId("new-password-input"), "2");
-      fireEvent.changeText(getByTestId("new-password-check-input"), "2");
-    });
+    waitFor(() => fireEvent.press(getByText("확인")));
 
     jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
@@ -232,15 +202,6 @@ describe("<PasswordChange />", () => {
       })
     );
     waitFor(() => fireEvent.press(getByText("확인")));
-  });
-
-  it("should handle password change failure: other errors", async () => {
-    const { getByTestId, getByText } = render();
-    await waitFor(() => {
-      fireEvent.changeText(getByTestId("password-input"), "1");
-      fireEvent.changeText(getByTestId("new-password-input"), "2");
-      fireEvent.changeText(getByTestId("new-password-check-input"), "2");
-    });
 
     jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
@@ -249,15 +210,6 @@ describe("<PasswordChange />", () => {
       })
     );
     waitFor(() => fireEvent.press(getByText("확인")));
-  });
-
-  it("should handle password change failure: server error", async () => {
-    const { getByTestId, getByText } = render();
-    await waitFor(() => {
-      fireEvent.changeText(getByTestId("password-input"), "1");
-      fireEvent.changeText(getByTestId("new-password-input"), "2");
-      fireEvent.changeText(getByTestId("new-password-check-input"), "2");
-    });
 
     jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
