@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Calendar from "./Calendar";
+import CalendarMain from "./Main/CalendarMain";
 import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
 import { CalendarStackParamList } from "../../variables/navigation";
 
@@ -19,7 +19,7 @@ export default function CalendarContainer() {
         headerShadowVisible: false,
       }}
     >
-      <CalendarStack.Screen name="CalendarScreen" component={Calendar} />
+      <CalendarStack.Screen name="CalendarScreen" component={CalendarMain} />
     </CalendarStack.Navigator>
   );
 }

@@ -2,7 +2,6 @@ import { render, fireEvent } from "@testing-library/react-native";
 
 import BackButton from "./BackButton";
 import SurfaceButton from "./SurfaceButton";
-import SegmentedButtons from "./SegmentedButtons";
 import KakaoButton from "./KakaoButton";
 import NaverButton from "./NaverButton";
 import IconButton from "./IconButton";
@@ -23,44 +22,6 @@ jest.mock("react", () => ({
 describe("<SurfaceButton />", () => {
   it("renders correctly", () => {
     render(<SurfaceButton icon="home" title="Home" />);
-  });
-});
-
-describe("<SegmentedButtons />", () => {
-  it("renders without crashing", () => {
-    render(<SegmentedButtons tab="Dashboard" onPress={() => {}} />);
-  });
-
-  it("should handle onPress", () => {
-    const onPress = jest.fn();
-    const { getByText } = render(
-      <SegmentedButtons tab="Dashboard" onPress={onPress} />
-    );
-    fireEvent.press(getByText("대시보드"));
-    fireEvent.press(getByText("매출관리"));
-    fireEvent.press(getByText("예약관리"));
-    fireEvent.press(getByText("업무관리"));
-    fireEvent.press(getByText("고객관리"));
-  });
-
-  it("should handle styles 1", () => {
-    const onPress = jest.fn();
-    render(<SegmentedButtons tab="Sales" onPress={onPress} />);
-  });
-
-  it("should handle styles 2", () => {
-    const onPress = jest.fn();
-    render(<SegmentedButtons tab="Reservation" onPress={onPress} />);
-  });
-
-  it("should handle styles 3", () => {
-    const onPress = jest.fn();
-    render(<SegmentedButtons tab="Tasks" onPress={onPress} />);
-  });
-
-  it("should handle styles 4", () => {
-    const onPress = jest.fn();
-    render(<SegmentedButtons tab="Customers" onPress={onPress} />);
   });
 });
 
@@ -90,6 +51,6 @@ describe("<IconButton />", () => {
 
 describe("<TabButton />", () => {
   it("renders correctly", () => {
-    render(<TabButton title="Home" detail="Detail" />);
+    render(<TabButton title="Home" detail="Detail" showArrow />);
   });
 });

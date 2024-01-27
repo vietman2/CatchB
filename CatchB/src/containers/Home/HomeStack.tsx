@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Home from "./Home";
+import HomeMain from "./Main/HomeMain";
 import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
 import { HomeStackParamList } from "../../variables/navigation";
 
@@ -19,7 +19,7 @@ export default function HomeContainer() {
         headerShadowVisible: false,
       }}
     >
-      <HomeStack.Screen name="SplashScreen" component={Home} />
+      <HomeStack.Screen name="SplashScreen" component={HomeMain} />
     </HomeStack.Navigator>
   );
 }

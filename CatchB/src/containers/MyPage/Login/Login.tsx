@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 import {
   Divider,
   Text,
@@ -24,21 +24,18 @@ import DividerWithText from "../../../components/Divider/DividerWithText";
 import { login } from "../../../services/account";
 import { login as setUserState } from "../../../store/slices/authSlice";
 import { AppDispatch } from "../../../store/store";
-import { MyPageStackParamList } from "../../../variables/navigation";
+import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 
-type LoginNavigationProp = StackNavigationProp<MyPageStackParamList, "Login">;
-interface LoginProps {
-  navigation: LoginNavigationProp;
-}
-
-export default function Login({ navigation }: LoginProps) {
+export default function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+  const navigation =
+    useNavigation<MyPageStackScreenProps<"Login">["navigation"]>();
 
   const handleLogin = async () => {
     setIsLoading(true);

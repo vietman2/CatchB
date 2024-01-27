@@ -13,7 +13,7 @@ jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
 jest.mock("../Home/HomeStack", () => "HomeStack");
-jest.mock("../Nearby/Nearby", () => "Nearby");
+jest.mock("../Nearby/NearbyStack", () => "NearbyStack");
 jest.mock("../Community/CommunityStack", () => "CommunityStack");
 jest.mock("../Calendar/CalendarStack", () => "CalendarStack");
 jest.mock("../MyPage/MyPageStack", () => "MyPageStack");

@@ -1,24 +1,53 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Text } from "react-native-paper";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
-import Community from "./Community";
-import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
-import { CommunityStackParamList } from "../../variables/navigation";
+import CommunityMain from "./Main/CommunityMain";
+import PostCreate from "./PostCreate/PostCreate";
+import BackButton from "../../components/Buttons/BackButton";
+import { leftTitle } from "../../components/Logos/TopBar";
+import {
+  CommunityStackParamList,
+  CommunityStackScreenProps,
+} from "../../variables/navigation";
 
-const CommunityDrawer = createDrawerNavigator<CommunityStackParamList>();
+const CommunityStack = createStackNavigator<CommunityStackParamList>();
 
 export default function CommunityContainer() {
+  const navigation =
+    useNavigation<CommunityStackScreenProps<"CommunityScreen">["navigation"]>();
+
+  const backToMain = () => {
+    return (
+      <BackButton onPress={() => navigation.navigate("CommunityScreen")} />
+    );
+  };
+
+  const headerTitle = (title: string) => {
+    return (
+      <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
+        {title}
+      </Text>
+    );
+  }
+
   return (
-    <CommunityDrawer.Navigator
+    <CommunityStack.Navigator
       initialRouteName="CommunityScreen"
       screenOptions={{
-        headerLeft: leftTitle,
-        headerRight: rightTitle,
-        headerTitle: "",
+        headerTitle: leftTitle,
         headerShadowVisible: false,
       }}
     >
-      <CommunityDrawer.Screen name="CommunityScreen" component={Community} />
-      <CommunityDrawer.Screen name="AnotherScreen" component={Community} />
-    </CommunityDrawer.Navigator>
+      <CommunityStack.Screen name="CommunityScreen" component={CommunityMain} />
+      <CommunityStack.Screen
+        name="PostCreate"
+        component={PostCreate}
+        options={{
+          headerLeft: () => backToMain(),
+          headerTitle: () => headerTitle("글 작성"),
+        }}
+      />
+    </CommunityStack.Navigator>
   );
 }

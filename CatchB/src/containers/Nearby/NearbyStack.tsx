@@ -1,28 +1,24 @@
 import { useSelector } from "react-redux";
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
-import Nearby from "./Nearby";
+import NearbyMain from "./Main/NearbyMain";
 import FacilityDetail from "./FacilityDetail/FacilityDetail";
 import BackButton from "../../components/Buttons/BackButton";
-import { NearbyStackParamList } from "../../variables/navigation";
+import {
+  NearbyStackParamList,
+  NearbyStackScreenProps,
+} from "../../variables/navigation";
 import { RootState } from "../../store/store";
 
 const NearbyNavStack = createStackNavigator<NearbyStackParamList>();
-type NearbyNavigationProp = StackNavigationProp<
-  NearbyStackParamList,
-  "NearbyScreen"
->;
-interface NearbyProps {
-  navigation: NearbyNavigationProp;
-}
 
-export default function NearbyStack({ navigation }: NearbyProps) {
+export default function NearbyStack() {
   const selectedFacility = useSelector(
     (store: RootState) => store.facility.selectedFacility
   );
+  const navigation =
+    useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
 
   return (
     <NearbyNavStack.Navigator
@@ -32,7 +28,7 @@ export default function NearbyStack({ navigation }: NearbyProps) {
         headerShadowVisible: false,
       }}
     >
-      <NearbyNavStack.Screen name="NearbyScreen" component={Nearby} />
+      <NearbyNavStack.Screen name="NearbyScreen" component={NearbyMain} />
       <NearbyNavStack.Screen
         name="FacilityDetail"
         component={FacilityDetail}
