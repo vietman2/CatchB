@@ -88,7 +88,6 @@ describe("<MyPageStack />", () => {
     waitFor(() => fireEvent.press(getByTestId("back")));
     waitFor(() => fireEvent.press(getByText("비밀번호 변경하기")));
     waitFor(() => fireEvent.press(getByTestId("back")));
-    //waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
   it("navigates to <Coupons /> and <Points />", () => {
