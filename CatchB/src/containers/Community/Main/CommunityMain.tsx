@@ -46,7 +46,7 @@ export default function Community() {
       route: Route;
     }
   ) => {
-    switch (props.route.key) {
+    switch (props.route?.key) {
       case "야구톡":
         return (
           <CommunityList
