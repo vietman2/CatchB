@@ -5,7 +5,7 @@ export const themeColors = {
   //onPrimaryContainer: "white",
   secondary: "brown",
   //onSecondary: "white",
-  secondaryContainer: "silver",
+  secondaryContainer: "rgba(192, 192, 192, 0.35)",
   onSecondaryContainer: "white", // 탭 아이콘 색상, 칩 오른쪽 아이콘 색상
   tertiary: "gray",
   //onTertiary: "white",
