@@ -2,8 +2,8 @@ import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import MyStore from "./MyStore";
-import { renderWithProviders } from "../../utils/test-utils";
+import MyStoreMain from "./MyStoreMain";
+import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -24,7 +24,7 @@ const render = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="MyStore"
-          component={MyStore}
+          component={MyStoreMain}
           options={{
             headerTitle: "",
           }}

@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as expoLocation from "expo-location";
 
-import Nearby from "./Nearby";
-import { renderWithProviders } from "../../utils/test-utils";
+import NearbyMain from "./NearbyMain";
+import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -44,7 +44,7 @@ const components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Nearby" component={Nearby} />
+        <Stack.Screen name="Nearby" component={NearbyMain} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -4,9 +4,9 @@ import {
   CalendarProvider,
 } from "react-native-calendars";
 
-import { themeColors } from "../../variables/colors";
+import { themeColors } from "../../../variables/colors";
 
-export default function Calendar() {
+export default function CalendarMain() {
   const [today, setToday] = useState<string>("");
   const [ready, setReady] = useState<boolean>(false);
 

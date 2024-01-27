@@ -2,8 +2,8 @@ import { View, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { Text, Button } from "react-native-paper";
 
-import Welcome from "../../components/BottomSheets/Welcome";
-import { RootState } from "../../store/store";
+import Welcome from "../../../components/BottomSheets/Welcome";
+import { RootState } from "../../../store/store";
 
 export default function NormalHome() {
   const user = useSelector((state: RootState) => state.auth.user);

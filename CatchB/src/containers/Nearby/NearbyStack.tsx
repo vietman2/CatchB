@@ -4,7 +4,7 @@ import {
   StackNavigationProp,
 } from "@react-navigation/stack";
 
-import Nearby from "./Nearby";
+import NearbyMain from "./Main/NearbyMain";
 import FacilityDetail from "./FacilityDetail/FacilityDetail";
 import BackButton from "../../components/Buttons/BackButton";
 import { NearbyStackParamList } from "../../variables/navigation";
@@ -32,7 +32,7 @@ export default function NearbyStack({ navigation }: NearbyProps) {
         headerShadowVisible: false,
       }}
     >
-      <NearbyNavStack.Screen name="NearbyScreen" component={Nearby} />
+      <NearbyNavStack.Screen name="NearbyScreen" component={NearbyMain} />
       <NearbyNavStack.Screen
         name="FacilityDetail"
         component={FacilityDetail}

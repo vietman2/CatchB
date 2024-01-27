@@ -12,16 +12,16 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Divider, FAB, Portal, Searchbar } from "react-native-paper";
 import { getCurrentPositionAsync } from "expo-location";
 
-import FacilitySimple from "../../components/Facility/FacilitySimple";
-import MapBottomSheet from "../../components/BottomSheets/MapBottomSheet";
-import { sampleFacilities } from "../../variables/mvp_dummy_data/facilities";
-import { FacilityType } from "../../variables/types";
-import { NearbyStackScreenProps } from "../../variables/navigation";
-import { themeColors } from "../../variables/colors";
-import { AppDispatch } from "../../store/store";
-import { setSelectedFacility } from "../../store/slices/facilitySlice";
+import FacilitySimple from "../../../components/Facility/FacilitySimple";
+import MapBottomSheet from "../../../components/BottomSheets/MapBottomSheet";
+import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
+import { FacilityType } from "../../../variables/types";
+import { NearbyStackScreenProps } from "../../../variables/navigation";
+import { themeColors } from "../../../variables/colors";
+import { AppDispatch } from "../../../store/store";
+import { setSelectedFacility } from "../../../store/slices/facilitySlice";
 
-export default function Nearby() {
+export default function NearbyMain() {
   const [searchQuery, setSearchQuery] = useState("");
   const [facilities, setFacilities] = useState<FacilityType[]>([]);
   const [region, setRegion] = useState({
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: "15.5%",
     left: 20,
-    backgroundColor: themeColors.onPrimary,
     borderColor: themeColors.primary,
     borderWidth: 1,
   },

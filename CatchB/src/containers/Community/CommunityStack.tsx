@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import Community from "./Community";
+import Community from "./Main/CommunityMain";
 import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
 import { CommunityStackParamList } from "../../variables/navigation";
 

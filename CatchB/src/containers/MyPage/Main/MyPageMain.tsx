@@ -4,16 +4,16 @@ import { useSelector } from "react-redux";
 import { Button, Divider, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import AvatarHorizontal from "../../components/Avatar/AvatarHorizontal";
-import IconButton from "../../components/Buttons/IconButton";
-import TabButton from "../../components/Buttons/TabButton";
-import VerticalDivider from "../../components/Divider/VerticalDivider";
-import LoginDialog from "../../components/Dialogs/LoginDialog";
-import { RootState } from "../../store/store";
-import { themeColors } from "../../variables/colors";
-import { MyPageStackScreenProps } from "../../variables/navigation";
+import AvatarHorizontal from "../../../components/Avatar/AvatarHorizontal";
+import IconButton from "../../../components/Buttons/IconButton";
+import TabButton from "../../../components/Buttons/TabButton";
+import VerticalDivider from "../../../components/Divider/VerticalDivider";
+import LoginDialog from "../../../components/Dialogs/LoginDialog";
+import { RootState } from "../../../store/store";
+import { themeColors } from "../../../variables/colors";
+import { MyPageStackScreenProps } from "../../../variables/navigation";
 
-export default function MyPage() {
+export default function MyPageMain() {
   const [dialogVisible, setDialogVisible] = useState(false);
   const navigation =
     useNavigation<MyPageStackScreenProps<"MyPageScreen">["navigation"]>();

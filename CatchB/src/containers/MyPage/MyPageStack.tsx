@@ -4,7 +4,7 @@ import {
 } from "@react-navigation/stack";
 import { Text } from "react-native-paper";
 
-import MyPage from "./MyPage";
+import MyPageMain from "./Main/MyPageMain";
 import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import UserProfile from "./Profile/UserProfile";
@@ -52,7 +52,7 @@ export default function MyPageContainer({ navigation }: MyPageProps) {
         headerShadowVisible: false,
       }}
     >
-      <MyPageStack.Screen name="MyPageScreen" component={MyPage} />
+      <MyPageStack.Screen name="MyPageScreen" component={MyPageMain} />
       <MyPageStack.Screen
         name="Login"
         component={Login}

@@ -1,9 +1,9 @@
 import { render } from "@testing-library/react-native";
 
-import Community from "./Community";
+import CommunityMain from "./CommunityMain";
 
 describe("<Community />", () => {
   it("renders correctly", () => {
-    render(<Community />);
+    render(<CommunityMain />);
   });
 });

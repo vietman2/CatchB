@@ -1,8 +1,8 @@
 import { fireEvent } from "@testing-library/react-native";
 
-import Home from "./Home";
-import { renderWithProviders } from "../../utils/test-utils";
-import { admin } from "../../variables/mvp_dummy_data/user";
+import HomeMain from "./HomeMain";
+import { renderWithProviders } from "../../../utils/test-utils";
+import { admin } from "../../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
@@ -50,7 +50,7 @@ jest.mock("../../components/Cards/CardBox", () => "CardBox");
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 const renderWithMode = (mode: "basic" | "pro") => {
-  return renderWithProviders(<Home />, {
+  return renderWithProviders(<HomeMain />, {
     preloadedState: { mode: { mode } },
   });
 };
@@ -65,7 +65,7 @@ describe("<NormalHome />", () => {
   });
 
   it("renders with user", () => {
-    renderWithProviders(<Home />, {
+    renderWithProviders(<HomeMain />, {
       preloadedState: {
         mode: { mode: "basic" },
         auth: { user: admin, token: "" },

@@ -2,11 +2,11 @@ import { useState } from "react";
 import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Banner, Icon, Text } from "react-native-paper";
 
-import SurfaceButton from "../../components/Buttons/SurfaceButton";
-import { NotificationChip } from "../../components/Chips/Chips";
-import SimpleCard from "../../components/Cards/SimpleCard";
-import CardBox from "../../components/Cards/CardBox";
-import { themeColors } from "../../variables/colors";
+import SurfaceButton from "../../../components/Buttons/SurfaceButton";
+import { NotificationChip } from "../../../components/Chips/Chips";
+import SimpleCard from "../../../components/Cards/SimpleCard";
+import CardBox from "../../../components/Cards/CardBox";
+import { themeColors } from "../../../variables/colors";
 
 export default function ProHome() {
   const [visible, setVisible] = useState(true);

@@ -2,9 +2,9 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import MyPage from "./MyPage";
-import { renderWithProviders } from "../../utils/test-utils";
-import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
+import MyPageMain from "./MyPageMain";
+import { renderWithProviders } from "../../../utils/test-utils";
+import { admin } from "../../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -56,17 +56,17 @@ const components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="MyPage" component={MyPage} />
-        <Stack.Screen name="Login" component={MyPage} />
-        <Stack.Screen name="Profile" component={MyPage} />
-        <Stack.Screen name="EditProfile" component={MyPage} />
-        <Stack.Screen name="CouponList" component={MyPage} />
-        <Stack.Screen name="Points" component={MyPage} />
-        <Stack.Screen name="CoachRegister" component={MyPage} />
-        <Stack.Screen name="FacilityRegister" component={MyPage} />
-        <Stack.Screen name="Payments" component={MyPage} />
-        <Stack.Screen name="Reviews" component={MyPage} />
-        <Stack.Screen name="FAQ" component={MyPage} />
+        <Stack.Screen name="MyPage" component={MyPageMain} />
+        <Stack.Screen name="Login" component={MyPageMain} />
+        <Stack.Screen name="Profile" component={MyPageMain} />
+        <Stack.Screen name="EditProfile" component={MyPageMain} />
+        <Stack.Screen name="CouponList" component={MyPageMain} />
+        <Stack.Screen name="Points" component={MyPageMain} />
+        <Stack.Screen name="CoachRegister" component={MyPageMain} />
+        <Stack.Screen name="FacilityRegister" component={MyPageMain} />
+        <Stack.Screen name="Payments" component={MyPageMain} />
+        <Stack.Screen name="Reviews" component={MyPageMain} />
+        <Stack.Screen name="FAQ" component={MyPageMain} />
       </Stack.Navigator>
     </NavigationContainer>
   );
