@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import MyPageMain from "./MyPageMain";
-import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
+import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -56,7 +56,10 @@ jest.mock("../../../components/Buttons/TabButton", () => {
     </TouchableOpacity>
   );
 });
-jest.mock("../../../components/Divider/VerticalDivider", () => "VerticalDivider");
+jest.mock(
+  "../../../components/Divider/VerticalDivider",
+  () => "VerticalDivider"
+);
 
 const Stack = createStackNavigator();
 
@@ -92,8 +95,8 @@ describe("<MyPage />", () => {
   });
 
   it("navigates to Login screen when user is not logged in", () => {
-    const { getByTestId, getByText, debug } = renderWithProviders(components());
-    
+    const { getByTestId, getByText } = renderWithProviders(components());
+
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
       fireEvent.press(getByText("로그인"));
@@ -104,6 +107,7 @@ describe("<MyPage />", () => {
     const { getByTestId, getByText } = renderWithProviders(components(), {
       preloadedState: { auth: { user: admin, token: "" } },
     });
+
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
       fireEvent.press(getByText("쿠폰함"));
