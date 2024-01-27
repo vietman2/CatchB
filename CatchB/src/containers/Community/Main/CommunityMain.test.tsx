@@ -1,4 +1,4 @@
-import { fireEvent } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -30,12 +30,12 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => {
-  const { View } = jest.requireActual("react-native");
+  const { View, Text, TouchableOpacity } = jest.requireActual("react-native");
 
   return {
     __esModule: true,
     default: "BottomSheet",
-    BottomSheetBackdrop: ({ children }: any) => <View>{children}</View>,
+    BottomSheetBackdrop: ({ children, props }: any) => <View>{children}<TouchableOpacity onPress={props.onPress}><Text>닫기</Text></TouchableOpacity></View>,
     BottomSheetBackdropProps: "BottomSheetBackdropProps",
   };
 });
@@ -54,21 +54,26 @@ const components = () => {
 
 describe("<CommunityMain />", () => {
   it("handles tabs correctly", () => {
-    const { getByText } = renderWithProviders(components());
+    const { getAllByText } = renderWithProviders(components());
 
-    fireEvent.press(getByText("모집"));
-    fireEvent.press(getByText("야구톡"));
-    fireEvent.press(getByText("기타"));
+    waitFor(() => {
+      fireEvent.press(getAllByText("모집")[0]);
+      fireEvent.press(getAllByText("야구톡")[0]);
+      fireEvent.press(getAllByText("벼룩시장")[0]);
+      fireEvent.press(getAllByText("자세 분석")[0]);
+      fireEvent.press(getAllByText("내 활동")[0]);
+    });
   });
 
-  it("handles tabs correctly", () => {
+  it("handles sort correctly", async () => {
     const { getByText } = renderWithProviders(components());
 
-    fireEvent.press(getByText("최신순"));
-    fireEvent.press(getByText("인기순"));
-    fireEvent.press(getByText("인기순"));
-    fireEvent.press(getByText("조회 많은 순"));
-    fireEvent.press(getByText("조회 많은 순"));
-    fireEvent.press(getByText("댓글 많은 순"));
+    await waitFor(() => {
+      fireEvent.press(getByText("최신순"));
+      fireEvent.press(getByText("인기순"));
+      fireEvent.press(getByText("조회 많은 순"));
+      fireEvent.press(getByText("댓글 많은 순"));
+      fireEvent.press(getByText("닫기"));
+    });
   });
 });

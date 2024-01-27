@@ -17,9 +17,9 @@ jest.mock("react-native-paper", () => {
     PaperProvider: Provider,
     Text: "Text",
     Menu: Menu,
-    FAB: ({ label, onPress }: any) => (
+    FAB: ({ icon, onPress }: any) => (
       <TouchableOpacity onPress={onPress}>
-        <Text>{label}</Text>
+        <Text>{icon}</Text>
       </TouchableOpacity>
     ),
     TextInput: {
@@ -50,7 +50,7 @@ const Tab = createBottomTabNavigator();
 
 describe("<CommunityStack />", () => {
   it("renders correctly and navigates to <PostCreate />", () => {
-    const { getByText, getByTestId, debug } = renderWithProviders(
+    const { getByText, getByTestId } = renderWithProviders(
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Community" component={CommunityContainer} />
@@ -58,7 +58,7 @@ describe("<CommunityStack />", () => {
       </NavigationContainer>
     );
 
-    fireEvent.press(getByText("글 작성"));
+    fireEvent.press(getByText("plus"));
     fireEvent.press(getByText("등록"));
     fireEvent.press(getByTestId("back"));
     fireEvent.press(getByText("포스트2 제목"));
