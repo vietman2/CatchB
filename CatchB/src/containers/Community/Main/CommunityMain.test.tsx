@@ -15,7 +15,7 @@ jest.mock("react-native-paper", () => {
   return {
     PaperProvider: Provider,
     Text: "Text",
-    FAB: ({ label, onPress }) => (
+    FAB: ({ label, onPress }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{label}</Text>
       </TouchableOpacity>

@@ -24,10 +24,7 @@ import DividerWithText from "../../../components/Divider/DividerWithText";
 import { login } from "../../../services/account";
 import { login as setUserState } from "../../../store/slices/authSlice";
 import { AppDispatch } from "../../../store/store";
-import {
-  MyPageStackParamList,
-  MyPageStackScreenProps,
-} from "../../../variables/navigation";
+import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 
 export default function Login() {
