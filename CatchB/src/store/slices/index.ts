@@ -4,11 +4,11 @@ import {
   configureStore,
 } from "@reduxjs/toolkit";
 
-import authReducer from "./authSlice";
-import modeReducer from "./modeSlice";
-import couponReducer from "./couponSlice";
-import pointReducer from "./pointSlice";
-import facilityReducer from "./facilitySlice";
+import authReducer from "./user_management/authSlice";
+import modeReducer from "./general/modeSlice";
+import couponReducer from "./user_management/couponSlice";
+import pointReducer from "./user_management/pointSlice";
+import facilityReducer from "./facility/facilitySlice";
 import { RootState } from "../store";
 
 const rootReducer = combineReducers({

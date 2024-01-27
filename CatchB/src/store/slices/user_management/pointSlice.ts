@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { Points } from "../../variables/types";
+import { Points } from "../../../variables/types";
 
 const initialState: {
   totalPoints: number;

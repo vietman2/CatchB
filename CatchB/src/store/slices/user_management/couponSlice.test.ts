@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
 import couponReducer, { setCouponListState } from "./couponSlice";
-import { sampleCoupons } from "../../variables/mvp_dummy_data/coupons";
+import { sampleCoupons } from "../../../variables/mvp_dummy_data/coupons";
 
 const createStore = () => {
   return configureStore({
