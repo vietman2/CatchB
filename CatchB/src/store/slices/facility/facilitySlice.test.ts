@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
 import facilityReducer, { setSelectedFacility } from "./facilitySlice";
-import { sampleFacilities } from "../../variables/mvp_dummy_data/facilities";
+import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 
 const createStore = () => {
   return configureStore({

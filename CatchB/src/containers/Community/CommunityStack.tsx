@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import CommunityMain from "./Main/CommunityMain";
 import PostCreate from "./PostCreate/PostCreate";
+import PostDetail from "./PostDetail/PostDetail";
 import BackButton from "../../components/Buttons/BackButton";
 import { leftTitle } from "../../components/Logos/TopBar";
 import {
@@ -29,7 +30,7 @@ export default function CommunityContainer() {
         {title}
       </Text>
     );
-  }
+  };
 
   return (
     <CommunityStack.Navigator
@@ -46,6 +47,13 @@ export default function CommunityContainer() {
         options={{
           headerLeft: () => backToMain(),
           headerTitle: () => headerTitle("글 작성"),
+        }}
+      />
+      <CommunityStack.Screen
+        name="PostDetail"
+        component={PostDetail}
+        options={{
+          headerShown: false,
         }}
       />
     </CommunityStack.Navigator>

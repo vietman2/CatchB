@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: themeColors.secondaryContainer,
+    borderColor: "silver",
   },
   menuHorizontal: {
     flexDirection: "row",

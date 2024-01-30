@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import MyPageMain from "./MyPageMain";
-import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
+import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -29,7 +29,15 @@ jest.mock("../../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
 });
-jest.mock("../../../components/Dialogs/LoginDialog", () => "LoginDialog");
+jest.mock("../../../components/Dialogs/LoginDialog", () => {
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
+  return ({ title, onClose }: any) => (
+    <TouchableOpacity onPress={onClose}>
+      <Text>{title}</Text>
+    </TouchableOpacity>
+  );
+});
 jest.mock("../../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return ({ icon, title, onPress }: any) => (
@@ -48,7 +56,10 @@ jest.mock("../../../components/Buttons/TabButton", () => {
     </TouchableOpacity>
   );
 });
-jest.mock("../../../components/Divider/VerticalDivider", () => "VerticalDivider");
+jest.mock(
+  "../../../components/Divider/VerticalDivider",
+  () => "VerticalDivider"
+);
 
 const Stack = createStackNavigator();
 
@@ -73,7 +84,7 @@ const components = () => {
 };
 
 describe("<MyPage />", () => {
-  it("handles dialog", () => {
+  it("handles presses", () => {
     const { getByText } = renderWithProviders(components());
     waitFor(() => {
       fireEvent.press(getByText("쿠폰함"));
@@ -84,9 +95,11 @@ describe("<MyPage />", () => {
   });
 
   it("navigates to Login screen when user is not logged in", () => {
-    const { getByTestId } = renderWithProviders(components());
+    const { getByTestId, getByText } = renderWithProviders(components());
+
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
+      fireEvent.press(getByText("로그인"));
     });
   });
 
@@ -94,6 +107,7 @@ describe("<MyPage />", () => {
     const { getByTestId, getByText } = renderWithProviders(components(), {
       preloadedState: { auth: { user: admin, token: "" } },
     });
+
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
       fireEvent.press(getByText("쿠폰함"));

@@ -47,6 +47,7 @@ export type MyStoreStackScreenProps<T extends keyof MyStoreStackParamList> =
 export type CommunityStackParamList = {
   CommunityScreen: undefined;
   PostCreate: undefined;
+  PostDetail: undefined;
 };
 export type CommunityStackScreenProps<T extends keyof CommunityStackParamList> =
   CompositeScreenProps<

@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
 import pointReducer, { setPointsState } from "./pointSlice";
-import { samplePoints } from "../../variables/mvp_dummy_data/points";
+import { samplePoints } from "../../../variables/mvp_dummy_data/points";
 
 const createStore = () => {
   return configureStore({

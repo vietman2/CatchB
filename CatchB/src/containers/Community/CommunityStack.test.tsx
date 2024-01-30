@@ -17,9 +17,9 @@ jest.mock("react-native-paper", () => {
     PaperProvider: Provider,
     Text: "Text",
     Menu: Menu,
-    FAB: ({ label, onPress }: any) => (
+    FAB: ({ icon, onPress }: any) => (
       <TouchableOpacity onPress={onPress}>
-        <Text>{label}</Text>
+        <Text>{icon}</Text>
       </TouchableOpacity>
     ),
     TextInput: {
@@ -29,11 +29,22 @@ jest.mock("react-native-paper", () => {
     Chip: "Chip",
     Icon: "Icon",
     IconButton: "IconButton",
+    Divider: "Divider",
   };
 });
 jest.mock("../../components/Logos/TopBar", () => ({
   leftTitle: "leftTitle",
 }));
+jest.mock("@gorhom/bottom-sheet", () => {
+  const { View } = jest.requireActual("react-native");
+
+  return {
+    __esModule: true,
+    default: "BottomSheet",
+    BottomSheetBackdrop: ({ children }: any) => <View>{children}</View>,
+    BottomSheetBackdropProps: "BottomSheetBackdropProps"
+  };
+});
 
 const Tab = createBottomTabNavigator();
 
@@ -47,8 +58,9 @@ describe("<CommunityStack />", () => {
       </NavigationContainer>
     );
 
-    fireEvent.press(getByText("글 작성"));
+    fireEvent.press(getByText("plus"));
     fireEvent.press(getByText("등록"));
     fireEvent.press(getByTestId("back"));
+    fireEvent.press(getByText("포스트2 제목"));
   });
 });

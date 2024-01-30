@@ -1,4 +1,4 @@
-import { fireEvent } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -24,6 +24,19 @@ jest.mock("react-native-paper", () => {
       ...jest.requireActual("react-native-paper").TextInput,
       Icon: "Icon",
     },
+    Chip: "Chip",
+    Divider: "Divider",
+    Icon: "Icon",
+  };
+});
+jest.mock("@gorhom/bottom-sheet", () => {
+  const { View, Text, TouchableOpacity } = jest.requireActual("react-native");
+
+  return {
+    __esModule: true,
+    default: "BottomSheet",
+    BottomSheetBackdrop: ({ children, props }: any) => <View>{children}<TouchableOpacity onPress={props.onPress}><Text>닫기</Text></TouchableOpacity></View>,
+    BottomSheetBackdropProps: "BottomSheetBackdropProps",
   };
 });
 
@@ -39,11 +52,28 @@ const components = () => {
   );
 };
 
-describe("<Community />", () => {
-  it("renders correctly", () => {
+describe("<CommunityMain />", () => {
+  it("handles tabs correctly", () => {
+    const { getAllByText } = renderWithProviders(components());
+
+    waitFor(() => {
+      fireEvent.press(getAllByText("모집")[0]);
+      fireEvent.press(getAllByText("야구톡")[0]);
+      fireEvent.press(getAllByText("벼룩시장")[0]);
+      fireEvent.press(getAllByText("자세 분석")[0]);
+      fireEvent.press(getAllByText("내 활동")[0]);
+    });
+  });
+
+  it("handles sort correctly", async () => {
     const { getByText } = renderWithProviders(components());
 
-    fireEvent.press(getByText("모집"));
-    fireEvent.press(getByText("야구톡"));
+    await waitFor(() => {
+      fireEvent.press(getByText("최신순"));
+      fireEvent.press(getByText("인기순"));
+      fireEvent.press(getByText("조회 많은 순"));
+      fireEvent.press(getByText("댓글 많은 순"));
+      fireEvent.press(getByText("닫기"));
+    });
   });
 });

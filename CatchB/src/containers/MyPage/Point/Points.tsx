@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PointsDetail from "./PointsDetail";
 import { getPointsList } from "../../../services/point";
 import { AppDispatch, RootState } from "../../../store/store";
-import { setPointsState } from "../../../store/slices/pointSlice";
+import { setPointsState } from "../../../store/slices/user_management/pointSlice";
 import { themeColors } from "../../../variables/colors";
 
 const NoPoints = () => {
