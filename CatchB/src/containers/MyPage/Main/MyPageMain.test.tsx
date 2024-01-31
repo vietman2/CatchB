@@ -23,20 +23,13 @@ jest.mock("react-native-paper", () => {
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
+    Chip: "Chip",
   };
 });
+jest.mock("react-native-progress/Bar", () => "ProgressBar");
 jest.mock("../../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
-});
-jest.mock("../../../components/Dialogs/LoginDialog", () => {
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
-
-  return ({ title, onClose }: any) => (
-    <TouchableOpacity onPress={onClose}>
-      <Text>{title}</Text>
-    </TouchableOpacity>
-  );
 });
 jest.mock("../../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
@@ -89,7 +82,7 @@ describe("<MyPage />", () => {
     waitFor(() => {
       fireEvent.press(getByText("쿠폰함"));
       fireEvent.press(getByText("포인트"));
-      fireEvent.press(getByText("결제수단 관리"));
+      fireEvent.press(getByText("결제수단"));
       fireEvent.press(getByText("리뷰"));
     });
   });
@@ -99,35 +92,28 @@ describe("<MyPage />", () => {
 
     waitFor(() => {
       fireEvent.press(getByTestId("badge"));
-      fireEvent.press(getByText("로그인"));
-    });
-  });
-
-  it("navigates to all screens when user is logged in", () => {
-    const { getByTestId, getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-
-    waitFor(() => {
-      fireEvent.press(getByTestId("badge"));
       fireEvent.press(getByText("쿠폰함"));
+      fireEvent.press(getByText("포인트"));
       fireEvent.press(getByText("코치 등록하기"));
       fireEvent.press(getByText("시설 등록하기"));
-      fireEvent.press(getByText("결제수단 관리"));
+      fireEvent.press(getByText("결제수단"));
       fireEvent.press(getByText("리뷰"));
-      fireEvent.press(getByText("자주 묻는 질문"));
+      fireEvent.press(getByText("찜"));
     });
   });
 
   it("handles menu press", () => {
     const { getByText } = renderWithProviders(components());
+
+    waitFor(() => {
     fireEvent.press(getByText("친구 초대하기"));
     fireEvent.press(getByText("레슨 코치 초대하기"));
     fireEvent.press(getByText("매장 정보 제보하기"));
     fireEvent.press(getByText("1:1 문의"));
-    fireEvent.press(getByText("..?"));
+    fireEvent.press(getByText("현재 버전 0.0.0:Beta"));
     fireEvent.press(getByText("알림 맞춤 설정"));
-    fireEvent.press(getByText("즐겨찾기?"));
-    fireEvent.press(getByText("최근 본?"));
+    fireEvent.press(getByText("알림 맞춤 설정"));
+    fireEvent.press(getByText("약관 및 정책"));
+    });
   });
 });

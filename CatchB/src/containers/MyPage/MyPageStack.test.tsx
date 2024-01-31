@@ -120,7 +120,7 @@ describe("<MyPageStack />", () => {
   it("navigates to <Payments />, <FAQ /> and <Reviews />", () => {
     const { getByTestId, getByText } = render();
 
-    waitFor(() => fireEvent.press(getByText("결제수단 관리")));
+    waitFor(() => fireEvent.press(getByText("결제수단")));
     waitFor(() => fireEvent.press(getByTestId("back")));
     waitFor(() => fireEvent.press(getByText("자주 묻는 질문")));
     waitFor(() => fireEvent.press(getByTestId("back")));

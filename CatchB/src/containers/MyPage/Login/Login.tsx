@@ -21,7 +21,7 @@ import LoginLogo from "../../../components/Logos/LoginLogo";
 import NaverButton from "../../../components/Buttons/NaverButton";
 import KakaoButton from "../../../components/Buttons/KakaoButton";
 import DividerWithText from "../../../components/Divider/DividerWithText";
-import { login } from "../../../services/account";
+import { login } from "../../../services/user_management/account";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { AppDispatch } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";

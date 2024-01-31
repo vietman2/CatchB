@@ -1,5 +1,6 @@
-import { createStackNavigator } from "@react-navigation/stack";
 import { Text } from "react-native-paper";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
 import MyPageMain from "./Main/MyPageMain";
 import Login from "./Login/Login";
@@ -21,7 +22,6 @@ import {
   MyPageStackParamList,
   MyPageStackScreenProps,
 } from "../../variables/navigation";
-import { useNavigation } from "@react-navigation/native";
 
 const MyPageStack = createStackNavigator<MyPageStackParamList>();
 
@@ -34,7 +34,10 @@ export default function MyPageContainer() {
 
   const headerTitle = (title: string) => {
     return (
-      <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
+      <Text
+        variant="headlineSmall"
+        style={{ fontWeight: "bold", color: "green" }}
+      >
         {title}
       </Text>
     );

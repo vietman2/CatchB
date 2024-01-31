@@ -12,6 +12,7 @@ import { themeColors } from "../../../variables/colors";
 export default function CoachRegister() {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedGender, setSelectedGender] = useState<string>("");
+  const [selectedCareer, setSelectedCareer] = useState<string>("");
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
   const user = useSelector((state: RootState) => state.auth.user);
 
@@ -32,23 +33,31 @@ export default function CoachRegister() {
           이름 *
         </Text>
         <TextInput
+          style={styles.uneditable}
           mode="outlined"
           value={user.full_name}
-          disabled
-          dense
+          editable={false}
           textColor="black"
-          style={styles.filled}
         />
         <Text variant="titleSmall" style={styles.subtitle}>
           전화번호 *
         </Text>
         <TextInput
+          style={styles.uneditable}
           mode="outlined"
           value={user.phone_number}
-          disabled
-          dense
+          editable={false}
           textColor="black"
-          style={styles.filled}
+        />
+        <Text variant="titleSmall" style={styles.subtitle}>
+          생년월일 *
+        </Text>
+        <TextInput
+          style={styles.uneditable}
+          mode="outlined"
+          value={user?.birth_date}
+          editable={false}
+          textColor="black"
         />
         <Text variant="titleSmall" style={styles.subtitle}>
           성별 *
@@ -63,7 +72,14 @@ export default function CoachRegister() {
         </Text>
         <View style={styles.chips}>
           {selectedAreas.map((area) => (
-            <Chip key={area} style={{backgroundColor: "green", marginRight: 10, marginBottom: 5}}>
+            <Chip
+              key={area}
+              style={{
+                backgroundColor: "green",
+                marginRight: 10,
+                marginBottom: 5,
+              }}
+            >
               {area}
             </Chip>
           ))}
@@ -79,6 +95,11 @@ export default function CoachRegister() {
         <Text variant="titleSmall" style={styles.subtitle}>
           경력 *
         </Text>
+        <SingleCheck
+          options={["프로 선출", "대학 선출", "고등 선출", "중등 선출", "기타"]}
+          selected={selectedGender}
+          setSelected={setSelectedGender}
+        />
         <Text variant="titleSmall" style={styles.subtitle}>
           코치 자격증 업로드 *
         </Text>
@@ -114,12 +135,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
   },
-  filled: {
+  uneditable: {
     backgroundColor: themeColors.secondaryContainer,
     fontWeight: "bold",
+    height: 40,
   },
   chips: {
     flexDirection: "row",
     flexWrap: "wrap",
-  }
+  },
 });

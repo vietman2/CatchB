@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import PasswordChange from "./PasswordChange";
 import * as SecureStore from "../../../store/secure";
-import * as account from "../../../services/account";
+import * as account from "../../../services/user_management/account";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 import { renderWithProviders } from "../../../utils/test-utils";
 

@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import GenderButton from "../../../components/Buttons/GenderButton";
-import { login, register } from "../../../services/account";
+import { login, register } from "../../../services/user_management/account";
 import { AppDispatch } from "../../../store/store";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from "../../../variables/colors";

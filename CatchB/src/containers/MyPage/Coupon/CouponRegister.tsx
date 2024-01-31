@@ -9,7 +9,7 @@ import {
 import { Button, TextInput, Text, ActivityIndicator } from "react-native-paper";
 import { useSelector } from "react-redux";
 
-import { registerCoupon, checkStatus } from "../../../services/coupon";
+import { registerCoupon, checkStatus } from "../../../services/user_management/coupon";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 
