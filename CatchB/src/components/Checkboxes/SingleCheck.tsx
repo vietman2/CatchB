@@ -24,7 +24,7 @@ export default function SingleCheck({ options, selected, setSelected }: Props) {
 
   return (
     <>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {options.map((option, index) => (
           <Chip
             key={index}

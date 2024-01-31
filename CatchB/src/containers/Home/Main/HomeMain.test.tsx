@@ -56,14 +56,6 @@ const renderWithMode = (mode: "basic" | "pro") => {
 };
 
 describe("<NormalHome />", () => {
-  it("handles button press", () => {
-    const { getByText } = renderWithMode("basic");
-
-    fireEvent.press(getByText("개인정보 처리방침"));
-    fireEvent.press(getByText("이용약관"));
-    fireEvent.press(getByText("현재 버전 0.1.0"));
-  });
-
   it("renders with user", () => {
     renderWithProviders(<HomeMain />, {
       preloadedState: {

@@ -18,7 +18,7 @@ import {
   RootTabScreenProps,
 } from "../../variables/navigation";
 import { themeColors } from "../../variables/colors";
-import { getUserProfile, renewToken } from "../../services/account";
+import { getUserProfile, renewToken } from "../../services/user_management/account";
 import { setMode } from "../../store/slices/general/modeSlice";
 import {
   setUserProfile,

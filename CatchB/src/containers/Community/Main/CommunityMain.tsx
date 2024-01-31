@@ -24,8 +24,8 @@ export default function Community() {
     { key: "야구톡", title: "야구톡" },
     { key: "모집", title: "모집" },
     { key: "벼룩시작", title: "벼룩시장" },
-    { key: "내 활동", title: "내 활동" },
     { key: "자세 분석", title: "자세 분석" },
+    { key: "내 활동", title: "내 활동" },
   ]);
 
   const [visible, setVisible] = useState(true);
