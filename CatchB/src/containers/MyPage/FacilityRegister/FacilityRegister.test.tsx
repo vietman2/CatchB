@@ -22,6 +22,7 @@ jest.mock("react-native-paper", () => {
     Portal: "Portal",
     Button: mockButton,
     Dialog,
+    Chip: "Chip",
   };
 });
 jest.mock("@actbase/react-daum-postcode", () => {
