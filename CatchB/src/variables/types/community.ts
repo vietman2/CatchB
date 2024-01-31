@@ -1,5 +1,7 @@
 export type PostType = {
   id: number;
+  forum_id: number;
+  forum_name: string;
   title: string;
   body: string;
 
