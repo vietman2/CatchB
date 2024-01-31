@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { API_LOCAL_URL } from "./apiConfig";
-import { RegisterRoute } from "../variables/enums";
+import { API_LOCAL_URL } from "../apiConfig";
+import { RegisterRoute } from "../../variables/enums";
 
 export async function login(username: string, password: string) {
   const url = `${API_LOCAL_URL}/api/users/login/`;
