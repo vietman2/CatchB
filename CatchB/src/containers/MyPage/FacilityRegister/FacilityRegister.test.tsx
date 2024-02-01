@@ -1,9 +1,14 @@
 import { fireEvent, waitFor } from "@testing-library/react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import FacilityRegister from "./FacilityRegister";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 
+jest.mock("react-native-gesture-handler", () => ({
+  PanGestureHandler: "PanGestureHandler",
+}));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").Provider;
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
@@ -46,16 +51,29 @@ jest.mock("@actbase/react-daum-postcode/lib/types", () => ({
   OnCompleteParams: "OnCompleteParams",
 }));
 
-describe("<FacilityRegister />", () => {
-  it("should handle textinput changes correctly", async () => {
-    const { getByPlaceholderText } = renderWithProviders(<FacilityRegister />, {
+const Stack = createStackNavigator();
+
+const render = () => {
+  return renderWithProviders(
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="FacilityRegister" component={FacilityRegister} />
+      </Stack.Navigator>
+    </NavigationContainer>,
+    {
       preloadedState: {
         auth: {
           user: admin,
           token: "token",
         },
       },
-    });
+    }
+  );
+};
+
+describe("<FacilityRegister />", () => {
+  it("should handle textinput changes correctly", async () => {
+    const { getByPlaceholderText } = render();
 
     const facilityNameInput = getByPlaceholderText("시설 이름을 입력하세요");
     const contactInput = getByPlaceholderText("- 없이 숫자만 입력하세요");
@@ -73,14 +91,7 @@ describe("<FacilityRegister />", () => {
   });
 
   it("should handle address selection correctly", async () => {
-    const { getByText } = renderWithProviders(<FacilityRegister />, {
-      preloadedState: {
-        auth: {
-          user: admin,
-          token: "token",
-        },
-      },
-    });
+    const { getByText } = render();
 
     await waitFor(() => {
       fireEvent.press(getByText("검색"));
