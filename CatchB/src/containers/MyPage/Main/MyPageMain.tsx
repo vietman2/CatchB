@@ -236,7 +236,7 @@ export default function MyPageMain() {
           <View style={{ flexDirection: "row" }}>
             <Button
               mode="text"
-              onPress={() => {}}
+              onPress={() => navigation.navigate("FAQ")}
               style={{ flex: 1 }}
               labelStyle={styles.labelText}
             >
