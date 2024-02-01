@@ -19,14 +19,17 @@ import { useNavigation } from "@react-navigation/native";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { registerFacility } from "../../../services/facility/facility";
 
-export default function FacilityStep1() {
+interface Props {
+  onFinish: () => void;
+}
+
+export default function FacilityStep1({ onFinish }: Props) {
   const [visible, setVisible] = useState<boolean>(false);
   const [addressData, setAddressData] = useState<OnCompleteParams | null>(null);
   const [facilityName, setFacilityName] = useState<string>("");
   const [contact, setContact] = useState<string>("");
   const [registrationNumber, setRegistrationNumber] = useState<string>("");
   const [address2, setAddress2] = useState("");
-  const [coordinates, setCoordinates] = useState<[number, number]>([0, 0]);
 
   const user = useSelector((state: RootState) => state.auth.user);
   const navigation =
@@ -49,7 +52,7 @@ export default function FacilityStep1() {
         },
         {
           text: "확인",
-          onPress: () => console.log("OK Pressed"),
+          onPress: () => onFinish(),
           isPreferred: true,
         },
       ]
@@ -71,26 +74,20 @@ export default function FacilityStep1() {
       addressData?.jibunAddress,
       addressData?.zonecode,
       addressData?.sido,
-      addressData?.sigungu,
+      addressData?.sigungu
     );
 
     if (response.status === 201) {
       handleRegisterSuccess();
     } else if (response.status === 400) {
-      Alert.alert(
-        "등록 실패",
-        response.data.message,
-        [
-          {
-            text: "확인",
-            style: "cancel",
-            isPreferred: true,
-          },
-        ]
-      );
-    }
-    
-    else {
+      Alert.alert("등록 실패", response.data.message, [
+        {
+          text: "확인",
+          style: "cancel",
+          isPreferred: true,
+        },
+      ]);
+    } else {
       Alert.alert("등록 실패", "오류가 발생했습니다. 다시 시도해주세요.", [
         {
           text: "확인",
@@ -102,40 +99,83 @@ export default function FacilityStep1() {
   };
 
   const formatContact = (number: string) => {
-    let cleanNumber = number.replace(/-|\s/g, "");
+    const digits = number.replace(/\D/g, "");
 
-    // Check if the number is valid (i.e., only contains digits)
-    if (!cleanNumber.match(/^\d*$/)) {
-      return number; // Return as-is if invalid characters are found
+    // Formatting for mobile numbers (starts with 010)
+    if (digits.startsWith("010")) {
+      if (digits.length <= 7) {
+        return digits.replace(/(\d{3})(\d{0,4})/, "$1-$2").trim();
+      }
+      return digits.replace(/(\d{3})(\d{0,4})(\d{0,4})/, "$1-$2-$3").trim();
     }
 
-    // Format mobile numbers (starting with '010')
-    if (cleanNumber.startsWith("010")) {
-      if (cleanNumber.length > 7) {
-        // Complete mobile number: Format as 010-1234-5678
-        return cleanNumber
-          .replace(/(\d{3})(\d{1,4})(\d{1,4})/, "$1-$2-$3")
-          .trimEnd();
-      } else {
-        // Partially entered mobile number
-        return cleanNumber.replace(/(\d{3})(\d{0,4})/, "$1-$2").trimEnd();
+    // Formatting for Seoul landline numbers (starts with 02)
+    if (digits.startsWith("02")) {
+      if (digits.length <= 6) {
+        return digits.replace(/(\d{2})(\d{0,3})/, "$1-$2").trim();
       }
-    } else {
-      // Format landline numbers
-      if (cleanNumber.length >= 9) {
-        // For landline numbers with 8-9 digits excluding area code
-        return cleanNumber
-          .replace(/(\d{2,3})(\d{1,4})(\d{1,4})/, "$1-$2-$3")
-          .trimEnd();
-      } else {
-        // Partially entered landline number
-        return cleanNumber.replace(/(\d{2,3})(\d{0,4})/, "$1-$2").trimEnd();
+      if (digits.length <= 9) {
+        return digits.replace(/(\d{2})(\d{0,3})(\d{0,4})/, "$1-$2-$3").trim();
       }
+      return digits.replace(/(\d{2})(\d{0,4})(\d{0,4})/, "$1-$2-$3").trim();
     }
-  }
+
+    // Formatting for other landline numbers (starts with 03x, 04x, 05x, 06x)
+    if (/^0[3-6]\d/.test(digits)) {
+      if (digits.length <= 7) {
+        return digits.replace(/(\d{3})(\d{0,4})/, "$1-$2").trim();
+      }
+      return digits.replace(/(\d{3})(\d{0,4})(\d{0,4})/, "$1-$2-$3").trim();
+    }
+
+    return number;
+  };
 
   const handleContactChange = (text: string) => {
-    setContact(formatContact(text));
+    if (
+      contact.length > 1 &&
+      text.length < contact.length &&
+      contact[contact.length - 1] === "-"
+    ) {
+      // Remove the last hyphen and reformat
+      const newText = text.substring(0, text.length - 1);
+      const formattedNumber = formatContact(newText);
+      setContact(formattedNumber);
+    } else {
+      // Normal formatting for other cases
+      const formattedNumber = formatContact(text);
+      setContact(formattedNumber);
+    }
+  };
+
+  const formatRegistrationNumber = (number: string) => {
+    const digits = number.replace(/\D/g, ""); // Remove non-numeric characters
+    const length = digits.length;
+
+    // Apply conditional formatting based on the length of the number
+    if (length <= 3) {
+      return digits;
+    } else if (length <= 5) {
+      return digits.replace(/(\d{3})(\d{0,2})/, "$1-$2");
+    } else {
+      return digits.replace(/(\d{3})(\d{2})(\d{0,5})/, "$1-$2-$3");
+    }
+  };
+
+  const handleRegistrationNumberChange = (text: string) => {
+    const lastCharDeleted =
+      registrationNumber.length > 1 &&
+      text.length < registrationNumber.length &&
+      registrationNumber[registrationNumber.length - 1] === "-";
+
+    let newText = text;
+    // If the last character deleted is a hyphen, remove it before formatting
+    if (lastCharDeleted) {
+      newText = text.substring(0, text.length - 1);
+    }
+
+    const formattedNumber = formatRegistrationNumber(newText);
+    setRegistrationNumber(formattedNumber);
   };
 
   return (
@@ -201,7 +241,7 @@ export default function FacilityStep1() {
             mode="outlined"
             placeholder="사업자 등록번호를 입력하세요 (- 제외)"
             value={registrationNumber}
-            onChangeText={(text) => setRegistrationNumber(text)}
+            onChangeText={handleRegistrationNumberChange}
             style={styles.bold}
             textColor="black"
             placeholderTextColor="gray"
