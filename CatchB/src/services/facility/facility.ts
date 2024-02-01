@@ -6,7 +6,7 @@ export async function registerFacility(
   name: string,
   owner_uuid: string,
   owner_name: string,
-  owner_phone_number: string,
+  owner_phone: string,
   phone: string,
   reg_code: string,
   road_address: string,
@@ -24,20 +24,24 @@ export async function registerFacility(
     const response = await axios.post(
       url,
       {
-        name,
-        owner_uuid,
-        owner_name,
-        owner_phone_number,
-        phone,
-        reg_code,
-        road_address,
-        road_address_part1,
-        road_address_part2,
-        eng_address,
-        jibun_address,
-        zip_code,
-        sido,
-        sigungu,
+        facility: {
+          name,
+          owner_uuid,
+          owner_name,
+          owner_phone,
+          phone,
+          reg_code,
+        },
+        address: {
+          road_address,
+          road_address_part1,
+          road_address_part2,
+          eng_address,
+          jibun_address,
+          zip_code,
+          sido,
+          sigungu,
+        },
       },
       {
         headers: {
@@ -52,7 +56,6 @@ export async function registerFacility(
     };
   } catch (err) {
     if (err.response) {
-      console.log(err.response.data);
       return {
         status: 400,
         data: {},
