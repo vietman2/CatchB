@@ -12,7 +12,7 @@ export const admin: UserProfile = {
   date_joined: "2023-09-01",
   experience_tier: "UNDEFINED",
   register_route: "UNDEFINED",
-  user_type: "facility_owner",
+  role: "F",
   num_coupons: 0,
   total_points: "0",
 };
@@ -29,7 +29,7 @@ export const exampleUser: UserProfile = {
   date_joined: "2021-10-01",
   experience_tier: "UNDEFINED",
   register_route: "UNDEFINED",
-  user_type: "normal_user",
+  role: "N",
   num_coupons: 0,
   total_points: "0",
 };

@@ -19,7 +19,7 @@ export type UserProfile = {
   gender?: string;
   experience_tier: string;
   register_route: string;
-  user_type: string;
+  role: string;
   profile_image?: string;
   num_coupons: number;
   total_points: string;

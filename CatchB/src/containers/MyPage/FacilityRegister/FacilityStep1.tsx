@@ -4,18 +4,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  KeyboardAvoidingView,
-  Keyboard,
   Alert,
 } from "react-native";
 import { Button, Dialog, Portal, Text, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import PostCode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
-import { useNavigation } from "@react-navigation/native";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { registerFacility } from "../../../services/facility/facility";
 
@@ -180,8 +178,11 @@ export default function FacilityStep1({ onFinish }: Props) {
 
   return (
     <>
-      <KeyboardAvoidingView style={styles.container}>
-        <ScrollView onTouchStart={Keyboard.dismiss}>
+        <ScrollView
+          automaticallyAdjustKeyboardInsets
+          keyboardDismissMode="on-drag"
+          style={styles.container}
+        >
           <Text variant="titleLarge" style={styles.title}>
             기본 정보
           </Text>
@@ -287,13 +288,12 @@ export default function FacilityStep1({ onFinish }: Props) {
           <Button
             mode="contained-tonal"
             buttonColor={themeColors.primary}
-            onPress={handleRegister}
+            onPress={handleRegisterSuccess}
             style={{ marginTop: 20 }}
           >
             등록하기
           </Button>
         </ScrollView>
-      </KeyboardAvoidingView>
       <Portal>
         <Dialog visible={visible}>
           <Dialog.Title>주소 검색</Dialog.Title>
