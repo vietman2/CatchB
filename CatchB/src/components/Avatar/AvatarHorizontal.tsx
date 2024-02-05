@@ -17,7 +17,7 @@ export default function AvatarHorizontal(props: ProfileBadgeProps) {
         style={{ backgroundColor: themeColors.primary }}
       />
       <View style={styles.textBox}>
-        <Text variant="titleMedium" style={{ color: themeColors.tertiary }}>
+        <Text variant="titleMedium" style={{ color: "gray" }}>
           {props.user === null
             ? "로그인 후 편하게 서비스를 이용하세요!"
             : "일반 회원"}
