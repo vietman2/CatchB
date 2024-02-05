@@ -27,7 +27,7 @@ export default function SwitchModeDialog({
       setTitle("프로모드로 전환");
       if (user === null) {
         setContents("로그인이 필요합니다.");
-      } else if (user.user_type !== "normal_user") {
+      } else if (user.role !== "N") {
         setContents("프로모드로 전환하시겠습니까?");
         setPossible(true);
       } else {
