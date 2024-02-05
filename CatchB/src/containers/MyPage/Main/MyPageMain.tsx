@@ -1,14 +1,16 @@
 import {
-  View,
+  Alert,
   ScrollView,
+  Share,
   StyleSheet,
   TouchableOpacity,
-  Alert,
+  View,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Button, Divider, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import ProgressBar from "react-native-progress/Bar";
+import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 
 import AvatarHorizontal from "../../../components/Avatar/AvatarHorizontal";
 import IconButton from "../../../components/Buttons/IconButton";
@@ -19,6 +21,7 @@ import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
 export default function MyPageMain() {
+  const { start } = useTourGuideController();
   const navigation =
     useNavigation<MyPageStackScreenProps<"MyPageScreen">["navigation"]>();
   const user = useSelector((state: RootState) => state.auth.user);
@@ -103,19 +106,38 @@ export default function MyPageMain() {
     }
   };
 
+  const handleInvitePress = () => {
+    if (!user) {
+      LoginAlert();
+      return;
+    } else {
+      Share.share({
+        message: "ㅎㅇㅎㅇ",
+        title: "초대하기",
+      });
+    }
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
-        <TouchableOpacity onPress={handleBadgePress} testID="avatar-horizontal">
-          <AvatarHorizontal user={user} />
-        </TouchableOpacity>
+        <TourGuideZone zone={1} text="CatchB에 오신 것을 환영합니다!">
+          <TouchableOpacity
+            onPress={handleBadgePress}
+            testID="avatar-horizontal"
+          >
+            <AvatarHorizontal user={user} />
+          </TouchableOpacity>
+        </TourGuideZone>
         <View style={styles.progress}>
-          <Text variant="titleSmall">프로필 완성도: {"50%"}</Text>
-          <ProgressBar progress={0.5} color="green" />
+          <TourGuideZone zone={2} text="프로필을 완성하면 3,000 포인트를 드려요!">
+            <Text variant="titleSmall">프로필 완성도: {"50%"}</Text>
+            <ProgressBar progress={0.5} color="green" />
+          </TourGuideZone>
         </View>
         <View style={styles.mainOptions}>
           <View style={styles.menuHorizontal}>
-            <TouchableOpacity style={{ flex: 1 }}>
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => start()}>
               <IconButton icon="bookmark" title="찜" />
             </TouchableOpacity>
             <VerticalDivider />
@@ -183,7 +205,7 @@ export default function MyPageMain() {
           <View style={{ flexDirection: "row" }}>
             <Button
               mode="text"
-              onPress={() => {}}
+              onPress={handleInvitePress}
               style={{ flex: 1 }}
               labelStyle={styles.labelText}
             >
@@ -226,7 +248,7 @@ export default function MyPageMain() {
             </Button>
             <Button
               mode="text"
-              onPress={() => navigation.navigate("FAQ")}
+              onPress={() => {}}
               style={{ flex: 1 }}
               labelStyle={styles.labelText}
             >
@@ -266,7 +288,7 @@ export default function MyPageMain() {
               style={{ flex: 1 }}
               labelStyle={styles.labelText}
             >
-              현재 버전 0.0.0:Beta
+              현재 버전: Beta 0.0.0
             </Button>
           </View>
           <Divider style={styles.divider} />

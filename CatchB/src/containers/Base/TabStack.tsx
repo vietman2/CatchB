@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { requestForegroundPermissionsAsync } from "expo-location";
+import { TourGuideZone } from "rn-tourguide";
 
 import HomeContainer from "../Home/HomeStack";
 import NearbyContainer from "../Nearby/NearbyStack";
@@ -18,7 +19,10 @@ import {
   RootTabScreenProps,
 } from "../../variables/navigation";
 import { themeColors } from "../../variables/colors";
-import { getUserProfile, renewToken } from "../../services/user_management/account";
+import {
+  getUserProfile,
+  renewToken,
+} from "../../services/user_management/account";
 import { setMode } from "../../store/slices/general/modeSlice";
 import {
   setUserProfile,
@@ -135,11 +139,13 @@ export default function TabContainer() {
             options={{
               tabBarLabel: "내 주변",
               tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="map-marker"
-                  color={color}
-                  size={26}
-                />
+                <TourGuideZone zone={3} text="내 주변 탭입니다.">
+                  <MaterialCommunityIcons
+                    name="map-marker"
+                    color={color}
+                    size={26}
+                  />
+                </TourGuideZone>
               ),
             }}
           />
@@ -190,12 +196,14 @@ export default function TabContainer() {
           options={{
             tabBarLabel: "마이페이지",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="account-box"
-                color={color}
-                size={26}
-                testID="MyPageIcon"
-              />
+              <TourGuideZone zone={4} text="마이페이지 탭을 꾹 누르면 프로모드로 전환할 수 있습니다.">
+                <MaterialCommunityIcons
+                  name="account-box"
+                  color={color}
+                  size={26}
+                  testID="MyPageIcon"
+                />
+              </TourGuideZone>
             ),
           }}
           listeners={{
