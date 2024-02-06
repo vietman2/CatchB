@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { FacilityType } from "../../../variables/types";
+import { FacilityType } from "../../../variables/types/products";
 
 const initialState: {
   selectedFacility: FacilityType | null;
