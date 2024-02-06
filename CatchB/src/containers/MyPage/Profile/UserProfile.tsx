@@ -37,7 +37,7 @@ export default function UserProfile({ navigation }: Props) {
         const response = await logout(token);
         if (response.status === 200) {
           Alert.alert("로그아웃 되었습니다.");
-          dispatch(resetUserState());
+          await dispatch(resetUserState());
           navigation.navigate("MyPageScreen");
         } else {
           Alert.alert("로그아웃에 실패했습니다.");
@@ -58,7 +58,7 @@ export default function UserProfile({ navigation }: Props) {
     const response = await deleteAccount(user.uuid, token);
     if (response.status === 200) {
       Alert.alert("회원탈퇴 되었습니다.");
-      dispatch(resetUserState());
+      await dispatch(resetUserState());
       navigation.navigate("MyPageScreen");
     } else {
       Alert.alert("회원탈퇴에 실패했습니다.");

@@ -130,9 +130,12 @@ export default function MyPageMain() {
           </TouchableOpacity>
         </TourGuideZone>
         <View style={styles.progress}>
-          <TourGuideZone zone={2} text="프로필을 완성하면 3,000 포인트를 드려요!">
-            <Text variant="titleSmall">프로필 완성도: {"50%"}</Text>
-            <ProgressBar progress={0.5} color="green" />
+          <TourGuideZone
+            zone={2}
+            text="프로필을 완성하면 3,000 포인트를 드려요!"
+          >
+            <Text variant="titleSmall">프로필 완성도: {"70%"}</Text>
+            <ProgressBar progress={0.7} color="green" />
           </TourGuideZone>
         </View>
         <View style={styles.mainOptions}>
@@ -229,7 +232,14 @@ export default function MyPageMain() {
             >
               매장 정보 제보하기
             </Button>
-            <View style={{ flex: 1 }} />
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              진행중인 이벤트
+            </Button>
           </View>
         </View>
         <View style={{ paddingHorizontal: 10 }}>
@@ -288,10 +298,18 @@ export default function MyPageMain() {
               style={{ flex: 1 }}
               labelStyle={styles.labelText}
             >
-              현재 버전: Beta 0.0.0
+              제휴 문의하기
             </Button>
           </View>
           <Divider style={styles.divider} />
+          <Button
+            mode="text"
+            onPress={() => {}}
+            style={{ flex: 1 }}
+            labelStyle={styles.labelText}
+          >
+            현재 버전: Beta 0.0.0
+          </Button>
         </View>
       </View>
     </ScrollView>
@@ -345,5 +363,6 @@ const styles = StyleSheet.create({
   labelText: {
     fontSize: 20,
     color: "black",
+    textAlign: "left"
   },
 });

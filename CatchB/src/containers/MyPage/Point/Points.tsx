@@ -45,7 +45,7 @@ export default function Points() {
     const fetchPointsList = async () => {
       const response = await getPointsList(token, user.uuid);
       setLoading(false);
-      dispatch(setPointsState(response.data));
+      await dispatch(setPointsState(response.data));
     };
     fetchPointsList();
   }, []);

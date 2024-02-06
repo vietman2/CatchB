@@ -40,7 +40,7 @@ export default function SignUp() {
     const response = await login(username, password);
 
     if (response.status === 200) {
-      dispatch(setUserState(response.data));
+      await dispatch(setUserState(response.data));
       navigation.navigate("MyPageScreen");
       Alert.alert("회원가입이 완료되었습니다.", "환영합니다.");
     } else {

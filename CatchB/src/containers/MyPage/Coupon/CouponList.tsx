@@ -73,7 +73,7 @@ export default function CouponList() {
     const getCoupons = async () => {
       const response = await getCouponList(token);
       if (response.status === 200) {
-        dispatch(setCouponListState(response.data));
+        await dispatch(setCouponListState(response.data));
         setLoading(false);
       } else {
         console.log("error");

@@ -44,7 +44,7 @@ export default function Login() {
 
     if (response.status === 200) {
       setError("");
-      dispatch(setUserState(response.data));
+      await dispatch(setUserState(response.data));
       navigation.navigate("MyPageScreen");
     } else if (response.status === 400) {
       const error = response.data;
