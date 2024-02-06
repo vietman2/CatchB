@@ -5,7 +5,6 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Button, Icon, Text } from "react-native-paper";
@@ -16,21 +15,18 @@ import { RootState } from "../../../store/store";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 import ScheduleBar from "../../../components/Tables/ScheduleBar";
 import ProductsTable from "../../../components/Tables/ProductsTable";
-import CoachProfile from "../../../components/Avatar/CoachProfile";
 
 const { width, height } = Dimensions.get("window");
 
-export default function FacilityDetail() {
+export default function CoachDetail() {
   const [isLiked, setIsLiked] = useState(false);
   const [expand, setExpand] = useState(false);
   const navigation =
-    useNavigation<NearbyStackScreenProps<"FacilityDetail">["navigation"]>();
-  const facility = useSelector(
-    (state: RootState) => state.facility.selectedFacility
-  );
+    useNavigation<NearbyStackScreenProps<"CoachDetail">["navigation"]>();
+  const coach = useSelector((state: RootState) => state.coach.selectedCoach);
 
   const handleReserve = () => {
-    navigation.navigate("FacilityReserve");
+    navigation.navigate("Payment");
   };
 
   const renderDescription = (description: string) => {
@@ -48,7 +44,7 @@ export default function FacilityDetail() {
     } else {
       return (
         <Text variant="bodyLarge" style={styles.detail}>
-          {facility.description}
+          asdf
         </Text>
       );
     }
@@ -64,11 +60,11 @@ export default function FacilityDetail() {
         </ScrollView>
         <View style={styles.topLine}>
           <Text variant="headlineMedium" style={styles.title}>
-            {facility.name}
+            {coach.coach_name} 코치
           </Text>
           <View style={styles.rating}>
             <Icon source="star" size={20} color="gold" />
-            <Text>{facility.rating}/10</Text>
+            <Text>{coach.rating}/10</Text>
           </View>
           <View style={styles.interactions}>
             <TouchableOpacity
@@ -87,51 +83,35 @@ export default function FacilityDetail() {
           </View>
         </View>
         <View style={styles.description}>
-          {facility.bulletPoints.map((bulletPoint, index) => (
-            <Text key={index} variant="bodyLarge">
-              {"\u2022"} {bulletPoint}
-            </Text>
-          ))}
-          {renderDescription(facility.description)}
+          <Text variant="bodyLarge">
+            {"\u2022"} 학력: {coach.academic_background}
+          </Text>
+          <Text variant="bodyLarge">
+            {"\u2022"} 야구 경력: {coach.baseball_career}
+          </Text>
+          <Text variant="bodyLarge">
+            {"\u2022"} 코치 경력: {coach.coaching_career}
+          </Text>
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
-            코치진
+            소개
           </Text>
-          <ScrollView horizontal>
-            <CoachProfile name="김감독" />
-            <CoachProfile name="이코치" />
-            <CoachProfile name="박코치" />
-            <CoachProfile name="최코치" />
-            <CoachProfile name="김코치" />
-          </ScrollView>
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
             가격표
           </Text>
-          <ProductsTable products={facility.products} />
-        </View>
-        <View style={styles.content}>
-          <View style={styles.reservation}>
-            <Text variant="titleLarge" style={styles.subtitle}>
-              예약 현황
-            </Text>
-            <Text variant="titleMedium">자세히 보기</Text>
-          </View>
-          <ScheduleBar />
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
-            위치
+            전문 분야
           </Text>
-          <Text variant="titleMedium" style={styles.detail}>
-            {facility.location}
+        </View>
+        <View style={styles.content}>
+          <Text variant="titleLarge" style={styles.subtitle}>
+            주 활동 지역
           </Text>
-          <Image
-            source={require("assets/images/seouldae.jpeg")}
-            style={styles.locationImage}
-          />
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
@@ -139,11 +119,6 @@ export default function FacilityDetail() {
           </Text>
         </View>
       </ScrollView>
-      <View style={styles.button}>
-        <Button mode="contained" onPress={handleReserve}>
-          예약하기
-        </Button>
-      </View>
     </View>
   );
 }
@@ -204,13 +179,5 @@ const styles = StyleSheet.create({
     color: "gray",
     marginTop: 5,
     marginBottom: 10,
-  },
-  reservation: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "baseline",
-  },
-  button: {
-    marginTop: 20,
   },
 });

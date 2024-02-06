@@ -4,6 +4,9 @@ import { useNavigation } from "@react-navigation/native";
 
 import NearbyMain from "./Main/NearbyMain";
 import FacilityDetail from "./FacilityDetail/FacilityDetail";
+import FacilityReserve from "./FacilityReserve/FacilityReserve";
+import CoachDetail from "./CoachDetail/CoachDetail";
+import Payment from "./Payment/Payment";
 import BackButton from "../../components/Buttons/BackButton";
 import {
   NearbyStackParamList,
@@ -16,6 +19,9 @@ const NearbyNavStack = createStackNavigator<NearbyStackParamList>();
 export default function NearbyStack() {
   const selectedFacility = useSelector(
     (store: RootState) => store.facility.selectedFacility
+  );
+  const selectedCoach = useSelector(
+    (store: RootState) => store.coach.selectedCoach
   );
   const navigation =
     useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
@@ -40,6 +46,52 @@ export default function NearbyStack() {
             );
           },
           headerTitle: selectedFacility?.name,
+          headerBackTitleVisible: false,
+        }}
+      />
+      <NearbyNavStack.Screen
+        name="FacilityReserve"
+        component={FacilityReserve}
+        options={{
+          headerShown: true,
+          headerLeft: () => {
+            return (
+              <BackButton
+                onPress={() => navigation.navigate("FacilityDetail")}
+              />
+            );
+          },
+          headerTitle: "예약하기",
+          headerBackTitleVisible: false,
+        }}
+      />
+      <NearbyNavStack.Screen
+        name="CoachDetail"
+        component={CoachDetail}
+        options={{
+          headerShown: true,
+          headerLeft: () => {
+            return (
+              <BackButton onPress={() => navigation.navigate("NearbyScreen")} />
+            );
+          },
+          headerTitle: `${selectedCoach?.coach_name} 코치`,
+          headerBackTitleVisible: false,
+        }}
+      />
+      <NearbyNavStack.Screen
+        name="Payment"
+        component={Payment}
+        options={{
+          headerShown: true,
+          headerLeft: () => {
+            return (
+              <BackButton
+                onPress={() => navigation.navigate("FacilityReserve")}
+              />
+            );
+          },
+          headerTitle: "결제하기",
           headerBackTitleVisible: false,
         }}
       />

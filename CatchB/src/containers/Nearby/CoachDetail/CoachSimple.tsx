@@ -2,14 +2,14 @@ import { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
-import { FacilityType } from "../../../variables/types/products";
+import { CoachType } from "../../../variables/types/products";
 import { themeColors } from "../../../variables/colors";
 
 interface Props {
-  facility: FacilityType;
+  coach: CoachType;
 }
 
-export default function FacilitySimple({ facility }: Props) {
+export default function CoachSimple({ coach }: Props) {
   const [isLiked, setIsLiked] = useState(false);
 
   return (
@@ -17,13 +17,13 @@ export default function FacilitySimple({ facility }: Props) {
       <View style={styles.imageBox} />
       <View style={styles.infoBox}>
         <Text variant="titleMedium" style={{ fontWeight: "bold" }}>
-          {facility.name}
+          {coach.coach_name} 코치
         </Text>
         <View style={styles.rating}>
           <Icon source="star" size={20} color="gold" />
-          <Text>{facility.rating}/10</Text>
+          <Text>{coach.rating}/10</Text>
         </View>
-        <Text>{facility.location}</Text>
+        <Text>{coach.working_area}</Text>
       </View>
       <View style={styles.interactionBox}>
         <TouchableOpacity
@@ -67,13 +67,13 @@ const styles = StyleSheet.create({
   infoBox: {
     flex: 4,
   },
+  rating: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   interactionBox: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-end",
-  },
-  rating: {
-    flexDirection: "row",
-    alignItems: "center",
   },
 });
