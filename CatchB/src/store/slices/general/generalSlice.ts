@@ -9,7 +9,7 @@ const initialState: {
   location: null,
 };
 
-export const modeSlice = createSlice({
+export const generalSlice = createSlice({
   name: "mode",
   initialState,
   reducers: {
@@ -22,6 +22,6 @@ export const modeSlice = createSlice({
   },
 });
 
-export const { setMode, setLocation } = modeSlice.actions;
+export const { setMode, setLocation } = generalSlice.actions;
 
-export default modeSlice.reducer;
+export default generalSlice.reducer;

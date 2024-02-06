@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
-import modeReducer, { setMode } from "./generalSlice";
+import generalReducer, { setMode } from "./generalSlice";
 
 // Create a mock store for testing
 const createStore = () => {
   return configureStore({
     reducer: {
-      mode: modeReducer,
+      general: generalReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
   });
@@ -16,8 +16,9 @@ const createStore = () => {
 describe("modeSlice", () => {
   // Test for initial state
   it("should handle initial state", () => {
-    expect(modeReducer(undefined, { type: "unknown" })).toEqual({
+    expect(generalReducer(undefined, { type: "unknown" })).toEqual({
       mode: "basic",
+      location: null,
     });
   });
 
@@ -28,7 +29,7 @@ describe("modeSlice", () => {
 
     store.dispatch(setMode(mode));
 
-    const state = store.getState().mode;
+    const state = store.getState().general;
     expect(state.mode).toEqual(mode);
   });
 });
