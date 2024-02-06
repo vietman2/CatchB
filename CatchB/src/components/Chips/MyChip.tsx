@@ -18,11 +18,7 @@ export default function MyChip({ selected, label, custom }: Props) {
       >
         {label}
       </Text>
-      {selected ? (
-        <Icon source="check" color="white" size={20} />
-      ) : (
-        <Icon source="check" color="transparent" size={20} />
-      )}
+        <Icon source="check" color={selected ? "white" : "transparent"} size={20} />
     </View>
   );
 }

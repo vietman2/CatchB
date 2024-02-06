@@ -7,9 +7,16 @@ interface Props {
   options: string[];
   selected: string;
   setSelected: (selected: string) => void;
+  required?: boolean;
 }
 
-export default function SingleCheck({ options, selected, setSelected }: Props) {
+export default function SingleCheck({
+  options,
+  selected,
+  setSelected,
+  required,
+}: Props) {
+  const isRequired = required ? true : false;
   const { width } = Dimensions.get("window");
   const itemWidth = (width - 40) / 3;
 
@@ -18,10 +25,15 @@ export default function SingleCheck({ options, selected, setSelected }: Props) {
   };
 
   const toggleSelected = (option: string) => {
-    if (selected === option) {
-      setSelected("");
-    } else {
+    if (isRequired) {
       setSelected(option);
+      return;
+    } else {
+      if (selected === option) {
+        setSelected("");
+      } else {
+        setSelected(option);
+      }
     }
   };
 
@@ -45,27 +57,6 @@ export default function SingleCheck({ options, selected, setSelected }: Props) {
             </TouchableOpacity>
           </View>
         ))}
-        {/*
-          <Chip
-            key={index}
-            style={{
-              marginRight: 10,
-              marginBottom: 10,
-              backgroundColor: isSelected(option)
-                ? themeColors.primary
-                : themeColors.tertiary,
-            }}
-            mode="flat"
-            showSelectedCheck
-            showSelectedOverlay
-            selectedColor="white"
-            compact
-            selected={isSelected(option)}
-            onPress={() => toggleSelected(option)}
-          >
-            {option}
-          </Chip>
-          */}
       </View>
     </>
   );
