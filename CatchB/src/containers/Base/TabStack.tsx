@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
-import { requestForegroundPermissionsAsync } from "expo-location";
+import {
+  getCurrentPositionAsync,
+  requestForegroundPermissionsAsync,
+} from "expo-location";
 import { TourGuideZone } from "rn-tourguide";
 
 import HomeContainer from "../Home/HomeStack";
@@ -23,7 +26,7 @@ import {
   getUserProfile,
   renewToken,
 } from "../../services/user_management/account";
-import { setMode } from "../../store/slices/general/modeSlice";
+import { setMode, setLocation } from "../../store/slices/general/generalSlice";
 import {
   setUserProfile,
   setNewToken,
@@ -43,7 +46,7 @@ export default function TabContainer() {
   const [loginVisible, setLoginVisible] = useState(false);
   const [loginTitle, setLoginTitle] = useState("");
   const [loginContents, setLoginContents] = useState("");
-  const mode = useSelector((state: RootState) => state.mode.mode);
+  const mode = useSelector((state: RootState) => state.general.mode);
   const user = useSelector((state: RootState) => state.auth.user);
   const access = useSelector((state: RootState) => state.auth.token);
   const dispatch = useDispatch<AppDispatch>();
@@ -51,6 +54,11 @@ export default function TabContainer() {
 
   const getPermission = async () => {
     await requestForegroundPermissionsAsync();
+
+    const location = await getCurrentPositionAsync();
+    if (location) {
+      dispatch(setLocation(location));
+    }
   };
 
   useEffect(() => {
@@ -60,7 +68,7 @@ export default function TabContainer() {
         const response = await renewToken(token);
 
         if (response.status === 200) {
-          dispatch(setNewToken(response.data));
+          await dispatch(setNewToken(response.data));
         } else {
           setLoginVisible(true);
           setLoginTitle("다시 로그인하기.");
@@ -90,7 +98,7 @@ export default function TabContainer() {
         const response = await getUserProfile(uuid, access);
 
         if (response.status === 200) {
-          dispatch(setUserProfile(response.data));
+          await dispatch(setUserProfile(response.data));
         }
       }
     });
@@ -196,7 +204,10 @@ export default function TabContainer() {
           options={{
             tabBarLabel: "마이페이지",
             tabBarIcon: ({ color }) => (
-              <TourGuideZone zone={4} text="마이페이지 탭을 꾹 누르면 프로모드로 전환할 수 있습니다.">
+              <TourGuideZone
+                zone={4}
+                text="마이페이지 탭을 꾹 누르면 프로모드로 전환할 수 있습니다."
+              >
                 <MaterialCommunityIcons
                   name="account-box"
                   color={color}
