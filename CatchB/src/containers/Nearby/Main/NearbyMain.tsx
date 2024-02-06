@@ -146,7 +146,7 @@ export default function NearbyMain() {
           style={styles.filters}
           label="인기순"
           size="large"
-          onPress={() => console.log("Pressed")}
+          onPress={() => {}}
           visible={false}
         />
       </Portal>

@@ -76,7 +76,8 @@ export default function CouponList() {
         await dispatch(setCouponListState(response.data));
         setLoading(false);
       } else {
-        console.log("error");
+        //TODO: error handling
+        setLoading(false);
       }
     };
     getCoupons();

@@ -24,10 +24,11 @@ export default function CoachStep1({ onFinish }: Props) {
   const navigation = useNavigation<MyPageStackScreenProps<"CoachRegister">["navigation"]>();
 
   const handleUpload = async () => {
-    const result = await DocumentPicker.getDocumentAsync({
+    await DocumentPicker.getDocumentAsync({
       type: "image/*",
     });
-    console.log(result);
+    // Todo: API 연동
+
   };
 
   const handleRegisterSuccess = () => {

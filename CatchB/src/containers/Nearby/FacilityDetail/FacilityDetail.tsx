@@ -15,8 +15,8 @@ import ScheduleBar from "../../../components/Tables/ScheduleBar";
 import ProductsTable from "../../../components/Tables/ProductsTable";
 import CoachProfile from "../../../components/Avatar/CoachProfile";
 import { themeColors } from "../../../variables/colors";
-import { RootState } from "../../../store/store";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
+import { RootState } from "../../../store/store";;
 
 const { width, height } = Dimensions.get("window");
 
@@ -39,6 +39,7 @@ export default function FacilityDetail() {
         <TouchableOpacity
           onPress={() => setExpand(!expand)}
           activeOpacity={0.6}
+          testID="expand-collapse"
         >
           <Text variant="bodyLarge" style={styles.detail}>
             {expand ? description : `${description.slice(0, 100)}...`}

@@ -176,6 +176,16 @@ export default function FacilityStep1({ onFinish }: Props) {
     setRegistrationNumber(formattedNumber);
   };
 
+  const handleError = () => {
+    Alert.alert("주소 검색 오류", "주소 검색 중 오류가 발생했습니다.", [
+      {
+        text: "확인",
+        style: "cancel",
+        isPreferred: true,
+      },
+    ]);
+  }
+
   return (
     <>
         <ScrollView
@@ -306,7 +316,7 @@ export default function FacilityStep1({ onFinish }: Props) {
                 hideMapBtn: true,
               }}
               onSelected={(data) => handleAddressSelected(data)}
-              onError={(error) => console.log(error)}
+              onError={handleError}
             />
           </Dialog.Content>
           <Dialog.Actions>

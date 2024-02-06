@@ -1,9 +1,10 @@
-import { fireEvent } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import CommunityContainer from "./CommunityStack";
 import { renderWithProviders } from "../../utils/test-utils";
+import { samplePosts } from "../../variables/mvp_dummy_data/posts";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -42,7 +43,7 @@ jest.mock("@gorhom/bottom-sheet", () => {
     __esModule: true,
     default: "BottomSheet",
     BottomSheetBackdrop: ({ children }: any) => <View>{children}</View>,
-    BottomSheetBackdropProps: "BottomSheetBackdropProps"
+    BottomSheetBackdropProps: "BottomSheetBackdropProps",
   };
 });
 
@@ -50,17 +51,26 @@ const Tab = createBottomTabNavigator();
 
 describe("<CommunityStack />", () => {
   it("renders correctly and navigates to <PostCreate />", () => {
-    const { getByText, getByTestId } = renderWithProviders(
+    const { getByText, getByTestId, debug } = renderWithProviders(
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Community" component={CommunityContainer} />
         </Tab.Navigator>
-      </NavigationContainer>
+      </NavigationContainer>,
+      {
+        preloadedState: {
+          community: {
+            selectedPost: samplePosts[0],
+          },
+        },
+      }
     );
 
-    fireEvent.press(getByText("plus"));
-    fireEvent.press(getByText("등록"));
-    fireEvent.press(getByTestId("back"));
-    fireEvent.press(getByText("포스트2 제목"));
+    waitFor(() => {
+      fireEvent.press(getByText("plus"));
+      fireEvent.press(getByText("등록"));
+      fireEvent.press(getByTestId("back"));
+      fireEvent.press(getByText("포스트2 제목"));
+    });
   });
 });

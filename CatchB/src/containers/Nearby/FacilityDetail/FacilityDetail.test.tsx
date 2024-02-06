@@ -45,16 +45,6 @@ const components = () => {
 };
 
 describe("<FacilityDetail />", () => {
-  it("renders correctly", () => {
-    renderWithProviders(components(), {
-      preloadedState: {
-        facility: {
-          selectedFacility: sampleFacilities[0],
-        },
-      },
-    });
-  });
-
   it("handles like button", async () => {
     const { getByTestId } = renderWithProviders(components(), {
       preloadedState: {
@@ -66,5 +56,18 @@ describe("<FacilityDetail />", () => {
 
     const likeButton = getByTestId("like");
     await waitFor(() => fireEvent.press(likeButton));
+  });
+
+  it("handles long descriptions", async () => {
+    const { getByTestId } = renderWithProviders(components(), {
+      preloadedState: {
+        facility: {
+          selectedFacility: sampleFacilities[1],
+        },
+      },
+    });
+
+    await waitFor(() => fireEvent.press(getByTestId("expand-collapse")));
+    await waitFor(() => fireEvent.press(getByTestId("expand-collapse")));
   });
 });

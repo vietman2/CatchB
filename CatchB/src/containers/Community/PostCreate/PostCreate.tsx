@@ -31,7 +31,9 @@ export default function PostCreate() {
   }, []);
 
   const handleCreatePost = () => {
-    console.log("Create Post");
+    // TODO: API 연동
+    // + setSelectedPost to new post
+    navigation.navigate("PostDetail");
   };
 
   return (
