@@ -1,5 +1,4 @@
 import {
-  ReservationStatus,
   CouponIssuerType,
   CouponStatus,
   CouponType,
@@ -74,29 +73,6 @@ export type Todo = {
   done: boolean;
 };
 
-export type ReservationProduct = {
-  title: string;
-  description: string;
-  price: number;
-  facility: string;
-  hours: number;
-  minutes: number;
-};
-
-type ReservationStatusKey = keyof typeof ReservationStatus;
-
-export type Reservation = {
-  uuid: string;
-  product: ReservationProduct;
-  reserved_user: string;
-  lesson_session: string | null;
-  start_datetime: string;
-  end_datetime: string;
-  status: ReservationStatusKey;
-  created_at: string;
-  confirmed_at: string | null;
-};
-
 export type DailySalesInfo = {
   date: string;
   totalSales: number;
@@ -106,10 +82,3 @@ export type DailySalesInfo = {
   }[];
 };
 
-export type FacilityType = {
-  name: string;
-  location: string;
-  rating: number;
-  bulletPoints?: string[];
-  description: string;
-};
