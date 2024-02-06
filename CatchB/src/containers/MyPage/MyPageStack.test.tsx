@@ -10,6 +10,10 @@ import { admin } from "../../variables/mvp_dummy_data/user";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
+jest.mock("rn-tourguide", () => ({
+  TourGuideZone: "TourGuideZone",
+  useTourGuideController: () => ({ start: jest.fn() }),
+}));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
@@ -41,6 +45,9 @@ jest.mock("expo-linear-gradient", () => ({
 }));
 jest.mock("expo-document-picker", () => ({
   getDocumentAsync: jest.fn(),
+}));
+jest.mock("expo-image-picker", () => ({
+  launchImageLibraryAsync: jest.fn(),
 }));
 jest.mock("./Login/Login", () => "Login");
 jest.mock("./SignUp/SignUp", () => "SignUp");

@@ -1,11 +1,16 @@
 import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import * as DocumentPicker from "expo-document-picker";
 
 import CoachRegister from "./CoachRegister";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 
+jest.mock("react-native-gesture-handler", () => ({
+  PanGestureHandler: "PanGestureHandler",
+}));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").Provider;
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
@@ -40,37 +45,45 @@ jest.mock("expo-document-picker", () => ({
 jest.mock("../../../components/Checkboxes/SingleCheck", () => "SingleCheck");
 jest.mock("../../../components/Checkboxes/MultiCheck", () => "MultiCheck");
 
-describe("<CoachRegister />", () => {
-  it("should handle area choose", async () => {
-    jest.spyOn(axios, "get").mockImplementation(() =>
-    Promise.resolve({
-      status: 200,
-      data: {
-        sido: [
-          { code: "11", name: "서울특별시" },
-        ],
-        sigungu: [
-          { code: "1100000000", name: "서울특별시 관악구" },
-          { code: "1100000001", name: "서울특별시 강남구" },
-        ],
-        sigungu_by_sido: {
-          서울특별시: [
-            "관악구",
-            "강남구",
-          ],
-        },
-      },
-    })
-  );
+const Stack = createStackNavigator();
 
-    const { getByText } = renderWithProviders(<CoachRegister />, {
+const render = () => {
+  return renderWithProviders(
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="CoachRegister" component={CoachRegister} />
+      </Stack.Navigator>
+    </NavigationContainer>,
+    {
       preloadedState: {
         auth: {
           user: admin,
           token: "token",
         },
       },
-    });
+    }
+  );
+};
+
+describe("<CoachRegister />", () => {
+  it("should handle area choose", async () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          sido: [{ code: "11", name: "서울특별시" }],
+          sigungu: [
+            { code: "1100000000", name: "서울특별시 관악구" },
+            { code: "1100000001", name: "서울특별시 강남구" },
+          ],
+          sigungu_by_sido: {
+            서울특별시: ["관악구", "강남구"],
+          },
+        },
+      })
+    );
+
+    const { getByText } = render();
 
     await waitFor(() => {
       fireEvent.press(getByText("선택하기"));
@@ -84,18 +97,11 @@ describe("<CoachRegister />", () => {
       Promise.resolve({
         canceled: false,
         assets: null,
-        output: null
+        output: null,
       })
     );
 
-    const { getByText } = renderWithProviders(<CoachRegister />, {
-      preloadedState: {
-        auth: {
-          user: admin,
-          token: "token",
-        },
-      },
-    });
+    const { getByText } = render();
 
     await waitFor(() => {
       fireEvent.press(getByText("업로드"));

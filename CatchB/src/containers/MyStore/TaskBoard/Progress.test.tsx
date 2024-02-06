@@ -3,7 +3,7 @@ import { render } from "@testing-library/react-native";
 import { ProgressBanner, CheckStatus } from "./Progress";
 
 jest.mock("react-native-gifted-charts", () => ({
-  ...jest.requireActual("react-native-gifted-charts"),
+  PieChart: "PieChart",
 }));
 jest.mock("react-native-paper", () => ({
   Text: "Text",

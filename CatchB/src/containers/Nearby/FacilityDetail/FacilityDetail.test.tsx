@@ -9,11 +9,22 @@ import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("react-native-paper", () => ({
-  ...jest.requireActual("react-native-paper"),
-  Icon: "Icon",
-  Text: "Text",
-}));
+jest.mock("react-native-paper", () => {
+  const { View, TouchableOpacity, Text } = jest.requireActual("react-native");
+  return {
+    ...jest.requireActual("react-native-paper"),
+    Icon: "Icon",
+    Button: ({ onPress, children }: any) => (
+      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
+    Text: "Text",
+  };
+});
+jest.mock("../../../components/Avatar/CoachProfile", () => "CoachProfile");
+jest.mock("../../../components/Tables/ScheduleBar", () => "ScheduleBar");
+jest.mock("../../../components/Tables/ProductsTable", () => "ProductsTable");
 
 const Stack = createStackNavigator();
 

@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import SingleCheck from "../Checkboxes/SingleCheck";
-import { ReservationProduct } from "../../variables/types";
+import { ReservationProduct } from "../../variables/types/products";
 
 interface Props {
   products: ReservationProduct[];

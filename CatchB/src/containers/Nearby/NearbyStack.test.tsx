@@ -1,7 +1,6 @@
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import * as expoLocation from "expo-location";
 
 import NearbyStack from "./NearbyStack";
 import { renderWithProviders } from "../../utils/test-utils";
@@ -22,6 +21,8 @@ jest.mock("react-native-paper", () => {
     IconButton: "IconButton",
     FAB: "FAB",
     Portal: "Portal",
+    Button: "Button",
+    Avatar: "Avatar",
   };
 });
 jest.mock("react-native-maps", () => {
@@ -35,30 +36,15 @@ jest.mock("react-native-maps", () => {
   return {
     __esModule: true,
     default: MockMapView,
-    Marker: MockMarker,
+    MapMarker: MockMarker,
     PROVIDER_GOOGLE: "PROVIDER_GOOGLE",
   };
 });
-jest
-  .spyOn(expoLocation, "getCurrentPositionAsync")
-  .mockImplementation(async () => {
-    return Promise.resolve({
-      coords: {
-        latitude: 37.5326,
-        longitude: 127.024612,
-        altitude: null,
-        accuracy: null,
-        altitudeAccuracy: null,
-        heading: null,
-        speed: null,
-      },
-      timestamp: 1627663200000,
-    });
-  });
 jest.mock(
   "../../components/BottomSheets/MapBottomSheet",
   () => "MapBottomSheet"
 );
+jest.mock("./FacilityDetail/FacilityDetail", () => "FacilityDetail");
 
 const Tab = createBottomTabNavigator();
 
@@ -82,7 +68,7 @@ describe("<NearbyStack />", () => {
       },
     });
 
-    const facility = getByText("JT 야구 레슨장");
+    const facility = getByText("캐치비 레슨장");
     await waitFor(() => fireEvent.press(facility));
 
     const backButton = getByTestId("back");

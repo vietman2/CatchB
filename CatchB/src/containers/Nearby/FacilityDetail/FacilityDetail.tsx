@@ -11,12 +11,12 @@ import { useSelector } from "react-redux";
 import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import { themeColors } from "../../../variables/colors";
-import { RootState } from "../../../store/store";
-import { NearbyStackScreenProps } from "../../../variables/navigation";
 import ScheduleBar from "../../../components/Tables/ScheduleBar";
 import ProductsTable from "../../../components/Tables/ProductsTable";
 import CoachProfile from "../../../components/Avatar/CoachProfile";
+import { themeColors } from "../../../variables/colors";
+import { RootState } from "../../../store/store";
+import { NearbyStackScreenProps } from "../../../variables/navigation";
 
 const { width, height } = Dimensions.get("window");
 

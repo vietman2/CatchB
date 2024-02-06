@@ -3,20 +3,10 @@ import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import SingleCheck from "./SingleCheck";
 import MultiCheck from "./MultiCheck";
 
-jest.mock("react-native-paper", () => {
-  const { Text, TouchableOpacity } = jest.requireActual("react-native");
-
-  const MockChip = (props: any) => (
-    <TouchableOpacity onPress={props.onPress}>
-      <Text>{props.children}</Text>
-    </TouchableOpacity>
-  );
-
-  return {
-    ...jest.requireActual("react-native-paper"),
-    Chip: MockChip,
-  };
-});
+jest.mock("react-native-paper", () => ({
+  Text: "Text",
+  Icon: "Icon",
+}));
 
 describe("<SingleCheck />", () => {
   it("renders the correct number of chips", async () => {

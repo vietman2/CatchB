@@ -51,7 +51,7 @@ jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 const renderWithMode = (mode: "basic" | "pro") => {
   return renderWithProviders(<HomeMain />, {
-    preloadedState: { mode: { mode } },
+    preloadedState: { general: { mode, location: null } },
   });
 };
 
@@ -59,7 +59,7 @@ describe("<NormalHome />", () => {
   it("renders with user", () => {
     renderWithProviders(<HomeMain />, {
       preloadedState: {
-        mode: { mode: "basic" },
+        general: { mode: "basic", location: null },
         auth: { user: admin, token: "" },
       },
     });

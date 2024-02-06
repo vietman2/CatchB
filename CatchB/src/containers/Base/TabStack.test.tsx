@@ -12,6 +12,9 @@ import * as userService from "../../services/user_management/account";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
+jest.mock("rn-tourguide", () => ({
+  TourGuideZone: "TourGuideZone",
+}));
 jest.mock("../Home/HomeStack", () => "HomeStack");
 jest.mock("../Nearby/NearbyStack", () => "NearbyStack");
 jest.mock("../Community/CommunityStack", () => "CommunityStack");
@@ -52,6 +55,22 @@ jest
       canAskAgain: true,
     });
   });
+jest
+  .spyOn(expoLocation, "getCurrentPositionAsync")
+  .mockImplementation(async () => {
+    return Promise.resolve({
+      coords: {
+        latitude: 37.5326,
+        longitude: 127.024612,
+        altitude: null,
+        accuracy: null,
+        altitudeAccuracy: null,
+        heading: null,
+        speed: null,
+      },
+      timestamp: 1627663200000,
+    });
+  });
 
 const render = () => {
   return renderWithProviders(
@@ -63,6 +82,7 @@ const render = () => {
 
 describe("<TabContainer />", () => {
   it("handles long press: successfully change mode", async () => {
+
     const { getAllByTestId, getByText } = await waitFor(() =>
       renderWithProviders(
         <NavigationContainer>
@@ -70,7 +90,7 @@ describe("<TabContainer />", () => {
         </NavigationContainer>,
         {
           preloadedState: {
-            mode: { mode: "pro" },
+            general: { mode: "pro", location: null },
             auth: { user: admin, token: "token" },
           },
         }
@@ -86,7 +106,6 @@ describe("<TabContainer />", () => {
 
     fireEvent.press(button);
   });
-
   it("handles long press: change mode fail", async () => {
     const { getAllByTestId, getByText } = await waitFor(() => render());
     const tab = getAllByTestId("MyPageIcon")[0];
