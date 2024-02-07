@@ -8,46 +8,16 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Icon, Text } from "react-native-paper";
-//import { useNavigation } from "@react-navigation/native";
 
 import { themeColors } from "../../../variables/colors";
 import { RootState } from "../../../store/store";
-//import { NearbyStackScreenProps } from "../../../variables/navigation";
 
 const { width, height } = Dimensions.get("window");
 
 export default function CoachDetail() {
   const [isLiked, setIsLiked] = useState(false);
-//  const [expand, setExpand] = useState(false);
-//  const navigation =
-//    useNavigation<NearbyStackScreenProps<"CoachDetail">["navigation"]>();
   const coach = useSelector((state: RootState) => state.coach.selectedCoach);
-/*
-  const handleReserve = () => {
-    navigation.navigate("Payment");
-  };
 
-  const renderDescription = (description: string) => {
-    if (description.length > 100) {
-      return (
-        <TouchableOpacity
-          onPress={() => setExpand(!expand)}
-          activeOpacity={0.6}
-        >
-          <Text variant="bodyLarge" style={styles.detail}>
-            {expand ? description : `${description.slice(0, 100)}...`}
-          </Text>
-        </TouchableOpacity>
-      );
-    } else {
-      return (
-        <Text variant="bodyLarge" style={styles.detail}>
-          asdf
-        </Text>
-      );
-    }
-  };
-*/
   return (
     <View style={styles.container}>
       <ScrollView>
