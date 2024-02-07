@@ -48,9 +48,4 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  interactionBox: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  },
 });

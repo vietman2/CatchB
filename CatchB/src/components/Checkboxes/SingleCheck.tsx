@@ -28,12 +28,11 @@ export default function SingleCheck({
     if (isRequired) {
       setSelected(option);
       return;
+    }
+    if (selected === option) {
+      setSelected("");
     } else {
-      if (selected === option) {
-        setSelected("");
-      } else {
-        setSelected(option);
-      }
+      setSelected(option);
     }
   };
 

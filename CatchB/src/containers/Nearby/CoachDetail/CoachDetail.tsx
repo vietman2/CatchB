@@ -105,11 +105,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  interactions: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  },
   content: {
     paddingHorizontal: 20,
     paddingVertical: 5,
@@ -118,16 +113,5 @@ const styles = StyleSheet.create({
   description: {
     marginVertical: 10,
     paddingHorizontal: 20,
-  },
-  locationImage: {
-    width: "100%",
-    height: 210,
-    resizeMode: "contain",
-    marginBottom: 10,
-  },
-  detail: {
-    color: "gray",
-    marginTop: 5,
-    marginBottom: 10,
   },
 });
