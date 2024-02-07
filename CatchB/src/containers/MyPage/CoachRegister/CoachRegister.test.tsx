@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types @typescript-eslint/no-explicit-any */
+/* eslint-disable react/prop-types @typescript-eslint/no-explicit-any react/display-name */
 import { fireEvent, render } from "@testing-library/react-native";
 
 import CoachRegister from "./CoachRegister";

@@ -18,9 +18,9 @@ const { width, height } = Dimensions.get("window");
 
 export default function CoachDetail() {
   const [isLiked, setIsLiked] = useState(false);
-  const [expand, setExpand] = useState(false);
-  const navigation =
-    useNavigation<NearbyStackScreenProps<"CoachDetail">["navigation"]>();
+//  const [expand, setExpand] = useState(false);
+//  const navigation =
+//    useNavigation<NearbyStackScreenProps<"CoachDetail">["navigation"]>();
   const coach = useSelector((state: RootState) => state.coach.selectedCoach);
 /*
   const handleReserve = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -12,7 +13,7 @@ jest.mock("react-native-gesture-handler", () => ({
 jest.mock("./FacilityStep1", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
-  return ({ onFinish }) => {
+  return ({ onFinish }: { onFinish: void }) => {
     return (
       <TouchableOpacity onPress={onFinish}>
         <Text>FacilityStep1</Text>
@@ -23,7 +24,7 @@ jest.mock("./FacilityStep1", () => {
 jest.mock("./FacilityStep2", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
-  return ({ onFinish }) => {
+  return ({ onFinish }: { onFinish: void }) => {
     return (
       <TouchableOpacity onPress={onFinish}>
         <Text>FacilityStep2</Text>
@@ -34,7 +35,7 @@ jest.mock("./FacilityStep2", () => {
 jest.mock("./FacilityStep3", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
-  return ({ onFinish }) => {
+  return ({ onFinish }: { onFinish: void }) => {
     return (
       <TouchableOpacity onPress={onFinish}>
         <Text>FacilityStep3</Text>
