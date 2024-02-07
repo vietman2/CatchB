@@ -10,7 +10,7 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function CoachStep2({ onFinish }: Props) {
+export default function CoachStep2({ onFinish }: Readonly<Props>) {
   const [selected, setSelected] = useState<string[]>([]);
   const [curriculum, setCurriculum] = useState<string>("");
   const [career, setCareer] = useState<string>("");

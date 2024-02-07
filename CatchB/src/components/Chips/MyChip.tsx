@@ -6,7 +6,7 @@ interface Props {
   label: string;
 }
 
-export default function MyChip({ selected, label }: Props) {
+export default function MyChip({ selected, label }: Readonly<Props>) {
 
   return (
     <View style={styles.container}>

@@ -13,7 +13,7 @@ interface Props {
   post: PostType;
 }
 
-export default function PostSimple({ post }: Props) {
+export default function PostSimple({ post }: Readonly<Props>) {
   const navigation =
     useNavigation<CommunityStackScreenProps<"PostDetail">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();

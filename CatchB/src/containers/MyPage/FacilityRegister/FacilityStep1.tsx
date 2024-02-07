@@ -21,7 +21,7 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function FacilityStep1({ onFinish }: Props) {
+export default function FacilityStep1({ onFinish }: Readonly<Props>) {
   const [visible, setVisible] = useState<boolean>(false);
   const [addressData, setAddressData] = useState<OnCompleteParams | null>(null);
   const [facilityName, setFacilityName] = useState<string>("");

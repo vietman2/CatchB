@@ -8,11 +8,11 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function CoachStep3({ onFinish }: Props) {
+export default function CoachStep3({ onFinish }: Readonly<Props>) {
   const handleSubmitSuccess = () => {
     onFinish();
   };
-/*
+  /*
   const handleNext = () => {
     // TODO: API 연동
   }; */

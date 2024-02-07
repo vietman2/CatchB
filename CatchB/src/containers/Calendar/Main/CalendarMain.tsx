@@ -20,28 +20,24 @@ export default function CalendarMain() {
     setToday(
       `${year}-
       ${month < 10 ? `0${month}` : month}-
-      ${
-        date < 10 ? `0${date}` : date
-      }`
+      ${date < 10 ? `0${date}` : date}`
     );
 
     setReady(true);
   }, []);
 
   return (
-    <>
-      <CalendarProvider date="2024-01-15">
-        <CalendarComponent
-          displayLoadingIndicator={!ready}
-          horizontal
-          pagingEnabled
-          pastScrollRange={24}
-          futureScrollRange={24}
-          markedDates={{
-            [today]: { selected: true, selectedColor: themeColors.primary },
-          }}
-        />
-      </CalendarProvider>
-    </>
+    <CalendarProvider date="2024-01-15">
+      <CalendarComponent
+        displayLoadingIndicator={!ready}
+        horizontal
+        pagingEnabled
+        pastScrollRange={24}
+        futureScrollRange={24}
+        markedDates={{
+          [today]: { selected: true, selectedColor: themeColors.primary },
+        }}
+      />
+    </CalendarProvider>
   );
 }

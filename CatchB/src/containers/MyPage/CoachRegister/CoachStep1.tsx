@@ -15,12 +15,13 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function CoachStep1({ onFinish }: Props) {
+export default function CoachStep1({ onFinish }: Readonly<Props>) {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedGender, setSelectedGender] = useState<string>("");
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
   const user = useSelector((state: RootState) => state.auth.user);
-  const navigation = useNavigation<MyPageStackScreenProps<"CoachRegister">["navigation"]>();
+  const navigation =
+    useNavigation<MyPageStackScreenProps<"CoachRegister">["navigation"]>();
 
   const handleUpload = async () => {
     await DocumentPicker.getDocumentAsync({
@@ -47,7 +48,7 @@ export default function CoachStep1({ onFinish }: Props) {
       ]
     );
   };
-/*
+  /*
   const handleRegister = () => {
     // TODO: API 연동
   }; */

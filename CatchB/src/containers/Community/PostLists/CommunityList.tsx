@@ -29,7 +29,11 @@ interface Props {
   mode: "야구톡" | "모집";
 }
 
-export default function CommunityList({ hideFAB, showFAB, mode }: Props) {
+export default function CommunityList({
+  hideFAB,
+  showFAB,
+  mode,
+}: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
   const [sort, setSort] = useState<
@@ -121,6 +125,8 @@ export default function CommunityList({ hideFAB, showFAB, mode }: Props) {
     );
   };
 
+  const SearchIcon = () => <TextInput.Icon icon="magnify" />;
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -133,7 +139,7 @@ export default function CommunityList({ hideFAB, showFAB, mode }: Props) {
           placeholder="제목, 내용으로 검색하세요."
           onChangeText={setSearchQuery}
           value={searchQuery}
-          left={<TextInput.Icon icon="magnify" />}
+          left={<SearchIcon />}
           outlineStyle={styles.searchBar}
         />
         <View style={styles.filters}>

@@ -73,6 +73,44 @@ export default function Login() {
 
   const onPressEyeIcon = () => setIsPasswordVisible(!isPasswordVisible);
 
+  const emailIcon = (
+    <TextInput.Icon
+      icon={() => (
+        <MaterialCommunityIcons
+          name="account-outline"
+          size={24}
+          color={themeColors.primary}
+        />
+      )}
+    />
+  );
+
+  const passwordIcon = (
+    <TextInput.Icon
+      icon={() => (
+        <MaterialCommunityIcons
+          name="lock-outline"
+          size={24}
+          color={themeColors.primary}
+        />
+      )}
+    />
+  );
+
+  const passwordVisibleIcon = (
+    <TextInput.Icon
+      icon={() => (
+        <MaterialCommunityIcons
+          name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+          size={24}
+          color={themeColors.primary}
+          onPress={onPressEyeIcon}
+          testID="password-eye-icon"
+        />
+      )}
+    />
+  );
+
   return (
     <ScrollView style={styles.mainContainer}>
       <KeyboardAvoidingView behavior="height">
@@ -82,17 +120,7 @@ export default function Login() {
             label="이메일"
             onChangeText={(text) => setUsername(text)}
             value={username}
-            left={
-              <TextInput.Icon
-                icon={() => (
-                  <MaterialCommunityIcons
-                    name="account-outline"
-                    size={24}
-                    color={themeColors.primary}
-                  />
-                )}
-              />
-            }
+            left={emailIcon}
             style={{ marginVertical: 5 }}
             testID="username-input"
           />
@@ -101,30 +129,8 @@ export default function Login() {
             onChangeText={(text) => setPassword(text)}
             value={password}
             secureTextEntry={!isPasswordVisible}
-            left={
-              <TextInput.Icon
-                icon={() => (
-                  <MaterialCommunityIcons
-                    name="lock-outline"
-                    size={24}
-                    color={themeColors.primary}
-                  />
-                )}
-              />
-            }
-            right={
-              <TextInput.Icon
-                icon={() => (
-                  <MaterialCommunityIcons
-                    name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
-                    size={24}
-                    color={themeColors.primary}
-                    onPress={onPressEyeIcon}
-                    testID="password-eye-icon"
-                  />
-                )}
-              />
-            }
+            left={passwordIcon}
+            right={passwordVisibleIcon}
             style={{ marginVertical: 5 }}
             testID="password-input"
           />
