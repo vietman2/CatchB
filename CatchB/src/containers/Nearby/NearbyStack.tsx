@@ -26,10 +26,6 @@ export default function NearbyStack() {
   const navigation =
     useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
 
-  const GoBack = (page: "NearbyScreen" | "FacilityDetail" | "FacilityReserve") => {
-    return () => <BackButton onPress={() => navigation.navigate(page)} />
-  };
-
   return (
     <NearbyNavStack.Navigator
       initialRouteName="NearbyScreen"
@@ -44,7 +40,11 @@ export default function NearbyStack() {
         component={FacilityDetail}
         options={{
           headerShown: true,
-          headerLeft: GoBack("NearbyScreen"),
+          headerLeft: () => {
+            return (
+              <BackButton onPress={() => navigation.navigate("NearbyScreen")} />
+            );
+          },
           headerTitle: selectedFacility?.name,
           headerBackTitleVisible: false,
         }}
@@ -54,7 +54,13 @@ export default function NearbyStack() {
         component={FacilityReserve}
         options={{
           headerShown: true,
-          headerLeft: GoBack("FacilityDetail"),
+          headerLeft: () => {
+            return (
+              <BackButton
+                onPress={() => navigation.navigate("FacilityDetail")}
+              />
+            );
+          },
           headerTitle: "예약하기",
           headerBackTitleVisible: false,
         }}
@@ -64,7 +70,11 @@ export default function NearbyStack() {
         component={CoachDetail}
         options={{
           headerShown: true,
-          headerLeft: GoBack("NearbyScreen"),
+          headerLeft: () => {
+            return (
+              <BackButton onPress={() => navigation.navigate("NearbyScreen")} />
+            );
+          },
           headerTitle: `${selectedCoach?.coach_name} 코치`,
           headerBackTitleVisible: false,
         }}
@@ -74,7 +84,13 @@ export default function NearbyStack() {
         component={Payment}
         options={{
           headerShown: true,
-          headerLeft: GoBack("FacilityReserve"),
+          headerLeft: () => {
+            return (
+              <BackButton
+                onPress={() => navigation.navigate("FacilityReserve")}
+              />
+            );
+          },
           headerTitle: "결제하기",
           headerBackTitleVisible: false,
         }}
