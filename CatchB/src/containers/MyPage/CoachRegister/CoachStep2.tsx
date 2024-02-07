@@ -72,10 +72,10 @@ export default function CoachStep2({ onFinish }: Props) {
   const handleSubmitSuccess = () => {
     onFinish();
   };
-
+/*
   const handleSubmit = () => {
     // TODO: API 연동
-  };
+  };*/
 
   return (
     <ScrollView
@@ -110,6 +110,7 @@ export default function CoachStep2({ onFinish }: Props) {
         multiline
         maxLength={1000}
         style={{ height: 150 }}
+        testID="curriculum"
       />
       <Text variant="titleMedium" style={styles.subtitle}>
         경력/자격
@@ -124,6 +125,7 @@ export default function CoachStep2({ onFinish }: Props) {
         multiline
         maxLength={1000}
         style={{ height: 150 }}
+        testID="career"
       />
       <Text variant="titleMedium" style={styles.subtitle}>
         스케줄
@@ -140,6 +142,7 @@ export default function CoachStep2({ onFinish }: Props) {
           value={weekdayStart}
           onChangeText={handleWeekdayStart}
           maxLength={5}
+          testID="weekdayStart"
         />
         <Text>~</Text>
         <TextInput
@@ -152,6 +155,7 @@ export default function CoachStep2({ onFinish }: Props) {
           value={weekdayEnd}
           onChangeText={handleWeekdayEnd}
           maxLength={5}
+          testID="weekdayEnd"
         />
       </View>
       <View style={styles.timeBox}>
@@ -166,6 +170,7 @@ export default function CoachStep2({ onFinish }: Props) {
           value={saturdayStart}
           onChangeText={handleSaturdayStart}
           maxLength={5}
+          testID="saturdayStart"
         />
         <Text>~</Text>
         <TextInput
@@ -178,6 +183,7 @@ export default function CoachStep2({ onFinish }: Props) {
           value={saturdayEnd}
           onChangeText={handleSaturdayEnd}
           maxLength={5}
+          testID="saturdayEnd"
         />
       </View>
       <View style={styles.timeBox}>
@@ -192,6 +198,7 @@ export default function CoachStep2({ onFinish }: Props) {
           value={sundayStart}
           onChangeText={handleSundayStart}
           maxLength={5}
+          testID="sundayStart"
         />
         <Text>~</Text>
         <TextInput
@@ -204,6 +211,7 @@ export default function CoachStep2({ onFinish }: Props) {
           value={sundayEnd}
           onChangeText={handleSundayEnd}
           maxLength={5}
+          testID="sundayEnd"
         />
       </View>
       <Divider />

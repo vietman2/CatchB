@@ -1,9 +1,11 @@
+import { Share } from "react-native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import MyPageMain from "./MyPageMain";
 import { renderWithProviders } from "../../../utils/test-utils";
+import { admin } from "../../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -80,41 +82,53 @@ const components = () => {
 };
 
 describe("<MyPage />", () => {
-  it("handles presses", () => {
-    const { getByText } = renderWithProviders(components());
-    waitFor(() => {
-      fireEvent.press(getByText("쿠폰함"));
-      fireEvent.press(getByText("포인트"));
-      fireEvent.press(getByText("결제수단"));
-      fireEvent.press(getByText("리뷰"));
-    });
-  });
-
   it("navigates to Login screen when user is not logged in", () => {
     const { getByTestId, getByText } = renderWithProviders(components());
 
     waitFor(() => {
+      fireEvent.press(getByText("찜"));
+      fireEvent.press(getByText("결제수단"));
+      fireEvent.press(getByText("리뷰"));
       fireEvent.press(getByTestId("badge"));
       fireEvent.press(getByText("쿠폰함"));
       fireEvent.press(getByText("포인트"));
       fireEvent.press(getByText("코치 등록하기"));
       fireEvent.press(getByText("시설 등록하기"));
-      fireEvent.press(getByText("결제수단"));
-      fireEvent.press(getByText("리뷰"));
-      fireEvent.press(getByText("찜"));
     });
   });
-/*
+
   it("handles menu press", () => {
     const { getByText } = renderWithProviders(components());
 
     waitFor(() => {
+      fireEvent.press(getByText("친구 초대하기"));
       fireEvent.press(getByText("레슨 코치 초대하기"));
       fireEvent.press(getByText("매장 정보 제보하기"));
+      fireEvent.press(getByText("진행중인 이벤트"));
+      fireEvent.press(getByText("공지사항"));
       fireEvent.press(getByText("1:1 문의"));
-      fireEvent.press(getByText("현재 버전 0.0.0:Beta"));
+      fireEvent.press(getByText("자주 묻는 질문"));
       fireEvent.press(getByText("알림 맞춤 설정"));
       fireEvent.press(getByText("약관 및 정책"));
+      fireEvent.press(getByText("제휴 문의하기"));
+      fireEvent.press(getByText("현재 버전: Beta 0.0.0"));
     });
-  });*/
+  });
+
+  it("handles share", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: {
+        auth: {
+          token: "token",
+          user: admin,
+        },
+      },
+    });
+
+    jest.spyOn(Share, "share").mockImplementation(jest.fn());
+
+    waitFor(() => {
+      fireEvent.press(getByText("친구 초대하기"));
+    });
+  });
 });

@@ -77,10 +77,9 @@ describe("<NearbyStack />", () => {
     await waitFor(() => fireEvent.press(getByText("예약하기")));
     await waitFor(() => fireEvent.press(getByText("결제하기")));
 
-    const backButton = getByTestId("back");
-    waitFor(() => fireEvent.press(backButton));
-    waitFor(() => fireEvent.press(backButton));
-    waitFor(() => fireEvent.press(backButton));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
   });
 
   it("handles navigation to all Coach pages and back", async () => {

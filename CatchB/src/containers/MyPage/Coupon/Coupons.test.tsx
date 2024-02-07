@@ -19,6 +19,7 @@ jest.mock("expo-linear-gradient", () => {
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),
   ActivityIndicator: "ActivityIndicator",
+  Icon: "Icon",
 }));
 
 const Stack = createStackNavigator();

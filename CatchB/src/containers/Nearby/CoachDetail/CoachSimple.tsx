@@ -36,11 +36,7 @@ export default function CoachSimple({ coach }: Props) {
             color={themeColors.primary}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("Pressed");
-          }}
-        >
+        <TouchableOpacity onPress={() => {}}>
           <Icon source="share-outline" size={20} testID="share-icon" />
         </TouchableOpacity>
       </View>

@@ -4,9 +4,9 @@ import { Button, Divider, Text, TextInput } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 
 import MultiCheck from "../../../components/Checkboxes/MultiCheck";
-import { themeColors } from "../../../variables/colors";
 import ImagePreview from "../../../components/Images/ImagePreview";
 import ImagePlaceholder from "../../../components/Images/ImagePlaceholder";
+import { themeColors } from "../../../variables/colors";
 
 interface Props {
   onFinish: () => void;
@@ -101,11 +101,11 @@ export default function FacilityStep2({ onFinish }: Props) {
   const handleSubmitSuccess = () => {
     onFinish();
   };
-
+/*
   const handleNext = () => {
     //TODO: 서버에 정보 전송
   };
-
+*/
   return (
     <ScrollView
       style={styles.container}
@@ -132,6 +132,7 @@ export default function FacilityStep2({ onFinish }: Props) {
           multiline
           maxLength={1000}
           style={{ height: 150 }}
+          testID="introduction"
         />
         <Text variant="titleMedium" style={styles.subtitle}>
           영업 시간
@@ -151,6 +152,7 @@ export default function FacilityStep2({ onFinish }: Props) {
             value={weekdayStart}
             onChangeText={handleWeekdayStart}
             maxLength={5}
+            testID="weekdayStart"
           />
           <Text>~</Text>
           <TextInput
@@ -163,6 +165,7 @@ export default function FacilityStep2({ onFinish }: Props) {
             value={weekdayEnd}
             onChangeText={handleWeekdayEnd}
             maxLength={5}
+            testID="weekdayEnd"
           />
         </View>
         <View style={styles.timeBox}>
@@ -177,6 +180,7 @@ export default function FacilityStep2({ onFinish }: Props) {
             value={saturdayStart}
             onChangeText={handleSaturdayStart}
             maxLength={5}
+            testID="saturdayStart"
           />
           <Text>~</Text>
           <TextInput
@@ -189,6 +193,7 @@ export default function FacilityStep2({ onFinish }: Props) {
             value={saturdayEnd}
             onChangeText={handleSaturdayEnd}
             maxLength={5}
+            testID="saturdayEnd"
           />
         </View>
         <View style={styles.timeBox}>
@@ -203,6 +208,7 @@ export default function FacilityStep2({ onFinish }: Props) {
             value={sundayStart}
             onChangeText={handleSundayStart}
             maxLength={5}
+            testID="sundayStart"
           />
           <Text>~</Text>
           <TextInput
@@ -215,6 +221,7 @@ export default function FacilityStep2({ onFinish }: Props) {
             value={sundayEnd}
             onChangeText={handleSundayEnd}
             maxLength={5}
+            testID="sundayEnd"
           />
         </View>
       </>

@@ -10,7 +10,7 @@ jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
 jest.mock("react-native-paper", () => {
-  const { View, TouchableOpacity, Text } = jest.requireActual("react-native");
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
     ...jest.requireActual("react-native-paper"),
     Icon: "Icon",
@@ -32,13 +32,7 @@ const components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="FacilityDetail"
-          component={FacilityDetail}
-          options={{
-            headerTitle: "",
-          }}
-        />
+        <Stack.Screen name="FacilityDetail" component={FacilityDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

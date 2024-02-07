@@ -22,7 +22,7 @@ export default function CoachDetail() {
   const navigation =
     useNavigation<NearbyStackScreenProps<"CoachDetail">["navigation"]>();
   const coach = useSelector((state: RootState) => state.coach.selectedCoach);
-
+/*
   const handleReserve = () => {
     navigation.navigate("Payment");
   };
@@ -47,7 +47,7 @@ export default function CoachDetail() {
       );
     }
   };
-
+*/
   return (
     <View style={styles.container}>
       <ScrollView>

@@ -11,10 +11,10 @@ export default function CoachStep3({ onFinish }: Props) {
   const handleSubmitSuccess = () => {
     onFinish();
   };
-
+/*
   const handleNext = () => {
     // TODO: API 연동
-  };
+  }; */
 
   return (
     <ScrollView

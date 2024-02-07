@@ -49,10 +49,10 @@ export default function CoachStep1({ onFinish }: Props) {
       ]
     );
   };
-
+/*
   const handleRegister = () => {
     // TODO: API 연동
-  };
+  }; */
 
   return (
     <>

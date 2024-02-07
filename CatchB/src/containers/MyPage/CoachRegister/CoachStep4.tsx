@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 import { themeColors } from "../../../variables/colors";
-import { useNavigation } from "@react-navigation/native";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
 export default function CoachStep4() {
@@ -12,10 +12,10 @@ export default function CoachStep4() {
   const handleSubmitSuccess = () => {
     navigation.navigate("MyPageScreen");
   };
-
+/*
   const handleDone = () => {
     // TODO: API 연동
-  };
+  }; */
 
   return (
     <ScrollView

@@ -65,10 +65,10 @@ describe("<CommunityMain />", () => {
     });
   });
 
-  it("handles sort correctly", async () => {
+  it("handles sort correctly", () => {
     const { getByText } = renderWithProviders(components());
 
-    await waitFor(() => {
+    waitFor(() => {
       fireEvent.press(getByText("최신순"));
       fireEvent.press(getByText("인기순"));
       fireEvent.press(getByText("조회 많은 순"));

@@ -363,6 +363,6 @@ const styles = StyleSheet.create({
   labelText: {
     fontSize: 20,
     color: "black",
-    textAlign: "left"
+    textAlign: "left",
   },
 });

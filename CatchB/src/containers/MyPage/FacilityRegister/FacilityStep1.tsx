@@ -15,7 +15,7 @@ import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { registerFacility } from "../../../services/facility/facility";
+//import { registerFacility } from "../../../services/facility/facility";
 
 interface Props {
   onFinish: () => void;
@@ -56,7 +56,7 @@ export default function FacilityStep1({ onFinish }: Props) {
       ]
     );
   };
-
+  /*
   const handleRegister = async () => {
     const response = await registerFacility(
       facilityName,
@@ -95,7 +95,7 @@ export default function FacilityStep1({ onFinish }: Props) {
       ]);
     }
   };
-
+*/
   const formatContact = (number: string) => {
     const digits = number.replace(/\D/g, "");
 
@@ -184,126 +184,126 @@ export default function FacilityStep1({ onFinish }: Props) {
         isPreferred: true,
       },
     ]);
-  }
+  };
 
   return (
     <>
-        <ScrollView
-          automaticallyAdjustKeyboardInsets
-          keyboardDismissMode="on-drag"
-          style={styles.container}
-        >
-          <Text variant="titleLarge" style={styles.title}>
-            기본 정보
+      <ScrollView
+        automaticallyAdjustKeyboardInsets
+        keyboardDismissMode="on-drag"
+        style={styles.container}
+      >
+        <Text variant="titleLarge" style={styles.title}>
+          기본 정보
+        </Text>
+        <>
+          <Text variant="titleSmall" style={styles.subtitle}>
+            대표자 이름 *
           </Text>
-          <>
-            <Text variant="titleSmall" style={styles.subtitle}>
-              대표자 이름 *
-            </Text>
+          <TextInput
+            style={styles.uneditable}
+            mode="outlined"
+            value={user.full_name}
+            editable={false}
+            textColor="black"
+          />
+        </>
+        <>
+          <Text variant="titleSmall" style={styles.subtitle}>
+            대표자 연락처 *
+          </Text>
+          <TextInput
+            style={styles.uneditable}
+            mode="outlined"
+            value={user.phone_number}
+            editable={false}
+            textColor="black"
+          />
+        </>
+        <Text variant="titleSmall" style={styles.subtitle}>
+          시설 이름 *
+        </Text>
+        <TextInput
+          mode="outlined"
+          placeholder="시설 이름을 입력하세요"
+          value={facilityName}
+          onChangeText={(text) => setFacilityName(text)}
+          style={styles.bold}
+          textColor="black"
+          placeholderTextColor="gray"
+        />
+        <Text variant="titleSmall" style={styles.subtitle}>
+          시설 연락처 *
+        </Text>
+        <TextInput
+          mode="outlined"
+          placeholder="- 없이 숫자만 입력하세요"
+          value={contact}
+          onChangeText={handleContactChange}
+          style={styles.bold}
+          textColor="black"
+          placeholderTextColor="gray"
+          keyboardType="number-pad"
+        />
+        <Text variant="titleSmall" style={styles.subtitle}>
+          사업자 등록번호 *
+        </Text>
+        <TextInput
+          mode="outlined"
+          placeholder="사업자 등록번호를 입력하세요 (- 제외)"
+          value={registrationNumber}
+          onChangeText={handleRegistrationNumberChange}
+          style={styles.bold}
+          textColor="black"
+          placeholderTextColor="gray"
+          keyboardType="number-pad"
+        />
+        <>
+          <Text variant="titleSmall" style={styles.subtitle}>
+            시설 주소 *
+          </Text>
+          <View style={styles.addressLine}>
             <TextInput
-              style={styles.uneditable}
               mode="outlined"
-              value={user.full_name}
-              editable={false}
+              value={addressData?.address || ""}
+              placeholder="도로명 주소"
               textColor="black"
-            />
-          </>
-          <>
-            <Text variant="titleSmall" style={styles.subtitle}>
-              대표자 연락처 *
-            </Text>
-            <TextInput
-              style={styles.uneditable}
-              mode="outlined"
-              value={user.phone_number}
+              placeholderTextColor={"gray"}
               editable={false}
-              textColor="black"
+              style={{ flex: 7, ...styles.bold }}
             />
-          </>
-          <Text variant="titleSmall" style={styles.subtitle}>
-            시설 이름 *
-          </Text>
-          <TextInput
-            mode="outlined"
-            placeholder="시설 이름을 입력하세요"
-            value={facilityName}
-            onChangeText={(text) => setFacilityName(text)}
-            style={styles.bold}
-            textColor="black"
-            placeholderTextColor="gray"
-          />
-          <Text variant="titleSmall" style={styles.subtitle}>
-            시설 연락처 *
-          </Text>
-          <TextInput
-            mode="outlined"
-            placeholder="- 없이 숫자만 입력하세요"
-            value={contact}
-            onChangeText={handleContactChange}
-            style={styles.bold}
-            textColor="black"
-            placeholderTextColor="gray"
-            keyboardType="number-pad"
-          />
-          <Text variant="titleSmall" style={styles.subtitle}>
-            사업자 등록번호 *
-          </Text>
-          <TextInput
-            mode="outlined"
-            placeholder="사업자 등록번호를 입력하세요 (- 제외)"
-            value={registrationNumber}
-            onChangeText={handleRegistrationNumberChange}
-            style={styles.bold}
-            textColor="black"
-            placeholderTextColor="gray"
-            keyboardType="number-pad"
-          />
-          <>
-            <Text variant="titleSmall" style={styles.subtitle}>
-              시설 주소 *
-            </Text>
-            <View style={styles.addressLine}>
-              <TextInput
-                mode="outlined"
-                value={addressData?.address || ""}
-                placeholder="도로명 주소"
+            <TouchableOpacity
+              style={{ flex: 3, marginLeft: 10 }}
+              onPress={() => setVisible(true)}
+            >
+              <Button
+                mode="contained-tonal"
                 textColor="black"
-                placeholderTextColor={"gray"}
-                editable={false}
-                style={{ flex: 7, ...styles.bold }}
-              />
-              <TouchableOpacity
-                style={{ flex: 3, marginLeft: 10 }}
-                onPress={() => setVisible(true)}
+                buttonColor="silver"
               >
-                <Button
-                  mode="contained-tonal"
-                  textColor="black"
-                  buttonColor="silver"
-                >
-                  검색
-                </Button>
-              </TouchableOpacity>
-            </View>
-            <TextInput
-              mode="outlined"
-              value={address2}
-              placeholder="상세주소를 입력하세요"
-              onChangeText={(text) => setAddress2(text)}
-              style={styles.bold}
-              textColor="black"
-              placeholderTextColor="gray"
-            />
-          </>
-          <Button
-            mode="contained-tonal"
-            buttonColor={themeColors.primary}
-            onPress={handleRegisterSuccess}
-            style={{ marginTop: 20 }}
-          >
-            등록하기
-          </Button>
-        </ScrollView>
+                검색
+              </Button>
+            </TouchableOpacity>
+          </View>
+          <TextInput
+            mode="outlined"
+            value={address2}
+            placeholder="상세주소를 입력하세요"
+            onChangeText={(text) => setAddress2(text)}
+            style={styles.bold}
+            textColor="black"
+            placeholderTextColor="gray"
+          />
+        </>
+        <Button
+          mode="contained-tonal"
+          buttonColor={themeColors.primary}
+          onPress={handleRegisterSuccess}
+          style={{ marginTop: 20 }}
+        >
+          등록하기
+        </Button>
+      </ScrollView>
       <Portal>
         <Dialog visible={visible}>
           <Dialog.Title>주소 검색</Dialog.Title>

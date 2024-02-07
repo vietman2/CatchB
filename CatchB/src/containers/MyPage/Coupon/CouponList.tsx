@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { ActivityIndicator, Text } from "react-native-paper";
+import { ActivityIndicator, Divider, Icon, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -57,6 +57,27 @@ const MyCoupon = ({ coupon }: { coupon: CouponType }) => {
   );
 };
 
+const NewCoupon = () => {
+  return (
+    <View style={styles.coupon}>
+      <LinearGradient
+        colors={["white", "silver"]}
+        style={styles.gradient}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        locations={[0.4, 0.9]}
+      >
+        <View style={styles.couponInfo}>
+          <Text variant="headlineMedium">다운 가능한 쿠폰</Text>
+        </View>
+        <View style={styles.download}>
+          <Icon source="tray-arrow-down" size={32} />
+        </View>
+      </LinearGradient>
+    </View>
+  );
+}
+
 export default function CouponList() {
   const [loading, setLoading] = useState(true);
   const navigation =
@@ -104,6 +125,8 @@ export default function CouponList() {
           {coupons.map((coupon, index) => {
             return <MyCoupon key={index} coupon={coupon} />;
           })}
+          <Divider />
+          <NewCoupon />
         </ScrollView>
       )}
     </View>
@@ -143,5 +166,8 @@ const styles = StyleSheet.create({
   },
   couponInfo: {
     marginVertical: 20,
+  },
+  download: {
+    flex: 1,
   },
 });
