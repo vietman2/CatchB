@@ -137,20 +137,6 @@ describe("<FacilityStep1 />", () => {
 
     waitFor(() => {
       alert[0].onPress();
-    });
-  });
-
-  it("should handle register success: onFinish", async () => {
-    jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
-    const { getByText } = render();
-
-    await waitFor(() => {
-      fireEvent.press(getByText("등록하기"));
-    });
-
-    const alert = Alert.alert.mock.calls[0][2];
-
-    waitFor(() => {
       alert[1].onPress();
     });
   });
