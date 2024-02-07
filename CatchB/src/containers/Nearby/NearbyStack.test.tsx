@@ -31,17 +31,10 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("react-native-maps", () => {
-  const { View } = require("react-native");
-  const MockMapView = (props: any) => {
-    return <View>{props.children}</View>;
-  };
-  const MockMarker = (props: any) => {
-    return <View>{props.children}</View>;
-  };
   return {
     __esModule: true,
-    default: MockMapView,
-    MapMarker: MockMarker,
+    default: () => "MapView",
+    MapMarker: () => "Marker",
     PROVIDER_GOOGLE: "PROVIDER_GOOGLE",
   };
 });

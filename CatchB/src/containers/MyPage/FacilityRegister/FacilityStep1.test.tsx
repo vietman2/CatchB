@@ -15,18 +15,16 @@ jest.mock("react-native-paper", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   const { Dialog } = jest.requireActual("react-native-paper");
 
-  const mockButton = ({ children, onPress }) => (
-    <TouchableOpacity onPress={onPress}>
-      <Text>{children}</Text>
-    </TouchableOpacity>
-  );
-
   return {
     PaperProvider: Provider,
     Text: "Text",
     TextInput: "TextInput",
     Portal: "Portal",
-    Button: mockButton,
+    Button: ({ children, onPress }) => (
+      <TouchableOpacity onPress={onPress}>
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
     Dialog,
     Chip: "Chip",
   };
@@ -53,9 +51,7 @@ jest.mock("@actbase/react-daum-postcode/lib/types", () => ({
 }));
 
 const Stack = createStackNavigator();
-const Component = () => (
-  <FacilityStep1 onFinish={jest.fn()} />
-)
+const Component = () => <FacilityStep1 onFinish={jest.fn()} />;
 
 const render = () => {
   return renderWithProviders(
@@ -74,7 +70,7 @@ const render = () => {
       },
     }
   );
-}
+};
 
 describe("<FacilityStep1 />", () => {
   it("should handle <FacilityStep1 /> correctly", async () => {
@@ -103,7 +99,7 @@ describe("<FacilityStep1 />", () => {
     await waitFor(() => {
       fireEvent.changeText(contactInput, "0");
       fireEvent.changeText(contactInput, "010-");
-      fireEvent.changeText(contactInput, "010"); 
+      fireEvent.changeText(contactInput, "010");
       fireEvent.changeText(contactInput, "0101234");
       fireEvent.changeText(contactInput, "01012341234");
       fireEvent.changeText(contactInput, "021234");
@@ -139,8 +135,8 @@ describe("<FacilityStep1 />", () => {
     const alert = Alert.alert.mock.calls[0][2];
 
     waitFor(() => {
-    alert[0].onPress();
-    })
+      alert[0].onPress();
+    });
   });
 
   it("should handle register success: onFinish", async () => {
@@ -152,7 +148,7 @@ describe("<FacilityStep1 />", () => {
     });
 
     const alert = Alert.alert.mock.calls[0][2];
-    
+
     waitFor(() => {
       alert[1].onPress();
     });

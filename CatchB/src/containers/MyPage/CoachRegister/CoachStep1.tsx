@@ -18,7 +18,6 @@ interface Props {
 export default function CoachStep1({ onFinish }: Props) {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedGender, setSelectedGender] = useState<string>("");
-  const [selectedCareer, setSelectedCareer] = useState<string>("");
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
   const user = useSelector((state: RootState) => state.auth.user);
   const navigation = useNavigation<MyPageStackScreenProps<"CoachRegister">["navigation"]>();

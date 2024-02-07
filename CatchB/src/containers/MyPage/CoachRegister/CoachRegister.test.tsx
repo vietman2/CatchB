@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types @typescript-eslint/no-explicit-any */
 import { fireEvent, render } from "@testing-library/react-native";
 
 import CoachRegister from "./CoachRegister";
@@ -27,7 +28,7 @@ jest.mock("./CoachStep2", () => {
 jest.mock("./CoachStep3", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
-  return ({ onFinish }) => {
+  return ({ onFinish }: { onFinish: void }) => {
     return (
       <TouchableOpacity onPress={onFinish}>
         <Text>CoachStep3</Text>
