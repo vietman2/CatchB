@@ -4,7 +4,7 @@ interface Props {
   uri: string;
 }
 
-export default function ImagePreview({ uri }: Props) {
+export default function ImagePreview({ uri }: Readonly<Props>) {
   return (
     <View
       style={{

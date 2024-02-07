@@ -55,7 +55,6 @@ export default function MyPageMain() {
   const handleCouponPress = () => {
     if (!user) {
       LoginAlert();
-      return;
     } else {
       navigation.navigate("CouponList");
     }
@@ -64,7 +63,6 @@ export default function MyPageMain() {
   const handlePointPress = () => {
     if (!user) {
       LoginAlert();
-      return;
     } else {
       navigation.navigate("Points");
     }
@@ -73,7 +71,6 @@ export default function MyPageMain() {
   const handlePaymentsPress = () => {
     if (!user) {
       LoginAlert();
-      return;
     } else {
       navigation.navigate("Payments");
     }
@@ -82,7 +79,6 @@ export default function MyPageMain() {
   const handleReviewPress = () => {
     if (!user) {
       LoginAlert();
-      return;
     } else {
       navigation.navigate("Reviews");
     }
@@ -91,7 +87,6 @@ export default function MyPageMain() {
   const handleFacilityRegisterPress = () => {
     if (!user) {
       LoginAlert();
-      return;
     } else {
       navigation.navigate("FacilityRegister");
     }
@@ -100,7 +95,6 @@ export default function MyPageMain() {
   const handleCoachRegisterPress = () => {
     if (!user) {
       LoginAlert();
-      return;
     } else {
       navigation.navigate("CoachRegister");
     }
@@ -109,7 +103,6 @@ export default function MyPageMain() {
   const handleInvitePress = () => {
     if (!user) {
       LoginAlert();
-      return;
     } else {
       Share.share({
         message: "ㅎㅇㅎㅇ",

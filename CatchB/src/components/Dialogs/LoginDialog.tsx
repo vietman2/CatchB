@@ -7,12 +7,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function LoginDialog({
-  visible,
-  title,
-  contents,
-  onClose,
-}: Props) {
+export default function LoginDialog({ visible, title, contents, onClose }: Readonly<Props>) {
   return (
     <Portal>
       <Dialog visible={visible}>

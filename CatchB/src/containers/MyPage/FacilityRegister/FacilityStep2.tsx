@@ -13,7 +13,7 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function FacilityStep2({ onFinish }: Props) {
+export default function FacilityStep2({ onFinish }: Readonly<Props>) {
   const [introduction, setIntroduction] = useState<string>("");
   const [selected, setSelected] = useState<string[]>([]);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);

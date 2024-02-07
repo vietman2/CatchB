@@ -13,7 +13,7 @@ interface Props {
   currentStep: number;
 }
 
-export default function ProgressSteps({ steps, currentStep }: Props) {
+export default function ProgressSteps({ steps, currentStep }: Readonly<Props>) {
   return (
     <View style={styles.horizontal}>
       {steps.map((step, index) => (

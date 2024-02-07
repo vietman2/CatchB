@@ -7,7 +7,7 @@ interface Props {
   text: string;
 }
 
-export default function DividerWithText({ text }: Props) {
+export default function DividerWithText({ text }: Readonly<Props>) {
   return (
     <View style={styles.divider}>
       <View style={styles.line} />

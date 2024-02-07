@@ -8,7 +8,7 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function FacilityStep3({ onFinish }: Props) {
+export default function FacilityStep3({ onFinish }: Readonly<Props>) {
   const handleSubmitSuccess = () => {
     onFinish();
   };

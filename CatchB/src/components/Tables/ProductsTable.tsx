@@ -9,20 +9,25 @@ interface Props {
   products: ReservationProduct[];
 }
 
-export default function ProductsTable({ products }: Props) {
+export default function ProductsTable({ products }: Readonly<Props>) {
   const [selected, setSelected] = useState("1회 대관");
 
   const renderPrice = (price: number) => {
     // 10,000원 형식
     return price.toLocaleString();
-  }
+  };
 
-  const filters = ["1회 대관", "정기 대관", "기타"]
+  const filters = ["1회 대관", "정기 대관", "기타"];
 
   return (
     <View style={styles.container}>
       <View style={styles.filters}>
-        <SingleCheck options={filters} selected={selected} setSelected={setSelected} required />
+        <SingleCheck
+          options={filters}
+          selected={selected}
+          setSelected={setSelected}
+          required
+        />
       </View>
       {products.map((product, index) => (
         <View key={index} style={styles.product}>

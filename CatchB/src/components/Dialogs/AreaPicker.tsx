@@ -18,7 +18,7 @@ interface Props {
   setSelectedAreas: (selectedSigungu: string[]) => void;
 }
 
-export default function AreaPicker({ visible, onDismiss, setSelectedAreas }: Props) {
+export default function AreaPicker({ visible, onDismiss, setSelectedAreas }: Readonly<Props>) {
   const [sidoList, setSidoList] = useState([]);
   const [selectedSido, setSelectedSido] = useState<string>("서울특별시");
   const [sigunguDisplay, setSigunguDisplay] = useState([]);
@@ -51,7 +51,7 @@ export default function AreaPicker({ visible, onDismiss, setSelectedAreas }: Pro
   const handleConfirm = () => {
     onDismiss();
     setSelectedAreas(selectedSigungu);
-  }
+  };
 
   useEffect(() => {
     async function getData() {

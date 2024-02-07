@@ -5,7 +5,7 @@ interface Props {
   canUpload?: boolean;
 }
 
-export default function ImagePlaceholder({ canUpload }: Props) {
+export default function ImagePlaceholder({ canUpload }: Readonly<Props>) {
   canUpload = canUpload ? canUpload : false;
 
   return (
