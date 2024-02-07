@@ -1,5 +1,6 @@
 import axios from "axios";
-const API_LOCAL_URL = process.env.API_URL;
+
+import { API_LOCAL_URL } from "../";
 
 export async function getPointsList(access: string, uuid: string) {
   const url = `${API_LOCAL_URL}/api/users/points/`;

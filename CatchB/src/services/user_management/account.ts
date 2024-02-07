@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_LOCAL_URL = process.env.EXPO_PUBLIC_API_URL;
+import { API_LOCAL_URL } from "../";
 import { RegisterRoute } from "../../variables/enums";
 
 export async function login(username: string, password: string) {
