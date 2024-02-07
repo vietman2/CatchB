@@ -38,6 +38,7 @@ jest.mock("react-native-paper", () => {
     ),
   };
 });
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../../../components/Buttons/SurfaceButton", () => "SurfaceButton");
 jest.mock("../../../components/Chips/Chips", () => ({
   NotificationChip: () => "NotificationChip",
@@ -47,7 +48,6 @@ jest.mock("../../../components/Chips/Chips", () => ({
 }));
 jest.mock("../../../components/Cards/SimpleCard", () => "SimpleCard");
 jest.mock("../../../components/Cards/CardBox", () => "CardBox");
-jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 const renderWithMode = (mode: "basic" | "pro") => {
   return renderWithProviders(<HomeMain />, {
@@ -61,6 +61,15 @@ describe("<NormalHome />", () => {
       preloadedState: {
         general: { mode: "basic", location: null },
         auth: { user: admin, token: "" },
+      },
+    });
+  });
+
+  it("renders without user", () => {
+    renderWithProviders(<HomeMain />, {
+      preloadedState: {
+        general: { mode: "basic", location: null },
+        auth: { user: null, token: "" },
       },
     });
   });

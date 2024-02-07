@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -10,11 +10,11 @@ import {
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, MapMarker } from "react-native-maps";
 import { Divider, FAB, Portal, Searchbar, Text } from "react-native-paper";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 import CoachSimple from "../CoachDetail/CoachSimple";
 import FacilitySimple from "../FacilityDetail/FacilitySimple";
 import VerticalDivider from "../../../components/Divider/VerticalDivider";
-import MapBottomSheet from "../../../components/BottomSheets/MapBottomSheet";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
 import { CoachType, FacilityType } from "../../../variables/types/products";
@@ -25,6 +25,8 @@ import { setSelectedFacility } from "../../../store/slices/products/facilitySlic
 import { setSelectedCoach } from "../../../store/slices/products/coachSlice";
 
 export default function NearbyMain() {
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["3%", "70%"], []);
   const [searchQuery, setSearchQuery] = useState("");
   const [mode, setMode] = useState<"facility" | "coach">("facility");
   const [facilities, setFacilities] = useState<FacilityType[]>([]);
@@ -92,7 +94,7 @@ export default function NearbyMain() {
         value={searchQuery}
         style={styles.search}
       />
-      <MapBottomSheet>
+      <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
         <View
           style={{
             flexDirection: "row",
@@ -140,7 +142,7 @@ export default function NearbyMain() {
                 </View>
               ))}
         </ScrollView>
-      </MapBottomSheet>
+      </BottomSheet>
       <Portal>
         <FAB
           style={styles.filters}

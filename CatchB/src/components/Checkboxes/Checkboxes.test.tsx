@@ -23,6 +23,22 @@ describe("<SingleCheck />", () => {
       fireEvent.press(getByText("Option 1"));
     });
   });
+
+  it("renders the correct number of chips with required prop", async () => {
+    const { getByText } = render(
+      <SingleCheck
+        options={["Option 1", "Option 2"]}
+        selected="Option 2"
+        setSelected={() => {}}
+        required
+      />
+    );
+
+    await waitFor(() => {
+      fireEvent.press(getByText("Option 2"));
+      fireEvent.press(getByText("Option 1"));
+    });
+  });
 });
 
 describe("<MultiCheck />", () => {

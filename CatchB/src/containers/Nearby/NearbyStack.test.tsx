@@ -45,10 +45,7 @@ jest.mock("react-native-maps", () => {
     PROVIDER_GOOGLE: "PROVIDER_GOOGLE",
   };
 });
-jest.mock(
-  "../../components/BottomSheets/MapBottomSheet",
-  () => "MapBottomSheet"
-);
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../../components/Avatar/CoachProfile", () => "CoachProfile");
 
 const Tab = createBottomTabNavigator();

@@ -43,7 +43,6 @@ jest.mock("react-native-maps", () => {
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../FacilityDetail/FacilitySimple", () => "FacilitySimple");
 jest.mock("../CoachDetail/CoachSimple", () => "CoachSimple");
-jest.mock("../../../components/BottomSheets/MapBottomSheet", () => "MapBottomSheet");
 
 const Stack = createStackNavigator();
 

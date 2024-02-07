@@ -4,11 +4,9 @@ import { Icon, Text } from "react-native-paper";
 interface Props {
   selected: boolean;
   label: string;
-  custom?: boolean;
 }
 
-export default function MyChip({ selected, label, custom }: Props) {
-  custom = custom ? custom : false;
+export default function MyChip({ selected, label }: Props) {
 
   return (
     <View style={styles.container}>

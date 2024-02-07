@@ -53,8 +53,6 @@ export default function FacilityStep2({ onFinish }: Props) {
       cleanInput = `${cleanInput.slice(0, 2)}:${cleanInput.slice(2, 4)}`;
     }
 
-    // Additional validation can be added here (e.g., correct range for hours and minutes)
-
     return cleanInput;
   };
 
@@ -87,13 +85,9 @@ export default function FacilityStep2({ onFinish }: Props) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
       setUploadedImages([...uploadedImages, result.assets[0].uri]);
     }
-
-    console.log(uploadedImages);
 
     return result;
   };
@@ -267,7 +261,7 @@ export default function FacilityStep2({ onFinish }: Props) {
           {uploadedImages.map((uri, index) => (
             <ImagePreview key={index} uri={uri} />
           ))}
-          <TouchableOpacity onPress={uploadImage}>
+          <TouchableOpacity onPress={uploadImage} testID="imagePicker">
             <ImagePlaceholder canUpload />
           </TouchableOpacity>
         </ScrollView>

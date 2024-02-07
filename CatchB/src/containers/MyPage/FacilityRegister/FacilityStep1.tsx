@@ -151,9 +151,7 @@ export default function FacilityStep1({ onFinish }: Props) {
     const length = digits.length;
 
     // Apply conditional formatting based on the length of the number
-    if (length <= 3) {
-      return digits;
-    } else if (length <= 5) {
+    if (length <= 5) {
       return digits.replace(/(\d{3})(\d{0,2})/, "$1-$2");
     } else {
       return digits.replace(/(\d{3})(\d{2})(\d{0,5})/, "$1-$2-$3");
@@ -161,19 +159,20 @@ export default function FacilityStep1({ onFinish }: Props) {
   };
 
   const handleRegistrationNumberChange = (text: string) => {
-    const lastCharDeleted =
+    if (
       registrationNumber.length > 1 &&
       text.length < registrationNumber.length &&
-      registrationNumber[registrationNumber.length - 1] === "-";
-
-    let newText = text;
-    // If the last character deleted is a hyphen, remove it before formatting
-    if (lastCharDeleted) {
-      newText = text.substring(0, text.length - 1);
+      registrationNumber[registrationNumber.length - 1] === "-"
+    ) {
+      // Remove the last hyphen and reformat
+      const newText = text.substring(0, text.length - 1);
+      const formattedNumber = formatRegistrationNumber(newText);
+      setRegistrationNumber(formattedNumber);
+    } else {
+      // Normal formatting for other cases
+      const formattedNumber = formatRegistrationNumber(text);
+      setRegistrationNumber(formattedNumber);
     }
-
-    const formattedNumber = formatRegistrationNumber(newText);
-    setRegistrationNumber(formattedNumber);
   };
 
   const handleError = () => {

@@ -88,6 +88,7 @@ export default function CommunityList({ hideFAB, showFAB, mode }: Props) {
             justifyContent: "space-between",
             alignItems: "flex-end",
           }}
+          testID="sortChoice"
         >
           <Text
             variant="titleLarge"
@@ -136,7 +137,7 @@ export default function CommunityList({ hideFAB, showFAB, mode }: Props) {
           outlineStyle={styles.searchBar}
         />
         <View style={styles.filters}>
-          <TouchableOpacity onPress={openFilterChoices}>
+          <TouchableOpacity onPress={openFilterChoices} testID="filters">
             <Chip
               compact
               icon="sort"

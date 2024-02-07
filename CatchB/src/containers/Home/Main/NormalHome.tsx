@@ -1,11 +1,14 @@
+import { useRef, useMemo } from "react";
 import { View, StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
 import { Text } from "react-native-paper";
+import { useSelector } from "react-redux";
+import BottomSheet from "@gorhom/bottom-sheet";
 
-import Welcome from "../../../components/BottomSheets/Welcome";
 import { RootState } from "../../../store/store";
 
 export default function NormalHome() {
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["3%", "50%"], []);
   const user = useSelector((state: RootState) => state.auth.user);
 
   return (
@@ -15,7 +18,14 @@ export default function NormalHome() {
           일반모드
         </Text>
       </View>
-      <Welcome text={user === null ? "로그인좀해라" : "왔냐?"} />
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        style={styles.bottomSheet}
+      >
+        <Text variant="displaySmall">{user === null ? "로그인좀해라" : "왔냐?"}</Text>
+      </BottomSheet>
     </>
   );
 }
@@ -33,4 +43,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "black",
   },
+  bottomSheet: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });

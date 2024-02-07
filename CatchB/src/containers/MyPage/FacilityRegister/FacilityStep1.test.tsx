@@ -81,18 +81,10 @@ describe("<FacilityStep1 />", () => {
     const { getByPlaceholderText, getByText } = render();
 
     const facilityNameInput = getByPlaceholderText("시설 이름을 입력하세요");
-    const registrationNumberInput = getByPlaceholderText(
-      "사업자 등록번호를 입력하세요 (- 제외)"
-    );
     const address2Input = getByPlaceholderText("상세주소를 입력하세요");
 
     await waitFor(() => {
       fireEvent.changeText(facilityNameInput, "시설 이름");
-      fireEvent.changeText(registrationNumberInput, "12");
-      fireEvent.changeText(registrationNumberInput, "1234");
-      fireEvent.changeText(registrationNumberInput, "123-");
-      fireEvent.changeText(registrationNumberInput, "123");
-      fireEvent.changeText(registrationNumberInput, "1234567890");
       fireEvent.changeText(address2Input, "상세 주소");
       fireEvent.press(getByText("검색"));
       fireEvent.press(getByText("onSelected"));
@@ -119,6 +111,20 @@ describe("<FacilityStep1 />", () => {
       fireEvent.changeText(contactInput, "0212341234");
       fireEvent.changeText(contactInput, "0311234");
       fireEvent.changeText(contactInput, "03112341234");
+    });
+  });
+
+  it("should handle reg num inputs", async () => {
+    const { getByPlaceholderText } = render();
+
+    const registrationNumberInput = getByPlaceholderText(
+      "사업자 등록번호를 입력하세요 (- 제외)"
+    );
+
+    await waitFor(() => {
+      fireEvent.changeText(registrationNumberInput, "123-");
+      fireEvent.changeText(registrationNumberInput, "123");
+      fireEvent.changeText(registrationNumberInput, "1234567890");
     });
   });
 

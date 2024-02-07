@@ -35,9 +35,31 @@ jest.mock("@gorhom/bottom-sheet", () => {
   return {
     __esModule: true,
     default: "BottomSheet",
-    BottomSheetBackdrop: ({ children, props }: any) => <View>{children}<TouchableOpacity onPress={props.onPress}><Text>닫기</Text></TouchableOpacity></View>,
+    BottomSheetBackdrop: ({ children, props }: any) => (
+      <View>
+        {children}
+        <TouchableOpacity onPress={props.onPress}>
+          <Text>닫기</Text>
+        </TouchableOpacity>
+      </View>
+    ),
     BottomSheetBackdropProps: "BottomSheetBackdropProps",
   };
+});
+jest.mock("../PostLists/CommunityList", () => {
+  const { TouchableOpacity, Text, View } = jest.requireActual("react-native");
+
+  return ({ hideFAB, showFAB, mode }: any) => (
+    <View>
+      <Text>{mode}</Text>
+      <TouchableOpacity onPress={hideFAB}>
+        <Text>Hide</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={showFAB}>
+        <Text>Show</Text>
+      </TouchableOpacity>
+    </View>
+  );
 });
 
 const Stack = createStackNavigator();
@@ -65,15 +87,20 @@ describe("<CommunityMain />", () => {
     });
   });
 
-  it("handles sort correctly", () => {
-    const { getByText } = renderWithProviders(components());
+  it("handles props correctly", async () => {
+    const { getAllByText, getByText } = renderWithProviders(
+      components()
+    );
 
     waitFor(() => {
-      fireEvent.press(getByText("최신순"));
-      fireEvent.press(getByText("인기순"));
-      fireEvent.press(getByText("조회 많은 순"));
-      fireEvent.press(getByText("댓글 많은 순"));
-      fireEvent.press(getByText("닫기"));
+      fireEvent.press(getByText("Hide"));
+      fireEvent.press(getByText("Show"));
+    });
+    await waitFor(() => fireEvent.press(getAllByText("모집")[0]));
+
+    waitFor(() => {
+      fireEvent.press(getByText("Hide"));
+      fireEvent.press(getByText("Show"));
     });
   });
 });
