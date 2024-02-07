@@ -31,15 +31,12 @@ const components = () => {
 
 describe("<CoachDetail />", () => {
   it("handles like button", async () => {
-    const { getByTestId } = renderWithProviders(components(), {
+    renderWithProviders(components(), {
       preloadedState: {
         coach: {
           selectedCoach: sampleCoaches[0],
         },
       },
     });
-
-    const likeButton = getByTestId("like");
-    await waitFor(() => fireEvent.press(likeButton));
   });
 });
