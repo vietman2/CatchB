@@ -7,6 +7,7 @@ import MultiCheck from "../../../components/Checkboxes/MultiCheck";
 import ImagePreview from "../../../components/Images/ImagePreview";
 import ImagePlaceholder from "../../../components/Images/ImagePlaceholder";
 import { themeColors } from "../../../variables/colors";
+import WorkTimePickers from "../../../components/Pickers/WorkTimePickers";
 
 interface Props {
   onFinish: () => void;
@@ -14,12 +15,6 @@ interface Props {
 
 export default function FacilityStep2({ onFinish }: Props) {
   const [introduction, setIntroduction] = useState<string>("");
-  const [weekdayStart, setWeekdayStart] = useState<string>("");
-  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
-  const [saturdayStart, setSaturdayStart] = useState<string>("");
-  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
-  const [sundayStart, setSundayStart] = useState<string>("");
-  const [sundayEnd, setSundayEnd] = useState<string>("");
   const [selected, setSelected] = useState<string[]>([]);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
@@ -44,42 +39,6 @@ export default function FacilityStep2({ onFinish }: Props) {
 
   const others = ["개인 코치 영업 가능", "단체 수업 가능", "헬스기구"];
 
-  const formatTime = (input: string) => {
-    let cleanInput = input.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-    if (cleanInput.length > 4) cleanInput = cleanInput.slice(0, 4); // Limit length to 4 digits
-
-    // Insert colon between hours and minutes
-    if (cleanInput.length > 2) {
-      cleanInput = `${cleanInput.slice(0, 2)}:${cleanInput.slice(2, 4)}`;
-    }
-
-    return cleanInput;
-  };
-
-  const handleWeekdayStart = (input: string) => {
-    setWeekdayStart(formatTime(input));
-  };
-
-  const handleWeekdayEnd = (input: string) => {
-    setWeekdayEnd(formatTime(input));
-  };
-
-  const handleSaturdayStart = (input: string) => {
-    setSaturdayStart(formatTime(input));
-  };
-
-  const handleSaturdayEnd = (input: string) => {
-    setSaturdayEnd(formatTime(input));
-  };
-
-  const handleSundayStart = (input: string) => {
-    setSundayStart(formatTime(input));
-  };
-
-  const handleSundayEnd = (input: string) => {
-    setSundayEnd(formatTime(input));
-  };
-
   const uploadImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -95,7 +54,7 @@ export default function FacilityStep2({ onFinish }: Props) {
   const handleSubmitSuccess = () => {
     onFinish();
   };
-/*
+  /*
   const handleNext = () => {
     //TODO: 서버에 정보 전송
   };
@@ -134,90 +93,7 @@ export default function FacilityStep2({ onFinish }: Props) {
             {` (나중에 변경할 수 있어요!)`}
           </Text>
         </Text>
-        <View style={styles.timeBox}>
-          <Text style={{ flex: 1 }}>평일</Text>
-          <TextInput
-            placeholder="10:00"
-            dense
-            mode="outlined"
-            style={styles.timePickerBox}
-            placeholderTextColor="gray"
-            inputMode="numeric"
-            value={weekdayStart}
-            onChangeText={handleWeekdayStart}
-            maxLength={5}
-            testID="weekdayStart"
-          />
-          <Text>~</Text>
-          <TextInput
-            placeholder="22:00"
-            dense
-            mode="outlined"
-            style={styles.timePickerBox}
-            placeholderTextColor="gray"
-            inputMode="numeric"
-            value={weekdayEnd}
-            onChangeText={handleWeekdayEnd}
-            maxLength={5}
-            testID="weekdayEnd"
-          />
-        </View>
-        <View style={styles.timeBox}>
-          <Text style={{ flex: 1 }}>토요일</Text>
-          <TextInput
-            placeholder="10:00"
-            dense
-            mode="outlined"
-            style={styles.timePickerBox}
-            placeholderTextColor="gray"
-            inputMode="numeric"
-            value={saturdayStart}
-            onChangeText={handleSaturdayStart}
-            maxLength={5}
-            testID="saturdayStart"
-          />
-          <Text>~</Text>
-          <TextInput
-            placeholder="22:00"
-            dense
-            mode="outlined"
-            style={styles.timePickerBox}
-            placeholderTextColor="gray"
-            inputMode="numeric"
-            value={saturdayEnd}
-            onChangeText={handleSaturdayEnd}
-            maxLength={5}
-            testID="saturdayEnd"
-          />
-        </View>
-        <View style={styles.timeBox}>
-          <Text style={{ flex: 1 }}>일요일</Text>
-          <TextInput
-            placeholder="10:00"
-            dense
-            mode="outlined"
-            style={styles.timePickerBox}
-            placeholderTextColor="gray"
-            inputMode="numeric"
-            value={sundayStart}
-            onChangeText={handleSundayStart}
-            maxLength={5}
-            testID="sundayStart"
-          />
-          <Text>~</Text>
-          <TextInput
-            placeholder="22:00"
-            dense
-            mode="outlined"
-            style={styles.timePickerBox}
-            placeholderTextColor="gray"
-            inputMode="numeric"
-            value={sundayEnd}
-            onChangeText={handleSundayEnd}
-            maxLength={5}
-            testID="sundayEnd"
-          />
-        </View>
+        <WorkTimePickers />
       </>
       <Divider bold style={{ marginTop: 5 }} />
       <>
@@ -297,15 +173,5 @@ const styles = StyleSheet.create({
   description: {
     marginBottom: 5,
     color: "gray",
-  },
-  timeBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 5,
-  },
-  timePickerBox: {
-    flex: 3,
-    marginHorizontal: 10,
-    height: 35,
   },
 });

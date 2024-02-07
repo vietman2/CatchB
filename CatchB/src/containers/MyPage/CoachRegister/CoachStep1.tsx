@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import { Button, Chip, Text, TextInput } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import * as DocumentPicker from "expo-document-picker";
 
 import AreaPicker from "../../../components/Dialogs/AreaPicker";
 import SingleCheck from "../../../components/Checkboxes/SingleCheck";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
-import { useNavigation } from "@react-navigation/native";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
 interface Props {
@@ -27,7 +27,6 @@ export default function CoachStep1({ onFinish }: Props) {
       type: "image/*",
     });
     // Todo: API 연동
-
   };
 
   const handleRegisterSuccess = () => {
