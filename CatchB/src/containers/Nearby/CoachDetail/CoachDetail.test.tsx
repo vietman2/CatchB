@@ -1,3 +1,4 @@
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -30,12 +31,15 @@ const components = () => {
 
 describe("<CoachDetail />", () => {
   it("handles like button", async () => {
-    renderWithProviders(components(), {
+    const { getByTestId } = renderWithProviders(components(), {
       preloadedState: {
         coach: {
           selectedCoach: sampleCoaches[0],
         },
       },
     });
+
+    const likeButton = getByTestId("like");
+    await waitFor(() => fireEvent.press(likeButton));
   });
 });

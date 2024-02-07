@@ -1,20 +1,53 @@
+import { useState } from "react";
 import {
   View,
   StyleSheet,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Icon, Text } from "react-native-paper";
+//import { useNavigation } from "@react-navigation/native";
 
 import { themeColors } from "../../../variables/colors";
 import { RootState } from "../../../store/store";
+//import { NearbyStackScreenProps } from "../../../variables/navigation";
 
 const { width, height } = Dimensions.get("window");
 
 export default function CoachDetail() {
+  const [isLiked, setIsLiked] = useState(false);
+//  const [expand, setExpand] = useState(false);
+//  const navigation =
+//    useNavigation<NearbyStackScreenProps<"CoachDetail">["navigation"]>();
   const coach = useSelector((state: RootState) => state.coach.selectedCoach);
+/*
+  const handleReserve = () => {
+    navigation.navigate("Payment");
+  };
 
+  const renderDescription = (description: string) => {
+    if (description.length > 100) {
+      return (
+        <TouchableOpacity
+          onPress={() => setExpand(!expand)}
+          activeOpacity={0.6}
+        >
+          <Text variant="bodyLarge" style={styles.detail}>
+            {expand ? description : `${description.slice(0, 100)}...`}
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <Text variant="bodyLarge" style={styles.detail}>
+          asdf
+        </Text>
+      );
+    }
+  };
+*/
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -30,6 +63,21 @@ export default function CoachDetail() {
           <View style={styles.rating}>
             <Icon source="star" size={20} color="gold" />
             <Text>{coach.rating}/10</Text>
+          </View>
+          <View style={styles.interactions}>
+            <TouchableOpacity
+              onPress={() => setIsLiked(!isLiked)}
+              testID="like"
+            >
+              <Icon
+                source={isLiked ? "heart" : "heart-outline"}
+                size={20}
+                color={themeColors.primary}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {}}>
+              <Icon source="share-outline" size={20} />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.description}>
@@ -105,6 +153,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  interactions: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
   content: {
     paddingHorizontal: 20,
     paddingVertical: 5,
@@ -113,5 +166,16 @@ const styles = StyleSheet.create({
   description: {
     marginVertical: 10,
     paddingHorizontal: 20,
+  },
+  locationImage: {
+    width: "100%",
+    height: 210,
+    resizeMode: "contain",
+    marginBottom: 10,
+  },
+  detail: {
+    color: "gray",
+    marginTop: 5,
+    marginBottom: 10,
   },
 });

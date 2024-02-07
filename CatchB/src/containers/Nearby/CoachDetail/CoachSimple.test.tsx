@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react-native";
+import { render, fireEvent } from "@testing-library/react-native";
 
 import CoachSimple from "./CoachSimple";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
@@ -11,8 +11,11 @@ jest.mock("react-native-paper", () => ({
 
 describe("<CoachSimple />", () => {
   it("handles the like and share button correctly", () => {
-    render(
+    const { getByTestId } = render(
       <CoachSimple coach={sampleCoaches[0]} />
     );
+
+    fireEvent.press(getByTestId("like-icon"));
+    fireEvent.press(getByTestId("share-icon"));
   });
 });
