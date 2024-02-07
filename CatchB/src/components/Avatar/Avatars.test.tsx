@@ -44,6 +44,6 @@ describe("<AvatarImage />", () => {
 
 describe("<CoachProfile />", () => {
   it("renders correctly", () => {
-    const { getByTestId } = render(<CoachProfile name="test" />);
+    render(<CoachProfile name="test" />);
   });
 });

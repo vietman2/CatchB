@@ -51,7 +51,7 @@ const Tab = createBottomTabNavigator();
 
 describe("<CommunityStack />", () => {
   it("renders correctly and navigates to <PostCreate />", () => {
-    const { getByText, getByTestId, debug } = renderWithProviders(
+    const { getByText, getByTestId } = renderWithProviders(
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Community" component={CommunityContainer} />

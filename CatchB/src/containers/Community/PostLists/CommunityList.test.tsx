@@ -1,7 +1,6 @@
 import { fireEvent, render } from "@testing-library/react-native";
 
 import CommunityList from "./CommunityList";
-import bottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet";
 
 jest.mock("react-native-paper", () => {
   return {
@@ -29,7 +28,7 @@ jest.mock("./PostSimple", () => "PostSimple");
 
 describe("CommunityList", () => {
   it("renders correctly and handles presses", () => {
-    const { getAllByTestId, getByTestId } = render(
+    const { getAllByTestId } = render(
       <CommunityList hideFAB={() => {}} showFAB={() => {}} mode="야구톡" />
     );
 

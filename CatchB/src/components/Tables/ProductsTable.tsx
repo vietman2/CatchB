@@ -14,7 +14,7 @@ export default function ProductsTable({ products }: Props) {
 
   const renderPrice = (price: number) => {
     // 10,000원 형식
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return price.toLocaleString();
   }
 
   const filters = ["1회 대관", "정기 대관", "기타"]

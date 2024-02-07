@@ -5,7 +5,7 @@ import CoachRegister from "./CoachRegister";
 jest.mock("./CoachStep1", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
-  return ({ onFinish }) => {
+  return ({ onFinish }: { onFinish: void }) => {
     return (
       <TouchableOpacity onPress={onFinish}>
         <Text>CoachStep1</Text>
@@ -16,7 +16,7 @@ jest.mock("./CoachStep1", () => {
 jest.mock("./CoachStep2", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
-  return ({ onFinish }) => {
+  return ({ onFinish }: { onFinish: void }) => {
     return (
       <TouchableOpacity onPress={onFinish}>
         <Text>CoachStep2</Text>

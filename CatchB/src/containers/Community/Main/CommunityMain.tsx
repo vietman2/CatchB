@@ -50,7 +50,6 @@ export default function Community() {
       route: Route;
     }
   ) => {
-    // eslint-disable-next-line react/prop-types
     if (props.route.key === "야구톡") {
       return <CommunityList hideFAB={hideFAB} showFAB={showFAB} mode="야구톡" />;
     } else if (props.route.key === "모집") {
