@@ -9,7 +9,7 @@ interface Props {
   todos: Todo[];
 }
 
-export default function TodoBox({ title, todos }: Props) {
+export default function TodoBox({ title, todos }: Readonly<Props>) {
   const getRate = () => {
     let done = 0;
     let total = 0;

@@ -91,6 +91,30 @@ export default function SignUp() {
   const onPressEyeIcon2 = () =>
     setIsPasswordCheckVisible(!isPasswordCheckVisible);
 
+  const PasswordShowIcon = () => {
+    return (
+      <MaterialCommunityIcons
+        name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+        size={24}
+        color={themeColors.primary}
+        onPress={onPressEyeIcon}
+        testID="password-eye-icon"
+      />
+    );
+  }
+
+  const PasswordCheckShowIcon = () => {
+    return (
+      <MaterialCommunityIcons
+        name={isPasswordCheckVisible ? "eye-off-outline" : "eye-outline"}
+        size={24}
+        color={themeColors.primary}
+        onPress={onPressEyeIcon2}
+        testID="password-check-eye-icon"
+      />
+    );
+  }
+
   return (
     <ScrollView style={styles.mainContainer}>
       <KeyboardAvoidingView behavior="height">
@@ -115,19 +139,7 @@ export default function SignUp() {
             onChangeText={(text) => setPassword(text)}
             value={password}
             secureTextEntry={!isPasswordVisible}
-            right={
-              <TextInput.Icon
-                icon={() => (
-                  <MaterialCommunityIcons
-                    name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
-                    size={24}
-                    color={themeColors.primary}
-                    onPress={onPressEyeIcon}
-                    testID="password-eye-icon"
-                  />
-                )}
-              />
-            }
+            right={<TextInput.Icon icon={PasswordShowIcon} />}
             style={{ marginVertical: 5 }}
             testID="password-input"
           />
@@ -137,21 +149,7 @@ export default function SignUp() {
             onChangeText={(text) => setPasswordCheck(text)}
             value={passwordCheck}
             secureTextEntry={!isPasswordCheckVisible}
-            right={
-              <TextInput.Icon
-                icon={() => (
-                  <MaterialCommunityIcons
-                    name={
-                      isPasswordCheckVisible ? "eye-off-outline" : "eye-outline"
-                    }
-                    size={24}
-                    color={themeColors.primary}
-                    onPress={onPressEyeIcon2}
-                    testID="password-check-eye-icon"
-                  />
-                )}
-              />
-            }
+            right={<TextInput.Icon icon={PasswordCheckShowIcon} />}
             style={{ marginVertical: 5 }}
             testID="password-check-input"
           />

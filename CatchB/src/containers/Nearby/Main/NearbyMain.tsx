@@ -76,9 +76,9 @@ export default function NearbyMain() {
         region={region}
         onPanDrag={Keyboard.dismiss}
       >
-        {facilities.map((facility, index) => (
+        {facilities.map((facility) => (
           <MapMarker
-            key={index}
+            key={facility.id}
             coordinate={{
               latitude: facility.position.lat,
               longitude: facility.position.lng,
@@ -125,16 +125,16 @@ export default function NearbyMain() {
         <Divider style={styles.divider} />
         <ScrollView>
           {mode === "facility"
-            ? facilities.map((facility, index) => (
-                <View key={index}>
+            ? facilities.map((facility) => (
+                <View key={facility.id}>
                   <TouchableOpacity onPress={() => onFacilityPress(facility)}>
                     <FacilitySimple facility={facility} />
                   </TouchableOpacity>
                   <Divider />
                 </View>
               ))
-            : coaches.map((coach, index) => (
-                <View key={index}>
+            : coaches.map((coach) => (
+                <View key={coach.id}>
                   <TouchableOpacity onPress={() => onCoachPress(coach)}>
                     <CoachSimple coach={coach} />
                   </TouchableOpacity>

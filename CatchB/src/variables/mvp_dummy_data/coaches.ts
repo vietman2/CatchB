@@ -2,6 +2,7 @@ import { CoachType } from "../types/products";
 
 export const sampleCoaches: CoachType[] = [
   {
+    id: 1,
     coach_uuid: "1",
     coach_name: "홍승우",
     coach_phone_number: "010-1234-5678",
@@ -12,6 +13,7 @@ export const sampleCoaches: CoachType[] = [
     rating: 4.5,
   },
   {
+    id: 2,
     coach_uuid: "2",
     coach_name: "이정호",
     coach_phone_number: "010-8765-4321",

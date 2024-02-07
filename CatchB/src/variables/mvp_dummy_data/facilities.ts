@@ -3,6 +3,7 @@ import { reservationProducts } from "./reservations";
 
 export const sampleFacilities: FacilityType[] = [
   {
+    id: 1,
     name: "서울대 야구장",
     location: "서울시 관악구 대학동",
     rating: 4.5,
@@ -15,6 +16,7 @@ export const sampleFacilities: FacilityType[] = [
     products: [reservationProducts[3], reservationProducts[4]],
   },
   {
+    id: 2,
     name: "녹두빌 아카데미",
     location: "서울시 관악구 대학동",
     rating: 10,
@@ -32,6 +34,7 @@ export const sampleFacilities: FacilityType[] = [
     products: [reservationProducts[2]],
   },
   {
+    id: 3,
     name: "캐치비 레슨장",
     location: "인천시 서구 청라동",
     rating: 10,

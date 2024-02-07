@@ -24,6 +24,7 @@ export type Reservation = {
 };
 
 export type FacilityType = {
+  id: number;
   name: string;
   location: string;
   rating: number;
@@ -37,6 +38,7 @@ export type FacilityType = {
 };
 
 export type CoachType = {
+  id: number;
   coach_uuid: string;
   coach_name: string;
   coach_phone_number: string;

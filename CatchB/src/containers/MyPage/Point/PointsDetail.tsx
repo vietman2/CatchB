@@ -7,7 +7,7 @@ interface Props {
   detail: Points;
 }
 
-export default function PointsDetail({ detail }: Props) {
+export default function PointsDetail({ detail }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{detail.title}</Text>

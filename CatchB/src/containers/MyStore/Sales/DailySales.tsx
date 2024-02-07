@@ -8,7 +8,7 @@ interface Props {
   sales: DailySalesInfo;
 }
 
-export default function DailySales({ sales }: Props) {
+export default function DailySales({ sales }: Readonly<Props>) {
   const renderDate = () => {
     // date is given in YYYY-MM-DD format
     // change to YYYY년 MM월 DD일 format

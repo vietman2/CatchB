@@ -9,7 +9,7 @@ interface Props {
   facility: FacilityType;
 }
 
-export default function FacilitySimple({ facility }: Props) {
+export default function FacilitySimple({ facility }: Readonly<Props>) {
   const [isLiked, setIsLiked] = useState(false);
 
   return (
