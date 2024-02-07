@@ -1,4 +1,5 @@
-import { render, fireEvent } from "@testing-library/react-native";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { render } from "@testing-library/react-native";
 
 import BackButton from "./BackButton";
 import SurfaceButton from "./SurfaceButton";

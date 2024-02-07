@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState, useRef, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import {
   View,
@@ -8,50 +8,60 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { Divider, FAB, Portal, Searchbar } from "react-native-paper";
-import { getCurrentPositionAsync } from "expo-location";
+import MapView, { PROVIDER_GOOGLE, MapMarker } from "react-native-maps";
+import { Divider, FAB, Portal, Searchbar, Text } from "react-native-paper";
+import BottomSheet from "@gorhom/bottom-sheet";
 
+import CoachSimple from "../CoachDetail/CoachSimple";
 import FacilitySimple from "../FacilityDetail/FacilitySimple";
-import MapBottomSheet from "../../../components/BottomSheets/MapBottomSheet";
+import VerticalDivider from "../../../components/Divider/VerticalDivider";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
-import { FacilityType } from "../../../variables/types";
+import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
+import { CoachType, FacilityType } from "../../../variables/types/products";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
-import { AppDispatch } from "../../../store/store";
-import { setSelectedFacility } from "../../../store/slices/facility/facilitySlice";
+import { AppDispatch, RootState } from "../../../store/store";
+import { setSelectedFacility } from "../../../store/slices/products/facilitySlice";
+import { setSelectedCoach } from "../../../store/slices/products/coachSlice";
 
 export default function NearbyMain() {
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["3%", "70%"], []);
   const [searchQuery, setSearchQuery] = useState("");
+  const [mode, setMode] = useState<"facility" | "coach">("facility");
   const [facilities, setFacilities] = useState<FacilityType[]>([]);
+  const [coaches, setCoaches] = useState<CoachType[]>([]);
   const [region, setRegion] = useState({
-    latitude: 37.541,
-    longitude: 126.986,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitude: 37.5326,
+    longitude: 127.024612,
+    latitudeDelta: 0.009,
+    longitudeDelta: 0.02,
   });
   const navigation =
     useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
-
-  const getLocation = async () => {
-    const { coords } = await getCurrentPositionAsync();
-    setRegion({
-      latitude: coords.latitude,
-      longitude: coords.longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    });
-  };
+  const location = useSelector((state: RootState) => state.general.location);
 
   const onFacilityPress = async (facility: FacilityType) => {
     await dispatch(setSelectedFacility(facility));
     navigation.navigate("FacilityDetail");
   };
 
+  const onCoachPress = async (coach: CoachType) => {
+    await dispatch(setSelectedCoach(coach));
+    navigation.navigate("CoachDetail");
+  };
+
   useEffect(() => {
-    getLocation();
     setFacilities(sampleFacilities);
+    setCoaches(sampleCoaches);
+
+    setRegion({
+      latitude: location ? location.coords.latitude : 37.5326,
+      longitude: location ? location.coords.longitude : 127.024612,
+      latitudeDelta: 0.009,
+      longitudeDelta: 0.02,
+    });
   }, []);
 
   return (
@@ -65,31 +75,80 @@ export default function NearbyMain() {
         mapPadding={{ right: 0, bottom: 0, left: 0, top: 100 }}
         region={region}
         onPanDrag={Keyboard.dismiss}
-      ></MapView>
+      >
+        {facilities.map((facility, index) => (
+          <MapMarker
+            key={index}
+            coordinate={{
+              latitude: facility.position.lat,
+              longitude: facility.position.lng,
+            }}
+            title={facility.name}
+            description={facility.description}
+          />
+        ))}
+      </MapView>
       <Searchbar
         placeholder="Search"
         onChangeText={setSearchQuery}
         value={searchQuery}
         style={styles.search}
       />
-      <MapBottomSheet>
+      <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => setMode("facility")}
+          >
+            <Text
+              variant="titleLarge"
+              style={mode === "facility" ? styles.selectedText : styles.text}
+            >
+              시설
+            </Text>
+          </TouchableOpacity>
+          <VerticalDivider />
+          <TouchableOpacity style={styles.tab} onPress={() => setMode("coach")}>
+            <Text
+              variant="titleLarge"
+              style={mode === "coach" ? styles.selectedText : styles.text}
+            >
+              코치
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <Divider style={styles.divider} />
         <ScrollView>
-          {facilities.map((facility, index) => (
-            <View key={index}>
-              <TouchableOpacity onPress={() => onFacilityPress(facility)}>
-                <FacilitySimple facility={facility} />
-              </TouchableOpacity>
-              <Divider />
-            </View>
-          ))}
+          {mode === "facility"
+            ? facilities.map((facility, index) => (
+                <View key={index}>
+                  <TouchableOpacity onPress={() => onFacilityPress(facility)}>
+                    <FacilitySimple facility={facility} />
+                  </TouchableOpacity>
+                  <Divider />
+                </View>
+              ))
+            : coaches.map((coach, index) => (
+                <View key={index}>
+                  <TouchableOpacity onPress={() => onCoachPress(coach)}>
+                    <CoachSimple coach={coach} />
+                  </TouchableOpacity>
+                  <Divider />
+                </View>
+              ))}
         </ScrollView>
-      </MapBottomSheet>
+      </BottomSheet>
       <Portal>
         <FAB
           style={styles.filters}
           label="인기순"
           size="large"
-          onPress={() => console.log("Pressed")}
+          onPress={() => {}}
           visible={false}
         />
       </Portal>
@@ -118,5 +177,23 @@ const styles = StyleSheet.create({
     left: 20,
     borderColor: themeColors.primary,
     borderWidth: 1,
+  },
+  tab: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontWeight: "bold",
+    paddingBottom: 3,
+  },
+  selectedText: {
+    color: themeColors.primary,
+    fontWeight: "bold",
+    paddingBottom: 3,
+  },
+  divider: {
+    marginHorizontal: 10,
+    marginTop: 5,
   },
 });

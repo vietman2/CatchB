@@ -6,6 +6,7 @@ import {
   MD3LightTheme as DefaultTheme,
 } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { TourGuideProvider } from "rn-tourguide";
 
 import TabContainer from "./src/containers/Base/TabStack";
 import useFonts from "./src/hooks/useFonts";
@@ -28,9 +29,11 @@ export default function App() {
       <Provider store={store}>
         <PaperProvider theme={theme}>
           <SafeAreaProvider>
-            <NavigationContainer>
-              <TabContainer />
-            </NavigationContainer>
+            <TourGuideProvider>
+              <NavigationContainer>
+                <TabContainer />
+              </NavigationContainer>
+            </TourGuideProvider>
           </SafeAreaProvider>
         </PaperProvider>
       </Provider>

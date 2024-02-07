@@ -4,7 +4,7 @@ import { ActivityIndicator, Divider, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 
 import PointsDetail from "./PointsDetail";
-import { getPointsList } from "../../../services/point";
+import { getPointsList } from "../../../services/user_management/point";
 import { AppDispatch, RootState } from "../../../store/store";
 import { setPointsState } from "../../../store/slices/user_management/pointSlice";
 import { themeColors } from "../../../variables/colors";
@@ -45,7 +45,7 @@ export default function Points() {
     const fetchPointsList = async () => {
       const response = await getPointsList(token, user.uuid);
       setLoading(false);
-      dispatch(setPointsState(response.data));
+      await dispatch(setPointsState(response.data));
     };
     fetchPointsList();
   }, []);

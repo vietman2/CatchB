@@ -65,7 +65,12 @@ export default function CommunityList({ hideFAB, showFAB, mode }: Props) {
   };
 
   useEffect(() => {
-    setPosts(samplePosts);
+    // samplePosts중에서 forum_id가 1인 것만 가져오기
+    if (mode === "야구톡") {
+      setPosts(samplePosts.filter((post) => post.forum_id === 1));
+    } else if (mode === "모집") {
+      setPosts(samplePosts.filter((post) => post.forum_id === 2));
+    }
     setBottomSheetComponents(SortComponents);
   }, []);
 
@@ -83,6 +88,7 @@ export default function CommunityList({ hideFAB, showFAB, mode }: Props) {
             justifyContent: "space-between",
             alignItems: "flex-end",
           }}
+          testID="sortChoice"
         >
           <Text
             variant="titleLarge"
@@ -131,7 +137,7 @@ export default function CommunityList({ hideFAB, showFAB, mode }: Props) {
           outlineStyle={styles.searchBar}
         />
         <View style={styles.filters}>
-          <TouchableOpacity onPress={openFilterChoices}>
+          <TouchableOpacity onPress={openFilterChoices} testID="filters">
             <Chip
               compact
               icon="sort"

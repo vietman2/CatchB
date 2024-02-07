@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
-import { FacilityType } from "../../../variables/types";
+import { FacilityType } from "../../../variables/types/products";
 import { themeColors } from "../../../variables/colors";
 
 interface Props {
@@ -36,11 +36,7 @@ export default function FacilitySimple({ facility }: Props) {
             color={themeColors.primary}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("Pressed");
-          }}
-        >
+        <TouchableOpacity onPress={() => {}}>
           <Icon source="share-outline" size={20} testID="share-icon" />
         </TouchableOpacity>
       </View>

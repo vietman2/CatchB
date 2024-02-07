@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent } from "@testing-library/react-native";
 
 import HomeMain from "./HomeMain";
@@ -38,6 +39,7 @@ jest.mock("react-native-paper", () => {
     ),
   };
 });
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../../../components/Buttons/SurfaceButton", () => "SurfaceButton");
 jest.mock("../../../components/Chips/Chips", () => ({
   NotificationChip: () => "NotificationChip",
@@ -47,28 +49,28 @@ jest.mock("../../../components/Chips/Chips", () => ({
 }));
 jest.mock("../../../components/Cards/SimpleCard", () => "SimpleCard");
 jest.mock("../../../components/Cards/CardBox", () => "CardBox");
-jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 const renderWithMode = (mode: "basic" | "pro") => {
   return renderWithProviders(<HomeMain />, {
-    preloadedState: { mode: { mode } },
+    preloadedState: { general: { mode, location: null } },
   });
 };
 
 describe("<NormalHome />", () => {
-  it("handles button press", () => {
-    const { getByText } = renderWithMode("basic");
-
-    fireEvent.press(getByText("개인정보 처리방침"));
-    fireEvent.press(getByText("이용약관"));
-    fireEvent.press(getByText("현재 버전 0.1.0"));
-  });
-
   it("renders with user", () => {
     renderWithProviders(<HomeMain />, {
       preloadedState: {
-        mode: { mode: "basic" },
+        general: { mode: "basic", location: null },
         auth: { user: admin, token: "" },
+      },
+    });
+  });
+
+  it("renders without user", () => {
+    renderWithProviders(<HomeMain />, {
+      preloadedState: {
+        general: { mode: "basic", location: null },
+        auth: { user: null, token: "" },
       },
     });
   });

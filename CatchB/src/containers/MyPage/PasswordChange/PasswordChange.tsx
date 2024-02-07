@@ -4,7 +4,7 @@ import { Alert, View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator, Button, Text, TextInput } from "react-native-paper";
 
-import { changePassword, logout } from "../../../services/account";
+import { changePassword, logout } from "../../../services/user_management/account";
 import { AppDispatch, RootState } from "../../../store/store";
 import { get } from "../../../store/secure";
 import { logout as resetUserState } from "../../../store/slices/user_management/authSlice";
@@ -29,7 +29,7 @@ export default function PasswordChange() {
         const response = await logout(token);
         if (response.status === 200) {
           navigation.navigate("MyPageScreen");
-          dispatch(resetUserState());
+          await dispatch(resetUserState());
           Alert.alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
         } else {
           Alert.alert("로그아웃에 실패했습니다.");

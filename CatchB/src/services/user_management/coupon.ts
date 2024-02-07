@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { API_LOCAL_URL } from "./apiConfig";
+import { API_LOCAL_URL } from "../";
 
 export async function getCouponList(access: string) {
   const url = `${API_LOCAL_URL}/api/users/coupons/`;

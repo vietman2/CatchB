@@ -1,8 +1,6 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
-import {
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { View, useWindowDimensions } from "react-native";
 import { Text, FAB } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -24,13 +22,21 @@ export default function Community() {
     { key: "야구톡", title: "야구톡" },
     { key: "모집", title: "모집" },
     { key: "벼룩시작", title: "벼룩시장" },
-    { key: "내 활동", title: "내 활동" },
     { key: "자세 분석", title: "자세 분석" },
+    { key: "내 활동", title: "내 활동" },
   ]);
 
   const [visible, setVisible] = useState(true);
   const navigation =
     useNavigation<CommunityStackScreenProps<"CommunityScreen">["navigation"]>();
+
+  const hideFAB = () => {
+    setVisible(false);
+  };
+
+  const showFAB = () => {
+    setVisible(true);
+  };
 
   const PlaceholderComponent = () => {
     return (
@@ -45,32 +51,16 @@ export default function Community() {
       route: Route;
     }
   ) => {
-    // eslint-disable-next-line react/prop-types
-    switch (props.route.key) {
-      case "야구톡":
-        return (
-          <CommunityList
-            hideFAB={() => setVisible(false)}
-            showFAB={() => setVisible(true)}
-            mode="야구톡"
-          />
-        );
-      case "모집":
-        return (
-          <CommunityList
-            hideFAB={() => setVisible(false)}
-            showFAB={() => setVisible(true)}
-            mode="모집"
-          />
-        );
-      case "자세 분석":
-        return <VideoList />;
-      case "벼룩시장":
-        return <PlaceholderComponent />;
-      case "내 활동":
-        return <PlaceholderComponent />;
-      default:
-        return <PlaceholderComponent />;
+    if (props.route.key === "야구톡") {
+      return (
+        <CommunityList hideFAB={hideFAB} showFAB={showFAB} mode="야구톡" />
+      );
+    } else if (props.route.key === "모집") {
+      return <CommunityList hideFAB={hideFAB} showFAB={showFAB} mode="모집" />;
+    } else if (props.route.key === "자세 분석") {
+      return <VideoList />;
+    } else {
+      return <PlaceholderComponent />;
     }
   };
 

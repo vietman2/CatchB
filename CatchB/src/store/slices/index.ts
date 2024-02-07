@@ -4,20 +4,22 @@ import {
   configureStore,
 } from "@reduxjs/toolkit";
 
-import modeReducer from "./general/modeSlice";
+import generalReducer from "./general/generalSlice";
 import authReducer from "./user_management/authSlice";
 import couponReducer from "./user_management/couponSlice";
 import pointReducer from "./user_management/pointSlice";
-import facilityReducer from "./facility/facilitySlice";
+import facilityReducer from "./products/facilitySlice";
+import coachReducer from "./products/coachSlice";
 import communityRedcucer from "./community/communitySlice";
 import { RootState } from "../store";
 
 const rootReducer = combineReducers({
-  mode: modeReducer,
+  general: generalReducer,
   auth: authReducer,
   coupon: couponReducer,
   point: pointReducer,
   facility: facilityReducer,
+  coach: coachReducer,
   community: communityRedcucer,
 });
 

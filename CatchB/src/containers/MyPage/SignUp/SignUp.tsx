@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import GenderButton from "../../../components/Buttons/GenderButton";
-import { login, register } from "../../../services/account";
+import { login, register } from "../../../services/user_management/account";
 import { AppDispatch } from "../../../store/store";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from "../../../variables/colors";
@@ -40,7 +40,7 @@ export default function SignUp() {
     const response = await login(username, password);
 
     if (response.status === 200) {
-      dispatch(setUserState(response.data));
+      await dispatch(setUserState(response.data));
       navigation.navigate("MyPageScreen");
       Alert.alert("회원가입이 완료되었습니다.", "환영합니다.");
     } else {

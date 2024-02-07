@@ -26,6 +26,9 @@ export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
 export type NearbyStackParamList = {
   NearbyScreen: undefined;
   FacilityDetail: undefined;
+  FacilityReserve: undefined;
+  CoachDetail: undefined;
+  Payment: undefined;
 };
 
 export type NearbyStackScreenProps<T extends keyof NearbyStackParamList> =

@@ -1,17 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import * as expoLocation from "expo-location";
 
 import NearbyStack from "./NearbyStack";
 import { renderWithProviders } from "../../utils/test-utils";
 import { sampleFacilities } from "../../variables/mvp_dummy_data/facilities";
+import { sampleCoaches } from "../../variables/mvp_dummy_data/coaches";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
     PaperProvider: Provider,
@@ -22,43 +24,23 @@ jest.mock("react-native-paper", () => {
     IconButton: "IconButton",
     FAB: "FAB",
     Portal: "Portal",
+    Button: ({ onPress, children }: any) => (
+      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
   };
 });
 jest.mock("react-native-maps", () => {
-  const { View } = require("react-native");
-  const MockMapView = (props: any) => {
-    return <View>{props.children}</View>;
-  };
-  const MockMarker = (props: any) => {
-    return <View>{props.children}</View>;
-  };
   return {
     __esModule: true,
-    default: MockMapView,
-    Marker: MockMarker,
+    default: () => "MapView",
+    MapMarker: () => "Marker",
     PROVIDER_GOOGLE: "PROVIDER_GOOGLE",
   };
 });
-jest
-  .spyOn(expoLocation, "getCurrentPositionAsync")
-  .mockImplementation(async () => {
-    return Promise.resolve({
-      coords: {
-        latitude: 37.5326,
-        longitude: 127.024612,
-        altitude: null,
-        accuracy: null,
-        altitudeAccuracy: null,
-        heading: null,
-        speed: null,
-      },
-      timestamp: 1627663200000,
-    });
-  });
-jest.mock(
-  "../../components/BottomSheets/MapBottomSheet",
-  () => "MapBottomSheet"
-);
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock("../../components/Avatar/CoachProfile", () => "CoachProfile");
 
 const Tab = createBottomTabNavigator();
 
@@ -73,7 +55,7 @@ const components = () => {
 };
 
 describe("<NearbyStack />", () => {
-  it("handles navigate to FacilityDetail and back", async () => {
+  it("handles navigation to all Facility pages and back", async () => {
     const { getByTestId, getByText } = renderWithProviders(components(), {
       preloadedState: {
         facility: {
@@ -82,10 +64,29 @@ describe("<NearbyStack />", () => {
       },
     });
 
-    const facility = getByText("JT 야구 레슨장");
-    await waitFor(() => fireEvent.press(facility));
+    await waitFor(() => fireEvent.press(getByText("캐치비 레슨장")));
+    await waitFor(() => fireEvent.press(getByText("예약하기")));
+    await waitFor(() => fireEvent.press(getByText("결제하기")));
+
+    waitFor(() => fireEvent.press(getByTestId("back")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+    waitFor(() => fireEvent.press(getByTestId("back")));
+  });
+
+  it("handles navigation to all Coach pages and back", async () => {
+    const { getByTestId, getByText } = renderWithProviders(components(), {
+      preloadedState: {
+        coach: {
+          selectedCoach: sampleCoaches[0],
+        },
+      },
+    });
+
+    await waitFor(() => fireEvent.press(getByText("코치")));
+    await waitFor(() => fireEvent.press(getByText("홍승우 코치")));
 
     const backButton = getByTestId("back");
     waitFor(() => fireEvent.press(backButton));
+    await waitFor(() => fireEvent.press(getByText("시설")));
   });
 });

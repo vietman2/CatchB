@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -9,6 +10,10 @@ import { admin } from "../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
+}));
+jest.mock("rn-tourguide", () => ({
+  TourGuideZone: "TourGuideZone",
+  useTourGuideController: () => ({ start: jest.fn() }),
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
@@ -41,6 +46,9 @@ jest.mock("expo-linear-gradient", () => ({
 }));
 jest.mock("expo-document-picker", () => ({
   getDocumentAsync: jest.fn(),
+}));
+jest.mock("expo-image-picker", () => ({
+  launchImageLibraryAsync: jest.fn(),
 }));
 jest.mock("./Login/Login", () => "Login");
 jest.mock("./SignUp/SignUp", () => "SignUp");
@@ -120,7 +128,7 @@ describe("<MyPageStack />", () => {
   it("navigates to <Payments />, <FAQ /> and <Reviews />", () => {
     const { getByTestId, getByText } = render();
 
-    waitFor(() => fireEvent.press(getByText("결제수단 관리")));
+    waitFor(() => fireEvent.press(getByText("결제수단")));
     waitFor(() => fireEvent.press(getByTestId("back")));
     waitFor(() => fireEvent.press(getByText("자주 묻는 질문")));
     waitFor(() => fireEvent.press(getByTestId("back")));

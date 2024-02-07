@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/display-name */
+import { Share } from "react-native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import MyPageMain from "./MyPageMain";
-import { admin } from "../../../variables/mvp_dummy_data/user";
 import { renderWithProviders } from "../../../utils/test-utils";
+import { admin } from "../../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -23,20 +26,17 @@ jest.mock("react-native-paper", () => {
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
+    Chip: "Chip",
   };
 });
+jest.mock("react-native-progress/Bar", () => "ProgressBar");
+jest.mock("rn-tourguide", () => ({
+  TourGuideZone: "TourGuideZone",
+  useTourGuideController: () => ({ start: jest.fn() }),
+}));
 jest.mock("../../../components/Avatar/AvatarHorizontal", () => {
   const { View } = jest.requireActual("react-native");
   return () => <View testID="badge">ProfileBadge</View>;
-});
-jest.mock("../../../components/Dialogs/LoginDialog", () => {
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
-
-  return ({ title, onClose }: any) => (
-    <TouchableOpacity onPress={onClose}>
-      <Text>{title}</Text>
-    </TouchableOpacity>
-  );
 });
 jest.mock("../../../components/Buttons/IconButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
@@ -84,50 +84,53 @@ const components = () => {
 };
 
 describe("<MyPage />", () => {
-  it("handles presses", () => {
-    const { getByText } = renderWithProviders(components());
-    waitFor(() => {
-      fireEvent.press(getByText("쿠폰함"));
-      fireEvent.press(getByText("포인트"));
-      fireEvent.press(getByText("결제수단 관리"));
-      fireEvent.press(getByText("리뷰"));
-    });
-  });
-
   it("navigates to Login screen when user is not logged in", () => {
     const { getByTestId, getByText } = renderWithProviders(components());
 
     waitFor(() => {
-      fireEvent.press(getByTestId("badge"));
-      fireEvent.press(getByText("로그인"));
-    });
-  });
-
-  it("navigates to all screens when user is logged in", () => {
-    const { getByTestId, getByText } = renderWithProviders(components(), {
-      preloadedState: { auth: { user: admin, token: "" } },
-    });
-
-    waitFor(() => {
+      fireEvent.press(getByText("찜"));
+      fireEvent.press(getByText("결제수단"));
+      fireEvent.press(getByText("리뷰"));
       fireEvent.press(getByTestId("badge"));
       fireEvent.press(getByText("쿠폰함"));
+      fireEvent.press(getByText("포인트"));
       fireEvent.press(getByText("코치 등록하기"));
       fireEvent.press(getByText("시설 등록하기"));
-      fireEvent.press(getByText("결제수단 관리"));
-      fireEvent.press(getByText("리뷰"));
-      fireEvent.press(getByText("자주 묻는 질문"));
     });
   });
 
   it("handles menu press", () => {
     const { getByText } = renderWithProviders(components());
-    fireEvent.press(getByText("친구 초대하기"));
-    fireEvent.press(getByText("레슨 코치 초대하기"));
-    fireEvent.press(getByText("매장 정보 제보하기"));
-    fireEvent.press(getByText("1:1 문의"));
-    fireEvent.press(getByText("..?"));
-    fireEvent.press(getByText("알림 맞춤 설정"));
-    fireEvent.press(getByText("즐겨찾기?"));
-    fireEvent.press(getByText("최근 본?"));
+
+    waitFor(() => {
+      fireEvent.press(getByText("친구 초대하기"));
+      fireEvent.press(getByText("레슨 코치 초대하기"));
+      fireEvent.press(getByText("매장 정보 제보하기"));
+      fireEvent.press(getByText("진행중인 이벤트"));
+      fireEvent.press(getByText("공지사항"));
+      fireEvent.press(getByText("1:1 문의"));
+      fireEvent.press(getByText("자주 묻는 질문"));
+      fireEvent.press(getByText("알림 맞춤 설정"));
+      fireEvent.press(getByText("약관 및 정책"));
+      fireEvent.press(getByText("제휴 문의하기"));
+      fireEvent.press(getByText("현재 버전: Beta 0.0.0"));
+    });
+  });
+
+  it("handles share", () => {
+    const { getByText } = renderWithProviders(components(), {
+      preloadedState: {
+        auth: {
+          token: "token",
+          user: admin,
+        },
+      },
+    });
+
+    jest.spyOn(Share, "share").mockImplementation(jest.fn());
+
+    waitFor(() => {
+      fireEvent.press(getByText("친구 초대하기"));
+    });
   });
 });

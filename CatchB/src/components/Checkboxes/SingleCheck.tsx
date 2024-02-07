@@ -1,20 +1,34 @@
-import { View } from "react-native";
-import { Chip } from "react-native-paper";
+import { View, Dimensions, TouchableOpacity } from "react-native";
 
+import MyChip from "../Chips/MyChip";
 import { themeColors } from "../../variables/colors";
 
 interface Props {
   options: string[];
   selected: string;
   setSelected: (selected: string) => void;
+  required?: boolean;
 }
 
-export default function SingleCheck({ options, selected, setSelected }: Props) {
+export default function SingleCheck({
+  options,
+  selected,
+  setSelected,
+  required,
+}: Props) {
+  const isRequired = required ? true : false;
+  const { width } = Dimensions.get("window");
+  const itemWidth = (width - 40) / 3;
+
   const isSelected = (option: string) => {
     return selected === option;
   };
 
   const toggleSelected = (option: string) => {
+    if (isRequired) {
+      setSelected(option);
+      return;
+    }
     if (selected === option) {
       setSelected("");
     } else {
@@ -24,27 +38,23 @@ export default function SingleCheck({ options, selected, setSelected }: Props) {
 
   return (
     <>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {options.map((option, index) => (
-          <Chip
-            key={index}
-            style={{
-              marginRight: 10,
-              marginBottom: 10,
-              backgroundColor: isSelected(option)
-                ? themeColors.primary
-                : themeColors.tertiary,
-            }}
-            mode="flat"
-            showSelectedCheck
-            showSelectedOverlay
-            selectedColor="white"
-            compact
-            selected={isSelected(option)}
-            onPress={() => toggleSelected(option)}
-          >
-            {option}
-          </Chip>
+          <View key={index} style={{ width: itemWidth }}>
+            <TouchableOpacity
+              onPress={() => toggleSelected(option)}
+              style={{
+                marginRight: 10,
+                marginBottom: 10,
+                borderRadius: 8,
+                backgroundColor: isSelected(option)
+                  ? themeColors.tertiaryContainer
+                  : themeColors.tertiary,
+              }}
+            >
+              <MyChip label={option} selected={isSelected(option)} />
+            </TouchableOpacity>
+          </View>
         ))}
       </View>
     </>

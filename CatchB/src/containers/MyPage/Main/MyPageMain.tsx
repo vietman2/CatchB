@@ -1,23 +1,48 @@
-import { useState } from "react";
-import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Alert,
+  ScrollView,
+  Share,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useSelector } from "react-redux";
 import { Button, Divider, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import ProgressBar from "react-native-progress/Bar";
+import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 
 import AvatarHorizontal from "../../../components/Avatar/AvatarHorizontal";
 import IconButton from "../../../components/Buttons/IconButton";
 import TabButton from "../../../components/Buttons/TabButton";
 import VerticalDivider from "../../../components/Divider/VerticalDivider";
-import LoginDialog from "../../../components/Dialogs/LoginDialog";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
 export default function MyPageMain() {
-  const [dialogVisible, setDialogVisible] = useState(false);
+  const { start } = useTourGuideController();
   const navigation =
     useNavigation<MyPageStackScreenProps<"MyPageScreen">["navigation"]>();
   const user = useSelector((state: RootState) => state.auth.user);
+
+  const LoginAlert = () => {
+    Alert.alert(
+      "로그인이 필요한 서비스입니다.",
+      "로그인 화면으로 이동하시겠습니까?",
+      [
+        {
+          text: "취소",
+          style: "cancel",
+        },
+        {
+          text: "확인",
+          isPreferred: true,
+          onPress: () => navigation.navigate("Login"),
+        },
+      ]
+    );
+  };
 
   const handleBadgePress = () => {
     if (user) {
@@ -29,7 +54,8 @@ export default function MyPageMain() {
 
   const handleCouponPress = () => {
     if (!user) {
-      setDialogVisible(true);
+      LoginAlert();
+      return;
     } else {
       navigation.navigate("CouponList");
     }
@@ -37,7 +63,8 @@ export default function MyPageMain() {
 
   const handlePointPress = () => {
     if (!user) {
-      setDialogVisible(true);
+      LoginAlert();
+      return;
     } else {
       navigation.navigate("Points");
     }
@@ -45,7 +72,8 @@ export default function MyPageMain() {
 
   const handlePaymentsPress = () => {
     if (!user) {
-      setDialogVisible(true);
+      LoginAlert();
+      return;
     } else {
       navigation.navigate("Payments");
     }
@@ -53,181 +81,238 @@ export default function MyPageMain() {
 
   const handleReviewPress = () => {
     if (!user) {
-      setDialogVisible(true);
+      LoginAlert();
+      return;
     } else {
       navigation.navigate("Reviews");
     }
   };
 
+  const handleFacilityRegisterPress = () => {
+    if (!user) {
+      LoginAlert();
+      return;
+    } else {
+      navigation.navigate("FacilityRegister");
+    }
+  };
+
+  const handleCoachRegisterPress = () => {
+    if (!user) {
+      LoginAlert();
+      return;
+    } else {
+      navigation.navigate("CoachRegister");
+    }
+  };
+
+  const handleInvitePress = () => {
+    if (!user) {
+      LoginAlert();
+      return;
+    } else {
+      Share.share({
+        message: "ㅎㅇㅎㅇ",
+        title: "초대하기",
+      });
+    }
+  };
+
   return (
-    <>
-      <ScrollView>
-        <View style={styles.container}>
+    <ScrollView>
+      <View style={styles.container}>
+        <TourGuideZone zone={1} text="CatchB에 오신 것을 환영합니다!">
           <TouchableOpacity
             onPress={handleBadgePress}
             testID="avatar-horizontal"
           >
             <AvatarHorizontal user={user} />
           </TouchableOpacity>
-          <View style={styles.mainOptions}>
-            <View style={styles.menuHorizontal}>
-              <TouchableOpacity style={{ flex: 1 }}>
-                <IconButton icon="bookmark" title="즐겨찾기?" />
-              </TouchableOpacity>
-              <VerticalDivider />
-              <TouchableOpacity style={{ flex: 1 }}>
-                <IconButton icon="history" title="최근 본?" />
-              </TouchableOpacity>
-              <VerticalDivider />
-              <TouchableOpacity style={{ flex: 1 }} onPress={handleReviewPress}>
-                <IconButton icon="star" title="리뷰" />
-              </TouchableOpacity>
-            </View>
-            <View style={{ paddingHorizontal: 10 }}>
-              <Divider />
-            </View>
-            <View style={styles.menuHorizontal}>
-              <View style={styles.benefits}>
-                <TabButton
-                  title="쿠폰함"
-                  detail={`${user === null ? 0 : user.num_coupons} 장`}
-                  onPress={handleCouponPress}
-                  showArrow
-                />
-              </View>
-              <VerticalDivider />
-              <View style={styles.benefits}>
-                <TabButton
-                  title="포인트"
-                  detail={`${user === null ? 0 : user.total_points} P`}
-                  onPress={handlePointPress}
-                  showArrow
-                />
-              </View>
-            </View>
+        </TourGuideZone>
+        <View style={styles.progress}>
+          <TourGuideZone
+            zone={2}
+            text="프로필을 완성하면 3,000 포인트를 드려요!"
+          >
+            <Text variant="titleSmall">프로필 완성도: {"70%"}</Text>
+            <ProgressBar progress={0.7} color="green" />
+          </TourGuideZone>
+        </View>
+        <View style={styles.mainOptions}>
+          <View style={styles.menuHorizontal}>
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => start()}>
+              <IconButton icon="bookmark" title="찜" />
+            </TouchableOpacity>
+            <VerticalDivider />
+            <TouchableOpacity style={{ flex: 1 }} onPress={handlePaymentsPress}>
+              <IconButton
+                icon="credit-card-multiple-outline"
+                title="결제수단"
+              />
+            </TouchableOpacity>
+            <VerticalDivider />
+            <TouchableOpacity style={{ flex: 1 }} onPress={handleReviewPress}>
+              <IconButton icon="comment-processing" title="리뷰" />
+            </TouchableOpacity>
           </View>
-          {user === null ? null : (
-            <View style={styles.registerButtons}>
-              <Button
-                mode="elevated"
-                onPress={() => navigation.navigate("CoachRegister")}
-                style={{ flex: 1, marginRight: 5 }}
-                textColor="white"
-                buttonColor="green"
-              >
-                코치 등록하기
-              </Button>
-              <Button
-                mode="elevated"
-                onPress={() => navigation.navigate("FacilityRegister")}
-                style={{ flex: 1, marginLeft: 5 }}
-                textColor="white"
-                buttonColor="green"
-              >
-                시설 등록하기
-              </Button>
+          <View style={{ paddingHorizontal: 10 }}>
+            <Divider />
+          </View>
+          <View style={styles.menuHorizontal}>
+            <View style={styles.benefits}>
+              <TabButton
+                title="쿠폰함"
+                detail={`${user === null ? 0 : user.num_coupons} 장`}
+                onPress={handleCouponPress}
+                showArrow
+              />
             </View>
-          )}
-          <View style={styles.others}>
-            <Divider style={styles.divider} />
-            <Text variant="titleLarge" style={styles.subtitle}>
-              이벤트
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Button
-                mode="text"
-                onPress={() => {}}
-                style={{ flex: 1 }}
-                labelStyle={styles.labelText}
-              >
-                친구 초대하기
-              </Button>
-              <Button
-                mode="text"
-                onPress={() => {}}
-                style={{ flex: 1 }}
-                labelStyle={styles.labelText}
-              >
-                레슨 코치 초대하기
-              </Button>
+            <VerticalDivider />
+            <View style={styles.benefits}>
+              <TabButton
+                title="포인트"
+                detail={`${user === null ? 0 : user.total_points} P`}
+                onPress={handlePointPress}
+                showArrow
+              />
             </View>
-            <View style={{ flexDirection: "row" }}>
-              <Button
-                mode="text"
-                onPress={() => {}}
-                style={{ flex: 1 }}
-                labelStyle={styles.labelText}
-              >
-                매장 정보 제보하기
-              </Button>
-              <View style={{ flex: 1 }} />
-            </View>
-            <Divider style={styles.divider} />
-            <Text variant="titleLarge" style={styles.subtitle}>
-              결제
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Button
-                mode="text"
-                onPress={handlePaymentsPress}
-                style={{ flex: 1 }}
-                labelStyle={styles.labelText}
-              >
-                결제수단 관리
-              </Button>
-              <View style={{ flex: 1 }} />
-            </View>
-            <Divider style={styles.divider} />
-            <Text variant="titleLarge" style={styles.subtitle}>
-              고객센터 및 설정
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Button
-                mode="text"
-                onPress={() => {}}
-                style={{ flex: 1 }}
-                labelStyle={styles.labelText}
-              >
-                1:1 문의
-              </Button>
-              <Button
-                mode="text"
-                onPress={() => navigation.navigate("FAQ")}
-                style={{ flex: 1 }}
-                labelStyle={styles.labelText}
-              >
-                자주 묻는 질문
-              </Button>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Button
-                mode="text"
-                onPress={() => {}}
-                style={{ flex: 1 }}
-                labelStyle={styles.labelText}
-              >
-                알림 맞춤 설정
-              </Button>
-              <Button
-                mode="text"
-                onPress={() => {}}
-                style={{ flex: 1 }}
-                labelStyle={styles.labelText}
-              >
-                ..?
-              </Button>
-            </View>
-            <Divider style={styles.divider} />
           </View>
         </View>
-      </ScrollView>
-      <LoginDialog
-        visible={dialogVisible}
-        title="로그인"
-        contents="로그인이 필요한 서비스입니다."
-        onClose={() => setDialogVisible(false)}
-      />
-    </>
+        <View style={styles.others}>
+          <Divider style={styles.divider} />
+          <Text variant="titleLarge" style={styles.subtitle}>
+            업그레이드
+          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              mode="text"
+              onPress={handleCoachRegisterPress}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              코치 등록하기
+            </Button>
+            <Button
+              mode="text"
+              onPress={handleFacilityRegisterPress}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              시설 등록하기
+            </Button>
+          </View>
+          <Divider style={styles.divider} />
+          <Text variant="titleLarge" style={styles.subtitle}>
+            이벤트
+          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              mode="text"
+              onPress={handleInvitePress}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              친구 초대하기
+            </Button>
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              레슨 코치 초대하기
+            </Button>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              매장 정보 제보하기
+            </Button>
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              진행중인 이벤트
+            </Button>
+          </View>
+        </View>
+        <View style={{ paddingHorizontal: 10 }}>
+          <Divider style={styles.divider} />
+          <Text variant="titleLarge" style={styles.subtitle}>
+            고객센터 및 설정
+          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              공지사항
+            </Button>
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              1:1 문의
+            </Button>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              mode="text"
+              onPress={() => navigation.navigate("FAQ")}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              자주 묻는 질문
+            </Button>
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              알림 맞춤 설정
+            </Button>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              약관 및 정책
+            </Button>
+            <Button
+              mode="text"
+              onPress={() => {}}
+              style={{ flex: 1 }}
+              labelStyle={styles.labelText}
+            >
+              제휴 문의하기
+            </Button>
+          </View>
+          <Divider style={styles.divider} />
+          <Button
+            mode="text"
+            onPress={() => {}}
+            style={{ flex: 1 }}
+            labelStyle={styles.labelText}
+          >
+            현재 버전: Beta 0.0.0
+          </Button>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -247,6 +332,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginVertical: 5,
+  },
+  progress: {
+    marginHorizontal: 20,
+    marginBottom: 10,
+    alignItems: "flex-end",
   },
   others: {
     padding: 10,
@@ -273,5 +363,6 @@ const styles = StyleSheet.create({
   labelText: {
     fontSize: 20,
     color: "black",
+    textAlign: "left",
   },
 });

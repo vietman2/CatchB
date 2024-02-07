@@ -18,10 +18,17 @@ export default function PostSimple({ post }: Props) {
     useNavigation<CommunityStackScreenProps<"PostDetail">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
-  const handlePress = () => {
-    dispatch(setSelectedPost(post));
+  const handlePress = async () => {
+    await dispatch(setSelectedPost(post));
     navigation.navigate("PostDetail");
   };
+
+  const renderPostBody = () => {
+    if (post.body.length > 100) {
+      return post.body.slice(0, 100) + "...";
+    }
+    return post.body;
+  }
 
   return (
     <TouchableOpacity onPress={handlePress}>
@@ -32,7 +39,7 @@ export default function PostSimple({ post }: Props) {
         <Text variant="titleLarge" style={styles.title}>
           {post.title}
         </Text>
-        <Text variant="titleMedium">{post.body}</Text>
+        <Text variant="titleMedium">{renderPostBody()}</Text>
         <Text style={styles.infoText}>{post.author_name}</Text>
         <View style={styles.extraInfo}>
           <View style={styles.inner}>

@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Menu, Text, TextInput } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import MenuWithIcon from "../../../components/Menus/MenuWithIcon";
 import { themeColors } from "../../../variables/colors";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
 
 export default function PostCreate() {
-  const [forumMenuVisible, setForumMenuVisible] = useState(false);
-  const [subforumMenuVisible, setSubforumMenuVisible] = useState(false);
   const navigation =
     useNavigation<CommunityStackScreenProps<"PostCreate">["navigation"]>();
-
-  const openForumMenu = () => setForumMenuVisible(true);
-  const closeForumMenu = () => setForumMenuVisible(false);
-  const openSubforumMenu = () => setSubforumMenuVisible(true);
-  const closeSubforumMenu = () => setSubforumMenuVisible(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -31,30 +23,15 @@ export default function PostCreate() {
   }, []);
 
   const handleCreatePost = () => {
-    console.log("Create Post");
+    // TODO: API 연동
+    // + setSelectedPost to new post
+    navigation.navigate("PostDetail");
   };
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row" }}>
-        <Menu
-          visible={forumMenuVisible}
-          onDismiss={closeForumMenu}
-          anchor={<MenuWithIcon text="선택" openMenu={openForumMenu} />}
-          anchorPosition="bottom"
-        >
-          <Menu.Item dense onPress={() => {}} title="Item 1" />
-          <Menu.Item dense onPress={() => {}} title="Item 2" />
-        </Menu>
-        <Menu
-          visible={subforumMenuVisible}
-          onDismiss={closeSubforumMenu}
-          anchor={<MenuWithIcon text="선택" openMenu={openSubforumMenu} />}
-          anchorPosition="bottom"
-        >
-          <Menu.Item dense onPress={() => {}} title="Item 1" />
-        </Menu>
-      </View>
+      <Text variant="headlineSmall">준비중입니다.</Text>
+      {/* 
       <TextInput placeholder="제목을 입력해주세요 (최대 50자)" mode="outlined" style={{ marginTop: 20 }} />
       <TextInput
         placeholder={"내용을 입력해주세요. (최소 20자 ~ 최대 1000자)\n사진은 최대 5장 올릴 수 있어요."}
@@ -62,7 +39,7 @@ export default function PostCreate() {
         style={{ marginTop: 20 }}
         multiline
         numberOfLines={10}
-      />
+      /> */}
     </View>
   );
 }
@@ -72,6 +49,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themeColors.primaryContainer,
     paddingHorizontal: 20,
+    alignItems: "center",     // TODO: remove
+    justifyContent: "center", // TODO: remove
   },
   button: {
     marginRight: 15,

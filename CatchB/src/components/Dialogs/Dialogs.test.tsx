@@ -33,7 +33,7 @@ describe("<SwitchModeDialog />", () => {
         setMode={() => {}}
       />,
       {
-        preloadedState: { mode: { mode: "basic" } },
+        preloadedState: { general: { mode: "basic", location: null } },
       }
     );
 
@@ -50,7 +50,7 @@ describe("<SwitchModeDialog />", () => {
         setMode={() => {}}
       />,
       {
-        preloadedState: { mode: { mode: "pro" } },
+        preloadedState: { general: { mode: "pro", location: null } },
       }
     );
 
@@ -67,7 +67,7 @@ describe("<SwitchModeDialog />", () => {
         setMode={() => {}}
       />,
       {
-        preloadedState: { mode: { mode: "basic" } },
+        preloadedState: { general: { mode: "basic", location: null } },
       }
     );
 
@@ -84,7 +84,7 @@ describe("<SwitchModeDialog />", () => {
         setMode={() => {}}
       />,
       {
-        preloadedState: { mode: { mode: "basic" } },
+        preloadedState: { general: { mode: "basic", location: null } },
       }
     );
 
