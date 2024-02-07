@@ -17,7 +17,7 @@ export default function ProgressSteps({ steps, currentStep }: Readonly<Props>) {
   return (
     <View style={styles.horizontal}>
       {steps.map((step, index) => (
-        <View key={index} style={styles.horizontal}>
+        <View key={step.step} style={styles.horizontal}>
           <View style={styles.inner}>
             <View
               style={[

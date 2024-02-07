@@ -12,25 +12,18 @@ import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 import { Coupon as CouponType } from "../../../variables/types";
 
-const NoCoupon = () => {
+function NoCoupon() {
   return (
-    <View style={styles.noCoupon}>
-      <View
-        style={{
-          backgroundColor: "gray",
-          width: 100,
-          height: 100,
-          marginBottom: 20,
-        }}
-      />
+    <View style={styles.noCouponContainer}>
+      <View style={styles.noCoupon} />
       <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
         보유한 쿠폰이 없습니다.
       </Text>
     </View>
   );
-};
+}
 
-const MyCoupon = ({ coupon }: { coupon: CouponType }) => {
+function MyCoupon({ coupon }: { coupon: CouponType }) {
   return (
     <View style={styles.coupon}>
       <LinearGradient
@@ -55,9 +48,9 @@ const MyCoupon = ({ coupon }: { coupon: CouponType }) => {
       </LinearGradient>
     </View>
   );
-};
+}
 
-const NewCoupon = () => {
+function NewCoupon() {
   return (
     <View style={styles.coupon}>
       <LinearGradient
@@ -104,6 +97,32 @@ export default function CouponList() {
     getCoupons();
   }, []);
 
+  function MyActivityIndicator() {
+    return (
+      <ActivityIndicator
+        size={"large"}
+        color={themeColors.primary}
+        style={{ flex: 1, marginBottom: 30 }}
+      />
+    );
+  }
+
+  const renderCoupons = () => {
+    if (coupons.length === 0) {
+      return <NoCoupon />;
+    } else {
+      return (
+        <ScrollView>
+          {coupons.map((coupon) => {
+            return <MyCoupon key={coupon.issued_at} coupon={coupon} />;
+          })}
+          <Divider />
+          <NewCoupon />
+        </ScrollView>
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -112,23 +131,7 @@ export default function CouponList() {
           <Text variant="titleMedium">+ 쿠폰등록</Text>
         </TouchableOpacity>
       </View>
-      {loading ? (
-        <ActivityIndicator
-          size={"large"}
-          color={themeColors.primary}
-          style={{ flex: 1, marginBottom: 30 }}
-        />
-      ) : coupons.length === 0 ? (
-        <NoCoupon />
-      ) : (
-        <ScrollView>
-          {coupons.map((coupon, index) => {
-            return <MyCoupon key={index} coupon={coupon} />;
-          })}
-          <Divider />
-          <NewCoupon />
-        </ScrollView>
-      )}
+      {loading ? <MyActivityIndicator /> : renderCoupons()}
     </View>
   );
 }
@@ -146,6 +149,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   noCoupon: {
+    backgroundColor: "gray",
+    width: 100,
+    height: 100,
+    marginBottom: 20,
+  },
+  noCouponContainer: {
     justifyContent: "center",
     alignItems: "center",
   },

@@ -39,7 +39,7 @@ export const CheckStatus = ({ done, total }: Props) => {
     return `${Math.round((done / total) * 100)}%`;
   };
 
-  const CenterLabel = () => {
+  function CenterLabel () {
     return <Text>{getRate()}</Text>;
   }
 

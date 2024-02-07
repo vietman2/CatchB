@@ -26,6 +26,20 @@ export default function NearbyStack() {
   const navigation =
     useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
 
+  const goBackToNearbyScreen = () => {
+    return <BackButton onPress={() => navigation.navigate("NearbyScreen")} />;
+  };
+
+  const goBackToFacilityDetail = () => {
+    return <BackButton onPress={() => navigation.navigate("FacilityDetail")} />;
+  };
+
+  const goBackToFacilityReserve = () => {
+    return (
+      <BackButton onPress={() => navigation.navigate("FacilityReserve")} />
+    );
+  };
+
   return (
     <NearbyNavStack.Navigator
       initialRouteName="NearbyScreen"
@@ -40,11 +54,7 @@ export default function NearbyStack() {
         component={FacilityDetail}
         options={{
           headerShown: true,
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("NearbyScreen")} />
-            );
-          },
+          headerLeft: goBackToNearbyScreen,
           headerTitle: selectedFacility?.name,
           headerBackTitleVisible: false,
         }}
@@ -54,13 +64,7 @@ export default function NearbyStack() {
         component={FacilityReserve}
         options={{
           headerShown: true,
-          headerLeft: () => {
-            return (
-              <BackButton
-                onPress={() => navigation.navigate("FacilityDetail")}
-              />
-            );
-          },
+          headerLeft: goBackToFacilityDetail,
           headerTitle: "예약하기",
           headerBackTitleVisible: false,
         }}
@@ -70,11 +74,7 @@ export default function NearbyStack() {
         component={CoachDetail}
         options={{
           headerShown: true,
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("NearbyScreen")} />
-            );
-          },
+          headerLeft: goBackToNearbyScreen,
           headerTitle: `${selectedCoach?.coach_name} 코치`,
           headerBackTitleVisible: false,
         }}
@@ -84,13 +84,7 @@ export default function NearbyStack() {
         component={Payment}
         options={{
           headerShown: true,
-          headerLeft: () => {
-            return (
-              <BackButton
-                onPress={() => navigation.navigate("FacilityReserve")}
-              />
-            );
-          },
+          headerLeft: goBackToFacilityReserve,
           headerTitle: "결제하기",
           headerBackTitleVisible: false,
         }}

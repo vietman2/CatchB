@@ -73,43 +73,37 @@ export default function Login() {
 
   const onPressEyeIcon = () => setIsPasswordVisible(!isPasswordVisible);
 
-  const emailIcon = (
-    <TextInput.Icon
-      icon={() => (
-        <MaterialCommunityIcons
-          name="account-outline"
-          size={24}
-          color={themeColors.primary}
-        />
-      )}
-    />
-  );
+  function EmailIcon() {
+    return (
+      <MaterialCommunityIcons
+        name="account-outline"
+        size={24}
+        color={themeColors.primary}
+      />
+    );
+  }
 
-  const passwordIcon = (
-    <TextInput.Icon
-      icon={() => (
-        <MaterialCommunityIcons
-          name="lock-outline"
-          size={24}
-          color={themeColors.primary}
-        />
-      )}
-    />
-  );
+  function PasswordIcon() {
+    return (
+      <MaterialCommunityIcons
+        name="lock-outline"
+        size={24}
+        color={themeColors.primary}
+      />
+    );
+  }
 
-  const passwordVisibleIcon = (
-    <TextInput.Icon
-      icon={() => (
-        <MaterialCommunityIcons
-          name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
-          size={24}
-          color={themeColors.primary}
-          onPress={onPressEyeIcon}
-          testID="password-eye-icon"
-        />
-      )}
-    />
-  );
+  function PasswordVisibleIcon() {
+    return (
+      <MaterialCommunityIcons
+        name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+        size={24}
+        color={themeColors.primary}
+        onPress={onPressEyeIcon}
+        testID="password-eye-icon"
+      />
+    );
+  }
 
   return (
     <ScrollView style={styles.mainContainer}>
@@ -120,7 +114,7 @@ export default function Login() {
             label="이메일"
             onChangeText={(text) => setUsername(text)}
             value={username}
-            left={emailIcon}
+            left={<TextInput.Icon icon={EmailIcon} />}
             style={{ marginVertical: 5 }}
             testID="username-input"
           />
@@ -129,8 +123,8 @@ export default function Login() {
             onChangeText={(text) => setPassword(text)}
             value={password}
             secureTextEntry={!isPasswordVisible}
-            left={passwordIcon}
-            right={passwordVisibleIcon}
+            left={<TextInput.Icon icon={PasswordIcon} />}
+            right={<TextInput.Icon icon={PasswordVisibleIcon} />}
             style={{ marginVertical: 5 }}
             testID="password-input"
           />

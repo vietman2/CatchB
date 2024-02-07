@@ -9,20 +9,25 @@ interface Props {
   reservations: Reservation[];
 }
 
-export default function CheckReservations({ tab, reservations }: Readonly<Props>) {
+type Tab = "신규" | "미확정인" | "취소된" | "완료된";
+
+function NoReservations({ message }: { message: Tab }) {
+  return (
+    <View style={styles.reservation}>
+      <Text>{message} 예약이 없습니다.</Text>
+    </View>
+  );
+}
+
+export default function CheckReservations({
+  tab,
+  reservations,
+}: Readonly<Props>) {
   const getMessage = () => {
     if (tab === "New") return "신규";
     if (tab === "Pending") return "미확정인";
     if (tab === "Cancelled") return "취소된";
-    if (tab === "Completed") return "완료된";
-    return "";
-  }
-  const NoReservations = () => {
-    return (
-      <View style={styles.reservation}>
-        <Text>{getMessage()} 예약이 없습니다.</Text>
-      </View>
-    );
+    return "완료된";
   };
 
   const renderReservation = (reservation: Reservation) => {
@@ -63,7 +68,7 @@ export default function CheckReservations({ tab, reservations }: Readonly<Props>
 
   return (
     <View style={styles.container}>
-      {reservations.length === 0 && <NoReservations />}
+      {reservations.length === 0 && <NoReservations message={getMessage()} />}
       {reservations.map((reservation) => renderReservation(reservation))}
     </View>
   );

@@ -17,17 +17,18 @@ export default function CalendarMain() {
     const month = today.getMonth() + 1;
     const date = today.getDate();
 
+    const monthString = month < 10 ? `0${month}` : month;
+    const dateString = date < 10 ? `0${date}` : date;
+
     setToday(
-      `${year}-
-      ${month < 10 ? `0${month}` : month}-
-      ${date < 10 ? `0${date}` : date}`
+      `${year}-${monthString}-${dateString}`
     );
 
     setReady(true);
   }, []);
 
   return (
-    <CalendarProvider date="2024-01-15">
+    <CalendarProvider date="2024-02-15">
       <CalendarComponent
         displayLoadingIndicator={!ready}
         horizontal

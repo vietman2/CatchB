@@ -1,34 +1,28 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function VideoList() {
   const PlaceholderView = ({ color }: { color: string }) => (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: color,
-        height: 200,
-      }}
-    />
+    <View style={[styles.placeholder, { backgroundColor: color }]} />
   );
 
   return (
     <ScrollView>
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.horizontal}>
         <PlaceholderView color="gray" />
         <PlaceholderView color="silver" />
         <PlaceholderView color="lightgray" />
       </View>
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.horizontal}>
         <PlaceholderView color="lemonchiffon" />
         <PlaceholderView color="ivory" />
         <PlaceholderView color="beige" />
       </View>
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.horizontal}>
         <PlaceholderView color="green" />
         <PlaceholderView color="lightgreen" />
         <PlaceholderView color="teal" />
       </View>
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.horizontal}>
         <PlaceholderView color="blue" />
         <PlaceholderView color="skyblue" />
         <PlaceholderView color="lightblue" />
@@ -36,3 +30,13 @@ export default function VideoList() {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  horizontal: {
+    flexDirection: "row",
+  },
+  placeholder: {
+    flex: 1,
+    height: 200,
+  },
+});

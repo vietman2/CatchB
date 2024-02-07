@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as expoLocation from "expo-location";
 
 import TabContainer from "./TabStack";
-import { renderWithProviders } from "../../utils/test-utils";
+import { renderWithProviders, TestNetworkError } from "../../utils/test-utils";
 import { admin } from "../../variables/mvp_dummy_data/user";
 import * as SecureStore from "../../store/secure";
 import * as userService from "../../services/user_management/account";
@@ -27,7 +27,7 @@ jest.spyOn(SecureStore, "get").mockImplementation((key) => {
   }
   if (key === "uuid") {
     return Promise.resolve("uuid");
-  } else return Promise.reject();
+  } else return Promise.reject(new Error("error"));
 });
 jest.spyOn(axios, "get").mockImplementation(() =>
   Promise.resolve({
@@ -177,7 +177,7 @@ describe("<TabContainer />", () => {
       }
       if (key === "uuid") {
         return Promise.resolve("uuid");
-      } else return Promise.reject();
+      } else return Promise.reject(new Error("error"));
     });
 
     await waitFor(() => render());
