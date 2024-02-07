@@ -1,17 +1,13 @@
-import { useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 import { CoachType } from "../../../variables/types/products";
-import { themeColors } from "../../../variables/colors";
 
 interface Props {
   coach: CoachType;
 }
 
 export default function CoachSimple({ coach }: Props) {
-  const [isLiked, setIsLiked] = useState(false);
-
   return (
     <View style={styles.container}>
       <View style={styles.imageBox} />
@@ -24,21 +20,6 @@ export default function CoachSimple({ coach }: Props) {
           <Text>{coach.rating}/10</Text>
         </View>
         <Text>{coach.working_area}</Text>
-      </View>
-      <View style={styles.interactionBox}>
-        <TouchableOpacity
-          onPress={() => setIsLiked(!isLiked)}
-          testID="like-icon"
-        >
-          <Icon
-            source={isLiked ? "heart" : "heart-outline"}
-            size={20}
-            color={themeColors.primary}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
-          <Icon source="share-outline" size={20} testID="share-icon" />
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -66,10 +47,5 @@ const styles = StyleSheet.create({
   rating: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  interactionBox: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
   },
 });
