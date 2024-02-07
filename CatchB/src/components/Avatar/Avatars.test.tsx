@@ -2,6 +2,7 @@ import { render } from "@testing-library/react-native";
 
 import AvatarHorizontal from "./AvatarHorizontal";
 import AvatarImage from "./AvatarImage";
+import CoachProfile from "./CoachProfile";
 import { admin } from "../../variables/mvp_dummy_data/user";
 
 // mock react-native-paper Avatar.Icon component
@@ -13,6 +14,7 @@ jest.mock("react-native-paper", () => {
       Icon: (props: any) => <View testID="avatar-icon" {...props} />,
       Image: (props: any) => <View testID="avatar-image" {...props} />,
     },
+    Text: "Text",
   };
 });
 
@@ -37,5 +39,11 @@ describe("<AvatarImage />", () => {
   it("renders the avatar icon when user is logged in", () => {
     const { getByTestId } = render(<AvatarImage />);
     expect(getByTestId("avatar-icon")).toBeTruthy();
+  });
+});
+
+describe("<CoachProfile />", () => {
+  it("renders correctly", () => {
+    const { getByTestId } = render(<CoachProfile name="test" />);
   });
 });
