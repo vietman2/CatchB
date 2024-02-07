@@ -7,14 +7,20 @@ interface CardProps {
   icon: string;
 }
 
-export default function SimpleCard({ children, title, icon }: CardProps) {
+export default function SimpleCard({
+  children,
+  title,
+  icon,
+}: Readonly<CardProps>) {
+  const leftIcon = () => <Icon source={icon} size={24} />;
+
   return (
     <Card style={styles.card}>
       <Card.Title
         title={title}
         titleVariant="headlineSmall"
         titleStyle={styles.title}
-        left={() => <Icon source={icon} size={24} />}
+        left={leftIcon}
         leftStyle={{ marginRight: 0 }}
       />
       {children}

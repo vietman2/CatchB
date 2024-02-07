@@ -15,7 +15,7 @@ export default function TabButton({
   showArrow,
   onPress,
   paddingVertical,
-}: Props) {
+}: Readonly<Props>) {
   return (
     <TouchableOpacity
       style={{ ...styles.tab, paddingVertical: paddingVertical }}

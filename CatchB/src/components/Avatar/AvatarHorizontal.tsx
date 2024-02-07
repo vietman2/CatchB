@@ -8,7 +8,7 @@ interface ProfileBadgeProps {
   user: UserProfile | null;
 }
 
-export default function AvatarHorizontal(props: ProfileBadgeProps) {
+export default function AvatarHorizontal(props: Readonly<ProfileBadgeProps>) {
   return (
     <View style={styles.container}>
       <Avatar.Icon

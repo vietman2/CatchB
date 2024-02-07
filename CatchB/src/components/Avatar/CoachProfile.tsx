@@ -6,7 +6,7 @@ interface Props {
   name: string;
 }
 
-export default function CoachProfile({ name }: Props) {
+export default function CoachProfile({ name }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <AvatarImage />

@@ -14,7 +14,7 @@ export const NotificationChip = ({
   icon,
   backgroundColor,
   textColor,
-}: Props) => (
+}: Readonly<Props>) => (
   <Chip
     style={{ ...styles.chip, backgroundColor: backgroundColor }}
     textStyle={{
@@ -34,7 +34,7 @@ export const NotificationChipWithSurface = ({
   backgroundColor,
   textColor,
   redDot,
-}: Props) => (
+}: Readonly<Props>) => (
   <Surface
     elevation={4}
     style={
@@ -57,7 +57,7 @@ export const NotificationChipWithSurface = ({
   </Surface>
 );
 
-export const SimpleChip = ({ text, backgroundColor, textColor }: Props) => (
+export const SimpleChip = ({ text, backgroundColor, textColor }: Readonly<Props>) => (
   <Chip
     style={{ ...styles.simpleChip, backgroundColor: backgroundColor }}
     textStyle={{

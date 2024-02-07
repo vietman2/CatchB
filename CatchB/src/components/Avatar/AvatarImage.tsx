@@ -7,7 +7,7 @@ interface Props {
   profileImage?: string;
 }
 
-export default function AvatarImage({ profileImage }: Props) {
+export default function AvatarImage({ profileImage }: Readonly<Props>) {
   if (profileImage) {
     return (
       <Avatar.Image

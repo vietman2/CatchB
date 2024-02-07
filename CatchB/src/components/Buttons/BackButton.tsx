@@ -4,10 +4,6 @@ interface Props {
   onPress: () => void;
 }
 
-export default function BackButton({ onPress }: Props) {
-  return (
-    <>
-      <IconButton icon="arrow-left" onPress={onPress} testID="back" />
-    </>
-  );
+export default function BackButton({ onPress }: Readonly<Props>) {
+  return <IconButton icon="arrow-left" onPress={onPress} testID="back" />;
 }

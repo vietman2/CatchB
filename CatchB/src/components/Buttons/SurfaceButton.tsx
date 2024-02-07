@@ -6,7 +6,7 @@ interface Props {
   title: string;
 }
 
-export default function SurfaceButton({ icon, title }: Props) {
+export default function SurfaceButton({ icon, title }: Readonly<Props>) {
   return (
     <Surface elevation={4} style={styles.surface}>
       <Icon source={icon} size={45} />
