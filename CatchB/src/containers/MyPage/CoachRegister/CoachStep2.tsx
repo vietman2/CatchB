@@ -3,8 +3,8 @@ import { ScrollView, StyleSheet } from "react-native";
 import { Button, Divider, Text, TextInput } from "react-native-paper";
 
 import MultiCheck from "../../../components/Checkboxes/MultiCheck";
-import { themeColors } from "../../../variables/colors";
 import WorkTimePickers from "../../../components/Pickers/WorkTimePickers";
+import { themeColors } from "../../../variables/colors";
 
 interface Props {
   onFinish: () => void;
@@ -29,7 +29,7 @@ export default function CoachStep2({ onFinish }: Props) {
   const handleSubmitSuccess = () => {
     onFinish();
   };
-/*
+  /*
   const handleSubmit = () => {
     // TODO: API 연동
   };*/
@@ -125,16 +125,6 @@ const styles = StyleSheet.create({
   description: {
     marginBottom: 5,
     color: "gray",
-  },
-  timeBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 5,
-  },
-  timePickerBox: {
-    flex: 3,
-    marginHorizontal: 10,
-    height: 35,
   },
   button: {
     marginTop: 10,

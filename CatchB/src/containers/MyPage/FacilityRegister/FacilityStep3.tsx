@@ -1,7 +1,8 @@
-import { ScrollView, StyleSheet, View } from "react-native";
-import { Button, Icon, Text } from "react-native-paper";
+import { ScrollView, StyleSheet } from "react-native";
+import { Button, Text } from "react-native-paper";
 
 import { themeColors } from "../../../variables/colors";
+import RegisterProTerms from "../../../components/Terms/RegisterProTerms";
 
 interface Props {
   onFinish: () => void;
@@ -11,7 +12,7 @@ export default function FacilityStep3({ onFinish }: Props) {
   const handleSubmitSuccess = () => {
     onFinish();
   };
-/*
+  /*
   const handleNext = () => {
     //TODO: API 연동
   };
@@ -34,25 +35,7 @@ export default function FacilityStep3({ onFinish }: Props) {
       <Button mode="text" icon="plus-circle">
         계좌 정보 추가하기
       </Button>
-      <View style={styles.termsBox}>
-        <Text>Catch B 시설 회원약관</Text>
-        <View style={styles.terms}>
-          <View style={styles.horizontal}>
-            <Icon source="checkbox-blank-outline" size={16} />
-            <Text> Catch B 안심 시설 정책 동의</Text>
-            <Text style={styles.required}> (필수)</Text>
-          </View>
-          <Text>보기</Text>
-        </View>
-        <View style={styles.terms}>
-          <View style={styles.horizontal}>
-            <Icon source="checkbox-outline" size={16} />
-            <Text> Catch B 개인정보 처리 방침</Text>
-            <Text style={styles.required}> (필수)</Text>
-          </View>
-          <Text>보기</Text>
-        </View>
-      </View>
+      <RegisterProTerms />
       <Button
         mode="contained"
         style={{ marginTop: 10, marginBottom: 20 }}
@@ -83,24 +66,5 @@ const styles = StyleSheet.create({
   description: {
     marginBottom: 5,
     color: "gray",
-  },
-  termsBox: {
-    marginTop: 10,
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 5,
-    padding: 5,
-  },
-  terms: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 5,
-  },
-  horizontal: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  required: {
-    color: "red",
   },
 });

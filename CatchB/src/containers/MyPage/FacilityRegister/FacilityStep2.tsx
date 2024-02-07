@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, View, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, Divider, Text, TextInput } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 
