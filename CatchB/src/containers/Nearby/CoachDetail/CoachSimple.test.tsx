@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react-native";
+import { render } from "@testing-library/react-native";
 
 import CoachSimple from "./CoachSimple";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
