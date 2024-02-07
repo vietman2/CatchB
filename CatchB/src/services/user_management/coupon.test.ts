@@ -2,6 +2,7 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import { getCouponList, registerCoupon, checkStatus } from "./coupon";
+import { TestNetworkError } from "../../utils/test-utils";
 
 describe("getCouponList", () => {
   it("should successfully get coupon list", async () => {
@@ -31,16 +32,13 @@ describe("getCouponList", () => {
   });
 
   it("should fail to get coupon list", async () => {
-    jest.spyOn(axios, "get").mockImplementation(() =>
-      Promise.reject({
-        response: {
-          status: 400,
-          data: {
-            detail: "토큰이 만료되었습니다.",
-          },
-        },
-      })
-    );
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
 
     const access = "access";
 
