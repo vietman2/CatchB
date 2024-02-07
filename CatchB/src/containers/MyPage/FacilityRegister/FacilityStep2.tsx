@@ -81,7 +81,7 @@ export default function FacilityStep2({ onFinish }: Props) {
   };
 
   const uploadImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
 

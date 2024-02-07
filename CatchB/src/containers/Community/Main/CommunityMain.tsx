@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { View, useWindowDimensions } from "react-native";
 import { Text, FAB } from "react-native-paper";
@@ -51,7 +52,9 @@ export default function Community() {
     }
   ) => {
     if (props.route.key === "야구톡") {
-      return <CommunityList hideFAB={hideFAB} showFAB={showFAB} mode="야구톡" />;
+      return (
+        <CommunityList hideFAB={hideFAB} showFAB={showFAB} mode="야구톡" />
+      );
     } else if (props.route.key === "모집") {
       return <CommunityList hideFAB={hideFAB} showFAB={showFAB} mode="모집" />;
     } else if (props.route.key === "자세 분석") {

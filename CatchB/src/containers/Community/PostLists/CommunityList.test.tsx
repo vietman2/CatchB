@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render } from "@testing-library/react-native";
 
 import CommunityList from "./CommunityList";

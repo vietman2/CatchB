@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/display-name */
 import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -18,7 +20,7 @@ jest.mock(
   () => "VerticalDivider"
 );
 jest.mock("../../../components/Buttons/TabButton", () => {
-  const { View, Text } = require("react-native");
+  const { View, Text } = jest.requireActual("react-native");
   return ({ title, detail, onPress }: any) => {
     return (
       <View testID="tab-button" onPress={onPress}>

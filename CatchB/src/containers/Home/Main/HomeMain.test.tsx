@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent } from "@testing-library/react-native";
 
 import HomeMain from "./HomeMain";

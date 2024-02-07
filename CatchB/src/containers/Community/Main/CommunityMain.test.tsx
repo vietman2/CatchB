@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/display-name */
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -88,9 +90,7 @@ describe("<CommunityMain />", () => {
   });
 
   it("handles props correctly", async () => {
-    const { getAllByText, getByText } = renderWithProviders(
-      components()
-    );
+    const { getAllByText, getByText } = renderWithProviders(components());
 
     waitFor(() => {
       fireEvent.press(getByText("Hide"));

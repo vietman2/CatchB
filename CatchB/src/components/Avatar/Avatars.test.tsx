@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render } from "@testing-library/react-native";
 
 import AvatarHorizontal from "./AvatarHorizontal";
@@ -7,7 +8,7 @@ import { admin } from "../../variables/mvp_dummy_data/user";
 
 // mock react-native-paper Avatar.Icon component
 jest.mock("react-native-paper", () => {
-  const { View } = require("react-native");
+  const { View } = jest.requireActual("react-native");
   return {
     ...jest.requireActual("react-native-paper"),
     Avatar: {

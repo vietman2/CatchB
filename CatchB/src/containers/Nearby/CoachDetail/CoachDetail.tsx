@@ -8,11 +8,11 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Icon, Text } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+//import { useNavigation } from "@react-navigation/native";
 
 import { themeColors } from "../../../variables/colors";
 import { RootState } from "../../../store/store";
-import { NearbyStackScreenProps } from "../../../variables/navigation";
+//import { NearbyStackScreenProps } from "../../../variables/navigation";
 
 const { width, height } = Dimensions.get("window");
 

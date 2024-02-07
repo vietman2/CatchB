@@ -1,4 +1,5 @@
-import { waitFor, fireEvent } from "@testing-library/react-native";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -26,7 +27,7 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("react-native-maps", () => {
-  const { View } = require("react-native");
+  const { View } = jest.requireActual("react-native");
   const MockMapView = (props: any) => {
     return <View>{props.children}</View>;
   };
