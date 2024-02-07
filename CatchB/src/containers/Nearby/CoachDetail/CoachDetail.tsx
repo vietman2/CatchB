@@ -1,10 +1,8 @@
-import { useState } from "react";
 import {
   View,
   StyleSheet,
   ScrollView,
   Dimensions,
-  TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Icon, Text } from "react-native-paper";
@@ -15,7 +13,6 @@ import { RootState } from "../../../store/store";
 const { width, height } = Dimensions.get("window");
 
 export default function CoachDetail() {
-  const [isLiked, setIsLiked] = useState(false);
   const coach = useSelector((state: RootState) => state.coach.selectedCoach);
 
   return (
@@ -33,21 +30,6 @@ export default function CoachDetail() {
           <View style={styles.rating}>
             <Icon source="star" size={20} color="gold" />
             <Text>{coach.rating}/10</Text>
-          </View>
-          <View style={styles.interactions}>
-            <TouchableOpacity
-              onPress={() => setIsLiked(!isLiked)}
-              testID="like"
-            >
-              <Icon
-                source={isLiked ? "heart" : "heart-outline"}
-                size={20}
-                color={themeColors.primary}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}}>
-              <Icon source="share-outline" size={20} />
-            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.description}>
