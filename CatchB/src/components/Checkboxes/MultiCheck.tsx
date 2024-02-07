@@ -9,7 +9,11 @@ interface Props {
   setSelected: (selected: string[]) => void;
 }
 
-export default function MultiCheck({ options, selected, setSelected }: Props) {
+export default function MultiCheck({
+  options,
+  selected,
+  setSelected,
+}: Readonly<Props>) {
   const { width } = Dimensions.get("window");
   const itemWidth = (width - 40) / 2;
 
@@ -26,26 +30,24 @@ export default function MultiCheck({ options, selected, setSelected }: Props) {
   };
 
   return (
-    <>
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        {options.map((option, index) => (
-          <View key={index} style={{ width: itemWidth }}>
-            <TouchableOpacity
-              onPress={() => toggleSelected(option)}
-              style={{
-                marginRight: 10,
-                marginBottom: 10,
-                borderRadius: 8,
-                backgroundColor: isSelected(option)
-                  ? themeColors.tertiaryContainer
-                  : themeColors.tertiary,
-              }}
-            >
-              <MyChip label={option} selected={isSelected(option)} />
-            </TouchableOpacity>
-          </View>
-        ))}
-      </View>
-    </>
+    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      {options.map((option, index) => (
+        <View key={index} style={{ width: itemWidth }}>
+          <TouchableOpacity
+            onPress={() => toggleSelected(option)}
+            style={{
+              marginRight: 10,
+              marginBottom: 10,
+              borderRadius: 8,
+              backgroundColor: isSelected(option)
+                ? themeColors.tertiaryContainer
+                : themeColors.tertiary,
+            }}
+          >
+            <MyChip label={option} selected={isSelected(option)} />
+          </TouchableOpacity>
+        </View>
+      ))}
+    </View>
   );
 }

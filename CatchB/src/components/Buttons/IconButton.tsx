@@ -8,7 +8,7 @@ interface Props {
   title: string;
 }
 
-export default function IconButton({ icon, title }: Props) {
+export default function IconButton({ icon, title }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <Icon source={icon} size={20} color={themeColors.primary} />

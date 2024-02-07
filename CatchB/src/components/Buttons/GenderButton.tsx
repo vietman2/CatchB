@@ -7,7 +7,7 @@ interface Props {
   setGender: (gender: SetStateAction<"M" | "F" | "N">) => void;
 }
 
-export default function GenderButton({ gender, setGender }: Props) {
+export default function GenderButton({ gender, setGender }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => setGender("M")} testID="male-button">

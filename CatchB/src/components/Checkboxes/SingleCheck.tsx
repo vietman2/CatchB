@@ -15,8 +15,8 @@ export default function SingleCheck({
   selected,
   setSelected,
   required,
-}: Props) {
-  const isRequired = required ? true : false;
+}: Readonly<Props>) {
+  const isRequired = required ? required : false;
   const { width } = Dimensions.get("window");
   const itemWidth = (width - 40) / 3;
 
@@ -37,26 +37,24 @@ export default function SingleCheck({
   };
 
   return (
-    <>
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        {options.map((option, index) => (
-          <View key={index} style={{ width: itemWidth }}>
-            <TouchableOpacity
-              onPress={() => toggleSelected(option)}
-              style={{
-                marginRight: 10,
-                marginBottom: 10,
-                borderRadius: 8,
-                backgroundColor: isSelected(option)
-                  ? themeColors.tertiaryContainer
-                  : themeColors.tertiary,
-              }}
-            >
-              <MyChip label={option} selected={isSelected(option)} />
-            </TouchableOpacity>
-          </View>
-        ))}
-      </View>
-    </>
+    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      {options.map((option, index) => (
+        <View key={index} style={{ width: itemWidth }}>
+          <TouchableOpacity
+            onPress={() => toggleSelected(option)}
+            style={{
+              marginRight: 10,
+              marginBottom: 10,
+              borderRadius: 8,
+              backgroundColor: isSelected(option)
+                ? themeColors.tertiaryContainer
+                : themeColors.tertiary,
+            }}
+          >
+            <MyChip label={option} selected={isSelected(option)} />
+          </TouchableOpacity>
+        </View>
+      ))}
+    </View>
   );
 }

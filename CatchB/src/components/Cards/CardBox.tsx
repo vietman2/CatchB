@@ -17,7 +17,7 @@ export default function CardBox({
   description,
   icon,
   iconColor,
-}: BoxProps) {
+}: Readonly<BoxProps>) {
   return (
     <Card style={styles.box}>
       <Card.Content style={styles.content}>
