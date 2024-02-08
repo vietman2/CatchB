@@ -33,3 +33,16 @@ export function renderWithProviders(
 
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
+
+export class TestNetworkError extends Error {
+  response: {
+    status: number;
+    data: string;
+  };
+
+  constructor(response: { status: number; data: string }) {
+    super(response.data);
+    this.response = response;
+    this.name = "TestNetworkError";
+  }
+}

@@ -25,7 +25,7 @@ interface Props {
   navigation: NavigationProp;
 }
 
-export default function UserProfile({ navigation }: Props) {
+export default function UserProfile({ navigation }: Readonly<Props>) {
   const [visible, setVisible] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
   const token = useSelector((state: RootState) => state.auth.token);

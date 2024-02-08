@@ -7,7 +7,7 @@ interface Props {
   coach: CoachType;
 }
 
-export default function CoachSimple({ coach }: Props) {
+export default function CoachSimple({ coach }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <View style={styles.imageBox} />

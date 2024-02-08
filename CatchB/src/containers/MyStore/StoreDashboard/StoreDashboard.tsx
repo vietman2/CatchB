@@ -23,6 +23,14 @@ export default function StoreDashboard() {
     return `${Math.round((success / total) * 100)}%`;
   };
 
+  const CenterComponent = () => {
+return (
+                <Text variant="headlineSmall" style={styles.bold}>
+                  {getSuccessRate()}
+                </Text>
+              );
+            }
+
   return (
     <View style={styles.container}>
       <LineChart
@@ -32,14 +40,8 @@ export default function StoreDashboard() {
         thickness={3}
         adjustToWidth
       />
-      <Divider style={{ marginTop: 20 }} />
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 20,
-          justifyContent: "space-between",
-        }}
-      >
+      <Divider style={styles.divider} />
+      <View style={styles.group}>
         <View>
           <Text variant="headlineSmall">예약 건수</Text>
           <Text variant="headlineSmall">1,364(0)</Text>
@@ -53,27 +55,15 @@ export default function StoreDashboard() {
           <Text variant="headlineSmall">97</Text>
         </View>
       </View>
-      <Divider style={{ marginTop: 20 }} />
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 20,
-          justifyContent: "space-between",
-        }}
-      >
+      <Divider style={styles.divider} />
+      <View style={styles.group}>
         <View>
           <PieChart
             data={pieData}
             donut
             radius={50}
             innerRadius={35}
-            centerLabelComponent={() => {
-              return (
-                <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                  {getSuccessRate()}
-                </Text>
-              );
-            }}
+            centerLabelComponent={CenterComponent}
           />
           <Text variant="headlineSmall">재예약률</Text>
         </View>
@@ -83,13 +73,7 @@ export default function StoreDashboard() {
             donut
             radius={50}
             innerRadius={35}
-            centerLabelComponent={() => {
-              return (
-                <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                  {getSuccessRate()}
-                </Text>
-              );
-            }}
+            centerLabelComponent={CenterComponent}
           />
           <Text variant="headlineSmall">시설 코치 평점</Text>
         </View>
@@ -99,13 +83,7 @@ export default function StoreDashboard() {
             donut
             radius={50}
             innerRadius={35}
-            centerLabelComponent={() => {
-              return (
-                <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
-                  {getSuccessRate()}
-                </Text>
-              );
-            }}
+            centerLabelComponent={CenterComponent}
           />
           <Text variant="headlineSmall">시설 평점</Text>
         </View>
@@ -119,5 +97,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 5,
     padding: 5,
+  },
+  divider: {
+    marginTop: 20,
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+  group: {
+    flexDirection: "row",
+    marginTop: 20,
+    justifyContent: "space-between",
   },
 });

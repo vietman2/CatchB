@@ -39,6 +39,10 @@ export const CheckStatus = ({ done, total }: Props) => {
     return `${Math.round((done / total) * 100)}%`;
   };
 
+  const CenterLabel = () => {
+    return <Text>{getRate()}</Text>;
+  }
+
   return (
     <View style={styles.status}>
       <View>
@@ -59,9 +63,7 @@ export const CheckStatus = ({ done, total }: Props) => {
         innerRadius={30}
         radius={40}
         donut
-        centerLabelComponent={() => {
-          return <Text>{getRate()}</Text>;
-        }}
+        centerLabelComponent={CenterLabel}
       />
     </View>
   );
