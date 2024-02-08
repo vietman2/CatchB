@@ -11,7 +11,7 @@ export default function WorkTimePickers() {
   const [sundayEnd, setSundayEnd] = useState<string>("");
 
   const formatTime = (input: string) => {
-    let cleanInput = input.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    let cleanInput = input.replace(/\D/g, ""); // Remove non-numeric characters
     if (cleanInput.length > 4) cleanInput = cleanInput.slice(0, 4); // Limit length to 4 digits
 
     // Insert colon between hours and minutes

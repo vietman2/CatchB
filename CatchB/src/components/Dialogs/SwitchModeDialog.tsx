@@ -17,7 +17,7 @@ export default function SwitchModeDialog({
   user,
   onClose,
   setMode,
-}: Props) {
+}: Readonly<Props>) {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [possible, setPossible] = useState(false);

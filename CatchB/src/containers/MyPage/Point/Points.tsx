@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { setPointsState } from "../../../store/slices/user_management/pointSlice";
 import { themeColors } from "../../../variables/colors";
 
-const NoPoints = () => {
+function NoPoints() {
   return (
     <Text variant="bodyLarge" style={{ ...styles.title, textAlign: "center" }}>
       포인트 내역이 없습니다.
@@ -82,8 +82,8 @@ export default function Points() {
           </View>
           {total > 0 ? (
             <ScrollView style={styles.list}>
-              {details.map((detail, index) => {
-                return <PointsDetail key={index} detail={detail} />;
+              {details.map((detail) => {
+                return <PointsDetail key={detail.created_at} detail={detail} />;
               })}
             </ScrollView>
           ) : (

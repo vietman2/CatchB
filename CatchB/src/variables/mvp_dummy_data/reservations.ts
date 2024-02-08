@@ -1,7 +1,8 @@
-import { Reservation, ReservationProduct } from "../types";
+import { Reservation, ReservationProduct } from "../types/products";
 
 export const reservationProducts: ReservationProduct[] = [
   {
+    id: 1,
     title: "2시간 대관",
     description: "2시간 대관 상품입니다",
     price: 20000,
@@ -10,6 +11,7 @@ export const reservationProducts: ReservationProduct[] = [
     minutes: 0,
   },
   {
+    id: 2,
     title: "4시간 대관",
     description: "4시간 대관 상품입니다",
     price: 35000,
@@ -18,6 +20,7 @@ export const reservationProducts: ReservationProduct[] = [
     minutes: 0,
   },
   {
+    id: 3,
     title: "30분 대관",
     description: "역시 녹두는 최저가!",
     price: 2000,
@@ -26,6 +29,7 @@ export const reservationProducts: ReservationProduct[] = [
     minutes: 30,
   },
   {
+    id: 4,
     title: "1시간 예약",
     description: "1시간 예약 상품입니다",
     price: 15000,
@@ -34,6 +38,7 @@ export const reservationProducts: ReservationProduct[] = [
     minutes: 0,
   },
   {
+    id: 5,
     title: "2시간 예약",
     description: "2시간 예약 상품입니다",
     price: 28000,

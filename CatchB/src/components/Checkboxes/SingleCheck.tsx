@@ -16,7 +16,7 @@ export default function SingleCheck({
   setSelected,
   required,
 }: Readonly<Props>) {
-  const isRequired = required ? required : false;
+  const isRequired = required || false;
   const { width } = Dimensions.get("window");
   const itemWidth = (width - 40) / 3;
 
@@ -38,8 +38,8 @@ export default function SingleCheck({
 
   return (
     <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-      {options.map((option, index) => (
-        <View key={index} style={{ width: itemWidth }}>
+      {options.map((option) => (
+        <View key={option} style={{ width: itemWidth }}>
           <TouchableOpacity
             onPress={() => toggleSelected(option)}
             style={{

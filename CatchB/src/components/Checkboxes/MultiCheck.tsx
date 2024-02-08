@@ -31,8 +31,8 @@ export default function MultiCheck({
 
   return (
     <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-      {options.map((option, index) => (
-        <View key={index} style={{ width: itemWidth }}>
+      {options.map((option) => (
+        <View key={option} style={{ width: itemWidth }}>
           <TouchableOpacity
             onPress={() => toggleSelected(option)}
             style={{

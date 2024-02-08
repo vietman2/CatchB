@@ -13,31 +13,31 @@ interface Props {
   onFinish: () => void;
 }
 
+const choices = [
+  "주차가능",
+  "금연시설",
+  "흡연실",
+  "Wi-Fi",
+  "에어컨",
+  "난방",
+  "락커",
+  "탈의실",
+  "샤워실",
+  "사우나",
+  "반려동물 출입가능",
+  "어린이 놀이시설",
+  "화장실",
+  "남녀화장실 구분",
+];
+
+const equipment = ["나무배트", "알루미늄배트", "글러브", "포수장비"];
+
+const others = ["개인 코치 영업 가능", "단체 수업 가능", "헬스기구"];
+
 export default function FacilityStep2({ onFinish }: Readonly<Props>) {
   const [introduction, setIntroduction] = useState<string>("");
   const [selected, setSelected] = useState<string[]>([]);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
-
-  const choices = [
-    "주차가능",
-    "금연시설",
-    "흡연실",
-    "Wi-Fi",
-    "에어컨",
-    "난방",
-    "락커",
-    "탈의실",
-    "샤워실",
-    "사우나",
-    "반려동물 출입가능",
-    "어린이 놀이시설",
-    "화장실",
-    "남녀화장실 구분",
-  ];
-
-  const equipment = ["나무배트", "알루미늄배트", "글러브", "포수장비"];
-
-  const others = ["개인 코치 영업 가능", "단체 수업 가능", "헬스기구"];
 
   const uploadImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -134,8 +134,8 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
           {`시설 소개 사진: (${uploadedImages.length}/10)`}
         </Text>
         <ScrollView horizontal>
-          {uploadedImages.map((uri, index) => (
-            <ImagePreview key={index} uri={uri} />
+          {uploadedImages.map((uri) => (
+            <ImagePreview key={uri} uri={uri} />
           ))}
           <TouchableOpacity onPress={uploadImage} testID="imagePicker">
             <ImagePlaceholder canUpload />

@@ -18,13 +18,13 @@ import { CommunityStackScreenProps } from "../../../variables/navigation";
 export default function Community() {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const [routes] = useState<Route[]>([
+  const routes = [
     { key: "야구톡", title: "야구톡" },
     { key: "모집", title: "모집" },
     { key: "벼룩시작", title: "벼룩시장" },
     { key: "자세 분석", title: "자세 분석" },
     { key: "내 활동", title: "내 활동" },
-  ]);
+  ];
 
   const [visible, setVisible] = useState(true);
   const navigation =
@@ -38,13 +38,13 @@ export default function Community() {
     setVisible(true);
   };
 
-  const PlaceholderComponent = () => {
+  function PlaceholderComponent() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text variant="titleMedium">준비 중입니다.</Text>
       </View>
     );
-  };
+  }
 
   const renderScene = (
     props: SceneRendererProps & {
@@ -89,6 +89,10 @@ export default function Community() {
     );
   };
 
+  const handlePostCreatePress = () => {
+    navigation.navigate("PostCreate");
+  };
+
   return (
     <>
       <TabView
@@ -102,7 +106,7 @@ export default function Community() {
         icon="plus"
         visible={visible}
         style={{ position: "absolute", right: 10, bottom: 10 }}
-        onPress={() => navigation.navigate("PostCreate")}
+        onPress={handlePostCreatePress}
       />
     </>
   );

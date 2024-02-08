@@ -88,8 +88,8 @@ export default function FacilityDetail() {
           </View>
         </View>
         <View style={styles.description}>
-          {facility.bulletPoints.map((bulletPoint, index) => (
-            <Text key={index} variant="bodyLarge">
+          {facility.bulletPoints.map((bulletPoint) => (
+            <Text key={bulletPoint} variant="bodyLarge">
               {"\u2022"} {bulletPoint}
             </Text>
           ))}

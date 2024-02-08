@@ -29,8 +29,8 @@ export default function ProductsTable({ products }: Readonly<Props>) {
           required
         />
       </View>
-      {products.map((product, index) => (
-        <View key={index} style={styles.product}>
+      {products.map((product) => (
+        <View key={product.id} style={styles.product}>
           <Text variant="titleMedium">{product.title}</Text>
           <Text variant="bodyLarge">{renderPrice(product.price)}원</Text>
         </View>
@@ -54,5 +54,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 5,
-  }
+  },
 });

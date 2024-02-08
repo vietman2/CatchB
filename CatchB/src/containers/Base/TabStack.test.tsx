@@ -27,7 +27,7 @@ jest.spyOn(SecureStore, "get").mockImplementation((key) => {
   }
   if (key === "uuid") {
     return Promise.resolve("uuid");
-  } else return Promise.reject();
+  } else return Promise.reject(new Error("error"));
 });
 jest.spyOn(axios, "get").mockImplementation(() =>
   Promise.resolve({
@@ -177,7 +177,7 @@ describe("<TabContainer />", () => {
       }
       if (key === "uuid") {
         return Promise.resolve("uuid");
-      } else return Promise.reject();
+      } else return Promise.reject(new Error("error"));
     });
 
     await waitFor(() => render());

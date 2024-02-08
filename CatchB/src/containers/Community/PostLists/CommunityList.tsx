@@ -4,7 +4,6 @@ import {
   useMemo,
   useCallback,
   useEffect,
-  ReactElement,
 } from "react";
 import {
   View,
@@ -29,6 +28,8 @@ interface Props {
   mode: "야구톡" | "모집";
 }
 
+type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순";
+
 export default function CommunityList({
   hideFAB,
   showFAB,
@@ -36,12 +37,7 @@ export default function CommunityList({
 }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
-  const [sort, setSort] = useState<
-    "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순"
-  >("최신순");
-  const [BottomSheetComponents, setBottomSheetComponents] =
-    useState<ReactElement>(<></>);
-
+  const [sort, setSort] = useState<Sort>("최신순");
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
   const backDrop = useCallback(
@@ -57,7 +53,7 @@ export default function CommunityList({
   }, []);
 
   const handleSortChoice = (
-    choice: "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순"
+    choice: Sort
   ) => {
     setSort(choice);
     closeBottomSheet();
@@ -75,57 +71,33 @@ export default function CommunityList({
     } else if (mode === "모집") {
       setPosts(samplePosts.filter((post) => post.forum_id === 2));
     }
-    setBottomSheetComponents(SortComponents);
   }, []);
 
-  const SortComponents = () => {
-    const SortComponent = ({
-      choice,
-    }: {
-      choice: "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순";
-    }) => {
-      return (
-        <TouchableOpacity
-          onPress={() => handleSortChoice(choice)}
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-          }}
-          testID="sortChoice"
-        >
-          <Text
-            variant="titleLarge"
-            style={sort === choice ? styles.selectedChoice : styles.sortChoices}
-          >
-            {choice}
-          </Text>
-          {sort === choice && (
-            <Icon source="check" size={24} color={themeColors.primary} />
-          )}
-        </TouchableOpacity>
-      );
-    };
+  const SearchIcon = () => <TextInput.Icon icon="magnify" />;
 
+  const SortComponent = ({ choice }: { choice: Sort }) => {
     return (
-      <View style={styles.bottomSheet}>
-        <View style={styles.texts}>
-          <Text variant="headlineSmall" style={styles.title}>
-            정렬
-          </Text>
-          <SortComponent choice="최신순" />
-          <SortComponent choice="인기순" />
-          <SortComponent choice="조회 많은 순" />
-          <SortComponent choice="댓글 많은 순" />
-        </View>
-        <TouchableOpacity style={styles.close} onPress={closeBottomSheet}>
-          <Text variant="headlineSmall">닫기</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        onPress={() => handleSortChoice(choice)}
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+        testID="sortChoice"
+      >
+        <Text
+          variant="titleLarge"
+          style={sort === choice ? styles.selectedChoice : styles.sortChoices}
+        >
+          {choice}
+        </Text>
+        {sort === choice && (
+          <Icon source="check" size={24} color={themeColors.primary} />
+        )}
+      </TouchableOpacity>
     );
   };
-
-  const SearchIcon = () => <TextInput.Icon icon="magnify" />;
 
   return (
     <View style={styles.container}>
@@ -184,8 +156,8 @@ export default function CommunityList({
             <></>
           )}
         </View>
-        {posts.map((post, index) => (
-          <View key={index}>
+        {posts.map((post) => (
+          <View key={post.id}>
             <PostSimple post={post} />
             <Divider />
           </View>
@@ -199,7 +171,20 @@ export default function CommunityList({
         enableHandlePanningGesture={false}
         enableContentPanningGesture={false}
       >
-        {BottomSheetComponents}
+        <View style={styles.bottomSheet}>
+        <View style={styles.texts}>
+          <Text variant="headlineSmall" style={styles.title}>
+            정렬
+          </Text>
+          <SortComponent choice="최신순" />
+          <SortComponent choice="인기순" />
+          <SortComponent choice="조회 많은 순" />
+          <SortComponent choice="댓글 많은 순" />
+        </View>
+        <TouchableOpacity style={styles.close} onPress={closeBottomSheet}>
+          <Text variant="headlineSmall">닫기</Text>
+        </TouchableOpacity>
+      </View>
       </BottomSheet>
     </View>
   );

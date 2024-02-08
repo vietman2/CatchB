@@ -6,8 +6,6 @@ interface Props {
 }
 
 export default function ImagePlaceholder({ canUpload }: Readonly<Props>) {
-  canUpload = canUpload ? canUpload : false;
-
   return (
     <View
       style={{

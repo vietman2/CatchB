@@ -1,6 +1,7 @@
 import { ReservationStatus } from '../enums';
 
 export type ReservationProduct = {
+  id: number;
   title: string;
   description: string;
   price: number;

@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, ScrollView, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import {
   Portal,
   Text,
@@ -18,7 +24,11 @@ interface Props {
   setSelectedAreas: (selectedSigungu: string[]) => void;
 }
 
-export default function AreaPicker({ visible, onDismiss, setSelectedAreas }: Readonly<Props>) {
+export default function AreaPicker({
+  visible,
+  onDismiss,
+  setSelectedAreas,
+}: Readonly<Props>) {
   const [sidoList, setSidoList] = useState([]);
   const [selectedSido, setSelectedSido] = useState<string>("서울특별시");
   const [sigunguDisplay, setSigunguDisplay] = useState([]);
@@ -82,9 +92,9 @@ export default function AreaPicker({ visible, onDismiss, setSelectedAreas }: Rea
           <Divider />
           <View style={styles.modalContent}>
             <ScrollView style={styles.modalScroll}>
-              {sidoList.map((sido, index) => (
+              {sidoList.map((sido) => (
                 <View
-                  key={index}
+                  key={sido.code}
                   style={
                     selectedSido === sido.name
                       ? styles.selectedTextBox
@@ -107,9 +117,9 @@ export default function AreaPicker({ visible, onDismiss, setSelectedAreas }: Rea
               ))}
             </ScrollView>
             <ScrollView style={styles.modalScroll}>
-              {sigunguDisplay.map((sigungu, index) => (
+              {sigunguDisplay.map((sigungu) => (
                 <View
-                  key={index}
+                  key={sigungu.code}
                   style={
                     selectedSigungu.includes(
                       (selectedSido + " " + sigungu).trim()
@@ -141,9 +151,9 @@ export default function AreaPicker({ visible, onDismiss, setSelectedAreas }: Rea
             </ScrollView>
           </View>
           <ScrollView horizontal style={styles.selectedList}>
-            {selectedSigungu.map((sigungu, index) => (
+            {selectedSigungu.map((sigungu) => (
               <Chip
-                key={index}
+                key={sigungu}
                 style={styles.chip}
                 onClose={() =>
                   setSelectedSigungu(
