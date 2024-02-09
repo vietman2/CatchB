@@ -194,6 +194,6 @@ describe("<PasswordChange />", () => {
       );
     });
 
-    await waitFor(() => fireEvent.press(button));
+    waitFor(() => fireEvent.press(button));
   });
 });
