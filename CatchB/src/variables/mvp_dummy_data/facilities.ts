@@ -13,6 +13,7 @@ export const sampleFacilities: FacilityType[] = [
       lat: 37.467219,
       lng: 126.951036,
     },
+    image: require("assets/images/facility1.png"),
     products: [reservationProducts[3], reservationProducts[4]],
   },
   {
@@ -31,6 +32,7 @@ export const sampleFacilities: FacilityType[] = [
       lat: 37.46969,
       lng: 126.938306,
     },
+    image: require("assets/images/facility2.jpg"),
     products: [reservationProducts[2]],
   },
   {
@@ -44,6 +46,7 @@ export const sampleFacilities: FacilityType[] = [
       lat: 37.531995,
       lng: 126.629474,
     },
+    image: require("assets/images/facility1.png"),
     products: [reservationProducts[0], reservationProducts[1]],
   },
 ];

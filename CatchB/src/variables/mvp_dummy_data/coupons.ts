@@ -39,6 +39,7 @@ export const sampleCouponClasses: CouponClass[] = [
 
 export const sampleCoupons: Coupon[] = [
   {
+    id: 1,
     user: "user_uuid",
     coupon_class: sampleCouponClasses[0],
     issued_at: "2024-01-01",
@@ -47,6 +48,7 @@ export const sampleCoupons: Coupon[] = [
     used_at: null,
   },
   {
+    id: 2,
     user: "user_uuid",
     coupon_class: sampleCouponClasses[1],
     issued_at: "2024-01-01",

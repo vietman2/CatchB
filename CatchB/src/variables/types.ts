@@ -47,6 +47,7 @@ export type CouponClass = {
 };
 
 export type Coupon = {
+  id: number;
   user: string;
   coupon_class: CouponClass;
   issued_at: string;
@@ -56,6 +57,7 @@ export type Coupon = {
 };
 
 export type Points = {
+  id: number;
   user_uuid: string;
   title: string;
   description: string;

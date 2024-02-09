@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 import { FacilityType } from "../../../variables/types/products";
@@ -9,12 +9,18 @@ interface Props {
   facility: FacilityType;
 }
 
-export default function FacilitySimple({ facility }: Readonly<Props>) {
+export default function FacilitySimple({ facility }: Props) {
   const [isLiked, setIsLiked] = useState(false);
+
+  function FacilityImage() {
+    return (
+      <Image source={facility.image} style={styles.imageBox} />
+    )
+  }
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageBox} />
+      <FacilityImage />
       <View style={styles.infoBox}>
         <Text variant="titleMedium" style={{ fontWeight: "bold" }}>
           {facility.name}
