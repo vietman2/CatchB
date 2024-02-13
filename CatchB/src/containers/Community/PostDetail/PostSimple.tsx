@@ -1,34 +1,20 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Avatar, Chip, Icon, Text } from "react-native-paper";
-import { useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
 
 import { PostType } from "../../../variables/types/community";
 import { themeColors } from "../../../variables/colors";
-import { CommunityStackScreenProps } from "../../../variables/navigation";
-import { AppDispatch } from "../../../store/store";
-import { setSelectedPost } from "../../../store/slices/community/communitySlice";
 
 interface Props {
   post: PostType;
 }
 
 export default function PostSimple({ post }: Readonly<Props>) {
-  const navigation =
-    useNavigation<CommunityStackScreenProps<"PostDetail">["navigation"]>();
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handlePress = async () => {
-    await dispatch(setSelectedPost(post));
-    navigation.navigate("PostDetail");
-  };
-
   const renderPostBody = () => {
     if (post.body.length > 25) {
       return post.body.slice(0, 25) + "...";
     }
     return post.body;
-  }
+  };
 
   const renderCreatedAt = () => {
     const date = new Date(post.created_at);
@@ -39,56 +25,60 @@ export default function PostSimple({ post }: Readonly<Props>) {
     // else show date: format yyyy-mm-dd
     // i said format yyyy-mm-dd
 
-    const monthText = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-    const dateText = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    const monthText =
+      date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1;
+    const dateText =
+      date.getDate() < 10 
+        ? "0" + date.getDate() 
+        : date.getDate();
 
     return date.getFullYear() + "-" + monthText + "-" + dateText;
-  }
+  };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <View style={styles.container}>
-        <Chip compact mode="flat">
-          {post.tags[0]}
-        </Chip>
-        <Text variant="titleMedium" style={styles.title}>
-          {post.title}
-        </Text>
-        <Text variant="titleSmall">{renderPostBody()}</Text>
-        <View style={styles.extraInfo}>
-          <View style={styles.inner}>
-            <View style={styles.profile}>
-              <Avatar.Icon
-                size={16}
-                icon="account"
-                style={styles.icon}
-                color="white"
-              />
-              <Text variant="titleMedium" style={styles.infoText}>
-                {post.author_name}
-              </Text>
-              <Text variant="titleSmall" style={styles.countText}>
-                {renderCreatedAt()}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.inner}>
-            <Text style={styles.countText}>
-              <Icon source="eye" size={18} color={themeColors.primary} />{" "}
-              {post.num_clicks}
+    <View style={styles.container}>
+      <Chip compact mode="flat">
+        {post.tags[0]}
+      </Chip>
+      <Text variant="titleMedium" style={styles.title}>
+        {post.title}
+      </Text>
+      <Text variant="titleSmall">{renderPostBody()}</Text>
+      <View style={styles.extraInfo}>
+        <View style={styles.inner}>
+          <View style={styles.profile}>
+            <Avatar.Icon
+              size={16}
+              icon="account"
+              style={styles.icon}
+              color="white"
+            />
+            <Text variant="titleMedium" style={styles.infoText}>
+              {post.author_name}
             </Text>
-            <Text style={styles.countText}>
-              <Icon source="heart" size={18} color={themeColors.primary} />{" "}
-              {post.num_likes}
-            </Text>
-            <Text style={styles.countText}>
-              <Icon source="chat" size={18} color={themeColors.primary} />{" "}
-              {post.num_comments}
+            <Text variant="titleSmall" style={styles.countText}>
+              {renderCreatedAt()}
             </Text>
           </View>
         </View>
+        <View style={styles.inner}>
+          <Text style={styles.countText}>
+            <Icon source="eye" size={18} color={themeColors.primary} />{" "}
+            {post.num_clicks}
+          </Text>
+          <Text style={styles.countText}>
+            <Icon source="heart" size={18} color={themeColors.primary} />{" "}
+            {post.num_likes}
+          </Text>
+          <Text style={styles.countText}>
+            <Icon source="chat" size={18} color={themeColors.primary} />{" "}
+            {post.num_comments}
+          </Text>
+        </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 

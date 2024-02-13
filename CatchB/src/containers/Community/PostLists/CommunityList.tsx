@@ -7,11 +7,17 @@ import {
   Keyboard,
 } from "react-native";
 import { Chip, Divider, Icon, Text, TextInput } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import PostSimple from "../PostDetail/PostSimple";
 import { themeColors } from "../../../variables/colors";
+import { CommunityStackScreenProps } from "../../../variables/navigation";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
+import { AppDispatch } from "../../../store/store";
+import { setSelectedPost } from "../../../store/slices/community/communitySlice";
+import { PostType } from "../../../variables/types/community";
 
 interface Props {
   mode: "야구톡" | "모집";
@@ -25,6 +31,14 @@ export default function CommunityList({ mode }: Readonly<Props>) {
   const [sort, setSort] = useState<Sort>("최신순");
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
+  const navigation =
+    useNavigation<CommunityStackScreenProps<"PostDetail">["navigation"]>();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handlePress = async (post: PostType) => {
+    await dispatch(setSelectedPost(post));
+    navigation.navigate("PostDetail");
+  };
 
   const handleSortChoice = (choice: Sort) => {
     setSort(choice);
@@ -39,17 +53,12 @@ export default function CommunityList({ mode }: Readonly<Props>) {
   };
 
   useEffect(() => {
-    // samplePosts중에서 forum_id가 1인 것만 가져오기
     if (mode === "야구톡") {
       setPosts(samplePosts.filter((post) => post.forum_id === 1));
-    } else if (mode === "모집") {
+    } else {
       setPosts(samplePosts.filter((post) => post.forum_id === 2));
     }
   }, []);
-
-  function SearchIcon() {
-    return <TextInput.Icon icon="magnify" />;
-  }
 
   function SortComponent({ choice }: { choice: Sort }) {
     return (
@@ -87,7 +96,7 @@ export default function CommunityList({ mode }: Readonly<Props>) {
           placeholder="제목, 내용으로 검색하세요."
           onChangeText={setSearchQuery}
           value={searchQuery}
-          left={<SearchIcon />}
+          left={<TextInput.Icon icon="magnify" />}
           outlineStyle={styles.searchBar}
         />
         <View style={styles.filters}>
@@ -134,7 +143,12 @@ export default function CommunityList({ mode }: Readonly<Props>) {
         </View>
         {posts.map((post) => (
           <View key={post.id}>
-            <PostSimple post={post} />
+            <TouchableOpacity
+              onPress={() => handlePress(post)}
+              testID={post.title}
+            >
+              <PostSimple post={post} />
+            </TouchableOpacity>
             <Divider />
           </View>
         ))}
@@ -159,6 +173,7 @@ export default function CommunityList({ mode }: Readonly<Props>) {
           <TouchableOpacity
             style={styles.close}
             onPress={handleCloseBottomSheet}
+            testID="close"
           >
             <Text variant="headlineSmall">닫기</Text>
           </TouchableOpacity>
