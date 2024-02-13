@@ -15,8 +15,33 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { RootState } from "../../../store/store";
 import { HomeStackScreenProps } from "../../../variables/navigation";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
+import { CoachType } from "../../../variables/types/products";
 
 type CoachTypes = "타격" | "투구" | "수비" | "포수";
+
+function CoachPreview({ coach }: Readonly<{ coach: CoachType }>) {
+    return (
+      <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 40 }}>
+        <Image
+          source={coach.image}
+          style={{ flex: 3, width: 100, height: 100, borderRadius: 50 }}
+        />
+        <View style={{ flex: 7, marginLeft: 20 }}>
+          <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
+            {coach.coach_name} 코치
+          </Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Icon source="star" color="gold" size={20} />
+            <Text variant="titleSmall">{coach.rating}/10</Text>
+          </View>
+          <Text variant="titleSmall">{coach.working_area}</Text>
+          <View style={{ alignItems: "flex-end" }}>
+            <Text variant="titleSmall">1회 / 60분 50,000원</Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
 
 export default function NormalHome() {
   const [selected, setSelected] = useState<CoachTypes>("타격");
@@ -30,7 +55,7 @@ export default function NormalHome() {
   const shortcutWidth = (width - 90) / 4;
   const examplecoach = sampleCoaches[2];
 
-  function Shortcut({ text }: { text: string }) {
+  function Shortcut({ text }: Readonly<{ text: string }>) {
     return (
       <Surface style={[styles.shortcut, { width: shortcutWidth }]}>
         <Text style={styles.shortcutText}>{text}</Text>
@@ -38,37 +63,13 @@ export default function NormalHome() {
     );
   }
 
-  function FilterChip({ label }: { label: string }) {
+  function FilterChip({ label }: Readonly<{ label: string }>) {
     return (
       <TouchableOpacity onPress={() => setSelected(label as CoachTypes)}>
         <Chip style={label === selected ? styles.selectedChip : styles.chip}>
           {label}
         </Chip>
       </TouchableOpacity>
-    );
-  }
-
-  function CoachPreview() {
-    return (
-      <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 40 }}>
-        <Image
-          source={examplecoach.image}
-          style={{ flex: 3, width: 100, height: 100, borderRadius: 50 }}
-        />
-        <View style={{ flex: 7, marginLeft: 20 }}>
-          <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
-            {examplecoach.coach_name} 코치
-          </Text>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon source="star" color="gold" size={20} />
-            <Text variant="titleSmall">{examplecoach.rating}/10</Text>
-          </View>
-          <Text variant="titleSmall">{examplecoach.working_area}</Text>
-          <View style={{ alignItems: "flex-end" }}>
-            <Text variant="titleSmall">1회 / 60분 50,000원</Text>
-          </View>
-        </View>
-      </View>
     );
   }
 
@@ -126,9 +127,9 @@ export default function NormalHome() {
             <FilterChip label="수비" />
             <FilterChip label="포수" />
           </View>
-          <CoachPreview />
-          <CoachPreview />
-          <CoachPreview />
+          <CoachPreview coach={examplecoach} />
+          <CoachPreview coach={examplecoach} />
+          <CoachPreview coach={examplecoach} />
         </View>
       </ScrollView>
       <BottomSheet

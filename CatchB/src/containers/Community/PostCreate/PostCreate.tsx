@@ -1,5 +1,4 @@
-import { useRef, useMemo, useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
 import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon, Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -69,7 +68,7 @@ export default function PostCreate() {
     }
   };*/
 
-  function ForumChip() {
+  const ForumChip = () => {
     return (
       <View style={styles.chip}>
         <Text style={styles.chipText}>{selectedForum}</Text>
@@ -78,7 +77,7 @@ export default function PostCreate() {
     );
   }
 
-  function SelectedForum({ forum }: { forum: Forums }) {
+  const SelectedForum = ({ forum }: Readonly<{ forum: Forums }>) => {
     return (
       <TouchableOpacity
         onPress={() => handleForumSelect(forum)}
@@ -93,7 +92,7 @@ export default function PostCreate() {
     );
   }
 
-  function UnselectedForum({ forum }: { forum: Forums }) {
+  const UnselectedForum = ({ forum }: Readonly<{ forum: Forums }>) => {
     return (
       <TouchableOpacity
         onPress={() => handleForumSelect(forum)}
@@ -102,7 +101,7 @@ export default function PostCreate() {
         <Text variant="titleLarge">{forum}</Text>
       </TouchableOpacity>
     );
-  }
+  };
 
   return (
     <>

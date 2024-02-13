@@ -60,7 +60,7 @@ export default function CommunityList({ mode }: Readonly<Props>) {
     }
   }, []);
 
-  function SortComponent({ choice }: { choice: Sort }) {
+  const SortComponent = ({ choice }: Readonly<{ choice: Sort }>) => {
     return (
       <TouchableOpacity
         onPress={() => handleSortChoice(choice)}
