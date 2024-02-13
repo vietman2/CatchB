@@ -38,6 +38,7 @@ export default function CommunityContainer() {
       <TouchableOpacity
         style={{ marginRight: 15 }}
         onPress={() => navigation.navigate("PostCreate")}
+        testID="create-post-button"
       >
         <Icon source="pencil-plus-outline" size={24} color="black" />
       </TouchableOpacity>

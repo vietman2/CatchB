@@ -41,6 +41,7 @@ export default function CoachDetail() {
         <TouchableOpacity
           onPress={() => setExpand(!expand)}
           activeOpacity={0.6}
+          testID="expand-collapse"
         >
           <Text variant="bodyLarge" style={styles.detail}>
             {expand ? description : `${description.slice(0, 100)}...`}
@@ -182,7 +183,7 @@ export default function CoachDetail() {
         </Text>
         <ProductPicker />
         <View style={styles.button}>
-          <Button mode="contained" onPress={handleApply}>
+          <Button mode="contained" onPress={handleApply} testID="apply-button">
             신청하기
           </Button>
         </View>

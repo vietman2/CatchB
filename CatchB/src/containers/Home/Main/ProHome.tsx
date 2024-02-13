@@ -165,7 +165,7 @@ export default function ProHome() {
   return (
     <ScrollView style={styles.container}>
       <Card style={styles.card}>
-        <TouchableOpacity onPress={() => setHide(!hide)}>
+        <TouchableOpacity onPress={() => setHide(!hide)} testID="hide-press">
           <Card.Title
             title={`오늘의 알림 (${4})`}
             titleVariant="headlineSmall"
