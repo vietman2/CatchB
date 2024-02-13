@@ -1,5 +1,5 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Chip, Icon, Text } from "react-native-paper";
+import { Avatar, Chip, Icon, Text } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
@@ -24,35 +24,59 @@ export default function PostSimple({ post }: Readonly<Props>) {
   };
 
   const renderPostBody = () => {
-    if (post.body.length > 100) {
-      return post.body.slice(0, 100) + "...";
+    if (post.body.length > 25) {
+      return post.body.slice(0, 25) + "...";
     }
     return post.body;
+  }
+
+  const renderCreatedAt = () => {
+    const date = new Date(post.created_at);
+    // if date is today, show time
+    if (date.toDateString() === new Date().toDateString()) {
+      return date.toLocaleTimeString();
+    }
+    // else show date: format yyyy-mm-dd
+    // i said format yyyy-mm-dd
+
+    const monthText = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+    const dateText = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+
+    return date.getFullYear() + "-" + monthText + "-" + dateText;
   }
 
   return (
     <TouchableOpacity onPress={handlePress}>
       <View style={styles.container}>
         <Chip compact mode="flat">
-          경기모집
+          {post.tags[0]}
         </Chip>
-        <Text variant="titleLarge" style={styles.title}>
+        <Text variant="titleMedium" style={styles.title}>
           {post.title}
         </Text>
-        <Text variant="titleMedium">{renderPostBody()}</Text>
-        <Text style={styles.infoText}>{post.author_name}</Text>
+        <Text variant="titleSmall">{renderPostBody()}</Text>
         <View style={styles.extraInfo}>
           <View style={styles.inner}>
-            <Text style={styles.infoText}>
-              <Icon source="pencil" size={18} color={themeColors.primary} />{" "}
-              {post.created_at}
-            </Text>
+            <View style={styles.profile}>
+              <Avatar.Icon
+                size={16}
+                icon="account"
+                style={styles.icon}
+                color="white"
+              />
+              <Text variant="titleMedium" style={styles.infoText}>
+                {post.author_name}
+              </Text>
+              <Text variant="titleSmall" style={styles.countText}>
+                {renderCreatedAt()}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.inner}>
             <Text style={styles.countText}>
               <Icon source="eye" size={18} color={themeColors.primary} />{" "}
               {post.num_clicks}
             </Text>
-          </View>
-          <View style={styles.inner}>
             <Text style={styles.countText}>
               <Icon source="heart" size={18} color={themeColors.primary} />{" "}
               {post.num_likes}
@@ -96,5 +120,18 @@ const styles = StyleSheet.create({
   countText: {
     color: "gray",
     marginLeft: 15,
+  },
+  profile: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  name: {
+    fontWeight: "bold",
+    color: "blue",
+    marginRight: 10,
+  },
+  icon: {
+    backgroundColor: "gray",
+    marginRight: 7.5,
   },
 });
