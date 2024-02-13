@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
-function PlaceholderView({ color }: { color: string }) {
+function PlaceholderView({ color }: Readonly<{ color: string }>) {
   return <View style={[styles.placeholder, { backgroundColor: color }]} />;
 }
 

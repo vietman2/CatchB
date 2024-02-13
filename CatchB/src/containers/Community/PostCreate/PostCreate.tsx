@@ -68,16 +68,7 @@ export default function PostCreate() {
     }
   };*/
 
-  const ForumChip = () => {
-    return (
-      <View style={styles.chip}>
-        <Text style={styles.chipText}>{selectedForum}</Text>
-        <Icon source="chevron-down" size={18} />
-      </View>
-    );
-  }
-
-  const SelectedForum = ({ forum }: Readonly<{ forum: Forums }>) => {
+  function SelectedForum({ forum }: Readonly<{ forum: Forums }>) {
     return (
       <TouchableOpacity
         onPress={() => handleForumSelect(forum)}
@@ -92,7 +83,7 @@ export default function PostCreate() {
     );
   }
 
-  const UnselectedForum = ({ forum }: Readonly<{ forum: Forums }>) => {
+  function UnselectedForum({ forum }: Readonly<{ forum: Forums }>) {
     return (
       <TouchableOpacity
         onPress={() => handleForumSelect(forum)}
@@ -101,7 +92,7 @@ export default function PostCreate() {
         <Text variant="titleLarge">{forum}</Text>
       </TouchableOpacity>
     );
-  };
+  }
 
   return (
     <>
@@ -116,7 +107,10 @@ export default function PostCreate() {
             style={styles.button}
             testID="forum-picker"
           >
-            <ForumChip />
+            <View style={styles.chip}>
+              <Text style={styles.chipText}>{selectedForum}</Text>
+              <Icon source="chevron-down" size={18} />
+            </View>
           </TouchableOpacity>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             <Text>태그</Text>

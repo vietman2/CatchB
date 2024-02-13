@@ -34,79 +34,79 @@ const notifications: Notification[] = [
   },
 ];
 
+function StoreNotificationChip({ label }: Readonly<{ label: string }>) {
+  return (
+    <View
+      style={[
+        styles.notificationChip,
+        {
+          backgroundColor: "rgba(64, 196, 20, 0.35)",
+        },
+      ]}
+    >
+      <Icon source="store-check" size={24} />
+      <View style={{ marginLeft: 10 }}>
+        <Text style={{ color: "gray", marginBottom: 5 }}>가게관리</Text>
+        <Text>{label}</Text>
+      </View>
+    </View>
+  );
+}
+
+function WorkerNotificationChip({ label }: Readonly<{ label: string }>) {
+  return (
+    <View
+      style={[
+        styles.notificationChip,
+        {
+          backgroundColor: "rgba(57, 167, 255, 0.35)",
+        },
+      ]}
+    >
+      <Icon source="table-account" size={24} />
+      <View style={{ marginLeft: 10 }}>
+        <Text style={{ color: "gray", marginBottom: 5 }}>직원관리</Text>
+        <Text>{label}</Text>
+      </View>
+    </View>
+  );
+}
+
+function ReservationNotificationChip({ label }: Readonly<{ label: string }>) {
+  return (
+    <View
+      style={[
+        styles.notificationChip,
+        {
+          backgroundColor: "rgba(255, 57, 57, 0.35)",
+        },
+      ]}
+    >
+      <Icon source="calendar-clock" size={24} />
+      <View style={{ marginLeft: 10 }}>
+        <Text style={{ color: "gray", marginBottom: 5 }}>예약관리</Text>
+        <Text>{label}</Text>
+      </View>
+    </View>
+  );
+}
+
+function AlertIcon() {
+  return <Icon source="bell-alert-outline" size={24} />;
+}
+
+function StatsIcon() {
+  return <Icon source="chart-bar" size={24} />;
+}
+
+function AIIcon() {
+  return <Icon source="head-snowflake-outline" size={24} />;
+}
+
 export default function ProHome() {
   const [hide, setHide] = useState(false);
   const width = Dimensions.get("window").width;
   const cardWidth = (width - 20) / 2 - 35;
-
-  function StoreNotificationChip({ label }: { label: string }) {
-    return (
-      <View
-        style={[
-          styles.notificationChip,
-          {
-            backgroundColor: "rgba(64, 196, 20, 0.35)",
-          },
-        ]}
-      >
-        <Icon source="store-check" size={24} />
-        <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: "gray", marginBottom: 5 }}>가게관리</Text>
-          <Text>{label}</Text>
-        </View>
-      </View>
-    );
-  }
-
-  function WorkerNotificationChip({ label }: { label: string }) {
-    return (
-      <View
-        style={[
-          styles.notificationChip,
-          {
-            backgroundColor: "rgba(57, 167, 255, 0.35)",
-          },
-        ]}
-      >
-        <Icon source="table-account" size={24} />
-        <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: "gray", marginBottom: 5 }}>직원관리</Text>
-          <Text>{label}</Text>
-        </View>
-      </View>
-    );
-  }
-
-  function ReservationNotificationChip({ label }: { label: string }) {
-    return (
-      <View
-        style={[
-          styles.notificationChip,
-          {
-            backgroundColor: "rgba(255, 57, 57, 0.35)",
-          },
-        ]}
-      >
-        <Icon source="calendar-clock" size={24} />
-        <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: "gray", marginBottom: 5 }}>예약관리</Text>
-          <Text>{label}</Text>
-        </View>
-      </View>
-    );
-  }
-
-  function AlertIcon() {
-    return <Icon source="bell-alert-outline" size={24} />;
-  }
-
-  function StatsIcon() {
-    return <Icon source="chart-bar" size={24} />;
-  }
-
-  function AIIcon() {
-    return <Icon source="head-snowflake-outline" size={24} />;
-  }
 
   function ShowHideIcon() {
     return <Icon source={hide ? "chevron-up" : "chevron-down"} size={24} />;
