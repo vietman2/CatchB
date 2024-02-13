@@ -17,7 +17,8 @@ export default function PostCreate() {
   const forumPickerSnapPoints = useMemo(() => ["35%"], []);
   const tagPickerSnapPoints = useMemo(() => ["60%"], []);
   const [selectedForum, setSelectedForum] = useState<Forums>("야구톡");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  //const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const selectedTags = [];
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const navigation =
@@ -53,7 +54,7 @@ export default function PostCreate() {
   const handleTagPickerOpen = () => {
     tagBottomSheetRef.current?.expand();
   };
-/*
+  /*
   const handleTagPickerClose = () => {
     tagBottomSheetRef.current?.close();
   };
@@ -82,6 +83,7 @@ export default function PostCreate() {
       <TouchableOpacity
         onPress={() => handleForumSelect(forum)}
         style={styles.option}
+        testID="selected-forum"
       >
         <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
           {forum}
@@ -113,13 +115,18 @@ export default function PostCreate() {
           <TouchableOpacity
             onPress={handleForumPickerOpen}
             style={styles.button}
+            testID="forum-picker"
           >
             <ForumChip />
           </TouchableOpacity>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             <Text>태그</Text>
           </View>
-          <TouchableOpacity onPress={handleTagPickerOpen} style={styles.button}>
+          <TouchableOpacity
+            onPress={handleTagPickerOpen}
+            style={styles.button}
+            testID="tag-picker"
+          >
             <Text>{selectedTags.length === 0 ? "선택" : "변경"}</Text>
           </TouchableOpacity>
         </View>
@@ -128,7 +135,12 @@ export default function PostCreate() {
           mode="outlined"
           value={title}
           onChangeText={setTitle}
-          right={<TextInput.Affix text={`${title.length}/50`} textStyle={{fontSize: 14, color: "gray"}} />}
+          right={
+            <TextInput.Affix
+              text={`${title.length}/50`}
+              textStyle={{ fontSize: 14, color: "gray" }}
+            />
+          }
           dense
           error={title.length > 50}
           style={styles.textInput}
@@ -138,7 +150,12 @@ export default function PostCreate() {
           mode="outlined"
           value={content}
           onChangeText={setContent}
-          right={<TextInput.Affix text={`${content.length}/1000`} textStyle={{fontSize: 14, color: "gray"}} />}
+          right={
+            <TextInput.Affix
+              text={`${content.length}/1000`}
+              textStyle={{ fontSize: 14, color: "gray" }}
+            />
+          }
           dense
           error={content.length > 1000}
           style={[styles.textInput, { height: 360 }]}
