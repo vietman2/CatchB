@@ -4,6 +4,7 @@ export type PostType = {
   forum_name: string;
   title: string;
   body: string;
+  tags: string[];
 
   userId: number;
   author_name: string;
