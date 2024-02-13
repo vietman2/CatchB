@@ -1,10 +1,4 @@
-import {
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-  useEffect,
-} from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -13,56 +7,36 @@ import {
   Keyboard,
 } from "react-native";
 import { Chip, Divider, Icon, Text, TextInput } from "react-native-paper";
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetBackdropProps,
-} from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 
-import PostSimple from "./PostSimple";
+import PostSimple from "../PostDetail/PostSimple";
 import { themeColors } from "../../../variables/colors";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
 
 interface Props {
-  hideFAB: () => void;
-  showFAB: () => void;
   mode: "야구톡" | "모집";
 }
 
 type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순";
 
-export default function CommunityList({
-  hideFAB,
-  showFAB,
-  mode,
-}: Readonly<Props>) {
+export default function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
   const [sort, setSort] = useState<Sort>("최신순");
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
-  const backDrop = useCallback(
-    (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop {...props} pressBehavior="close" onPress={showFAB} />
-    ),
-    []
-  );
 
-  const closeBottomSheet = useCallback(() => {
-    bottomSheetRef.current?.close();
-    showFAB();
-  }, []);
-
-  const handleSortChoice = (
-    choice: Sort
-  ) => {
+  const handleSortChoice = (choice: Sort) => {
     setSort(choice);
-    closeBottomSheet();
   };
 
-  const openFilterChoices = () => {
-    hideFAB();
-    bottomSheetRef.current.snapToPosition("45%");
-  };
+  const handleCloseBottomSheet = () => {
+    bottomSheetRef.current?.close();
+  }
+
+  const handleOpenBottomSheet = () => {
+    bottomSheetRef.current?.expand();
+  }
 
   useEffect(() => {
     // samplePosts중에서 forum_id가 1인 것만 가져오기
@@ -73,9 +47,9 @@ export default function CommunityList({
     }
   }, []);
 
-  const SearchIcon = () => <TextInput.Icon icon="magnify" />;
+  function SearchIcon() {return <TextInput.Icon icon="magnify" />};
 
-  const SortComponent = ({ choice }: { choice: Sort }) => {
+  function SortComponent({ choice }: { choice: Sort }) {
     return (
       <TouchableOpacity
         onPress={() => handleSortChoice(choice)}
@@ -115,7 +89,7 @@ export default function CommunityList({
           outlineStyle={styles.searchBar}
         />
         <View style={styles.filters}>
-          <TouchableOpacity onPress={openFilterChoices} testID="filters">
+          <TouchableOpacity onPress={handleOpenBottomSheet} testID="filters">
             <Chip
               compact
               icon="sort"
@@ -167,24 +141,23 @@ export default function CommunityList({
         ref={bottomSheetRef}
         index={-1}
         snapPoints={snapPoints}
-        backdropComponent={backDrop}
         enableHandlePanningGesture={false}
         enableContentPanningGesture={false}
       >
         <View style={styles.bottomSheet}>
-        <View style={styles.texts}>
-          <Text variant="headlineSmall" style={styles.title}>
-            정렬
-          </Text>
-          <SortComponent choice="최신순" />
-          <SortComponent choice="인기순" />
-          <SortComponent choice="조회 많은 순" />
-          <SortComponent choice="댓글 많은 순" />
+          <View style={styles.texts}>
+            <Text variant="headlineSmall" style={styles.title}>
+              정렬
+            </Text>
+            <SortComponent choice="최신순" />
+            <SortComponent choice="인기순" />
+            <SortComponent choice="조회 많은 순" />
+            <SortComponent choice="댓글 많은 순" />
+          </View>
+          <TouchableOpacity style={styles.close} onPress={handleCloseBottomSheet}>
+            <Text variant="headlineSmall">닫기</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.close} onPress={closeBottomSheet}>
-          <Text variant="headlineSmall">닫기</Text>
-        </TouchableOpacity>
-      </View>
       </BottomSheet>
     </View>
   );
@@ -204,6 +177,7 @@ const styles = StyleSheet.create({
   filters: {
     flexDirection: "row",
     marginTop: 5,
+    marginBottom: 10,
   },
   bottomSheet: {
     flex: 1,
