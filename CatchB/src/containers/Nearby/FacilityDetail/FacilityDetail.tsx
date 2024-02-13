@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import { useSelector } from "react-redux";
-import { Button, Divider, Icon, Text } from "react-native-paper";
+import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
@@ -199,7 +199,7 @@ export default function FacilityDetail() {
         </Text>
         <DateTimePicker />
         <View style={styles.button}>
-          <Button mode="contained" onPress={handleReserve}>
+          <Button mode="contained" onPress={handleReserve} testID="reserve-button">
             예약하기
           </Button>
         </View>

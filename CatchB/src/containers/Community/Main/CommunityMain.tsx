@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { View, useWindowDimensions } from "react-native";
+import { View, Dimensions } from "react-native";
 import { Text } from "react-native-paper";
 import {
   TabView,
@@ -14,7 +14,7 @@ import VideoList from "../PostLists/VideoList";
 import { themeColors } from "../../../variables/colors";
 
 export default function Community() {
-  const layout = useWindowDimensions();
+  const width = Dimensions.get("window").width;
   const [index, setIndex] = useState(0);
   const routes = [
     { key: "야구톡", title: "야구톡" },
@@ -78,7 +78,7 @@ export default function Community() {
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
+      initialLayout={{ width: width }}
       renderTabBar={renderTabBar}
     />
   );

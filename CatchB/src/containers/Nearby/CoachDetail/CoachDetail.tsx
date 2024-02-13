@@ -14,8 +14,8 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import LessonProductsTable from "../../../components/Tables/LessonProductsTable";
 import { themeColors } from "../../../variables/colors";
 import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
-import { RootState } from "../../../store/store";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
+import { RootState } from "../../../store/store";
 
 const { width, height } = Dimensions.get("window");
 

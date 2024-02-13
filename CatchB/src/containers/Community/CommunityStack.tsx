@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native";
 import { Icon, Text } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
@@ -11,7 +12,6 @@ import {
   CommunityStackParamList,
   CommunityStackScreenProps,
 } from "../../variables/navigation";
-import { TouchableOpacity } from "react-native";
 
 const CommunityStack = createStackNavigator<CommunityStackParamList>();
 
@@ -33,13 +33,16 @@ export default function CommunityContainer() {
     );
   };
 
-  const writeIcon = () => {
+  function WriteIcon() {
     return (
-      <TouchableOpacity style={{marginRight: 15}} onPress={() => navigation.navigate("PostCreate")}>
+      <TouchableOpacity
+        style={{ marginRight: 15 }}
+        onPress={() => navigation.navigate("PostCreate")}
+      >
         <Icon source="pencil-plus-outline" size={24} color="black" />
       </TouchableOpacity>
     );
-  };
+  }
 
   return (
     <CommunityStack.Navigator
@@ -54,7 +57,7 @@ export default function CommunityContainer() {
         options={{
           headerLeft: leftTitle,
           headerTitle: () => null,
-          headerRight: () => writeIcon(),
+          headerRight: () => WriteIcon(),
         }}
       />
       <CommunityStack.Screen
