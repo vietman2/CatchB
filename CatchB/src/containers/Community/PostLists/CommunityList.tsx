@@ -32,11 +32,11 @@ export default function CommunityList({ mode }: Readonly<Props>) {
 
   const handleCloseBottomSheet = () => {
     bottomSheetRef.current?.close();
-  }
+  };
 
   const handleOpenBottomSheet = () => {
     bottomSheetRef.current?.expand();
-  }
+  };
 
   useEffect(() => {
     // samplePosts중에서 forum_id가 1인 것만 가져오기
@@ -47,7 +47,9 @@ export default function CommunityList({ mode }: Readonly<Props>) {
     }
   }, []);
 
-  function SearchIcon() {return <TextInput.Icon icon="magnify" />};
+  function SearchIcon() {
+    return <TextInput.Icon icon="magnify" />;
+  }
 
   function SortComponent({ choice }: { choice: Sort }) {
     return (
@@ -71,7 +73,7 @@ export default function CommunityList({ mode }: Readonly<Props>) {
         )}
       </TouchableOpacity>
     );
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -154,7 +156,10 @@ export default function CommunityList({ mode }: Readonly<Props>) {
             <SortComponent choice="조회 많은 순" />
             <SortComponent choice="댓글 많은 순" />
           </View>
-          <TouchableOpacity style={styles.close} onPress={handleCloseBottomSheet}>
+          <TouchableOpacity
+            style={styles.close}
+            onPress={handleCloseBottomSheet}
+          >
             <Text variant="headlineSmall">닫기</Text>
           </TouchableOpacity>
         </View>

@@ -53,7 +53,7 @@ export default function PostCreate() {
   const handleTagPickerOpen = () => {
     tagBottomSheetRef.current?.expand();
   };
-
+/*
   const handleTagPickerClose = () => {
     tagBottomSheetRef.current?.close();
   };
@@ -66,7 +66,7 @@ export default function PostCreate() {
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
-  };
+  };*/
 
   function ForumChip() {
     return (
