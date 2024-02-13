@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { Avatar, Text } from "react-native-paper";
+
 import { PostType } from "../../variables/types/community";
 
 interface Props {
