@@ -11,12 +11,6 @@ interface Props {
 
 export default function ReservationProductsTable({ products }: Readonly<Props>) {
   const [selected, setSelected] = useState("1회 대관");
-
-  const renderPrice = (price: number) => {
-    // 10,000원 형식
-    return price.toLocaleString();
-  };
-
   const filters = ["1회 대관", "정기 대관", "기타"];
 
   return (
@@ -32,7 +26,7 @@ export default function ReservationProductsTable({ products }: Readonly<Props>) 
       {products.map((product) => (
         <View key={product.id} style={styles.product}>
           <Text variant="titleMedium">{product.title}</Text>
-          <Text variant="bodyLarge">{renderPrice(product.price)}원</Text>
+          <Text variant="bodyLarge">{product.price.toLocaleString()}원</Text>
         </View>
       ))}
     </View>
