@@ -13,6 +13,26 @@ jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
   const { View, TouchableOpacity, Text } = jest.requireActual("react-native");
 
+  const MockTitle = (props: any) => (
+    <View testID="CardTitle">
+      <Text>{props.title}</Text>
+      {props.left && <View testID="icon">{props.left()}</View>}
+    </View>
+  );
+
+  const MockContent = (props: any) => (
+    <View testID="CardContent">{props.children}</View>
+  );
+
+  const MockCard = (props: any) => (
+    <View testID="Card" {...props}>
+      {props.children}
+    </View>
+  );
+
+  MockCard.Title = MockTitle;
+  MockCard.Content = MockContent;
+
   return {
     PaperProvider: Provider,
     Text: "Text",
@@ -33,15 +53,10 @@ jest.mock("react-native-paper", () => {
         <Text>{children}</Text>
       </View>
     ),
+    Card: MockCard,
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Buttons/SurfaceButton", () => "SurfaceButton");
-jest.mock("../../../components/Chips/Chips", () => ({
-  NotificationChip: () => "NotificationChip",
-}));
-jest.mock("../../../components/Cards/SimpleCard", () => "SimpleCard");
-jest.mock("../../../components/Cards/CardBox", () => "CardBox");
 
 const Stack = createStackNavigator();
 

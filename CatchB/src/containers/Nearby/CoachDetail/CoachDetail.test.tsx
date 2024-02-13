@@ -3,19 +3,29 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CoachDetail from "./CoachDetail";
-import { renderWithProviders } from "../../../utils/test-utils";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
+import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
 jest.mock("react-native-paper", () => {
+  const Provider = jest.requireActual("react-native-paper").Provider;
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
   return {
-    ...jest.requireActual("react-native-paper"),
+    PaperProvider: Provider,
     Icon: "Icon",
     Text: "Text",
+    Button: ({ onPress, children }: any) => (
+      <TouchableOpacity onPress={onPress}>
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
   };
 });
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock("../../../components/Tables/LessonProductsTable", () => "LessonProductsTable");
 
 const Stack = createStackNavigator();
 

@@ -16,21 +16,13 @@ jest.mock("react-native-paper", () => {
     },
   };
 });
-jest.mock("@gorhom/bottom-sheet", () => {
-  const { View } = jest.requireActual("react-native");
-  return {
-    __esModule: true,
-    default: "BottomSheet",
-    BottomSheetBackdrop: ({ children }: any) => <View>{children}</View>,
-    BottomSheetBackdropProps: "BottomSheetBackdropProps",
-  };
-});
-jest.mock("./PostSimple", () => "PostSimple");
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock("../PostDetail/PostSimple", () => "PostSimple");
 
 describe("CommunityList", () => {
   it("renders correctly and handles presses", () => {
     const { getAllByTestId } = render(
-      <CommunityList hideFAB={() => {}} showFAB={() => {}} mode="야구톡" />
+      <CommunityList mode="야구톡" />
     );
 
     fireEvent.press(getAllByTestId("sortChoice")[0]);
@@ -38,7 +30,7 @@ describe("CommunityList", () => {
 
   it("renders recruit mode correctly", () => {
     const { getAllByTestId } = render(
-      <CommunityList hideFAB={() => {}} showFAB={() => {}} mode="모집" />
+      <CommunityList mode="모집" />
     );
 
     fireEvent.press(getAllByTestId("sortChoice")[0]);
