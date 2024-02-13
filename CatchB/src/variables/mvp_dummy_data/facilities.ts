@@ -46,7 +46,7 @@ export const sampleFacilities: FacilityType[] = [
       lat: 37.531995,
       lng: 126.629474,
     },
-    image: require("assets/images/facility1.png"),
+    image: require("assets/images/facility3.jpg"),
     products: [reservationProducts[0], reservationProducts[1]],
   },
 ];

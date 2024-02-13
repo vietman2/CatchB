@@ -1,4 +1,5 @@
 import { ImageRequireSource } from 'react-native';
+
 import { ReservationStatus } from '../enums';
 
 export type ReservationProduct = {
@@ -48,9 +49,18 @@ export type CoachType = {
   academic_background: string;
   baseball_career: string;
   coaching_career: string;
+  description: string;
   working_area: string;
   rating: number;
   image: ImageRequireSource;
 
   facility?: FacilityType;
 }
+
+export type LessonProduct = {
+  id: number;
+  coach_uuid: string;
+  title: string;
+  description: string;
+  price: number;
+};
