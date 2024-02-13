@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { render } from "@testing-library/react-native";
 
-import SimpleCard from "./SimpleCard";
 import CardBox from "./CardBox";
 
 jest.mock("react-native-paper", () => {
@@ -32,17 +31,6 @@ jest.mock("react-native-paper", () => {
     Card: MockCard,
     Icon: "Icon",
   };
-});
-
-describe("<SimpleCard />", () => {
-  it("renders the card with the correct title", () => {
-    const { getByText } = render(
-      <SimpleCard title="Card Title" icon="home">
-        <></>
-      </SimpleCard>
-    );
-    expect(getByText("Card Title")).toBeTruthy();
-  });
 });
 
 describe("<CardBox />", () => {
