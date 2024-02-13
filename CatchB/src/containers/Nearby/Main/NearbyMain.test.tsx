@@ -63,4 +63,32 @@ describe("Nearby", () => {
 
     fireEvent.press(getByText("인기순"));
   });
+
+  it("renders correctly and handles mode switch", async () => {
+    const { getByText } = renderWithProviders(components());
+
+    fireEvent.press(getByText("시설"));
+  });
+
+  it("renders with location", async () => {
+    renderWithProviders(components(), {
+      preloadedState: {
+        general: {
+          location: {
+            coords: {
+              latitude: 37.5326,
+              longitude: 127.024612,
+              altitude: 0,
+              accuracy: 0,
+              heading: 0,
+              speed: 0,
+              altitudeAccuracy: 0,
+            },
+            timestamp: 0,
+          },
+          mode: "basic",
+        },
+      },
+    });
+  });
 });

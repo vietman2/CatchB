@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -17,15 +18,18 @@ jest.mock("react-native-paper", () => {
     PaperProvider: Provider,
     Icon: "Icon",
     Text: "Text",
-    Button: ({ onPress, children }: any) => (
-      <TouchableOpacity onPress={onPress}>
+    Button: ({ onPress, children, testID }: any) => (
+      <TouchableOpacity onPress={onPress} testID={testID}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Tables/LessonProductsTable", () => "LessonProductsTable");
+jest.mock(
+  "../../../components/Tables/LessonProductsTable",
+  () => "LessonProductsTable"
+);
 
 const Stack = createStackNavigator();
 
@@ -34,6 +38,7 @@ const components = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="CoachDetail" component={CoachDetail} />
+        <Stack.Screen name="Payment" component={CoachDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -49,7 +54,26 @@ describe("<CoachDetail />", () => {
       },
     });
 
-    const likeButton = getByTestId("like");
-    await waitFor(() => fireEvent.press(likeButton));
+    waitFor(() => {
+      fireEvent.press(getByTestId("like"));
+      fireEvent.press(getByTestId("apply-button"));
+    });
+  });
+
+  it("renders long description", async () => {
+    const { getByTestId } = renderWithProviders(components(), {
+      preloadedState: {
+        coach: {
+          selectedCoach: sampleCoaches[2],
+        },
+      },
+    });
+
+    const expandCollapseButton = getByTestId("expand-collapse");
+
+    waitFor(() => {
+      fireEvent.press(expandCollapseButton);
+      fireEvent.press(expandCollapseButton);
+    });
   });
 });

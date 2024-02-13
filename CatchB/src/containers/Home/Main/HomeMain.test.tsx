@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeMain from "./HomeMain";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -17,6 +18,7 @@ jest.mock("react-native-paper", () => {
     <View testID="CardTitle">
       <Text>{props.title}</Text>
       {props.left && <View testID="icon">{props.left()}</View>}
+      {props.right && <View testID="icon">{props.right()}</View>}
     </View>
   );
 
@@ -65,37 +67,51 @@ const components = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="HomeMain" component={HomeMain} />
+        <Stack.Screen name="Nearby" component={HomeMain} />
       </Stack.Navigator>
-    </NavigationContainer>);
+    </NavigationContainer>
+  );
 };
 
 describe("<NormalHome />", () => {
-  it("renders with user", () => {
-    renderWithProviders(components(), {
+  it("renders with user, and handles filterchip press", () => {
+    const { getByText } = renderWithProviders(components(), {
       preloadedState: {
         general: { mode: "basic", location: null },
         auth: { user: admin, token: "" },
       },
     });
+
+    waitFor(() => {
+      fireEvent.press(getByText("타격"));
+      fireEvent.press(getByText("투구"));
+    });
   });
 
-  it("renders without user", () => {
-    renderWithProviders(components(), {
+  it("renders without user, and handles navigation", () => {
+    const { getByText } = renderWithProviders(components(), {
       preloadedState: {
         general: { mode: "basic", location: null },
         auth: { user: null, token: "" },
       },
     });
+
+    waitFor(() => {
+      fireEvent.press(getByText("아카데미 예약"));
+      fireEvent.press(getByText("레슨"));
+    });
   });
 });
 
 describe("<ProHome />", () => {
-  it("renders correctly", () => {
-    renderWithProviders(components(), {
+  it("renders correctly and handles hide", async () => {
+    const { getByTestId } = renderWithProviders(components(), {
       preloadedState: {
         general: { mode: "pro", location: null },
         auth: { user: admin, token: "" },
       },
     });
+
+    await waitFor(() => fireEvent.press(getByTestId("hide-press")));
   });
 });

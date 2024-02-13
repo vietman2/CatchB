@@ -85,8 +85,7 @@ describe("<NearbyStack />", () => {
     await waitFor(() => fireEvent.press(getByText("코치")));
     await waitFor(() => fireEvent.press(getByText("홍승우 코치")));
 
-    const backButton = getByTestId("back");
-    waitFor(() => fireEvent.press(backButton));
+    waitFor(() => fireEvent.press(getByTestId("back")));
     await waitFor(() => fireEvent.press(getByText("시설")));
   });
 });

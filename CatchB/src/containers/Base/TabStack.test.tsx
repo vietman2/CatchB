@@ -21,6 +21,19 @@ jest.mock("../Community/CommunityStack", () => "CommunityStack");
 jest.mock("../History/HistoryStack", () => "HistoryStack");
 jest.mock("../MyPage/MyPageStack", () => "MyPageStack");
 jest.mock("../MyStore/MyStoreStack", () => "MyStoreStack");
+jest.mock("../../components/Dialogs/LoginDialog", () => {
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+  return {
+    __esModule: true,
+    default: ({ onClose }: { onClose: () => void }) => {
+      return (
+        <TouchableOpacity onPress={onClose}>
+          <Text>닫기</Text>
+        </TouchableOpacity>
+      );
+    },
+  };
+});
 jest.spyOn(SecureStore, "get").mockImplementation((key) => {
   if (key === "refresh_token") {
     return Promise.resolve("refresh");
@@ -106,6 +119,7 @@ describe("<TabContainer />", () => {
 
     fireEvent.press(button);
   });
+
   it("handles long press: change mode fail", async () => {
     const { getAllByTestId, getByText } = await waitFor(() => render());
     const tab = getAllByTestId("MyPageIcon")[0];
@@ -114,9 +128,7 @@ describe("<TabContainer />", () => {
       fireEvent(tab, "onLongPress");
     });
 
-    const button = getByText("확인");
-
-    fireEvent.press(button);
+    fireEvent.press(getByText("확인"));
   });
 
   it("handles token renewal and auto login", async () => {
@@ -154,7 +166,9 @@ describe("<TabContainer />", () => {
       })
     );
 
-    await waitFor(() => render());
+    const { getByText } = await waitFor(() => render());
+
+    fireEvent.press(getByText("닫기"));
   });
 
   it("handles token renewal and auto login fail: token renew fail", async () => {
@@ -183,6 +197,33 @@ describe("<TabContainer />", () => {
     await waitFor(() => render());
   });
 
+  it("handles token renewal and auto login fail: no uuid", async () => {
+    jest.spyOn(userService, "renewToken").mockImplementation(async () =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          access: "access",
+        },
+      })
+    );
+    jest.spyOn(userService, "getUserProfile").mockImplementation(async () =>
+      Promise.resolve({
+        status: 200,
+        data: {},
+      })
+    );
+    jest.spyOn(SecureStore, "get").mockImplementation((key) => {
+      if (key === "refresh_token") {
+        return Promise.resolve("refresh");
+      }
+      if (key === "uuid") {
+        return Promise.resolve(null);
+      } else return Promise.reject(new Error("error"));
+    });
+
+    await waitFor(() => render());
+  });
+
   it("handles permission rejection", async () => {
     jest
       .spyOn(expoLocation, "requestForegroundPermissionsAsync")
@@ -193,6 +234,16 @@ describe("<TabContainer />", () => {
           granted: false,
           canAskAgain: true,
         });
+      });
+
+    await waitFor(() => render());
+  });
+
+  it("handles permission rejection: no location", async () => {
+    jest
+      .spyOn(expoLocation, "getCurrentPositionAsync")
+      .mockImplementation(async () => {
+        return Promise.resolve(null);
       });
 
     await waitFor(() => render());

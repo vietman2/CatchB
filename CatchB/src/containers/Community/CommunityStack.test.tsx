@@ -25,22 +25,23 @@ jest.mock("react-native-paper", () => {
     Icon: "Icon",
     IconButton: "IconButton",
     Divider: "Divider",
+    Avatar: {
+      ...jest.requireActual("react-native-paper").Avatar,
+      Icon: "Icon",
+    },
   };
 });
 jest.mock("react-native-tab-view", () => {
-  const TabView = ({ children }: any) => {
-    return <>{children}</>;
-  };
-  const TabBar = ({ children }: any) => {
-    return <>{children}</>;
-  };
+  const TabView = jest.requireActual("react-native-tab-view").TabView;
+  const TabBar = jest.requireActual("react-native-tab-view").TabBar;
+
   return {
     TabView,
     TabBar,
     SceneRendererProps: "SceneRendererProps",
     Route: "Route",
   };
-})
+});
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../../components/Logos/TopBar", () => ({
   leftTitle: () => "leftTitle",
@@ -59,13 +60,31 @@ const components = () => {
 };
 
 describe("<CommunityStack />", () => {
-  it("renders correctly and navigates to <PostCreate />", () => {
-    renderWithProviders(components(), {
+  it("renders correctly and navigates to <PostCreate /> and back", () => {
+    const { getByTestId } = renderWithProviders(components(), {
       preloadedState: {
         community: {
           selectedPost: samplePosts[0],
-        }
+        },
       },
+    });
+
+    fireEvent.press(getByTestId("create-post-button"));
+    fireEvent.press(getByTestId("back"));
+  });
+
+  it("navigates to <PostDetail />", async () => {
+    waitFor(async () => {
+      const { getByText, getByTestId } = renderWithProviders(components(), {
+        preloadedState: {
+          community: {
+            selectedPost: samplePosts[0],
+          },
+        },
+      });
+
+      await waitFor(() => fireEvent.press(getByText("KBO 개막 D-200")));
+      fireEvent.press(getByTestId("back"));
     });
   });
 });

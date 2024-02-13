@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import CouponList from "./CouponList";
 import CouponRegister from "./CouponRegister";
+import * as CouponServices from "../../../services/user_management/coupon";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { sampleCoupons } from "../../../variables/mvp_dummy_data/coupons";
 
@@ -97,17 +98,19 @@ describe("<CouponList />", () => {
 });
 
 describe("<CouponRegister />", () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
   it("handles input correctly", async () => {
-    jest.spyOn(axios, "post").mockImplementation(() =>
+    jest.spyOn(CouponServices, "registerCoupon").mockImplementation(() =>
       Promise.resolve({
         status: 202,
         data: {
           task_id: "1234",
         },
+      })
+    );
+    jest.spyOn(CouponServices, "checkStatus").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: {},
       })
     );
 
@@ -116,13 +119,37 @@ describe("<CouponRegister />", () => {
     const button = getByText("쿠폰 등록");
 
     fireEvent.changeText(input, "1234");
+    fireEvent.changeText(input, "--------");
     waitFor(() => {
       fireEvent.press(button);
     });
   });
 
+  it("handles status check error", async () => {
+    jest.spyOn(CouponServices, "registerCoupon").mockImplementation(() =>
+      Promise.resolve({
+        status: 202,
+        data: {
+          task_id: "1234",
+        },
+      })
+    );
+    jest.spyOn(CouponServices, "checkStatus").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: {},
+      })
+    );
+
+    const { getByText } = renderWithProviders(<CouponRegister />);
+
+    waitFor(() => {
+      fireEvent.press(getByText("쿠폰 등록"));
+    });
+  });
+
   it("doesn't handle input correctly", async () => {
-    jest.spyOn(axios, "post").mockImplementation(() =>
+    jest.spyOn(CouponServices, "registerCoupon").mockImplementation(() =>
       Promise.resolve({
         status: 400,
         data: {
@@ -131,13 +158,10 @@ describe("<CouponRegister />", () => {
       })
     );
 
-    const { getByTestId, getByText } = renderWithProviders(<CouponRegister />);
-    const input = getByTestId("coupon-register-text-input");
-    const button = getByText("쿠폰 등록");
+    const { getByText } = renderWithProviders(<CouponRegister />);
 
-    fireEvent.changeText(input, "1234");
     waitFor(() => {
-      fireEvent.press(button);
+      fireEvent.press(getByText("쿠폰 등록"));
     });
   });
 });
