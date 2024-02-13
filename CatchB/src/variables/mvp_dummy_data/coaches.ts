@@ -35,7 +35,7 @@ export const sampleCoaches: CoachType[] = [
     academic_background: "서울대 체육교육과",
     baseball_career: "대학선수 출신",
     coaching_career: "없음 ㅋ",
-    description: "홍승우.",
+    description: "서울고.\n노란사자기 엄청 잘한 선수상.\n서울대\n\n틀린 부분을 정확하게 짚어 드릴 수 있습니다.\n헛스윙으로 고생하시는 분!\n비거리가 안 나오시는 분!\n레슨 한 번 받아보시면 달라진 모습을 보실 수 있습니다 ㅎㅎ",
     working_area: "인천 서구 청라",
     rating: 9.2,
     image: require("assets/images/HSW.jpg"),
