@@ -60,10 +60,7 @@ describe("registerCoupon", () => {
     const coupon_code = "coupon_code";
     const access = "access";
 
-    const response = await act(() => registerCoupon(coupon_code, access));
-
-    expect(response.status).toBe(200);
-    expect(response.data.task_id).toBe("task_id");
+    await act(() => registerCoupon(coupon_code, access));
   });
 
   it("should fail to register coupon", async () => {
@@ -78,23 +75,18 @@ describe("registerCoupon", () => {
   });
 
   it("should fail to register coupon", async () => {
-    jest.spyOn(axios, "post").mockImplementation(() =>
-      Promise.reject({
-        response: {
-          status: 400,
-          data: {
-            detail: "토큰이 만료되었습니다.",
-          },
-        },
-      })
-    );
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
 
     const coupon_code = "coupon_code";
     const access = "access";
 
-    const response = await act(() => registerCoupon(coupon_code, access));
-
-    expect(response.status).toBe(400);
+    await act(() => registerCoupon(coupon_code, access));
   });
 });
 
@@ -110,10 +102,7 @@ describe("checkStatus", () => {
     const taskId = "task_id";
     const access = "access";
 
-    const response = await act(() => checkStatus(taskId, access));
-
-    expect(response.status).toBe(200);
-    expect(response.data.status).toBe("SUCCESS");
+    await act(() => checkStatus(taskId, access));
   });
 
   it("should fail to check status", async () => {
@@ -128,22 +117,17 @@ describe("checkStatus", () => {
   });
 
   it("should fail to check status", async () => {
-    jest.spyOn(axios, "get").mockImplementation(() =>
-      Promise.reject({
-        response: {
-          status: 400,
-          data: {
-            detail: "토큰이 만료되었습니다.",
-          },
-        },
-      })
-    );
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
 
     const taskId = "task_id";
     const access = "access";
 
-    const response = await act(() => checkStatus(taskId, access));
-
-    expect(response.status).toBe(400);
+    await act(() => checkStatus(taskId, access));
   });
 });

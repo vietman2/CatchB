@@ -22,6 +22,24 @@ import { reservationProducts } from "../../../variables/mvp_dummy_data/reservati
 
 const { width, height } = Dimensions.get("window");
 
+function ProductPicker() {
+  return (
+    <TouchableOpacity style={styles.picker}>
+      <Text variant="titleMedium">1시간 예약</Text>
+      <Icon source="chevron-down" size={20} />
+    </TouchableOpacity>
+  );
+}
+
+function DateTimePicker() {
+  return (
+    <TouchableOpacity style={styles.picker}>
+      <Text variant="titleMedium">오후 5시 ~ 오후 6시</Text>
+      <Icon source="chevron-down" size={20} />
+    </TouchableOpacity>
+  );
+}
+
 export default function FacilityDetail() {
   const [isLiked, setIsLiked] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -71,24 +89,6 @@ export default function FacilityDetail() {
 
     return monthString + dateString;
   };
-
-  function ProductPicker() {
-    return (
-      <TouchableOpacity style={styles.picker}>
-        <Text variant="titleMedium">1시간 예약</Text>
-        <Icon source="chevron-down" size={20} />
-      </TouchableOpacity>
-    );
-  }
-
-  function DateTimePicker() {
-    return (
-      <TouchableOpacity style={styles.picker}>
-        <Text variant="titleMedium">오후 5시 ~ 오후 6시</Text>
-        <Icon source="chevron-down" size={20} />
-      </TouchableOpacity>
-    );
-  }
 
   return (
     <>
