@@ -23,7 +23,7 @@ function NoCoupon() {
   );
 }
 
-function MyCoupon({ coupon }: { coupon: CouponType }) {
+function MyCoupon({ coupon }: Readonly<{ coupon: CouponType }>) {
   return (
     <View style={styles.coupon}>
       <LinearGradient
@@ -71,6 +71,16 @@ function NewCoupon() {
   );
 }
 
+function MyActivityIndicator() {
+  return (
+    <ActivityIndicator
+      size={"large"}
+      color={themeColors.primary}
+      style={{ flex: 1, marginBottom: 30 }}
+    />
+  );
+}
+
 export default function CouponList() {
   const [loading, setLoading] = useState(true);
   const navigation =
@@ -96,16 +106,6 @@ export default function CouponList() {
     };
     getCoupons();
   }, []);
-
-  function MyActivityIndicator() {
-    return (
-      <ActivityIndicator
-        size={"large"}
-        color={themeColors.primary}
-        style={{ flex: 1, marginBottom: 30 }}
-      />
-    );
-  }
 
   const renderCoupons = () => {
     if (coupons.length === 0) {

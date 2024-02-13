@@ -28,9 +28,10 @@ const MyPageStack = createStackNavigator<MyPageStackParamList>();
 export default function MyPageContainer() {
   const navigation =
     useNavigation<MyPageStackScreenProps<"MyPageScreen">["navigation"]>();
-  const backToMyPage = () => {
-    return <BackButton onPress={() => navigation.navigate("MyPageScreen")} />;
-  };
+
+  const backToMyPage = () => <BackButton onPress={() => navigation.navigate("MyPageScreen")} />;
+  const backToProfile = () => <BackButton onPress={() => navigation.navigate("Profile")} />;
+  const backToCouponList = () => <BackButton onPress={() => navigation.navigate("CouponList")} />;
 
   const headerTitle = (title: string) => {
     return (
@@ -79,11 +80,7 @@ export default function MyPageContainer() {
         name="EditProfile"
         component={EditProfile}
         options={{
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("Profile")} />
-            );
-          },
+          headerLeft: () => backToProfile(),
           headerTitle: () => headerTitle("프로필 수정"),
           headerTitleAlign: "center",
         }}
@@ -101,11 +98,7 @@ export default function MyPageContainer() {
         name="CouponRegister"
         component={CouponRegister}
         options={{
-          headerLeft: () => {
-            return (
-              <BackButton onPress={() => navigation.navigate("CouponList")} />
-            );
-          },
+          headerLeft: () => backToCouponList(),
           headerTitle: () => headerTitle("쿠폰 등록"),
           headerTitleAlign: "center",
         }}

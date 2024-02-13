@@ -93,7 +93,7 @@ export default function SignUp() {
   const onPressEyeIcon2 = () =>
     setIsPasswordCheckVisible(!isPasswordCheckVisible);
 
-  const PasswordShowIcon = () => {
+  function PasswordShowIcon() {
     return (
       <MaterialCommunityIcons
         name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
@@ -105,7 +105,7 @@ export default function SignUp() {
     );
   };
 
-  const PasswordCheckShowIcon = () => {
+  function PasswordCheckShowIcon() {
     return (
       <MaterialCommunityIcons
         name={isPasswordCheckVisible ? "eye-off-outline" : "eye-outline"}

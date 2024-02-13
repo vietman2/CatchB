@@ -117,12 +117,12 @@ export default function ProHome() {
     stat,
     summary,
     good,
-  }: {
+  }: Readonly<{
     title: string;
     stat: string;
     summary: string;
     good?: boolean;
-  }) {
+  }>) {
     return (
       <View
         style={[

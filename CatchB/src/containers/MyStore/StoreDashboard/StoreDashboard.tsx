@@ -4,6 +4,27 @@ import { Divider, Text } from "react-native-paper";
 
 import { themeColors } from "../../../variables/colors";
 
+type PieData = {
+  value: number;
+  label: string;
+  color: string;
+};
+
+function CenterComponent({ pieData }: Readonly<{ pieData: PieData }>) {
+  const getSuccessRate = () => {
+    const success = pieData[0].value;
+    const failure = pieData[1].value;
+    const total = success + failure;
+    return `${Math.round((success / total) * 100)}%`;
+  };
+
+  return (
+    <Text variant="headlineSmall" style={styles.bold}>
+      {getSuccessRate()}
+    </Text>
+  );
+}
+
 export default function StoreDashboard() {
   const data = [
     { value: 10, label: "2023년 9월" },
@@ -15,21 +36,6 @@ export default function StoreDashboard() {
     { value: 19, label: "성공", color: "green" },
     { value: 1, label: "실패", color: "red" },
   ];
-
-  const getSuccessRate = () => {
-    const success = pieData[0].value;
-    const failure = pieData[1].value;
-    const total = success + failure;
-    return `${Math.round((success / total) * 100)}%`;
-  };
-
-  const CenterComponent = () => {
-return (
-                <Text variant="headlineSmall" style={styles.bold}>
-                  {getSuccessRate()}
-                </Text>
-              );
-            }
 
   return (
     <View style={styles.container}>
