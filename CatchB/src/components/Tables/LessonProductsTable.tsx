@@ -3,21 +3,23 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import SingleCheck from "../Checkboxes/SingleCheck";
-import { ReservationProduct } from "../../variables/types/products";
+import { LessonProduct } from "../../variables/types/products";
 
 interface Props {
-  products: ReservationProduct[];
+  products: LessonProduct[];
 }
 
-export default function ProductsTable({ products }: Readonly<Props>) {
-  const [selected, setSelected] = useState("1회 대관");
+export default function ReservationProductsTable({
+  products,
+}: Readonly<Props>) {
+  const [selected, setSelected] = useState("그룹 레슨");
 
   const renderPrice = (price: number) => {
     // 10,000원 형식
     return price.toLocaleString();
   };
 
-  const filters = ["1회 대관", "정기 대관", "기타"];
+  const filters = ["그룹 레슨", "1:1 레슨", "기타"];
 
   return (
     <View style={styles.container}>
@@ -31,8 +33,9 @@ export default function ProductsTable({ products }: Readonly<Props>) {
       </View>
       {products.map((product) => (
         <View key={product.id} style={styles.product}>
-          <Text variant="titleMedium">{product.title}</Text>
-          <Text variant="bodyLarge">{renderPrice(product.price)}원</Text>
+          <Text variant="titleLarge">{product.title}</Text>
+          <Text variant="titleMedium" style={{marginVertical: 10}}>{product.description}</Text>
+          <Text variant="titleLarge">{renderPrice(product.price)}원</Text>
         </View>
       ))}
     </View>
