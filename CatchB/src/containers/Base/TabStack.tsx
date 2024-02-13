@@ -12,7 +12,7 @@ import { TourGuideZone } from "rn-tourguide";
 import HomeContainer from "../Home/HomeStack";
 import NearbyContainer from "../Nearby/NearbyStack";
 import CommunityContainer from "../Community/CommunityStack";
-import CalendarContainer from "../Calendar/CalendarStack";
+import HistoryContainer from "../History/HistoryStack";
 import MyPageContainer from "../MyPage/MyPageStack";
 import MyStoreContainer from "../MyStore/MyStoreStack";
 import SwitchModeDialog from "../../components/Dialogs/SwitchModeDialog";
@@ -185,16 +185,12 @@ export default function TabContainer() {
           }}
         />
         <Tab.Screen
-          name="Calendar"
-          component={CalendarContainer}
+          name="History"
+          component={HistoryContainer}
           options={{
-            tabBarLabel: "캘린더",
+            tabBarLabel: "이용내역",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="calendar-check"
-                color={color}
-                size={26}
-              />
+              <MaterialCommunityIcons name="receipt" color={color} size={26} />
             ),
           }}
         />
