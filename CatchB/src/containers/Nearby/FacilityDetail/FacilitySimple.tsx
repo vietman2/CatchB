@@ -9,18 +9,16 @@ interface Props {
   facility: FacilityType;
 }
 
-export default function FacilitySimple({ facility }: Props) {
-  const [isLiked, setIsLiked] = useState(false);
+function FacilityImage({ facility }: Readonly<Props>) {
+  return <Image source={facility.image} style={styles.imageBox} />;
+}
 
-  function FacilityImage() {
-    return (
-      <Image source={facility.image} style={styles.imageBox} />
-    )
-  }
+export default function FacilitySimple({ facility }: Readonly<Props>) {
+  const [isLiked, setIsLiked] = useState(false);
 
   return (
     <View style={styles.container}>
-      <FacilityImage />
+      <FacilityImage facility={facility} />
       <View style={styles.infoBox}>
         <Text variant="titleMedium" style={{ fontWeight: "bold" }}>
           {facility.name}

@@ -33,7 +33,7 @@ export default function CommunityContainer() {
     );
   };
 
-  function WriteIcon() {
+  const WriteIcon = () => {
     return (
       <TouchableOpacity
         style={{ marginRight: 15 }}

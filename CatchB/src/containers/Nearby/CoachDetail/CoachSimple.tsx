@@ -9,20 +9,22 @@ interface Props {
   coach: CoachType;
 }
 
-export default function CoachSimple({ coach }: Props) {
+function CoachImage({ coach }: Readonly<Props>) {
+  return (
+    <Image source={coach.image} style={styles.imageBox} resizeMode="center" />
+  );
+}
 
-  function CoachImage() {
-    return (
-      <Image source={coach.image} style={styles.imageBox} resizeMode="center" />
-    )
-  }
+export default function CoachSimple({ coach }: Readonly<Props>) {
+
+  
 
   return (
     <View style={styles.container}>
       <Text variant="headlineMedium" style={{ fontWeight: "bold" }}>
         {coach.coach_name} 코치
       </Text>
-      <CoachImage />
+      <CoachImage coach={coach} />
       <View style={styles.infoBox}>
         <View style={styles.rating}>
           <Icon source="star" size={20} color="gold" />

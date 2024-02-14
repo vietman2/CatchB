@@ -106,13 +106,15 @@ export async function logout(refresh: string) {
 }
 
 export async function register(
-  username: string,
-  first_name: string,
-  last_name: string,
-  email: string,
-  phone_number: string,
-  password: string,
-  password2: string,
+  auth: {
+    username: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    password: string;
+    password2: string;
+  },
   gender: string
 ) {
   const url = `${API_LOCAL_URL}/api/users/register/`;
@@ -120,13 +122,13 @@ export async function register(
 
   try {
     const response = await axios.post(url, {
-      username,
-      first_name,
-      last_name,
-      email,
-      phone_number,
-      password,
-      password2,
+      username: auth.username,
+      first_name: auth.first_name,
+      last_name: auth.last_name,
+      email: auth.email,
+      phone_number: auth.phone_number,
+      password: auth.password,
+      password2: auth.password2,
       gender,
       register_route,
     });

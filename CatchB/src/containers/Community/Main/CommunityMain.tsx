@@ -24,7 +24,7 @@ export default function Community() {
     { key: "내 활동", title: "내 활동" },
   ];
 
-  function PlaceholderComponent() {
+  const PlaceholderComponent = () => {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text variant="titleMedium">준비 중입니다.</Text>

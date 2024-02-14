@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, MapMarker } from "react-native-maps";
-import { Divider, FAB, Portal, Searchbar, Text } from "react-native-paper";
+import { Divider, Searchbar, Text } from "react-native-paper";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import CoachSimple from "../CoachDetail/CoachSimple";
@@ -143,15 +143,6 @@ export default function NearbyMain() {
               ))}
         </ScrollView>
       </BottomSheet>
-      <Portal>
-        <FAB
-          style={styles.filters}
-          label="인기순"
-          size="large"
-          onPress={() => {}}
-          visible={false}
-        />
-      </Portal>
     </View>
   );
 }

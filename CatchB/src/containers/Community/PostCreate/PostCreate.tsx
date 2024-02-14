@@ -1,5 +1,4 @@
-import { useRef, useMemo, useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
 import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon, Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -69,16 +68,7 @@ export default function PostCreate() {
     }
   };*/
 
-  function ForumChip() {
-    return (
-      <View style={styles.chip}>
-        <Text style={styles.chipText}>{selectedForum}</Text>
-        <Icon source="chevron-down" size={18} />
-      </View>
-    );
-  }
-
-  function SelectedForum({ forum }: { forum: Forums }) {
+  function SelectedForum({ forum }: Readonly<{ forum: Forums }>) {
     return (
       <TouchableOpacity
         onPress={() => handleForumSelect(forum)}
@@ -93,7 +83,7 @@ export default function PostCreate() {
     );
   }
 
-  function UnselectedForum({ forum }: { forum: Forums }) {
+  function UnselectedForum({ forum }: Readonly<{ forum: Forums }>) {
     return (
       <TouchableOpacity
         onPress={() => handleForumSelect(forum)}
@@ -117,7 +107,10 @@ export default function PostCreate() {
             style={styles.button}
             testID="forum-picker"
           >
-            <ForumChip />
+            <View style={styles.chip}>
+              <Text style={styles.chipText}>{selectedForum}</Text>
+              <Icon source="chevron-down" size={18} />
+            </View>
           </TouchableOpacity>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             <Text>태그</Text>

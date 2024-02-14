@@ -56,13 +56,15 @@ export default function SignUp() {
     }
 
     const response = await register(
-      username,
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      password,
-      passwordCheck,
+      {
+        username,
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        phone_number: phoneNumber,
+        password,
+        password2: passwordCheck,
+      },
       gender
     );
 
@@ -101,7 +103,7 @@ export default function SignUp() {
         testID="password-eye-icon"
       />
     );
-  }
+  };
 
   const PasswordCheckShowIcon = () => {
     return (
@@ -113,7 +115,7 @@ export default function SignUp() {
         testID="password-check-eye-icon"
       />
     );
-  }
+  };
 
   return (
     <ScrollView style={styles.mainContainer}>

@@ -11,18 +11,11 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
     PaperProvider: Provider,
     Divider: "Divider",
     Searchbar: "Searchbar",
-    FAB: ({ label, onPress }: any) => (
-      <TouchableOpacity onPress={onPress}>
-        <Text>{label}</Text>
-      </TouchableOpacity>
-    ),
-    Portal: "Portal",
     Text: "Text",
   };
 });
@@ -58,12 +51,6 @@ const components = () => {
 };
 
 describe("Nearby", () => {
-  it("renders correctly and handles FAB press", async () => {
-    const { getByText } = renderWithProviders(components());
-
-    fireEvent.press(getByText("인기순"));
-  });
-
   it("renders correctly and handles mode switch", async () => {
     const { getByText } = renderWithProviders(components());
 

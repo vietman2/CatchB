@@ -19,6 +19,25 @@ import { RootState } from "../../../store/store";
 
 const { width, height } = Dimensions.get("window");
 
+function SimpleChip({ label }: Readonly<{ label: string }>) {
+  return (
+    <View style={styles.simpleChip}>
+      <Text variant="titleMedium" style={{ color: "white" }}>
+        {label}
+      </Text>
+    </View>
+  );
+}
+
+function ProductPicker() {
+  return (
+    <TouchableOpacity style={styles.picker}>
+      <Text variant="titleMedium">타격 레슨: 선수지망생</Text>
+      <Icon source="chevron-down" size={20} />
+    </TouchableOpacity>
+  );
+}
+
 export default function CoachDetail() {
   const [isLiked, setIsLiked] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -56,33 +75,6 @@ export default function CoachDetail() {
       );
     }
   };
-
-  function SimpleChip({ label }: { label: string }) {
-    return (
-      <View
-        style={{
-          paddingHorizontal: 15,
-          paddingVertical: 5,
-          backgroundColor: themeColors.primary,
-          borderRadius: 10,
-          margin: 5,
-        }}
-      >
-        <Text variant="titleMedium" style={{ color: "white" }}>
-          {label}
-        </Text>
-      </View>
-    );
-  }
-
-  function ProductPicker() {
-    return (
-      <TouchableOpacity style={styles.picker}>
-        <Text variant="titleMedium">타격 레슨: 선수지망생</Text>
-        <Icon source="chevron-down" size={20} />
-      </TouchableOpacity>
-    );
-  }
 
   return (
     <>
@@ -265,5 +257,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
+  },
+  simpleChip: {
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    backgroundColor: themeColors.primary,
+    borderRadius: 10,
+    margin: 5,
   },
 });

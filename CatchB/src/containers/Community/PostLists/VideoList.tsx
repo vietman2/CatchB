@@ -1,10 +1,10 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
-export default function VideoList() {
-  const PlaceholderView = ({ color }: { color: string }) => (
-    <View style={[styles.placeholder, { backgroundColor: color }]} />
-  );
+function PlaceholderView({ color }: Readonly<{ color: string }>) {
+  return <View style={[styles.placeholder, { backgroundColor: color }]} />;
+}
 
+export default function VideoList() {
   return (
     <ScrollView>
       <View style={styles.horizontal}>
