@@ -2,6 +2,7 @@ import { Points } from "../types";
 
 export const samplePoints: Points[] = [
   {
+    id: 1,
     user_uuid: "user_uuid",
     title: "샘플 포인트",
     description: "샘플 포인트입니다.",
@@ -13,6 +14,7 @@ export const samplePoints: Points[] = [
     valid_until: "2024-02-01",
   },
   {
+    id: 2,
     user_uuid: "user_uuid",
     title: "샘플 포인트2",
     description: "샘플 포인트2입니다.",

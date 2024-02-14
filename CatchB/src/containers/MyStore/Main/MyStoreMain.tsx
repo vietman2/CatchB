@@ -16,12 +16,12 @@ export default function MyStoreMain() {
   const render = () => {
     if (mode === "Dashboard") {
       return <StoreDashboard />;
-    } else if (mode === "Tasks") {
-      return <TaskBoard />;
-    } else if (mode === "Reservations") {
-      return <ManageReservations />;
     } else if (mode === "Sales") {
       return <Sales />;
+    } else if (mode === "Reservations") {
+      return <ManageReservations />;
+    } else if (mode === "Tasks") {
+      return <TaskBoard />;
     } else if (mode === "Customers") {
       return <ManageCustomers />;
     } else {

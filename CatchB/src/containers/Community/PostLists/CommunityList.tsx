@@ -1,10 +1,4 @@
-import {
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-  useEffect,
-} from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -13,69 +7,60 @@ import {
   Keyboard,
 } from "react-native";
 import { Chip, Divider, Icon, Text, TextInput } from "react-native-paper";
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetBackdropProps,
-} from "@gorhom/bottom-sheet";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import BottomSheet from "@gorhom/bottom-sheet";
 
-import PostSimple from "./PostSimple";
+import PostSimple from "../PostDetail/PostSimple";
 import { themeColors } from "../../../variables/colors";
+import { CommunityStackScreenProps } from "../../../variables/navigation";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
+import { AppDispatch } from "../../../store/store";
+import { setSelectedPost } from "../../../store/slices/community/communitySlice";
+import { PostType } from "../../../variables/types/community";
 
 interface Props {
-  hideFAB: () => void;
-  showFAB: () => void;
   mode: "야구톡" | "모집";
 }
 
 type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순";
 
-export default function CommunityList({
-  hideFAB,
-  showFAB,
-  mode,
-}: Readonly<Props>) {
+export default function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
   const [sort, setSort] = useState<Sort>("최신순");
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
-  const backDrop = useCallback(
-    (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop {...props} pressBehavior="close" onPress={showFAB} />
-    ),
-    []
-  );
+  const navigation =
+    useNavigation<CommunityStackScreenProps<"PostDetail">["navigation"]>();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const closeBottomSheet = useCallback(() => {
-    bottomSheetRef.current?.close();
-    showFAB();
-  }, []);
-
-  const handleSortChoice = (
-    choice: Sort
-  ) => {
-    setSort(choice);
-    closeBottomSheet();
+  const handlePress = async (post: PostType) => {
+    await dispatch(setSelectedPost(post));
+    navigation.navigate("PostDetail");
   };
 
-  const openFilterChoices = () => {
-    hideFAB();
-    bottomSheetRef.current.snapToPosition("45%");
+  const handleSortChoice = (choice: Sort) => {
+    setSort(choice);
+  };
+
+  const handleCloseBottomSheet = () => {
+    bottomSheetRef.current?.close();
+  };
+
+  const handleOpenBottomSheet = () => {
+    bottomSheetRef.current?.expand();
   };
 
   useEffect(() => {
-    // samplePosts중에서 forum_id가 1인 것만 가져오기
     if (mode === "야구톡") {
       setPosts(samplePosts.filter((post) => post.forum_id === 1));
-    } else if (mode === "모집") {
+    } else {
       setPosts(samplePosts.filter((post) => post.forum_id === 2));
     }
   }, []);
 
-  const SearchIcon = () => <TextInput.Icon icon="magnify" />;
-
-  const SortComponent = ({ choice }: { choice: Sort }) => {
+  function SortComponent({ choice }: { choice: Sort }) {
     return (
       <TouchableOpacity
         onPress={() => handleSortChoice(choice)}
@@ -97,7 +82,7 @@ export default function CommunityList({
         )}
       </TouchableOpacity>
     );
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -111,11 +96,11 @@ export default function CommunityList({
           placeholder="제목, 내용으로 검색하세요."
           onChangeText={setSearchQuery}
           value={searchQuery}
-          left={<SearchIcon />}
+          left={<TextInput.Icon icon="magnify" />}
           outlineStyle={styles.searchBar}
         />
         <View style={styles.filters}>
-          <TouchableOpacity onPress={openFilterChoices} testID="filters">
+          <TouchableOpacity onPress={handleOpenBottomSheet} testID="filters">
             <Chip
               compact
               icon="sort"
@@ -158,7 +143,12 @@ export default function CommunityList({
         </View>
         {posts.map((post) => (
           <View key={post.id}>
-            <PostSimple post={post} />
+            <TouchableOpacity
+              onPress={() => handlePress(post)}
+              testID={post.title}
+            >
+              <PostSimple post={post} />
+            </TouchableOpacity>
             <Divider />
           </View>
         ))}
@@ -167,24 +157,27 @@ export default function CommunityList({
         ref={bottomSheetRef}
         index={-1}
         snapPoints={snapPoints}
-        backdropComponent={backDrop}
         enableHandlePanningGesture={false}
         enableContentPanningGesture={false}
       >
         <View style={styles.bottomSheet}>
-        <View style={styles.texts}>
-          <Text variant="headlineSmall" style={styles.title}>
-            정렬
-          </Text>
-          <SortComponent choice="최신순" />
-          <SortComponent choice="인기순" />
-          <SortComponent choice="조회 많은 순" />
-          <SortComponent choice="댓글 많은 순" />
+          <View style={styles.texts}>
+            <Text variant="headlineSmall" style={styles.title}>
+              정렬
+            </Text>
+            <SortComponent choice="최신순" />
+            <SortComponent choice="인기순" />
+            <SortComponent choice="조회 많은 순" />
+            <SortComponent choice="댓글 많은 순" />
+          </View>
+          <TouchableOpacity
+            style={styles.close}
+            onPress={handleCloseBottomSheet}
+            testID="close"
+          >
+            <Text variant="headlineSmall">닫기</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.close} onPress={closeBottomSheet}>
-          <Text variant="headlineSmall">닫기</Text>
-        </TouchableOpacity>
-      </View>
       </BottomSheet>
     </View>
   );
@@ -204,6 +197,7 @@ const styles = StyleSheet.create({
   filters: {
     flexDirection: "row",
     marginTop: 5,
+    marginBottom: 10,
   },
   bottomSheet: {
     flex: 1,

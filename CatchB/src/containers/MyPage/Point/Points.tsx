@@ -83,7 +83,7 @@ export default function Points() {
           {total > 0 ? (
             <ScrollView style={styles.list}>
               {details.map((detail) => {
-                return <PointsDetail key={detail.created_at} detail={detail} />;
+                return <PointsDetail key={detail.id} detail={detail} />;
               })}
             </ScrollView>
           ) : (

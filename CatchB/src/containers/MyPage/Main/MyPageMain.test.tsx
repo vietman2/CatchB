@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/display-name */
-import { Share } from "react-native";
+import { Alert, Share } from "react-native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -96,6 +96,21 @@ describe("<MyPage />", () => {
       fireEvent.press(getByText("포인트"));
       fireEvent.press(getByText("코치 등록하기"));
       fireEvent.press(getByText("시설 등록하기"));
+    });
+  });
+
+  it("handles login alert", async () => {
+    jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
+    const { getByText } = renderWithProviders(components());
+
+    await waitFor(() => {
+      fireEvent.press(getByText("쿠폰함"));
+    });
+
+    const alert = Alert.alert.mock.calls[0][2];
+
+    waitFor(() => {
+      alert[1].onPress();
     });
   });
 

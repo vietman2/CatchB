@@ -2,12 +2,13 @@ import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 
 import { Coupon } from "./types";
+import { ReservationProduct } from "./types/products";
 
 export type RootTabParamList = {
   Home: undefined;
   Nearby: undefined;
   Community: undefined;
-  Calendar: undefined;
+  History: undefined;
   MyPage: undefined;
   MyStore: undefined;
 };
@@ -26,7 +27,11 @@ export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
 export type NearbyStackParamList = {
   NearbyScreen: undefined;
   FacilityDetail: undefined;
-  FacilityReserve: undefined;
+  FacilityReserve: {
+    selectedDate?: string;
+    selectedTime?: string;
+    selectedProduct?: ReservationProduct;
+  };
   CoachDetail: undefined;
   Payment: undefined;
 };
@@ -58,13 +63,13 @@ export type CommunityStackScreenProps<T extends keyof CommunityStackParamList> =
     RootTabScreenProps<"Community">
   >;
 
-export type CalendarStackParamList = {
-  CalendarScreen: undefined;
+export type HistoryStackParamList = {
+  HistoryScreen: undefined;
 };
-export type CalendarStackScreenProps<T extends keyof CalendarStackParamList> =
+export type HistoryStackScreenProps<T extends keyof HistoryStackParamList> =
   CompositeScreenProps<
-    StackScreenProps<CalendarStackParamList, T>,
-    RootTabScreenProps<"Calendar">
+    StackScreenProps<HistoryStackParamList, T>,
+    RootTabScreenProps<"History">
   >;
 
 export type MyPageStackParamList = {

@@ -24,8 +24,8 @@ jest.mock("react-native-paper", () => {
     IconButton: "IconButton",
     FAB: "FAB",
     Portal: "Portal",
-    Button: ({ onPress, children }: any) => (
-      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+    Button: ({ onPress, children, testID }: any) => (
+      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼" testID={testID}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
@@ -65,7 +65,7 @@ describe("<NearbyStack />", () => {
     });
 
     await waitFor(() => fireEvent.press(getByText("캐치비 레슨장")));
-    await waitFor(() => fireEvent.press(getByText("예약하기")));
+    await waitFor(() => fireEvent.press(getByTestId("reserve-button")));
     await waitFor(() => fireEvent.press(getByText("결제하기")));
 
     waitFor(() => fireEvent.press(getByTestId("back")));
@@ -85,8 +85,7 @@ describe("<NearbyStack />", () => {
     await waitFor(() => fireEvent.press(getByText("코치")));
     await waitFor(() => fireEvent.press(getByText("홍승우 코치")));
 
-    const backButton = getByTestId("back");
-    waitFor(() => fireEvent.press(backButton));
+    waitFor(() => fireEvent.press(getByTestId("back")));
     await waitFor(() => fireEvent.press(getByText("시설")));
   });
 });

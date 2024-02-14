@@ -119,7 +119,7 @@ export default function AreaPicker({
             <ScrollView style={styles.modalScroll}>
               {sigunguDisplay.map((sigungu) => (
                 <View
-                  key={sigungu.code}
+                  key={sigungu}
                   style={
                     selectedSigungu.includes(
                       (selectedSido + " " + sigungu).trim()

@@ -114,7 +114,7 @@ export default function CouponList() {
       return (
         <ScrollView>
           {coupons.map((coupon) => {
-            return <MyCoupon key={coupon.issued_at} coupon={coupon} />;
+            return <MyCoupon key={coupon.id} coupon={coupon} />;
           })}
           <Divider />
           <NewCoupon />

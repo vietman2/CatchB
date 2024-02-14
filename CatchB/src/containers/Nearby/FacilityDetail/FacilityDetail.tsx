@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -10,19 +10,23 @@ import {
 import { useSelector } from "react-redux";
 import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 import ScheduleBar from "../../../components/Tables/ScheduleBar";
-import ProductsTable from "../../../components/Tables/ProductsTable";
+import ReservationProductsTable from "../../../components/Tables/ReservationProductsTable";
 import CoachProfile from "../../../components/Avatar/CoachProfile";
 import { themeColors } from "../../../variables/colors";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 import { RootState } from "../../../store/store";
+import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";
 
 const { width, height } = Dimensions.get("window");
 
 export default function FacilityDetail() {
   const [isLiked, setIsLiked] = useState(false);
   const [expand, setExpand] = useState(false);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
     useNavigation<NearbyStackScreenProps<"FacilityDetail">["navigation"]>();
   const facility = useSelector(
@@ -30,7 +34,11 @@ export default function FacilityDetail() {
   );
 
   const handleReserve = () => {
-    navigation.navigate("FacilityReserve");
+    navigation.navigate("FacilityReserve", {
+      selectedDate: "2024-02-13",
+      selectedTime: "오후 5시 ~ 오후 6시",
+      selectedProduct: reservationProducts[3],
+    });
   };
 
   const renderDescription = (description: string) => {
@@ -55,9 +63,36 @@ export default function FacilityDetail() {
     }
   };
 
+  const renderDate = () => {
+    // today's date in M월 D일 format
+    const dateToday = new Date();
+    const monthString = dateToday.getMonth() + "월 ";
+    const dateString = dateToday.getDate() + "일 ";
+
+    return monthString + dateString;
+  };
+
+  function ProductPicker() {
+    return (
+      <TouchableOpacity style={styles.picker}>
+        <Text variant="titleMedium">1시간 예약</Text>
+        <Icon source="chevron-down" size={20} />
+      </TouchableOpacity>
+    );
+  }
+
+  function DateTimePicker() {
+    return (
+      <TouchableOpacity style={styles.picker}>
+        <Text variant="titleMedium">오후 5시 ~ 오후 6시</Text>
+        <Icon source="chevron-down" size={20} />
+      </TouchableOpacity>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <>
+      <ScrollView style={styles.container}>
         <ScrollView horizontal pagingEnabled>
           <View style={{ ...styles.image, backgroundColor: "blue" }} />
           <View style={{ ...styles.image, backgroundColor: "red" }} />
@@ -111,7 +146,7 @@ export default function FacilityDetail() {
           <Text variant="titleLarge" style={styles.subtitle}>
             가격표
           </Text>
-          <ProductsTable products={facility.products} />
+          <ReservationProductsTable products={facility.products} />
         </View>
         <View style={styles.content}>
           <View style={styles.reservation}>
@@ -119,6 +154,10 @@ export default function FacilityDetail() {
               예약 현황
             </Text>
             <Text variant="titleMedium">자세히 보기</Text>
+          </View>
+          <View style={styles.reservation}>
+            <Text variant="titleMedium">{renderDate()}</Text>
+            <Text variant="titleMedium">다른 날짜 선택</Text>
           </View>
           <ScheduleBar />
         </View>
@@ -139,13 +178,33 @@ export default function FacilityDetail() {
             리뷰
           </Text>
         </View>
+        <View style={styles.placeholder} />
       </ScrollView>
-      <View style={styles.button}>
-        <Button mode="contained" onPress={handleReserve}>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        style={styles.bottomSheet}
+        backgroundStyle={{ backgroundColor: "rgb(245, 245, 245)" }}
+      >
+        <Text variant="titleLarge" style={styles.subtitle}>
           예약하기
-        </Button>
-      </View>
-    </View>
+        </Text>
+        <Text variant="titleMedium" style={styles.detail}>
+          상품 선택
+        </Text>
+        <ProductPicker />
+        <Text variant="titleMedium" style={styles.detail}>
+          시간 선택
+        </Text>
+        <DateTimePicker />
+        <View style={styles.button}>
+          <Button mode="contained" onPress={handleReserve} testID="reserve-button">
+            예약하기
+          </Button>
+        </View>
+      </BottomSheet>
+    </>
   );
 }
 
@@ -206,12 +265,27 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 10,
   },
+  bottomSheet: {
+    paddingHorizontal: 20,
+  },
   reservation: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
+    marginBottom: 5,
   },
   button: {
     marginTop: 20,
+  },
+  placeholder: {
+    height: 100,
+  },
+  picker: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "white",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
 });

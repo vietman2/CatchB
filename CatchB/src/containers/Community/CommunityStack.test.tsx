@@ -12,66 +12,79 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
-  const { Menu } = jest.requireActual("react-native-paper");
-  const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
   return {
     PaperProvider: Provider,
     Text: "Text",
-    Menu: Menu,
-    FAB: ({ icon, onPress }: any) => (
-      <TouchableOpacity onPress={onPress}>
-        <Text>{icon}</Text>
-      </TouchableOpacity>
-    ),
     TextInput: {
       ...jest.requireActual("react-native-paper").TextInput,
+      Affix: "Affix",
       Icon: "Icon",
     },
     Chip: "Chip",
     Icon: "Icon",
     IconButton: "IconButton",
     Divider: "Divider",
+    Avatar: {
+      ...jest.requireActual("react-native-paper").Avatar,
+      Icon: "Icon",
+    },
   };
 });
-jest.mock("../../components/Logos/TopBar", () => ({
-  leftTitle: "leftTitle",
-}));
-jest.mock("@gorhom/bottom-sheet", () => {
-  const { View } = jest.requireActual("react-native");
+jest.mock("react-native-tab-view", () => {
+  const TabView = jest.requireActual("react-native-tab-view").TabView;
+  const TabBar = jest.requireActual("react-native-tab-view").TabBar;
 
   return {
-    __esModule: true,
-    default: "BottomSheet",
-    BottomSheetBackdrop: ({ children }: any) => <View>{children}</View>,
-    BottomSheetBackdropProps: "BottomSheetBackdropProps",
+    TabView,
+    TabBar,
+    SceneRendererProps: "SceneRendererProps",
+    Route: "Route",
   };
 });
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock("../../components/Logos/TopBar", () => ({
+  leftTitle: () => "leftTitle",
+}));
 
 const Tab = createBottomTabNavigator();
 
+const components = () => {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Community" component={CommunityContainer} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
+
 describe("<CommunityStack />", () => {
-  it("renders correctly and navigates to <PostCreate />", () => {
-    const { getByText, getByTestId } = renderWithProviders(
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Community" component={CommunityContainer} />
-        </Tab.Navigator>
-      </NavigationContainer>,
-      {
+  it("renders correctly and navigates to <PostCreate /> and back", () => {
+    const { getByTestId } = renderWithProviders(components(), {
+      preloadedState: {
+        community: {
+          selectedPost: samplePosts[0],
+        },
+      },
+    });
+
+    fireEvent.press(getByTestId("create-post-button"));
+    fireEvent.press(getByTestId("back"));
+  });
+
+  it("navigates to <PostDetail />", async () => {
+    waitFor(async () => {
+      const { getByText, getByTestId } = renderWithProviders(components(), {
         preloadedState: {
           community: {
             selectedPost: samplePosts[0],
           },
         },
-      }
-    );
+      });
 
-    waitFor(() => {
-      fireEvent.press(getByText("plus"));
-      fireEvent.press(getByText("등록"));
+      await waitFor(() => fireEvent.press(getByText("KBO 개막 D-200")));
       fireEvent.press(getByTestId("back"));
-      fireEvent.press(getByText("포스트2 제목"));
     });
   });
 });

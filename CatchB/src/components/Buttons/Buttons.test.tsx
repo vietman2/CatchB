@@ -2,7 +2,6 @@
 import { render } from "@testing-library/react-native";
 
 import BackButton from "./BackButton";
-import SurfaceButton from "./SurfaceButton";
 import KakaoButton from "./KakaoButton";
 import NaverButton from "./NaverButton";
 import IconButton from "./IconButton";
@@ -19,12 +18,6 @@ jest.mock("react", () => ({
   ...jest.requireActual("react"),
   useState: (initial: any) => [initial, jest.fn()],
 }));
-
-describe("<SurfaceButton />", () => {
-  it("renders correctly", () => {
-    render(<SurfaceButton icon="home" title="Home" />);
-  });
-});
 
 describe("<KakaoButton />", () => {
   it("renders correctly", () => {

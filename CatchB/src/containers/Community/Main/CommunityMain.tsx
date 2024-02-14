@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { View, useWindowDimensions } from "react-native";
-import { Text, FAB } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { View, Dimensions } from "react-native";
+import { Text } from "react-native-paper";
 import {
   TabView,
   TabBar,
@@ -13,30 +12,17 @@ import {
 import CommunityList from "../PostLists/CommunityList";
 import VideoList from "../PostLists/VideoList";
 import { themeColors } from "../../../variables/colors";
-import { CommunityStackScreenProps } from "../../../variables/navigation";
 
 export default function Community() {
-  const layout = useWindowDimensions();
+  const width = Dimensions.get("window").width;
   const [index, setIndex] = useState(0);
   const routes = [
     { key: "야구톡", title: "야구톡" },
     { key: "모집", title: "모집" },
-    { key: "벼룩시작", title: "벼룩시장" },
+    { key: "벼룩시장", title: "벼룩시장" },
     { key: "자세 분석", title: "자세 분석" },
     { key: "내 활동", title: "내 활동" },
   ];
-
-  const [visible, setVisible] = useState(true);
-  const navigation =
-    useNavigation<CommunityStackScreenProps<"CommunityScreen">["navigation"]>();
-
-  const hideFAB = () => {
-    setVisible(false);
-  };
-
-  const showFAB = () => {
-    setVisible(true);
-  };
 
   function PlaceholderComponent() {
     return (
@@ -52,11 +38,9 @@ export default function Community() {
     }
   ) => {
     if (props.route.key === "야구톡") {
-      return (
-        <CommunityList hideFAB={hideFAB} showFAB={showFAB} mode="야구톡" />
-      );
+      return <CommunityList mode="야구톡" />;
     } else if (props.route.key === "모집") {
-      return <CommunityList hideFAB={hideFAB} showFAB={showFAB} mode="모집" />;
+      return <CommunityList mode="모집" />;
     } else if (props.route.key === "자세 분석") {
       return <VideoList />;
     } else {
@@ -89,25 +73,13 @@ export default function Community() {
     );
   };
 
-  const handlePostCreatePress = () => {
-    navigation.navigate("PostCreate");
-  };
-
   return (
-    <>
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-        renderTabBar={renderTabBar}
-      />
-      <FAB
-        icon="plus"
-        visible={visible}
-        style={{ position: "absolute", right: 10, bottom: 10 }}
-        onPress={handlePostCreatePress}
-      />
-    </>
+    <TabView
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      initialLayout={{ width: width }}
+      renderTabBar={renderTabBar}
+    />
   );
 }

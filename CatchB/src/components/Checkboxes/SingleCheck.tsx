@@ -1,6 +1,6 @@
 import { View, Dimensions, TouchableOpacity } from "react-native";
 
-import MyChip from "../Chips/MyChip";
+import SelectionChip from "../Chips/SelectionChip";
 import { themeColors } from "../../variables/colors";
 
 interface Props {
@@ -51,7 +51,7 @@ export default function SingleCheck({
                 : themeColors.tertiary,
             }}
           >
-            <MyChip label={option} selected={isSelected(option)} />
+            <SelectionChip label={option} selected={isSelected(option)} />
           </TouchableOpacity>
         </View>
       ))}

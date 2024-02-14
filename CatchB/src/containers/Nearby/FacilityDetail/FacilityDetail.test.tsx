@@ -23,9 +23,13 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
   };
 });
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../../../components/Avatar/CoachProfile", () => "CoachProfile");
 jest.mock("../../../components/Tables/ScheduleBar", () => "ScheduleBar");
-jest.mock("../../../components/Tables/ProductsTable", () => "ProductsTable");
+jest.mock(
+  "../../../components/Tables/ReservationProductsTable",
+  () => "ReservationProductsTable"
+);
 
 const Stack = createStackNavigator();
 

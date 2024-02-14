@@ -9,7 +9,10 @@ import {
 import { Button, TextInput, Text, ActivityIndicator } from "react-native-paper";
 import { useSelector } from "react-redux";
 
-import { registerCoupon, checkStatus } from "../../../services/user_management/coupon";
+import {
+  registerCoupon,
+  checkStatus,
+} from "../../../services/user_management/coupon";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 
@@ -43,13 +46,13 @@ export default function CouponRegister() {
 
       const taskResponse = await checkStatus(taskId, access);
 
-      setInterval(async () => {
-        if (taskResponse.status === 200) {
-          setLoading(false);
-        } else {
-          setError("에러");
-        }
-      }, 2000);
+      // TODO: 주기적으로 상태 확인하기
+
+      if (taskResponse.status === 200) {
+        setLoading(false);
+      } else {
+        setError("에러");
+      }
     } else {
       setError(response.data.message);
       setLoading(false);
@@ -75,7 +78,6 @@ export default function CouponRegister() {
           <View style={{ alignItems: "flex-end" }}>
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
           </View>
-
           {loading ? (
             <ActivityIndicator size="small" color={themeColors.primary} />
           ) : (

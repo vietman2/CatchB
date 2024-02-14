@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Alert } from "react-native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -7,7 +8,6 @@ import * as DocumentPicker from "expo-document-picker";
 import CoachStep1 from "./CoachStep1";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
-import { Alert } from "react-native";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

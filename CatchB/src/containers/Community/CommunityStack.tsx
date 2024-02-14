@@ -1,4 +1,5 @@
-import { Text } from "react-native-paper";
+import { TouchableOpacity } from "react-native";
+import { Icon, Text } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 
@@ -32,15 +33,34 @@ export default function CommunityContainer() {
     );
   };
 
+  function WriteIcon() {
+    return (
+      <TouchableOpacity
+        style={{ marginRight: 15 }}
+        onPress={() => navigation.navigate("PostCreate")}
+        testID="create-post-button"
+      >
+        <Icon source="pencil-plus-outline" size={24} color="black" />
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <CommunityStack.Navigator
       initialRouteName="CommunityScreen"
       screenOptions={{
-        headerTitle: leftTitle,
         headerShadowVisible: false,
       }}
     >
-      <CommunityStack.Screen name="CommunityScreen" component={CommunityMain} />
+      <CommunityStack.Screen
+        name="CommunityScreen"
+        component={CommunityMain}
+        options={{
+          headerLeft: leftTitle,
+          headerTitle: () => null,
+          headerRight: () => WriteIcon(),
+        }}
+      />
       <CommunityStack.Screen
         name="PostCreate"
         component={PostCreate}

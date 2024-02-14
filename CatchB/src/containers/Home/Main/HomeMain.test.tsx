@@ -1,90 +1,117 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fireEvent } from "@testing-library/react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeMain from "./HomeMain";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 
+jest.mock("react-native-gesture-handler", () => ({
+  PanGestureHandler: "PanGestureHandler",
+}));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
   const { View, TouchableOpacity, Text } = jest.requireActual("react-native");
 
+  const MockTitle = (props: any) => (
+    <View testID="CardTitle">
+      <Text>{props.title}</Text>
+      {props.left && <View testID="icon">{props.left()}</View>}
+      {props.right && <View testID="icon">{props.right()}</View>}
+    </View>
+  );
+
+  const MockContent = (props: any) => (
+    <View testID="CardContent">{props.children}</View>
+  );
+
+  const MockCard = (props: any) => (
+    <View testID="Card" {...props}>
+      {props.children}
+    </View>
+  );
+
+  MockCard.Title = MockTitle;
+  MockCard.Content = MockContent;
+
   return {
     PaperProvider: Provider,
-    Banner: ({ visible, actions, icon, children }: any) => {
-      if (visible) {
-        return (
-          <View>
-            {icon}
-            {children}
-            {actions.map(({ label, onPress }: any) => (
-              <TouchableOpacity
-                key={label}
-                onPress={onPress}
-                accessibilityLabel={label}
-              />
-            ))}
-          </View>
-        );
-      } else {
-        return null;
-      }
-    },
     Text: "Text",
     Icon: "Icon",
     Button: ({ onPress, children }: any) => (
-      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+      <TouchableOpacity onPress={onPress}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
+    Surface: ({ children }: any) => <View>{children}</View>,
+    Chip: ({ onPress, children }: any) => (
+      <TouchableOpacity onPress={onPress}>
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
+    Banner: ({ children }: any) => (
+      <View>
+        <Text>{children}</Text>
+      </View>
+    ),
+    Card: MockCard,
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Buttons/SurfaceButton", () => "SurfaceButton");
-jest.mock("../../../components/Chips/Chips", () => ({
-  NotificationChip: () => "NotificationChip",
-}));
-jest.mock("../../../components/Chips/Chips", () => ({
-  NotificationChip: () => "NotificationChip",
-}));
-jest.mock("../../../components/Cards/SimpleCard", () => "SimpleCard");
-jest.mock("../../../components/Cards/CardBox", () => "CardBox");
 
-const renderWithMode = (mode: "basic" | "pro") => {
-  return renderWithProviders(<HomeMain />, {
-    preloadedState: { general: { mode, location: null } },
-  });
+const Stack = createStackNavigator();
+
+const components = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="HomeMain" component={HomeMain} />
+        <Stack.Screen name="Nearby" component={HomeMain} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 describe("<NormalHome />", () => {
-  it("renders with user", () => {
-    renderWithProviders(<HomeMain />, {
+  it("renders with user, and handles filterchip press", () => {
+    const { getByText } = renderWithProviders(components(), {
       preloadedState: {
         general: { mode: "basic", location: null },
         auth: { user: admin, token: "" },
       },
     });
+
+    waitFor(() => {
+      fireEvent.press(getByText("타격"));
+      fireEvent.press(getByText("투구"));
+    });
   });
 
-  it("renders without user", () => {
-    renderWithProviders(<HomeMain />, {
+  it("renders without user, and handles navigation", () => {
+    const { getByText } = renderWithProviders(components(), {
       preloadedState: {
         general: { mode: "basic", location: null },
         auth: { user: null, token: "" },
       },
     });
+
+    waitFor(() => {
+      fireEvent.press(getByText("아카데미 예약"));
+      fireEvent.press(getByText("레슨"));
+    });
   });
 });
 
 describe("<ProHome />", () => {
-  it("renders correctly", () => {
-    renderWithMode("pro");
-  });
+  it("renders correctly and handles hide", async () => {
+    const { getByTestId } = renderWithProviders(components(), {
+      preloadedState: {
+        general: { mode: "pro", location: null },
+        auth: { user: admin, token: "" },
+      },
+    });
 
-  it("handles banner press", () => {
-    const { getByTestId, getByLabelText } = renderWithMode("pro");
-
-    fireEvent.press(getByLabelText("닫기"));
-    fireEvent.press(getByTestId("banner"));
+    await waitFor(() => fireEvent.press(getByTestId("hide-press")));
   });
 });
