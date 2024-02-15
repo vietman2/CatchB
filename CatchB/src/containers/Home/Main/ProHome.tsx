@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Dimensions,
+  ImageBackground,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -8,6 +9,7 @@ import {
 } from "react-native";
 import { Card, Icon, Text } from "react-native-paper";
 
+import MyCard from "../../../components/Cards/MyCard";
 import { themeColors } from "../../../variables/colors";
 
 type Notification = {
@@ -34,58 +36,27 @@ const notifications: Notification[] = [
   },
 ];
 
-function StoreNotificationChip({ label }: Readonly<{ label: string }>) {
-  return (
-    <View
-      style={[
-        styles.notificationChip,
-        {
-          backgroundColor: "rgba(64, 196, 20, 0.35)",
-        },
-      ]}
-    >
-      <Icon source="store-check" size={24} />
-      <View style={{ marginLeft: 10 }}>
-        <Text style={{ color: "gray", marginBottom: 5 }}>가게관리</Text>
-        <Text>{label}</Text>
-      </View>
-    </View>
-  );
+interface ChipProps {
+  color: string;
+  icon: string;
+  title: string;
+  content: string;
 }
 
-function WorkerNotificationChip({ label }: Readonly<{ label: string }>) {
+function NotificationChip({ color, icon, title, content }: ChipProps) {
   return (
     <View
       style={[
         styles.notificationChip,
         {
-          backgroundColor: "rgba(57, 167, 255, 0.35)",
+          backgroundColor: color,
         },
       ]}
     >
-      <Icon source="table-account" size={24} />
+      <Icon source={icon} size={24} />
       <View style={{ marginLeft: 10 }}>
-        <Text style={{ color: "gray", marginBottom: 5 }}>직원관리</Text>
-        <Text>{label}</Text>
-      </View>
-    </View>
-  );
-}
-
-function ReservationNotificationChip({ label }: Readonly<{ label: string }>) {
-  return (
-    <View
-      style={[
-        styles.notificationChip,
-        {
-          backgroundColor: "rgba(255, 57, 57, 0.35)",
-        },
-      ]}
-    >
-      <Icon source="calendar-clock" size={24} />
-      <View style={{ marginLeft: 10 }}>
-        <Text style={{ color: "gray", marginBottom: 5 }}>예약관리</Text>
-        <Text>{label}</Text>
+        <Text style={{ color: "gray", marginBottom: 5 }}>{title}</Text>
+        <Text>{content}</Text>
       </View>
     </View>
   );
@@ -95,75 +66,127 @@ function AlertIcon() {
   return <Icon source="bell-alert-outline" size={24} />;
 }
 
-function StatsIcon() {
-  return <Icon source="chart-bar" size={24} />;
-}
-
-function AIIcon() {
-  return <Icon source="head-snowflake-outline" size={24} />;
-}
-
 export default function ProHome() {
-  const [hide, setHide] = useState(false);
-  const width = Dimensions.get("window").width;
-  const cardWidth = (width - 20) / 2 - 35;
+  const [hide, setHide] = useState(true);
 
   function ShowHideIcon() {
     return <Icon source={hide ? "chevron-up" : "chevron-down"} size={24} />;
   }
 
-  function StatsCard({
-    title,
-    stat,
-    summary,
-    good,
-  }: Readonly<{
-    title: string;
-    stat: string;
-    summary: string;
-    good?: boolean;
-  }>) {
-    return (
-      <View
-        style={[
-          styles.statsCard,
-          { width: cardWidth },
-          good
-            ? { backgroundColor: "rgba(64, 196, 20, 0.3)" }
-            : { backgroundColor: "rgba(255, 57, 57, 0.3)" },
-        ]}
-      >
-        <Text
-          variant="titleMedium"
-          style={{ fontWeight: "bold", marginBottom: 5 }}
-        >
-          {title}
-        </Text>
-        <Text
-          variant="titleLarge"
-          style={[{ fontWeight: "bold" }, { color: good ? "green" : "red" }]}
-        >
-          {stat}
-        </Text>
-        <Text variant="titleMedium" style={{ marginTop: 5 }}>
-          {summary}
-        </Text>
-      </View>
-    );
-  }
-
   const renderNotification = (notification: Notification) => {
     if (notification.type === "store") {
-      return <StoreNotificationChip label={notification.label} />;
+      return (
+        <NotificationChip
+          color="rgba(64, 196, 20, 0.35)"
+          icon="store-check"
+          title="가게관리"
+          content={notification.label}
+        />
+      );
     } else if (notification.type === "worker") {
-      return <WorkerNotificationChip label={notification.label} />;
+      return (
+        <NotificationChip
+          color="rgba(57, 167, 255, 0.35)"
+          icon="table-account"
+          title="직원관리"
+          content={notification.label}
+        />
+      );
     } else {
-      return <ReservationNotificationChip label={notification.label} />;
+      return (
+        <NotificationChip
+          color="rgba(255, 57, 57, 0.35)"
+          icon="calendar-clock"
+          title="예약관리"
+          content={notification.label}
+        />
+      );
     }
+  };
+
+  const image = {
+    uri: "https://files.oaiusercontent.com/file-Uk2ehUrgmoihJwSm6ZZKYeo0?se=2024-02-15T01%3A19%3A40Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D68765414-ad4e-4cc2-8401-5d54c9248ef0.webp&sig=/2IeZOGdDhJxu/65%2BdO8Mh0L7OP9u/Dz/pNBPWGEWi8%3D",
   };
 
   return (
     <ScrollView style={styles.container}>
+      <ImageBackground source={image} style={{ width: "100%", height: 220 }}>
+        <ScrollView
+          horizontal
+          style={{
+            marginLeft: 10,
+            paddingVertical: 20,
+          }}
+          showsHorizontalScrollIndicator={false}
+        >
+          <MyCard
+            title={"아카데미\n파워랭킹"}
+            content="서울 2위, 전국 3위"
+            type={1}
+            actionText="자세히 보기"
+            action={() => {}}
+            icon="trophy"
+          />
+          <MyCard
+            title="서울대 야구부"
+            content="오늘 오후 3시~7시"
+            type={2}
+            chip="대관"
+          />
+          <MyCard
+            title="김동혁"
+            content={"오늘 오후 7시~8시반\n홍승우 코치"}
+            type={2}
+            chip="레슨"
+          />
+          <MyCard
+            title="AI 컨설팅"
+            content="Catch B AI를 통해 가게의 실적을 높여보세요."
+            actionText="더 알아보기"
+            action={() => {}}
+            type={3}
+          />
+          <MyCard
+            title="예약률: 72%"
+            content="우리 가게 통계"
+            actionText="더 많은 통계 확인"
+            action={() => {}}
+            type={4}
+          />
+          <MyCard
+            title="커뮤니티"
+            content="사장님들을 위한 전용 커뮤니티를 이용해보세요"
+            type={1}
+          />
+        </ScrollView>
+      </ImageBackground>
+      <ScrollView
+        horizontal
+        style={styles.ads}
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+      >
+        <View style={[styles.ad, { backgroundColor: "black" }]}>
+          <Text variant="displayMedium" style={{ color: "yellow" }}>
+            광고 1
+          </Text>
+        </View>
+        <View style={[styles.ad, { backgroundColor: "lightblue" }]}>
+          <Text variant="displayMedium" style={{ color: "orange" }}>
+            광고 2
+          </Text>
+        </View>
+        <View style={[styles.ad, { backgroundColor: "green" }]}>
+          <Text variant="displayMedium" style={{ color: "red" }}>
+            광고 3
+          </Text>
+        </View>
+        <View style={[styles.ad, { backgroundColor: "gray" }]}>
+          <Text variant="displayMedium" style={{ color: "black" }}>
+            광고 4
+          </Text>
+        </View>
+      </ScrollView>
       <Card style={styles.card}>
         <TouchableOpacity onPress={() => setHide(!hide)} testID="hide-press">
           <Card.Title
@@ -195,61 +218,14 @@ export default function ProHome() {
           </View>
         )}
       </Card>
-      <View style={styles.ads}>
-        <Text variant="displayMedium" style={{ color: "yellow" }}>
-          광고
+      <View style={{ marginHorizontal: 20 }}>
+        <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
+          동영상 코칭
+        </Text>
+        <Text variant="titleMedium">
+          야구인들의 영상에 피드백을 남기고 포인트를 적립하세요.
         </Text>
       </View>
-      <Card style={styles.card}>
-        <Card.Title
-          title="우리 가게 실적"
-          titleVariant="headlineSmall"
-          titleStyle={styles.title}
-          left={StatsIcon}
-          leftStyle={{ marginRight: 0 }}
-        />
-        <Card.Content>
-          <Text>Good</Text>
-          <View style={{ flexDirection: "row" }}>
-            <StatsCard
-              title="최근 3개월 평점"
-              stat="9.8/10.0"
-              summary="상위 10% 이내"
-              good
-            />
-            <StatsCard
-              title="예약 접수 시간"
-              stat="4분 미만"
-              summary="상위 4% 이내"
-              good
-            />
-          </View>
-          <Text>Bad</Text>
-          <View style={{ flexDirection: "row" }}>
-            <StatsCard
-              title="취소율"
-              stat="5%"
-              summary="하위 10% 미만"
-              good={false}
-            />
-          </View>
-        </Card.Content>
-      </Card>
-      <Card style={styles.card}>
-        <Card.Title
-          title="Catch B AI 컨설팅"
-          titleVariant="headlineSmall"
-          titleStyle={styles.title}
-          left={AIIcon}
-          leftStyle={{ marginRight: 0 }}
-        />
-        <Card.Content>
-          <Text variant="titleMedium" style={{ marginBottom: 10 }}>
-            Catch B AI 컨설팅을 통해 가게의 실적을 높여보세요. AI가 가게의
-            실적을 분석하여 가게에 맞는 최적의 전략을 제시해드립니다.
-          </Text>
-        </Card.Content>
-      </Card>
     </ScrollView>
   );
 }
@@ -260,11 +236,24 @@ const styles = StyleSheet.create({
   },
   ads: {
     marginTop: 10,
-    backgroundColor: "blue",
     height: 100,
+    width: "95%",
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+  ad: {
+    width: Dimensions.get("window").width * 0.95,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 15,
+    backgroundColor: "rgba(0, 0, 0, 0.9)",
+  },
+  statsCard: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    borderRadius: 15,
   },
   notificationChip: {
     flexDirection: "row",
@@ -283,12 +272,5 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     marginTop: 4,
-  },
-  statsCard: {
-    alignItems: "center",
-    paddingVertical: 10,
-    marginHorizontal: 10,
-    marginVertical: 5,
-    borderRadius: 15,
   },
 });
