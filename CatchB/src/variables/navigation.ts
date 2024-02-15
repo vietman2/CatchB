@@ -11,6 +11,7 @@ export type RootTabParamList = {
   History: undefined;
   MyPage: undefined;
   MyStore: undefined;
+  Promotion: undefined;
 };
 export type RootTabScreenProps<T extends keyof RootTabParamList> =
   StackScreenProps<RootTabParamList, T>;
@@ -70,6 +71,15 @@ export type HistoryStackScreenProps<T extends keyof HistoryStackParamList> =
   CompositeScreenProps<
     StackScreenProps<HistoryStackParamList, T>,
     RootTabScreenProps<"History">
+  >;
+
+export type PromotionStackParamList = {
+  PromotionScreen: undefined;
+};
+export type PromotionStackScreenProps<T extends keyof PromotionStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<PromotionStackParamList, T>,
+    RootTabScreenProps<"Promotion">
   >;
 
 export type MyPageStackParamList = {
