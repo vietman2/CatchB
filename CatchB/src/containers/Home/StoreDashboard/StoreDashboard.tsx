@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Icon, Surface, Text } from "react-native-paper";
+import { Surface, Text } from "react-native-paper";
 import {
   BarChart,
   CurveType,
