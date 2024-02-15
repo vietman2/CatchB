@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeMain from "./Main/HomeMain";
-import { leftTitle, rightTitle } from "../../components/Logos/TopBar";
+import { leftTitle } from "../../components/Logos/TopBar";
 import { HomeStackParamList } from "../../variables/navigation";
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
@@ -15,7 +15,7 @@ export default function HomeContainer() {
         headerTitle: () => {
           return null;
         },
-        headerRight: rightTitle,
+        headerRight: null,
         headerShadowVisible: false,
       }}
     >

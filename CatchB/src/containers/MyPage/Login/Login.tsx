@@ -27,6 +27,26 @@ import { AppDispatch } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 
+function EmailIcon() {
+  return (
+    <MaterialCommunityIcons
+      name="account-outline"
+      size={24}
+      color={themeColors.primary}
+    />
+  );
+}
+
+function PasswordIcon() {
+  return (
+    <MaterialCommunityIcons
+      name="lock-outline"
+      size={24}
+      color={themeColors.primary}
+    />
+  );
+}
+
 export default function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -72,26 +92,6 @@ export default function Login() {
   };
 
   const onPressEyeIcon = () => setIsPasswordVisible(!isPasswordVisible);
-
-  function EmailIcon() {
-    return (
-      <MaterialCommunityIcons
-        name="account-outline"
-        size={24}
-        color={themeColors.primary}
-      />
-    );
-  }
-
-  function PasswordIcon() {
-    return (
-      <MaterialCommunityIcons
-        name="lock-outline"
-        size={24}
-        color={themeColors.primary}
-      />
-    );
-  }
 
   function PasswordVisibleIcon() {
     return (

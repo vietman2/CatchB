@@ -15,6 +15,7 @@ import CommunityContainer from "../Community/CommunityStack";
 import HistoryContainer from "../History/HistoryStack";
 import MyPageContainer from "../MyPage/MyPageStack";
 import MyStoreContainer from "../MyStore/MyStoreStack";
+import PromotionContainer from "../Promotion/PromotionStack";
 import SwitchModeDialog from "../../components/Dialogs/SwitchModeDialog";
 import LoginDialog from "../../components/Dialogs/LoginDialog";
 import {
@@ -184,16 +185,37 @@ export default function TabContainer() {
             ),
           }}
         />
-        <Tab.Screen
-          name="History"
-          component={HistoryContainer}
-          options={{
-            tabBarLabel: "이용내역",
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="receipt" color={color} size={26} />
-            ),
-          }}
-        />
+        {mode === "basic" ? (
+          <Tab.Screen
+            name="History"
+            component={HistoryContainer}
+            options={{
+              tabBarLabel: "이용내역",
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons
+                  name="receipt"
+                  color={color}
+                  size={26}
+                />
+              ),
+            }}
+          />
+        ) : (
+          <Tab.Screen
+            name="Promotion"
+            component={PromotionContainer}
+            options={{
+              tabBarLabel: "프로모션",
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons
+                  name="gift"
+                  color={color}
+                  size={26}
+                />
+              ),
+            }}
+          />
+        )}
         <Tab.Screen
           name="MyPage"
           component={MyPageContainer}

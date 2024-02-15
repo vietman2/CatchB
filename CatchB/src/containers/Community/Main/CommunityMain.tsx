@@ -1,85 +1,74 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { View, Dimensions } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import {
-  TabView,
-  TabBar,
-  SceneRendererProps,
-  Route,
-} from "react-native-tab-view";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import CommunityList from "../PostLists/CommunityList";
 import VideoList from "../PostLists/VideoList";
 import { themeColors } from "../../../variables/colors";
 
-export default function Community() {
-  const width = Dimensions.get("window").width;
-  const [index, setIndex] = useState(0);
-  const routes = [
-    { key: "야구톡", title: "야구톡" },
-    { key: "모집", title: "모집" },
-    { key: "벼룩시장", title: "벼룩시장" },
-    { key: "자세 분석", title: "자세 분석" },
-    { key: "내 활동", title: "내 활동" },
-  ];
+const Tab = createMaterialTopTabNavigator();
 
-  const PlaceholderComponent = () => {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text variant="titleMedium">준비 중입니다.</Text>
-      </View>
-    );
-  }
-
-  const renderScene = (
-    props: SceneRendererProps & {
-      route: Route;
-    }
-  ) => {
-    if (props.route.key === "야구톡") {
-      return <CommunityList mode="야구톡" />;
-    } else if (props.route.key === "모집") {
-      return <CommunityList mode="모집" />;
-    } else if (props.route.key === "자세 분석") {
-      return <VideoList />;
-    } else {
-      return <PlaceholderComponent />;
-    }
-  };
-
-  const renderTabBar = (props) => {
-    return (
-      <TabBar
-        {...props}
-        indicatorStyle={{
-          backgroundColor: themeColors.primary,
-        }}
-        style={{
-          backgroundColor: themeColors.primaryContainer,
-        }}
-        tabStyle={{ width: "auto", paddingHorizontal: 15 }}
-        labelStyle={{ fontWeight: "bold" }}
-        gap={5}
-        renderLabel={({ route, color }) => (
-          <Text variant="titleMedium" style={{ color, fontWeight: "bold" }}>
-            {route.title}
-          </Text>
-        )}
-        activeColor="green"
-        inactiveColor="gray"
-        scrollEnabled
-      />
-    );
-  };
-
+function PlaceholderComponent() {
   return (
-    <TabView
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{ width: width }}
-      renderTabBar={renderTabBar}
-    />
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text variant="titleMedium">준비 중입니다.</Text>
+    </View>
   );
 }
+
+function BaseballCommunity() {
+  return <CommunityList mode="야구톡" />;
+}
+
+function RecruitmentCommunity() {
+  return <CommunityList mode="모집" />;
+}
+
+export default function Community() {
+  const width = Dimensions.get("window").width;
+
+  return (
+    <Tab.Navigator
+      initialLayout={{ width }}
+      screenOptions={{
+        tabBarLabelStyle: styles.labelStyle,
+        tabBarIndicatorStyle: styles.indicatorStyle,
+        tabBarStyle: styles.tabBarStyle,
+        tabBarActiveTintColor: themeColors.primary,
+        tabBarInactiveTintColor: "gray",
+      }}
+    >
+      <Tab.Screen
+        name="야구톡"
+        component={BaseballCommunity}
+        initialParams={{
+          mode: "야구톡",
+        }}
+      />
+      <Tab.Screen
+        name="모집"
+        component={RecruitmentCommunity}
+        initialParams={{
+          mode: "모집",
+        }}
+      />
+      <Tab.Screen name="벼룩시장" component={PlaceholderComponent} />
+      <Tab.Screen name="자세분석" component={VideoList} />
+      <Tab.Screen name="내 활동" component={PlaceholderComponent} />
+    </Tab.Navigator>
+  );
+}
+
+const styles = StyleSheet.create({
+  indicatorStyle: {
+    backgroundColor: themeColors.primary,
+  },
+  tabBarStyle: {
+    backgroundColor: themeColors.primaryContainer,
+  },
+  labelStyle: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+});

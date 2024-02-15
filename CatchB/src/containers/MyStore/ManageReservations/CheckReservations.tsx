@@ -11,7 +11,7 @@ interface Props {
 
 type Tab = "신규" | "미확정인" | "취소된" | "완료된";
 
-function NoReservations({ message }: { message: Tab }) {
+function NoReservations({ message }: Readonly<{ message: Tab }>) {
   return (
     <View style={styles.reservation}>
       <Text>{message} 예약이 없습니다.</Text>

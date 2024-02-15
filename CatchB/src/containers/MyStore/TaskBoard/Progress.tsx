@@ -34,12 +34,10 @@ export const CheckStatus = ({ done, total }: Props) => {
       { value: total - done, label: "미완료", color: themeColors.outline },
     ];
   };
-
-  const getRate = () => {
-    return `${Math.round((done / total) * 100)}%`;
-  };
-
-  function CenterLabel () {
+  function CenterLabel() {
+    const getRate = () => {
+      return `${Math.round((done / total) * 100)}%`;
+    };
     return <Text>{getRate()}</Text>;
   }
 
