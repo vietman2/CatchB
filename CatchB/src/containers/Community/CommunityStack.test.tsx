@@ -31,17 +31,6 @@ jest.mock("react-native-paper", () => {
     },
   };
 });
-jest.mock("react-native-tab-view", () => {
-  const TabView = jest.requireActual("react-native-tab-view").TabView;
-  const TabBar = jest.requireActual("react-native-tab-view").TabBar;
-
-  return {
-    TabView,
-    TabBar,
-    SceneRendererProps: "SceneRendererProps",
-    Route: "Route",
-  };
-});
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../../components/Logos/TopBar", () => ({
   leftTitle: () => "leftTitle",
