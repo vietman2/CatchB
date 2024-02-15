@@ -9,13 +9,6 @@ interface Props {
   total: number;
 }
 
-function CenterLabel({ done, total }: Readonly<Props>) {
-  const getRate = () => {
-    return `${Math.round((done / total) * 100)}%`;
-  };
-  return <Text>{getRate()}</Text>;
-}
-
 export const ProgressBanner = ({ done, total }: Props) => {
   const getRate = () => {
     return `${Math.round((done / total) * 100)}%`;
@@ -41,6 +34,12 @@ export const CheckStatus = ({ done, total }: Props) => {
       { value: total - done, label: "미완료", color: themeColors.outline },
     ];
   };
+  function CenterLabel() {
+    const getRate = () => {
+      return `${Math.round((done / total) * 100)}%`;
+    };
+    return <Text>{getRate()}</Text>;
+  }
 
   return (
     <View style={styles.status}>
