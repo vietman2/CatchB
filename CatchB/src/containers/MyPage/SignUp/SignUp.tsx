@@ -103,7 +103,7 @@ export default function SignUp() {
         testID="password-eye-icon"
       />
     );
-  };
+  }
 
   function PasswordCheckShowIcon() {
     return (
@@ -115,7 +115,7 @@ export default function SignUp() {
         testID="password-check-eye-icon"
       />
     );
-  };
+  }
 
   return (
     <ScrollView style={styles.mainContainer}>
