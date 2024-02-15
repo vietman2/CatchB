@@ -1,112 +1,49 @@
-import { useState } from "react";
-import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import StoreDashboard from "../StoreDashboard/StoreDashboard";
-import TaskBoard from "../TaskBoard/TaskBoard";
-import ManageReservations from "../ManageReservations/ManageReservations";
-import Sales from "../Sales/Sales";
-import ManageCustomers from "../Customers/ManageCustomers";
+import TaskBoard from "../../MyStore/TaskBoard/TaskBoard";
+import ManageReservations from "../../MyStore/ManageReservations/ManageReservations";
+import ManageCustomers from "../../MyStore/Customers/ManageCustomers";
 import { themeColors } from "../../../variables/colors";
 
-export default function MyStoreMain() {
-  const [mode, setMode] = useState<"Dashboard" | 
-  "Tasks" | "Reservations" | "Sales" | "Customers">("Dashboard");
+const Tab = createMaterialTopTabNavigator();
 
-  const render = () => {
-    if (mode === "Dashboard") {
-      return <StoreDashboard />;
-    } else if (mode === "Sales") {
-      return <Sales />;
-    } else if (mode === "Reservations") {
-      return <ManageReservations />;
-    } else if (mode === "Tasks") {
-      return <TaskBoard />;
-    } else if (mode === "Customers") {
-      return <ManageCustomers />;
-    } else {
-      return null;
-    }
-  };
-
+function NotReady() {
   return (
-    <View>
-      <ScrollView horizontal style={styles.view}>
-        <View style={styles.container}>
-          <TouchableOpacity
-            onPress={() => setMode("Dashboard")}
-            style={mode === "Dashboard" ? styles.active : styles.box}
-          >
-            <Text style={mode === "Dashboard" ? styles.activeText : {}}>
-              대시보드
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setMode("Sales")}
-            style={mode === "Sales" ? styles.active : styles.box}
-          >
-            <Text style={mode === "Sales" ? styles.activeText : {}}>
-              매출관리
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setMode("Reservations")}
-            style={mode === "Reservations" ? styles.active : styles.box}
-          >
-            <Text style={mode === "Reservations" ? styles.activeText : {}}>
-              예약관리
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setMode("Tasks")}
-            style={mode === "Tasks" ? styles.active : styles.box}
-          >
-            <Text style={mode === "Tasks" ? styles.activeText : {}}>
-              업무관리
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setMode("Customers")}
-            style={mode === "Customers" ? styles.active : styles.box}
-          >
-            <Text style={mode === "Customers" ? styles.activeText : {}}>
-              고객관리
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-      {render()}
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text variant="headlineSmall">준비중입니다.</Text>
     </View>
   );
 }
 
+export default function MyStoreMain() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelStyle: styles.labelStyle,
+        tabBarIndicatorStyle: styles.indicatorStyle,
+        tabBarStyle: styles.tabBarStyle,
+        tabBarActiveTintColor: themeColors.primary,
+        tabBarInactiveTintColor: "gray",
+      }}
+    >
+      <Tab.Screen name="예약관리" component={ManageReservations} />
+      <Tab.Screen name="업무관리" component={TaskBoard} />
+      <Tab.Screen name="리뷰관리" component={NotReady} />
+    </Tab.Navigator>
+  );
+}
+
 const styles = StyleSheet.create({
-  view: {
+  indicatorStyle: {
+    backgroundColor: themeColors.primary,
+  },
+  tabBarStyle: {
     backgroundColor: themeColors.primaryContainer,
   },
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    marginTop: 5,
-  },
-  active: {
-    paddingHorizontal: 10,
-    paddingTop: 10,
-    paddingBottom: 5,
-    marginHorizontal: 5,
-    backgroundColor: themeColors.secondaryContainer,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: themeColors.primary,
-  },
-  box: {
-    paddingHorizontal: 10,
-    paddingTop: 10,
-    paddingBottom: 5,
-    marginHorizontal: 5,
-  },
-  activeText: {
+  labelStyle: {
     fontWeight: "bold",
+    fontSize: 16,
   },
 });
