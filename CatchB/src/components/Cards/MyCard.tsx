@@ -80,11 +80,11 @@ export default function MyCard(props: Props) {
           <Icon source="chevron-right" size={20} color={getSubColor()} />
         </TouchableOpacity>
       ) : null}
-      {props.icon && (
+      {props.icon ? (
         <View style={styles.icon}>
           <Icon source={props.icon} size={36} color={getSubColor()} />
         </View>
-      )}
+      ) : null}
       {props.chip ? (
         <View
           style={{
