@@ -72,24 +72,36 @@ export default function MyCard(props: Props) {
       >
         {props.content}
       </Text>
-      {props.action && (
+      {props.action ? (
         <TouchableOpacity onPress={props.action} style={styles.action}>
           <Text variant="titleMedium" style={{ color: getSubColor() }}>
             {props.actionText}
           </Text>
           <Icon source="chevron-right" size={20} color={getSubColor()} />
         </TouchableOpacity>
-      )}
+      ) : null}
       {props.icon && (
         <View style={styles.icon}>
           <Icon source={props.icon} size={36} color={getSubColor()} />
         </View>
       )}
-      {props.chip && (
-        <View style={{ position: "absolute", bottom: 15, left: 15, backgroundColor: "gray", paddingHorizontal: 7, paddingVertical: 3, borderRadius: 5 }}>
-          <Text variant="bodyLarge" style={{color: getSubColor()}}>{props.chip}</Text>
+      {props.chip ? (
+        <View
+          style={{
+            position: "absolute",
+            bottom: 15,
+            left: 15,
+            backgroundColor: "gray",
+            paddingHorizontal: 7,
+            paddingVertical: 3,
+            borderRadius: 5,
+          }}
+        >
+          <Text variant="bodyLarge" style={{ color: getSubColor() }}>
+            {props.chip}
+          </Text>
         </View>
-      )}
+      ) : null}
     </View>
   );
 }

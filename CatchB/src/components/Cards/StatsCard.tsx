@@ -22,9 +22,9 @@ export default function StatsCard(props: Props) {
           marginTop: 10,
         }}
       >
-        {props.icon && (
+        {props.icon ? (
           <Icon source={props.icon} size={20} color={props.iconColor} />
-        )}
+        ) : null}
         <Text style={styles.content} variant="titleLarge">
           {props.content}
         </Text>
