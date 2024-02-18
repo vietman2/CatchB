@@ -7,7 +7,7 @@ export default function LoginLogo() {
       <Text
         variant="headlineMedium"
         style={styles.text}
-      >{`지금 로그인하고 \n홍승우에게 푼 돈을 쥐어주세요!`}</Text>
+      >{`로고`}</Text>
     </View>
   );
 }

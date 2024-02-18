@@ -75,6 +75,7 @@ export default function NearbyMain() {
         mapPadding={{ right: 0, bottom: 0, left: 0, top: 100 }}
         region={region}
         onPanDrag={Keyboard.dismiss}
+        onPress={() => bottomSheetRef.current.snapToIndex(0)}
       >
         {facilities.map((facility) => (
           <MapMarker
