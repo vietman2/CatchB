@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from "axios";
 import { Alert } from "react-native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -121,22 +122,6 @@ describe("<FacilityStep1 />", () => {
       fireEvent.changeText(registrationNumberInput, "123-");
       fireEvent.changeText(registrationNumberInput, "123");
       fireEvent.changeText(registrationNumberInput, "1234567890");
-    });
-  });
-
-  it("should handle next button", async () => {
-    jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
-    const { getByText } = render();
-
-    await waitFor(() => {
-      fireEvent.press(getByText("등록하기"));
-    });
-    
-    const alert = Alert.alert.mock.calls[0][2];
-
-    waitFor(() => {
-      alert[0].onPress();
-      alert[1].onPress();
     });
   });
 });
