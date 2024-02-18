@@ -3,24 +3,17 @@ import axios from "axios";
 import { API_LOCAL_URL } from "../";
 
 export async function registerFacility(
-  facility: {
-    name: string;
-    owner_uuid: string;
-    owner_name: string;
-    owner_phone: string;
-    phone: string;
-    reg_code: string;
-  },
-  address: {
-    road_address: string;
-    road_address_part1: string;
-    road_address_part2: string;
-    eng_address: string;
-    jibun_address: string;
-    zip_code: number;
-    sido: string;
-    sigungu: string;
-  }
+  name: string,
+  owner_uuid: string,
+  owner_name: string,
+  owner_phone: string,
+  phone: string,
+  reg_code: string,
+  road_address_part1: string,
+  road_address_part2: string,
+  building_name: string,
+  zip_code: number,
+  bcode: string,
 ) {
   const url = `${API_LOCAL_URL}/api/facility/`;
 
@@ -28,8 +21,17 @@ export async function registerFacility(
     const response = await axios.post(
       url,
       {
-        facility: facility,
-        address: address,
+        name,
+        owner_uuid,
+        owner_name,
+        owner_phone,
+        phone,
+        reg_code,
+        road_address_part1,
+        road_address_part2,
+        building_name,
+        zip_code,
+        bcode,
       },
       {
         headers: {
@@ -46,7 +48,7 @@ export async function registerFacility(
     if (err.response) {
       return {
         status: 400,
-        data: {},
+        data: err.response.data,
       };
     }
     return {
