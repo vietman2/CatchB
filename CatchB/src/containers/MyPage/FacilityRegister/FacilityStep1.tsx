@@ -7,12 +7,13 @@ import {
   Alert,
 } from "react-native";
 import { Button, Dialog, Portal, Text, TextInput } from "react-native-paper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import PostCode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
-import { RootState } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
+import { setMyFacilityUuid } from "../../../store/slices/products/facilitySlice";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { registerFacility } from "../../../services/facility/facility";
@@ -32,6 +33,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
   const user = useSelector((state: RootState) => state.auth.user);
   const navigation =
     useNavigation<MyPageStackScreenProps<"FacilityRegister">["navigation"]>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleAddressSelected = async (data: OnCompleteParams) => {
     setAddressData(data);
@@ -69,10 +71,13 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
       address2,
       addressData?.buildingName || "",
       addressData?.zonecode,
-      addressData?.bcode,
+      addressData?.bcode
     );
 
     if (response.status === 201) {
+      const facility_uuid = response.data.uuid;
+      await dispatch(setMyFacilityUuid(facility_uuid));
+
       handleRegisterSuccess();
     } else if (response.status === 400) {
       Alert.alert("등록 실패", response.data.message, [
