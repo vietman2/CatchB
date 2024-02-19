@@ -10,7 +10,7 @@ import { setCouponListState } from "../../../store/slices/user_management/coupon
 import { AppDispatch, RootState } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
-import { Coupon as CouponType } from "../../../variables/types";
+import { CouponType } from "../../../variables/types/users";
 
 function NoCoupon() {
   return (

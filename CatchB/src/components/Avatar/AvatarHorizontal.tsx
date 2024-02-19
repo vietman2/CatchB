@@ -2,10 +2,10 @@ import { View, StyleSheet } from "react-native";
 import { Avatar, Text } from "react-native-paper";
 
 import { themeColors } from "../../variables/colors";
-import { UserProfile } from "../../variables/types";
+import { UserProfileType } from "../../variables/types/users";
 
 interface ProfileBadgeProps {
-  user: UserProfile | null;
+  user: UserProfileType | null;
 }
 
 export default function AvatarHorizontal(props: Readonly<ProfileBadgeProps>) {

@@ -1,6 +1,6 @@
-import { CouponClass, Coupon } from "../types";
+import { CouponClassType, CouponType } from "../types/users";
 
-export const sampleCouponClasses: CouponClass[] = [
+export const sampleCouponClasses: CouponClassType[] = [
   {
     code: "samp-leco-upon-code",
     coupon_name: "샘플 쿠폰: 10% 할인",
@@ -37,7 +37,7 @@ export const sampleCouponClasses: CouponClass[] = [
   },
 ];
 
-export const sampleCoupons: Coupon[] = [
+export const sampleCoupons: CouponType[] = [
   {
     id: 1,
     user: "user_uuid",
