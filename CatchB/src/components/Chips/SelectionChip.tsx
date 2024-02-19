@@ -7,16 +7,16 @@ interface Props {
 }
 
 export default function SelectionChip({ selected, label }: Readonly<Props>) {
-
   return (
     <View style={styles.container}>
-      <Text
-        variant="bodyLarge"
-        style={[styles.text, { color: selected ? "white" : "black" }]}
-      >
+      <Text style={[styles.text, { color: selected ? "white" : "black" }]}>
         {label}
       </Text>
-        <Icon source="check" color={selected ? "white" : "transparent"} size={20} />
+      <Icon
+        source="check"
+        color={selected ? "white" : "transparent"}
+        size={20}
+      />
     </View>
   );
 }
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     paddingRight: 6,
   },
   text: {
+    fontSize: 18,
     fontWeight: "600",
     textAlign: "center",
     paddingLeft: 5,
