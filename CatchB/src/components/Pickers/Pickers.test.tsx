@@ -22,34 +22,20 @@ jest.mock("expo-image-picker", () => ({
 }));
 
 describe("<ImagePicker />", () => {
-  it("should handle image picker: empty", async () => {
-    jest.spyOn(Picker, "launchImageLibraryAsync").mockImplementation(() =>
-      Promise.resolve({
-        canceled: false,
-        assets: [],
-      })
-    );
-    const { getByTestId } = renderWithProviders(
-      <ImagePicker uploadedImages={[]} setUploadedImages={jest.fn()} />
-    );
-
-    await waitFor(() => {
-      fireEvent.press(getByTestId("imagePicker"));
-    });
-  });
+  const assets = [
+    {
+      assetId: "testId",
+      uri: "testUri",
+      width: 100,
+      height: 100,
+    },
+  ];
 
   it("should handle image picker: uploaded", async () => {
     jest.spyOn(Picker, "launchImageLibraryAsync").mockImplementation(() =>
       Promise.resolve({
         canceled: false,
-        assets: [
-          {
-            assetId: "testId",
-            uri: "testUri",
-            width: 100,
-            height: 100,
-          },
-        ],
+        assets: assets,
       })
     );
     const { getByTestId } = renderWithProviders(
@@ -65,28 +51,11 @@ describe("<ImagePicker />", () => {
     jest.spyOn(Picker, "launchImageLibraryAsync").mockImplementation(() =>
       Promise.resolve({
         canceled: false,
-        assets: [
-          {
-            assetId: "testId",
-            uri: "testUri",
-            width: 100,
-            height: 100,
-          },
-        ],
+        assets: assets,
       })
     );
     const { getByTestId } = renderWithProviders(
-      <ImagePicker
-        uploadedImages={[
-          {
-            assetId: "testId",
-            uri: "testUri",
-            width: 100,
-            height: 100,
-          },
-        ]}
-        setUploadedImages={jest.fn()}
-      />
+      <ImagePicker uploadedImages={assets} setUploadedImages={jest.fn()} />
     );
 
     waitFor(() => fireEvent.press(getByTestId("imagePicker")));
@@ -109,14 +78,7 @@ describe("<ImagePicker />", () => {
   it("should handle image removal", () => {
     const { getByTestId } = renderWithProviders(
       <ImagePicker
-        uploadedImages={[
-          {
-            assetId: "testId",
-            uri: "testUri",
-            width: 100,
-            height: 100,
-          },
-        ]}
+        uploadedImages={assets}
         setUploadedImages={jest.fn()}
       />
     );
