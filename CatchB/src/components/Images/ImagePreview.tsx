@@ -31,6 +31,7 @@ export default function ImagePreview({ uri, removeImage }: Readonly<Props>) {
             borderRadius: 15,
             backgroundColor: "rgba(255, 255, 255, 0.25)",
           }}
+          testID="removeImage"
         >
           <Icon source="minus" size={20} color="red" />
         </TouchableOpacity>

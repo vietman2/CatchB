@@ -9,7 +9,7 @@ jest.mock("react-native-paper", () => ({
 
 describe("<ImagePreview />", () => {
   it("renders correctly", () => {
-    render(<ImagePreview uri="https://example.com" />);
+    render(<ImagePreview uri="https://example.com" removeImage={() => {}} />);
   });
 });
 
