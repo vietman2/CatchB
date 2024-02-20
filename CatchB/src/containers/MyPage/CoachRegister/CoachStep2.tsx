@@ -14,6 +14,13 @@ export default function CoachStep2({ onFinish }: Readonly<Props>) {
   const [selected, setSelected] = useState<string[]>([]);
   const [curriculum, setCurriculum] = useState<string>("");
   const [career, setCareer] = useState<string>("");
+  // time
+  const [weekdayStart, setWeekdayStart] = useState<string>("");
+  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
+  const [saturdayStart, setSaturdayStart] = useState<string>("");
+  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
+  const [sundayStart, setSundayStart] = useState<string>("");
+  const [sundayEnd, setSundayEnd] = useState<string>("");
 
   const choices = [
     "왕초보/기초",
@@ -87,7 +94,20 @@ export default function CoachStep2({ onFinish }: Readonly<Props>) {
       <Text variant="titleMedium" style={styles.subtitle}>
         스케줄
       </Text>
-      <WorkTimePickers />
+      <WorkTimePickers
+        weekdayStart={weekdayStart}
+        setWeekdayStart={setWeekdayStart}
+        weekdayEnd={weekdayEnd}
+        setWeekdayEnd={setWeekdayEnd}
+        saturdayStart={saturdayStart}
+        setSaturdayStart={setSaturdayStart}
+        saturdayEnd={saturdayEnd}
+        setSaturdayEnd={setSaturdayEnd}
+        sundayStart={sundayStart}
+        setSundayStart={setSundayStart}
+        sundayEnd={sundayEnd}
+        setSundayEnd={setSundayEnd}
+      />
       <Divider />
       <Text variant="titleLarge" style={styles.title}>
         소개/레슨 영상
