@@ -38,7 +38,6 @@ export default function NumberPicker({
                 style={{
                   color: value === index ? "white" : "gray",
                 }}
-                onPress={() => onChange(index)}
               >
                 {index === 5 ? "5+" : index}
               </Text>
