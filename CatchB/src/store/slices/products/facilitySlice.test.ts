@@ -17,6 +17,7 @@ describe("facilitySlice", () => {
   it("should handle initial state", () => {
     expect(facilityReducer(undefined, { type: "unknown" })).toEqual({
       selectedFacility: null,
+      myFacilityUuid: null,
     });
   });
 
