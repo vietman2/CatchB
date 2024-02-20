@@ -1,15 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import FacilityStep2 from "./FacilityStep2";
+import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
+  const Provider = jest.requireActual("react-native-paper").PaperProvider;
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
+    PaperProvider: Provider,
     Text: "Text",
-    TextInput: "TextInput",
+    TextInput: {
+      ...jest.requireActual("react-native-paper").TextInput,
+      Icon: "Icon",
+    },
     Button: ({ onPress, children }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{children}</Text>
@@ -32,34 +38,20 @@ jest.mock(
   "../../../components/Images/ImagePlaceholder",
   () => "ImagePlaceholder"
 );
+jest.mock(
+  "../../../components/Pickers/WorkTimePickers",
+  () => "WorkTimePickers"
+);
+jest.mock("../../../components/Pickers/NumberPicker", () => "NumberPicker");
 
 describe("<FacilityStep2 />", () => {
-  it("should handle <FacilityStep2 /> correctly", async () => {
-    const { getByTestId, getByText } = render(
-      <FacilityStep2 onFinish={() => {}} />
-    );
-
-    fireEvent.changeText(getByTestId("weekdayStart"), "09:30");
-    fireEvent.changeText(getByTestId("weekdayEnd"), "21:30");
-    fireEvent.changeText(getByTestId("saturdayStart"), "09:30");
-    fireEvent.changeText(getByTestId("saturdayEnd"), "21:30");
-    fireEvent.changeText(getByTestId("sundayStart"), "09:30");
-    fireEvent.changeText(getByTestId("sundayEnd"), "21:30");
-
-    fireEvent.changeText(
-      getByTestId("introduction"),
-      "This is a test introduction"
-    );
-
-    fireEvent.press(getByText("완료 (1/3)"));
-  });
-
   it("should handle image picker: uploaded", async () => {
     jest.spyOn(ImagePicker, "launchImageLibraryAsync").mockImplementation(() =>
       Promise.resolve({
         canceled: false,
         assets: [
           {
+            assetId: "testId",
             uri: "testUri",
             width: 100,
             height: 100,
@@ -67,7 +59,9 @@ describe("<FacilityStep2 />", () => {
         ],
       })
     );
-    const { getByTestId } = render(<FacilityStep2 onFinish={() => {}} />);
+    const { getByTestId } = renderWithProviders(
+      <FacilityStep2 onFinish={() => {}} />
+    );
 
     waitFor(() => fireEvent.press(getByTestId("imagePicker")));
   });
@@ -79,18 +73,10 @@ describe("<FacilityStep2 />", () => {
         assets: null,
       })
     );
-    const { getByTestId } = render(<FacilityStep2 onFinish={() => {}} />);
+    const { getByTestId } = renderWithProviders(
+      <FacilityStep2 onFinish={() => {}} />
+    );
 
     waitFor(() => fireEvent.press(getByTestId("imagePicker")));
-  });
-
-  it("should handle time format correctly", async () => {
-    const { getByTestId } = render(<FacilityStep2 onFinish={() => {}} />);
-
-    const component = getByTestId("weekdayStart");
-
-    fireEvent.changeText(component, "1");
-    fireEvent.changeText(component, "123");
-    fireEvent.changeText(component, "123456");
   });
 });
