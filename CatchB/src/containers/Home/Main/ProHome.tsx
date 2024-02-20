@@ -70,7 +70,7 @@ export default function ProHome() {
   const [hide, setHide] = useState(true);
 
   function ShowHideIcon() {
-    return <Icon source={hide ? "chevron-up" : "chevron-down"} size={24} />;
+    return <Icon source={hide ? "chevron-down" : "chevron-up"} size={24} />;
   }
 
   const renderNotification = (notification: Notification) => {

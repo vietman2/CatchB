@@ -1,154 +1,221 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, ScrollView, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 import { Button, Divider, Text, TextInput } from "react-native-paper";
-import * as ImagePicker from "expo-image-picker";
+import { ImagePickerAsset } from "expo-image-picker";
 
+import { amenityChoices, equipmentChoices, otherChoices } from "./options";
 import MultiCheck from "../../../components/Checkboxes/MultiCheck";
-import ImagePreview from "../../../components/Images/ImagePreview";
-import ImagePlaceholder from "../../../components/Images/ImagePlaceholder";
-import { themeColors } from "../../../variables/colors";
 import WorkTimePickers from "../../../components/Pickers/WorkTimePickers";
+import ImagePicker from "../../../components/Pickers/ImagePicker";
+import NumberPicker from "../../../components/Pickers/NumberPicker";
+import { uploadDetails } from "../../../services/facility/facility";
+import { RootState } from "../../../store/store";
+import { themeColors } from "../../../variables/colors";
 
 interface Props {
   onFinish: () => void;
 }
 
-const choices = [
-  "주차가능",
-  "금연시설",
-  "흡연실",
-  "Wi-Fi",
-  "에어컨",
-  "난방",
-  "락커",
-  "탈의실",
-  "샤워실",
-  "사우나",
-  "반려동물 출입가능",
-  "어린이 놀이시설",
-  "화장실",
-  "남녀화장실 구분",
-];
-
-const equipment = ["나무배트", "알루미늄배트", "글러브", "포수장비"];
-
-const others = ["개인 코치 영업 가능", "단체 수업 가능", "헬스기구"];
-
 export default function FacilityStep2({ onFinish }: Readonly<Props>) {
+  const [waiting, setWaiting] = useState<boolean>(false);
+  // text inputs
   const [introduction, setIntroduction] = useState<string>("");
-  const [selected, setSelected] = useState<string[]>([]);
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [additionalEquipment, setAdditionalEquipment] = useState<string>("");
+  // time
+  const [weekdayStart, setWeekdayStart] = useState<string>("");
+  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
+  const [saturdayStart, setSaturdayStart] = useState<string>("");
+  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
+  const [sundayStart, setSundayStart] = useState<string>("");
+  const [sundayEnd, setSundayEnd] = useState<string>("");
+  // selected items
+  const [amenities, setAmenities] = useState<string[]>(["Wi-Fi"]);
+  const [equipment, setEquipment] = useState<string[]>(["나무배트"]);
+  const [others, setOthers] = useState<string[]>(["단체 수업 가능"]);
+  const [custom, setCustom] = useState<string[]>([]);
+  const [numMounds, setNumMounds] = useState<number>(1);
+  const [numPlates, setNumPlates] = useState<number>(1);
+  // image picker
+  const [uploadedImages, setUploadedImages] = useState<ImagePickerAsset[]>([]);
 
-  const uploadImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    });
+  const facility_uuid = useSelector(
+    (state: RootState) => state.facility.myFacilityUuid
+  );
 
-    if (!result.canceled) {
-      setUploadedImages([...uploadedImages, result.assets[0].uri]);
+  const handleAddEquipment = () => {
+    if (additionalEquipment === "") {
+      return;
     }
-
-    return result;
+    if (custom.includes(additionalEquipment)) {
+      Alert.alert("이미 선택된 장비입니다.");
+      return;
+    }
+    setCustom([...custom, additionalEquipment]);
+    setAdditionalEquipment("");
   };
 
   const handleSubmitSuccess = () => {
-    onFinish();
+    Alert.alert(
+      "정보 입력 성공!",
+      "아카데미 상세 정보가 성공적으로 등록되었습니다.",
+      [{ text: "다음", onPress: onFinish, isPreferred: true }]
+    );
   };
-  /*
-  const handleNext = () => {
-    //TODO: 서버에 정보 전송
+
+  const handleNext = async () => {
+    setWaiting(true);
+    const response = await uploadDetails(
+      facility_uuid,
+      introduction,
+      {
+        weekday_open: weekdayStart,
+        weekday_close: weekdayEnd,
+        saturday_open: saturdayStart,
+        saturday_close: saturdayEnd,
+        sunday_open: sundayStart,
+        sunday_close: sundayEnd,
+      },
+      amenities,
+      equipment,
+      numMounds,
+      numPlates,
+      custom,
+      others,
+      uploadedImages
+    );
+
+    if (response.status === 201) {
+      handleSubmitSuccess();
+    } else if (response.status === 400) {
+      Alert.alert("등록 실패", response.data.message);
+    } else {
+      Alert.alert("등록 실패", "서버에 오류가 발생했습니다.");
+    }
+    setWaiting(false);
   };
-*/
+
   return (
-    <ScrollView
-      style={styles.container}
-      automaticallyAdjustKeyboardInsets
-      keyboardDismissMode="on-drag"
-    >
+    <ScrollView style={styles.container} keyboardDismissMode="on-drag">
       <>
-        <Text variant="titleLarge" style={styles.title}>
+        <Text variant="headlineSmall" style={styles.title}>
           상세 정보
         </Text>
-        <Text variant="titleSmall" style={styles.description}>
+        <Text variant="titleMedium" style={styles.description}>
           상세 정보를 다 입력하면 문의 받을 확률이 3배 높아요!
         </Text>
-        <Text variant="titleMedium" style={styles.subtitle}>
-          시설 소개
+        <Text variant="titleLarge" style={styles.subtitle}>
+          아카데미 소개
         </Text>
         <TextInput
           mode="outlined"
-          placeholder="시설에 대한 소개 글을 자유롭게 작성해주세요! (최대 1000자)"
+          placeholder={
+            "아카데미에 대한 소개 글을 자유롭게 작성해주세요!\n\n최대 1000자"
+          }
           value={introduction}
           onChangeText={(text) => setIntroduction(text)}
           textColor="black"
+          outlineColor="rgba(0, 128, 0, 0.8)"
+          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           placeholderTextColor="gray"
           multiline
           maxLength={1000}
           style={{ height: 150 }}
           testID="introduction"
         />
-        <Text variant="titleMedium" style={styles.subtitle}>
+        <Text variant="titleLarge" style={styles.subtitle}>
           영업 시간
           <Text variant="titleMedium" style={{ color: "gray" }}>
             {` (나중에 변경할 수 있어요!)`}
           </Text>
         </Text>
-        <WorkTimePickers />
-      </>
-      <Divider bold style={{ marginTop: 5 }} />
-      <>
-        <Text variant="titleMedium" style={styles.subtitle}>
-          편의시설 및 서비스 (탭해서 선택)
-        </Text>
-        <MultiCheck
-          options={choices}
-          selected={selected}
-          setSelected={setSelected}
+        <WorkTimePickers
+          weekdayStart={weekdayStart}
+          setWeekdayStart={setWeekdayStart}
+          weekdayEnd={weekdayEnd}
+          setWeekdayEnd={setWeekdayEnd}
+          saturdayStart={saturdayStart}
+          setSaturdayStart={setSaturdayStart}
+          saturdayEnd={saturdayEnd}
+          setSaturdayEnd={setSaturdayEnd}
+          sundayStart={sundayStart}
+          setSundayStart={setSundayStart}
+          sundayEnd={sundayEnd}
+          setSundayEnd={setSundayEnd}
         />
-        <Text variant="titleMedium" style={styles.subtitle}>
-          대여 가능 장비
+      </>
+      <Divider bold style={styles.divider} />
+      <>
+        <Text variant="titleLarge" style={styles.subtitle}>
+          편의시설 및 서비스
         </Text>
         <MultiCheck
-          options={equipment}
-          selected={selected}
-          setSelected={setSelected}
+          options={amenityChoices}
+          selected={amenities}
+          setSelected={setAmenities}
+        />
+        <Text variant="titleLarge" style={styles.subtitle}>
+          구비 시설
+        </Text>
+        <NumberPicker
+          label="마운드 수"
+          value={numMounds}
+          onChange={setNumMounds}
+        />
+        <NumberPicker
+          label="타석 수"
+          value={numPlates}
+          onChange={setNumPlates}
+        />
+        <MultiCheck
+          options={equipmentChoices}
+          selected={equipment}
+          setSelected={setEquipment}
+        />
+        <MultiCheck
+          options={custom}
+          selected={custom}
+          setSelected={setCustom}
         />
         <TextInput
           label="추가 구비 시설 (직접 입력)"
+          value={additionalEquipment}
+          onChangeText={(text) => setAdditionalEquipment(text)}
           placeholder="예: 랩소도"
           placeholderTextColor="gray"
-          style={{ height: 40 }}
+          right={
+            <TextInput.Icon
+              icon="plus-circle"
+              color="green"
+              onPress={handleAddEquipment}
+            />
+          }
+          style={{ marginRight: 10, marginBottom: 10 }}
+          dense
+          testID="additionalEquipment"
         />
-        <Text variant="titleMedium" style={styles.subtitle}>
+        <Text variant="titleLarge" style={styles.subtitle}>
           기타
         </Text>
         <MultiCheck
-          options={others}
-          selected={selected}
-          setSelected={setSelected}
+          options={otherChoices}
+          selected={others}
+          setSelected={setOthers}
         />
       </>
-      <Divider bold style={{ marginTop: 5 }} />
-      <>
-        <Text variant="titleMedium" style={styles.subtitle}>
-          {`시설 소개 사진: (${uploadedImages.length}/10)`}
-        </Text>
-        <ScrollView horizontal>
-          {uploadedImages.map((uri) => (
-            <ImagePreview key={uri} uri={uri} />
-          ))}
-          <TouchableOpacity onPress={uploadImage} testID="imagePicker">
-            <ImagePlaceholder canUpload />
-          </TouchableOpacity>
-        </ScrollView>
-      </>
-      <Divider bold style={{ marginTop: 5 }} />
+      <Divider bold style={styles.divider} />
+      <ImagePicker
+        uploadedImages={uploadedImages}
+        setUploadedImages={setUploadedImages}
+      />
+      <Divider bold style={styles.divider} />
       <Button
         mode="contained"
-        style={{ marginTop: 10, marginBottom: 20 }}
-        onPress={handleSubmitSuccess}
+        style={styles.button}
+        onPress={handleNext}
+        loading={waiting}
       >
-        완료 (1/3)
+        {waiting ? "" : "완료 (1/3)"}
       </Button>
     </ScrollView>
   );
@@ -166,12 +233,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   subtitle: {
-    marginTop: 10,
-    marginBottom: 5,
+    marginTop: 15,
+    marginBottom: 10,
     fontWeight: "bold",
   },
   description: {
     marginBottom: 5,
     color: "gray",
+  },
+  divider: {
+    marginTop: 5,
+  },
+  button: {
+    marginTop: 10,
+    marginBottom: 40,
   },
 });

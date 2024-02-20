@@ -1,6 +1,6 @@
-import { UserProfile } from "../types";
+import { UserProfileType } from "../types/users";
 
-export const admin: UserProfile = {
+export const admin: UserProfileType = {
   uuid: "admin_uuid",
   username: "admin",
   first_name: "리자",
@@ -17,7 +17,7 @@ export const admin: UserProfile = {
   total_points: "0",
 };
 
-export const exampleUser: UserProfile = {
+export const exampleUser: UserProfileType = {
   uuid: "user_uuid",
   username: "user",
   first_name: "길동",

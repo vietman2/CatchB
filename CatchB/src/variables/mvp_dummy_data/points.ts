@@ -1,6 +1,6 @@
-import { Points } from "../types";
+import { PointsType } from "../types/users";
 
-export const samplePoints: Points[] = [
+export const samplePoints: PointsType[] = [
   {
     id: 1,
     user_uuid: "user_uuid",

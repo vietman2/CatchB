@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, TextInput } from "react-native-paper";
 
-export default function WorkTimePickers() {
-  const [weekdayStart, setWeekdayStart] = useState<string>("");
-  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
-  const [saturdayStart, setSaturdayStart] = useState<string>("");
-  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
-  const [sundayStart, setSundayStart] = useState<string>("");
-  const [sundayEnd, setSundayEnd] = useState<string>("");
+interface Props {
+  weekdayStart: string;
+  weekdayEnd: string;
+  saturdayStart: string;
+  saturdayEnd: string;
+  sundayStart: string;
+  sundayEnd: string;
+  setWeekdayStart: Dispatch<SetStateAction<string>>;
+  setWeekdayEnd: Dispatch<SetStateAction<string>>;
+  setSaturdayStart: Dispatch<SetStateAction<string>>;
+  setSaturdayEnd: Dispatch<SetStateAction<string>>;
+  setSundayStart: Dispatch<SetStateAction<string>>;
+  setSundayEnd: Dispatch<SetStateAction<string>>;
+}
 
+export default function WorkTimePickers(props: Readonly<Props>) {
   const formatTime = (input: string) => {
     let cleanInput = input.replace(/\D/g, ""); // Remove non-numeric characters
     if (cleanInput.length > 4) cleanInput = cleanInput.slice(0, 4); // Limit length to 4 digits
@@ -23,27 +31,27 @@ export default function WorkTimePickers() {
   };
 
   const handleWeekdayStart = (input: string) => {
-    setWeekdayStart(formatTime(input));
+    props.setWeekdayStart(formatTime(input));
   };
 
   const handleWeekdayEnd = (input: string) => {
-    setWeekdayEnd(formatTime(input));
+    props.setWeekdayEnd(formatTime(input));
   };
 
   const handleSaturdayStart = (input: string) => {
-    setSaturdayStart(formatTime(input));
+    props.setSaturdayStart(formatTime(input));
   };
 
   const handleSaturdayEnd = (input: string) => {
-    setSaturdayEnd(formatTime(input));
+    props.setSaturdayEnd(formatTime(input));
   };
 
   const handleSundayStart = (input: string) => {
-    setSundayStart(formatTime(input));
+    props.setSundayStart(formatTime(input));
   };
 
   const handleSundayEnd = (input: string) => {
-    setSundayEnd(formatTime(input));
+    props.setSundayEnd(formatTime(input));
   };
 
   return (
@@ -56,8 +64,10 @@ export default function WorkTimePickers() {
           mode="outlined"
           style={styles.timePickerBox}
           placeholderTextColor="gray"
+          outlineColor="rgba(0, 128, 0, 0.8)"
+          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={weekdayStart}
+          value={props.weekdayStart}
           onChangeText={handleWeekdayStart}
           maxLength={5}
           testID="weekdayStart"
@@ -69,8 +79,10 @@ export default function WorkTimePickers() {
           mode="outlined"
           style={styles.timePickerBox}
           placeholderTextColor="gray"
+          outlineColor="rgba(0, 128, 0, 0.8)"
+          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={weekdayEnd}
+          value={props.weekdayEnd}
           onChangeText={handleWeekdayEnd}
           maxLength={5}
           testID="weekdayEnd"
@@ -84,8 +96,10 @@ export default function WorkTimePickers() {
           mode="outlined"
           style={styles.timePickerBox}
           placeholderTextColor="gray"
+          outlineColor="rgba(0, 128, 0, 0.8)"
+          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={saturdayStart}
+          value={props.saturdayStart}
           onChangeText={handleSaturdayStart}
           maxLength={5}
           testID="saturdayStart"
@@ -97,8 +111,10 @@ export default function WorkTimePickers() {
           mode="outlined"
           style={styles.timePickerBox}
           placeholderTextColor="gray"
+          outlineColor="rgba(0, 128, 0, 0.8)"
+          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={saturdayEnd}
+          value={props.saturdayEnd}
           onChangeText={handleSaturdayEnd}
           maxLength={5}
           testID="saturdayEnd"
@@ -112,8 +128,10 @@ export default function WorkTimePickers() {
           mode="outlined"
           style={styles.timePickerBox}
           placeholderTextColor="gray"
+          outlineColor="rgba(0, 128, 0, 0.8)"
+          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={sundayStart}
+          value={props.sundayStart}
           onChangeText={handleSundayStart}
           maxLength={5}
           testID="sundayStart"
@@ -125,8 +143,10 @@ export default function WorkTimePickers() {
           mode="outlined"
           style={styles.timePickerBox}
           placeholderTextColor="gray"
+          outlineColor="rgba(0, 128, 0, 0.8)"
+          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={sundayEnd}
+          value={props.sundayEnd}
           onChangeText={handleSundayEnd}
           maxLength={5}
           testID="sundayEnd"

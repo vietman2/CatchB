@@ -29,9 +29,15 @@ export default function MyPageContainer() {
   const navigation =
     useNavigation<MyPageStackScreenProps<"MyPageScreen">["navigation"]>();
 
-  const backToMyPage = () => <BackButton onPress={() => navigation.navigate("MyPageScreen")} />;
-  const backToProfile = () => <BackButton onPress={() => navigation.navigate("Profile")} />;
-  const backToCouponList = () => <BackButton onPress={() => navigation.navigate("CouponList")} />;
+  const backToMyPage = () => (
+    <BackButton onPress={() => navigation.navigate("MyPageScreen")} />
+  );
+  const backToProfile = () => (
+    <BackButton onPress={() => navigation.navigate("Profile")} />
+  );
+  const backToCouponList = () => (
+    <BackButton onPress={() => navigation.navigate("CouponList")} />
+  );
 
   const headerTitle = (title: string) => {
     return (
@@ -126,7 +132,7 @@ export default function MyPageContainer() {
         component={FacilityRegister}
         options={{
           headerLeft: () => backToMyPage(),
-          headerTitle: () => headerTitle("Catch B 시설 등록"),
+          headerTitle: () => headerTitle("아카데미 등록"),
           headerTitleAlign: "center",
         }}
       />

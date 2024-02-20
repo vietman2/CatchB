@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Dialog, Portal, Text, Button } from "react-native-paper";
 
-import { UserProfile } from "../../variables/types";
+import { UserProfileType } from "../../variables/types/users";
 
 interface Props {
   visible: boolean;
   currentMode: string;
-  user: UserProfile | null;
+  user: UserProfileType | null;
   onClose: () => void;
   setMode: (mode: "basic" | "pro") => void;
 }

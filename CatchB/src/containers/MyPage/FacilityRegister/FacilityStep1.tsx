@@ -7,15 +7,16 @@ import {
   Alert,
 } from "react-native";
 import { Button, Dialog, Portal, Text, TextInput } from "react-native-paper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import PostCode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
-import { RootState } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
+import { setMyFacilityUuid } from "../../../store/slices/products/facilitySlice";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
-//import { registerFacility } from "../../../services/facility/facility";
+import { registerFacility } from "../../../services/facility/facility";
 
 interface Props {
   onFinish: () => void;
@@ -24,14 +25,15 @@ interface Props {
 export default function FacilityStep1({ onFinish }: Readonly<Props>) {
   const [visible, setVisible] = useState<boolean>(false);
   const [addressData, setAddressData] = useState<OnCompleteParams | null>(null);
-  const [facilityName, setFacilityName] = useState<string>("");
-  const [contact, setContact] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
   const [registrationNumber, setRegistrationNumber] = useState<string>("");
   const [address2, setAddress2] = useState("");
 
   const user = useSelector((state: RootState) => state.auth.user);
   const navigation =
     useNavigation<MyPageStackScreenProps<"FacilityRegister">["navigation"]>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleAddressSelected = async (data: OnCompleteParams) => {
     setAddressData(data);
@@ -41,7 +43,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
   const handleRegisterSuccess = () => {
     Alert.alert(
       "등록 신청 완료",
-      "필수 정보 입력 완료!\n등록까지 최대 3일 걸려요!\n\n계좌 정보와 시설 소개를 지금 작성하시겠습니까?",
+      "필수 정보 입력 완료!\n등록 승인까지 최대 3일 걸려요!\n\n계좌 정보와 시설 소개를 지금 작성하시겠습니까?",
       [
         {
           text: "나중에 하기",
@@ -56,26 +58,26 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
       ]
     );
   };
-  /*
+
   const handleRegister = async () => {
     const response = await registerFacility(
-      facilityName,
+      name,
       user.uuid,
       user.full_name,
       user.phone_number,
-      contact,
+      phone,
       registrationNumber,
-      `${addressData?.roadAddress} ${address2}`,
       addressData?.address || "",
       address2,
-      addressData?.addressEnglish,
-      addressData?.jibunAddress,
+      addressData?.buildingName || "",
       addressData?.zonecode,
-      addressData?.sido,
-      addressData?.sigungu
+      addressData?.bcode
     );
 
     if (response.status === 201) {
+      const facility_uuid = response.data.uuid;
+      await dispatch(setMyFacilityUuid(facility_uuid));
+
       handleRegisterSuccess();
     } else if (response.status === 400) {
       Alert.alert("등록 실패", response.data.message, [
@@ -95,8 +97,8 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
       ]);
     }
   };
-*/
-  const formatContact = (number: string) => {
+
+  const formatPhone = (number: string) => {
     const digits = number.replace(/\D/g, "");
 
     // Formatting for mobile numbers (starts with 010)
@@ -129,20 +131,20 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
     return number;
   };
 
-  const handleContactChange = (text: string) => {
+  const handlePhoneChange = (text: string) => {
     if (
-      contact.length > 1 &&
-      text.length < contact.length &&
-      contact[contact.length - 1] === "-"
+      phone.length > 1 &&
+      text.length < phone.length &&
+      phone[phone.length - 1] === "-"
     ) {
       // Remove the last hyphen and reformat
       const newText = text.substring(0, text.length - 1);
-      const formattedNumber = formatContact(newText);
-      setContact(formattedNumber);
+      const formattedNumber = formatPhone(newText);
+      setPhone(formattedNumber);
     } else {
       // Normal formatting for other cases
-      const formattedNumber = formatContact(text);
-      setContact(formattedNumber);
+      const formattedNumber = formatPhone(text);
+      setPhone(formattedNumber);
     }
   };
 
@@ -225,8 +227,8 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
         <TextInput
           mode="outlined"
           placeholder="시설 이름을 입력하세요"
-          value={facilityName}
-          onChangeText={(text) => setFacilityName(text)}
+          value={name}
+          onChangeText={(text) => setName(text)}
           style={styles.bold}
           textColor="black"
           placeholderTextColor="gray"
@@ -237,8 +239,8 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
         <TextInput
           mode="outlined"
           placeholder="- 없이 숫자만 입력하세요"
-          value={contact}
-          onChangeText={handleContactChange}
+          value={phone}
+          onChangeText={handlePhoneChange}
           style={styles.bold}
           textColor="black"
           placeholderTextColor="gray"
@@ -297,7 +299,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
         <Button
           mode="contained-tonal"
           buttonColor={themeColors.primary}
-          onPress={handleRegisterSuccess}
+          onPress={handleRegister}
           style={{ marginTop: 20 }}
         >
           등록하기

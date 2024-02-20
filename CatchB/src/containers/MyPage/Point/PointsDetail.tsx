@@ -1,10 +1,10 @@
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
-import { Points } from "../../../variables/types";
+import { PointsType } from "../../../variables/types/users";
 
 interface Props {
-  detail: Points;
+  detail: PointsType;
 }
 
 export default function PointsDetail({ detail }: Readonly<Props>) {

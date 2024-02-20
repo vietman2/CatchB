@@ -20,28 +20,28 @@ import { CoachType } from "../../../variables/types/products";
 type CoachTypes = "타격" | "투구" | "수비" | "포수";
 
 function CoachPreview({ coach }: Readonly<{ coach: CoachType }>) {
-    return (
-      <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 40 }}>
-        <Image
-          source={coach.image}
-          style={{ flex: 3, width: 100, height: 100, borderRadius: 50 }}
-        />
-        <View style={{ flex: 7, marginLeft: 20 }}>
-          <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
-            {coach.coach_name} 코치
-          </Text>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon source="star" color="gold" size={20} />
-            <Text variant="titleSmall">{coach.rating}/10</Text>
-          </View>
-          <Text variant="titleSmall">{coach.working_area}</Text>
-          <View style={{ alignItems: "flex-end" }}>
-            <Text variant="titleSmall">1회 / 60분 50,000원</Text>
-          </View>
+  return (
+    <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 40 }}>
+      <Image
+        source={coach.image}
+        style={{ flex: 3, width: 100, height: 100, borderRadius: 50 }}
+      />
+      <View style={{ flex: 7, marginLeft: 20 }}>
+        <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
+          {coach.coach_name} 코치
+        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Icon source="star" color="gold" size={20} />
+          <Text variant="titleSmall">{coach.rating}/10</Text>
+        </View>
+        <Text variant="titleSmall">{coach.working_area}</Text>
+        <View style={{ alignItems: "flex-end" }}>
+          <Text variant="titleSmall">1회 / 60분 50,000원</Text>
         </View>
       </View>
-    );
-  }
+    </View>
+  );
+}
 
 export default function NormalHome() {
   const [selected, setSelected] = useState<CoachTypes>("타격");
