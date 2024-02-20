@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
-import * as ImagePicker from "expo-image-picker";
 
 import FacilityStep2 from "./FacilityStep2";
-import {
-  renderWithProviders,
-  TestNetworkError,
-} from "../../../utils/test-utils";
+import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
