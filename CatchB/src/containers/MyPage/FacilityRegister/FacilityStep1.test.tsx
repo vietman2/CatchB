@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from "axios";
+import { Alert } from "react-native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -120,6 +122,59 @@ describe("<FacilityStep1 />", () => {
       fireEvent.changeText(registrationNumberInput, "123-");
       fireEvent.changeText(registrationNumberInput, "123");
       fireEvent.changeText(registrationNumberInput, "1234567890");
+    });
+  });
+
+  it("should handle next button: failure", async () => {
+    jest.spyOn(axios, "post").mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 400,
+        data: {
+          message: "실패",
+        },
+      })
+    );
+    const { getByText } = render();
+
+    await waitFor(() => {
+      fireEvent.press(getByText("등록하기"));
+    });
+  });
+
+  it("should handle next button: server error", async () => {
+    jest.spyOn(axios, "post").mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 500,
+      })
+    );
+    const { getByText } = render();
+
+    await waitFor(() => {
+      fireEvent.press(getByText("등록하기"));
+    });
+  });
+
+  it("should handle next button: success", async () => {
+    jest.spyOn(axios, "post").mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 201,
+        data: {
+          uuid: "uuid",
+        }
+      })
+    );
+    jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
+    const { getByText } = render();
+
+    await waitFor(() => {
+      fireEvent.press(getByText("등록하기"));
+    });
+
+    const alert = Alert.alert.mock.calls[0][2];
+
+    waitFor(() => {
+      alert[0].onPress();
+      alert[1].onPress();
     });
   });
 });

@@ -192,6 +192,7 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
           }
           style={{ marginRight: 10, marginBottom: 10 }}
           dense
+          testID="additionalEquipment"
         />
         <Text variant="titleLarge" style={styles.subtitle}>
           기타

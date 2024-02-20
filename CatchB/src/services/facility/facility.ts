@@ -128,7 +128,6 @@ export async function uploadDetails(
     };
   } catch (err) {
     if (err.response) {
-      console.log(err.response.data)
       return {
         status: 400,
         data: err.response.data,

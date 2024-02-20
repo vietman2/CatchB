@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
-import facilityReducer, { setSelectedFacility } from "./facilitySlice";
+import facilityReducer, { setSelectedFacility, setMyFacilityUuid } from "./facilitySlice";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 
 const createStore = () => {
@@ -28,5 +28,14 @@ describe("facilitySlice", () => {
 
     const state = store.getState().facility;
     expect(state.selectedFacility).toEqual(sampleFacilities[0]);
+  });
+
+  it("should handle setMyFacilityUuid", async () => {
+    const store = createStore();
+
+    await store.dispatch(setMyFacilityUuid("123"));
+
+    const state = store.getState().facility;
+    expect(state.myFacilityUuid).toEqual("123");
   });
 });

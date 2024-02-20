@@ -1,21 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import FacilityStep2 from "./FacilityStep2";
-import { renderWithProviders } from "../../../utils/test-utils";
+import {
+  renderWithProviders,
+  TestNetworkError,
+} from "../../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
+  const ActualTextInput = jest.requireActual("react-native-paper").TextInput;
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
+  const TextInput = (props: any) => {
+    return <ActualTextInput {...props}>{props.right}</ActualTextInput>;
+  };
+  const TextInputIcon = ({ onPress }: any) => (
+    <TouchableOpacity onPress={onPress}>
+      <Text>Icon</Text>
+    </TouchableOpacity>
+  );
+  TextInput.Icon = TextInputIcon;
 
   return {
     PaperProvider: Provider,
     Text: "Text",
-    TextInput: {
-      ...jest.requireActual("react-native-paper").TextInput,
-      Icon: "Icon",
-    },
+    TextInput,
     Button: ({ onPress, children }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{children}</Text>
@@ -33,6 +45,7 @@ jest.mock("expo-image-picker", () => {
   };
 });
 jest.mock("../../../components/Checkboxes/MultiCheck", () => "MultiCheck");
+jest.mock("../../../components/Pickers/ImagePicker", () => "ImagePicker");
 jest.mock("../../../components/Images/ImagePreview", () => "ImagePreview");
 jest.mock(
   "../../../components/Images/ImagePlaceholder",
@@ -45,38 +58,70 @@ jest.mock(
 jest.mock("../../../components/Pickers/NumberPicker", () => "NumberPicker");
 
 describe("<FacilityStep2 />", () => {
-  it("should handle image picker: uploaded", async () => {
-    jest.spyOn(ImagePicker, "launchImageLibraryAsync").mockImplementation(() =>
-      Promise.resolve({
-        canceled: false,
-        assets: [
-          {
-            assetId: "testId",
-            uri: "testUri",
-            width: 100,
-            height: 100,
-          },
-        ],
-      })
-    );
+  it("should handle introduction input", async () => {
     const { getByTestId } = renderWithProviders(
       <FacilityStep2 onFinish={() => {}} />
     );
 
-    waitFor(() => fireEvent.press(getByTestId("imagePicker")));
+    const textinput = getByTestId("introduction");
+    fireEvent.changeText(textinput, "test");
   });
 
-  it("should handle image picker: cancelled", async () => {
-    jest.spyOn(ImagePicker, "launchImageLibraryAsync").mockImplementation(() =>
-      Promise.resolve({
-        canceled: true,
-        assets: null,
-      })
-    );
-    const { getByTestId } = renderWithProviders(
+  it("should handle custom equipment", async () => {
+    const { getByTestId, getByText } = renderWithProviders(
       <FacilityStep2 onFinish={() => {}} />
     );
 
-    waitFor(() => fireEvent.press(getByTestId("imagePicker")));
+    const textinput = getByTestId("additionalEquipment");
+    const button = getByText("Icon");
+
+    fireEvent.press(button);
+    fireEvent.changeText(textinput, "test");
+    fireEvent.press(button);
+    fireEvent.changeText(textinput, "test");
+    fireEvent.press(button);
+  });
+
+  it("should handle next: failure", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        data: { message: "test" },
+      })
+    );
+    const { getByText } = renderWithProviders(
+      <FacilityStep2 onFinish={() => {}} />
+    );
+
+    const button = getByText("완료 (1/3)");
+    waitFor(() => fireEvent.press(button));
+  });
+
+  it("should handle next: server error", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 500,
+      })
+    );
+    const { getByText } = renderWithProviders(
+      <FacilityStep2 onFinish={() => {}} />
+    );
+
+    const button = getByText("완료 (1/3)");
+    waitFor(() => fireEvent.press(button));
+  });
+
+  it("should handle next: success", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 201,
+      })
+    );
+    const { getByText } = renderWithProviders(
+      <FacilityStep2 onFinish={() => {}} />
+    );
+
+    const button = getByText("완료 (1/3)");
+    waitFor(() => fireEvent.press(button));
   });
 });
