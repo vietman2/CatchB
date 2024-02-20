@@ -43,7 +43,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
   const handleRegisterSuccess = () => {
     Alert.alert(
       "등록 신청 완료",
-      "필수 정보 입력 완료!\n등록까지 최대 3일 걸려요!\n\n계좌 정보와 시설 소개를 지금 작성하시겠습니까?",
+      "필수 정보 입력 완료!\n등록 승인까지 최대 3일 걸려요!\n\n계좌 정보와 시설 소개를 지금 작성하시겠습니까?",
       [
         {
           text: "나중에 하기",
