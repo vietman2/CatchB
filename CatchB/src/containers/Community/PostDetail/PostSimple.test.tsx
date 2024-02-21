@@ -8,17 +8,17 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Text: "Text",
     Chip: "Chip",
     Avatar: {
       ...jest.requireActual("react-native-paper").Avatar,
       Icon: "Avatar.Icon",
     },
     Icon: "Icon",
+    Text: "Text",
   };
 });
 
-describe("PostSimple", () => {
+describe("<PostSimple />", () => {
   it("renders correctly", () => {
     waitFor(() => renderWithProviders(<PostSimple post={samplePosts[0]} />));
   });

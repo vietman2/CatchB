@@ -1,8 +1,8 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Text, Icon } from "react-native-paper";
+import { Icon, Text } from "react-native-paper";
 
-import { themeColors } from "../../../variables/colors";
-import { DailySalesInfo } from "../../../variables/types";
+import { themeColors } from "../../../../variables/colors";
+import { DailySalesInfo } from "../../../../variables/types";
 
 interface Props {
   sales: DailySalesInfo;

@@ -3,11 +3,11 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import NormalHome from "./NormalHome";
-import ProHome from "./ProHome";
+import Normal from "./Normal";
+import Pro from "./Pro";
 import StoreDashboard from "../StoreDashboard";
-import Sales from "../Sales/Sales";
-import Calendar from "../Calendar/Calendar";
+import Sales from "../Sales";
+import Calendar from "../Calendar";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 
@@ -25,7 +25,7 @@ export default function HomeMain() {
   const mode = useSelector((state: RootState) => state.general.mode);
 
   if (mode === "basic") {
-    return <NormalHome />;
+    return <Normal />;
   } else {
     return (
       <Tab.Navigator
@@ -37,7 +37,7 @@ export default function HomeMain() {
           tabBarInactiveTintColor: "gray",
         }}
       >
-        <Tab.Screen name="홈" component={ProHome} />
+        <Tab.Screen name="홈" component={Pro} />
         <Tab.Screen name="대시보드" component={StoreDashboard} />
         <Tab.Screen name="매출" component={Sales} />
         <Tab.Screen name="캘린더" component={Calendar} />

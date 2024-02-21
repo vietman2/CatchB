@@ -16,7 +16,7 @@ import { themeColors } from "../../../variables/colors";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
 import { AppDispatch } from "../../../store/store";
-import { setSelectedPost } from "../../../store/slices/community/communitySlice";
+import { setSelectedPost } from "../../../store/slices/community";
 import { PostType } from "../../../variables/types/community";
 
 interface Props {

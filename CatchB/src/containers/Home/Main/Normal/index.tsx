@@ -7,15 +7,15 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { Surface, Text, Chip, Icon } from "react-native-paper";
+import { Chip, Icon, Surface, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { RootState } from "../../../store/store";
-import { HomeStackScreenProps } from "../../../variables/navigation";
-import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
-import { CoachType } from "../../../variables/types/products";
+import { RootState } from "../../../../store/store";
+import { HomeStackScreenProps } from "../../../../variables/navigation";
+import { sampleCoaches } from "../../../../variables/mvp_dummy_data/coaches";
+import { CoachType } from "../../../../variables/types/products";
 
 type CoachTypes = "타격" | "투구" | "수비" | "포수";
 

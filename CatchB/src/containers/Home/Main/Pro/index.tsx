@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import { Card, Icon, Text } from "react-native-paper";
 
-import MyCard from "../../../components/Cards/MyCard";
-import { themeColors } from "../../../variables/colors";
+import MyCard from "../../../../components/Cards/MyCard";
+import { themeColors } from "../../../../variables/colors";
 
 type Notification = {
   type: "store" | "worker" | "reservation";

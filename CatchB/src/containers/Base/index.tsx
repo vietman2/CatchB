@@ -27,7 +27,7 @@ import {
   getUserProfile,
   renewToken,
 } from "../../services/user_management/account";
-import { setMode, setLocation } from "../../store/slices/general/generalSlice";
+import { setMode, setLocation } from "../../store/slices/general";
 import {
   setUserProfile,
   setNewToken,
@@ -192,11 +192,7 @@ export default function TabContainer() {
             options={{
               tabBarLabel: "프로모션",
               tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="gift"
-                  color={color}
-                  size={26}
-                />
+                <MaterialCommunityIcons name="gift" color={color} size={26} />
               ),
             }}
           />
@@ -232,10 +228,7 @@ export default function TabContainer() {
         onClose={onClose}
         setMode={navigate}
       />
-      <LoginDialog
-        visible={loginVisible}
-        onClose={onClose}
-      />
+      <LoginDialog visible={loginVisible} onClose={onClose} />
     </>
   );
 }

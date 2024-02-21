@@ -1,4 +1,4 @@
-import { Dimensions, View } from "react-native";
+import { View } from "react-native";
 import { Badge, Icon } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 

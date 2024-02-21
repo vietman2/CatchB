@@ -12,40 +12,10 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
     PaperProvider: Provider,
     Text: "Text",
-    FAB: ({ label, onPress }: any) => (
-      <TouchableOpacity onPress={onPress}>
-        <Text>{label}</Text>
-      </TouchableOpacity>
-    ),
-    TextInput: {
-      ...jest.requireActual("react-native-paper").TextInput,
-      Icon: "Icon",
-    },
-    Chip: "Chip",
-    Divider: "Divider",
-    Icon: "Icon",
-  };
-});
-jest.mock("@gorhom/bottom-sheet", () => {
-  const { View, Text, TouchableOpacity } = jest.requireActual("react-native");
-
-  return {
-    __esModule: true,
-    default: "BottomSheet",
-    BottomSheetBackdrop: ({ children, props }: any) => (
-      <View>
-        {children}
-        <TouchableOpacity onPress={props.onPress}>
-          <Text>닫기</Text>
-        </TouchableOpacity>
-      </View>
-    ),
-    BottomSheetBackdropProps: "BottomSheetBackdropProps",
   };
 });
 jest.mock("../PostLists/CommunityList", () => {
@@ -63,6 +33,7 @@ jest.mock("../PostLists/CommunityList", () => {
     </View>
   );
 });
+jest.mock("../PostLists/VideoList", () => "VideoList");
 
 const Stack = createStackNavigator();
 

@@ -35,7 +35,7 @@ const render = () => {
   );
 };
 
-describe("PostCreate", () => {
+describe("<PostCreate />", () => {
   it("renders correctly and handles forum select", () => {
     const { getByTestId, getByText } = render();
 
