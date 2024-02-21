@@ -11,12 +11,18 @@ export default function GenderButton({ gender, setGender }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => setGender("M")} testID="male-button">
-        <Surface mode="flat" style={gender === "M" ? styles.chosen : styles.notChosen}>
+        <Surface
+          mode="flat"
+          style={gender === "M" ? styles.chosen : styles.notChosen}
+        >
           <Text>남</Text>
         </Surface>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => setGender("F")} testID="female-button">
-        <Surface mode="flat" style={gender === "F" ? styles.chosen : styles.notChosen}>
+        <Surface
+          mode="flat"
+          style={gender === "F" ? styles.chosen : styles.notChosen}
+        >
           <Text>여</Text>
         </Surface>
       </TouchableOpacity>

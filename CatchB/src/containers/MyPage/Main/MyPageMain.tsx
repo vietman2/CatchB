@@ -13,7 +13,7 @@ import ProgressBar from "react-native-progress/Bar";
 import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 
 import AvatarHorizontal from "../../../components/Avatar/AvatarHorizontal";
-import IconButton from "../../../components/Buttons/IconButton";
+import { IconTextButton } from "../../../components/Buttons";
 import TabButton from "../../../components/Buttons/TabButton";
 import VerticalDivider from "../../../components/Divider/VerticalDivider";
 import { RootState } from "../../../store/store";
@@ -88,7 +88,10 @@ export default function MyPageMain() {
     if (!user) {
       LoginAlert();
     } else {
-      navigation.navigate("FacilityRegister");
+      navigation.navigate("RegisterPro", {
+        title: "아카데미 등록",
+        type: "facility",
+      });
     }
   };
 
@@ -96,7 +99,10 @@ export default function MyPageMain() {
     if (!user) {
       LoginAlert();
     } else {
-      navigation.navigate("CoachRegister");
+      navigation.navigate("RegisterPro", {
+        title: "코치 등록",
+        type: "coach",
+      });
     }
   };
 
@@ -134,18 +140,18 @@ export default function MyPageMain() {
         <View style={styles.mainOptions}>
           <View style={styles.menuHorizontal}>
             <TouchableOpacity style={{ flex: 1 }} onPress={() => start()}>
-              <IconButton icon="bookmark" title="찜" />
+              <IconTextButton icon="bookmark" title="찜" />
             </TouchableOpacity>
             <VerticalDivider />
             <TouchableOpacity style={{ flex: 1 }} onPress={handlePaymentsPress}>
-              <IconButton
+              <IconTextButton
                 icon="credit-card-multiple-outline"
                 title="결제수단"
               />
             </TouchableOpacity>
             <VerticalDivider />
             <TouchableOpacity style={{ flex: 1 }} onPress={handleReviewPress}>
-              <IconButton icon="comment-processing" title="리뷰" />
+              <IconTextButton icon="comment-processing" title="리뷰" />
             </TouchableOpacity>
           </View>
           <View style={{ paddingHorizontal: 10 }}>
