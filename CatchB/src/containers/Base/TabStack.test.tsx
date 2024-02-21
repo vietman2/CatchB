@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as expoLocation from "expo-location";
 
-import TabContainer from "./TabStack";
+import TabContainer from ".";
 import { renderWithProviders } from "../../utils/test-utils";
 import { admin } from "../../variables/mvp_dummy_data/user";
 import * as SecureStore from "../../store/secure";

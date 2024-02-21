@@ -8,7 +8,7 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TourGuideProvider } from "rn-tourguide";
 
-import TabContainer from "./src/containers/Base/TabStack";
+import TabContainer from "./src/containers/Base";
 import useFonts from "./src/hooks/useFonts";
 import { store } from "./src/store/store";
 import { themeColors } from "./src/variables/colors";
