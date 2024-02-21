@@ -17,7 +17,7 @@ import {
 } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import LoginLogo from "../../../components/Logos/LoginLogo";
+import { LoginLogo } from "../../../components/Logos";
 import { NaverButton, KakaoButton } from "../../../components/Buttons";
 import { login } from "../../../services/user_management/account";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";

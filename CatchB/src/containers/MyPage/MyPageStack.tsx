@@ -16,7 +16,7 @@ import FAQ from "./FAQ/FAQ";
 import Reviews from "./Review/Reviews";
 import PasswordChange from "./PasswordChange/PasswordChange";
 import { BackButton } from "../../components/Buttons";
-import { leftTitle } from "../../components/Logos/TopBar";
+import { SmallLogo } from "../../components/Logos";
 import {
   MyPageStackParamList,
   MyPageStackScreenProps,
@@ -53,7 +53,7 @@ export default function MyPageContainer() {
     <MyPageStack.Navigator
       initialRouteName="MyPageScreen"
       screenOptions={{
-        headerTitle: leftTitle,
+        headerTitle: SmallLogo,
         headerShadowVisible: false,
         headerTitleAlign: "center",
       }}

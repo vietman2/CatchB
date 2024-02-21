@@ -3,7 +3,7 @@ import { Badge, Icon } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeMain from "./Main/HomeMain";
-import { leftTitle } from "../../components/Logos/TopBar";
+import { SmallLogo } from "../../components/Logos";
 import { HomeStackParamList } from "../../variables/navigation";
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
@@ -22,7 +22,7 @@ export default function HomeContainer() {
     <HomeStack.Navigator
       initialRouteName="SplashScreen"
       screenOptions={{
-        headerLeft: leftTitle,
+        headerLeft: SmallLogo,
         headerTitle: () => {
           return null;
         },

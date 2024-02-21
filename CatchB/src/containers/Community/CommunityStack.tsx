@@ -7,7 +7,7 @@ import CommunityMain from "./Main/CommunityMain";
 import PostCreate from "./PostCreate/PostCreate";
 import PostDetail from "./PostDetail/PostDetail";
 import { BackButton } from "../../components/Buttons";
-import { leftTitle } from "../../components/Logos/TopBar";
+import { SmallLogo } from "../../components/Logos";
 import {
   CommunityStackParamList,
   CommunityStackScreenProps,
@@ -43,7 +43,7 @@ export default function CommunityContainer() {
         <Icon source="pencil-plus-outline" size={24} color="black" />
       </TouchableOpacity>
     );
-  }
+  };
 
   return (
     <CommunityStack.Navigator
@@ -56,7 +56,7 @@ export default function CommunityContainer() {
         name="CommunityScreen"
         component={CommunityMain}
         options={{
-          headerLeft: leftTitle,
+          headerLeft: SmallLogo,
           headerTitle: () => null,
           headerRight: () => WriteIcon(),
         }}
