@@ -28,7 +28,6 @@ export default function ReservationProductsTable({
           options={filters}
           selected={selected}
           setSelected={setSelected}
-          required
         />
       </View>
       {products.map((product) => (

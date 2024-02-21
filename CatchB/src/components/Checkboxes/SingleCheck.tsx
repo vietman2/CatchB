@@ -7,33 +7,22 @@ interface Props {
   options: string[];
   selected: string;
   setSelected: (selected: string) => void;
-  required?: boolean;
 }
 
 export default function SingleCheck({
   options,
   selected,
   setSelected,
-  required,
 }: Readonly<Props>) {
-  const isRequired = required || false;
   const { width } = Dimensions.get("window");
-  const itemWidth = (width - 40) / 3;
+  const itemWidth = (width - 40) / 2;
 
   const isSelected = (option: string) => {
     return selected === option;
   };
 
   const toggleSelected = (option: string) => {
-    if (isRequired) {
-      setSelected(option);
-      return;
-    }
-    if (selected === option) {
-      setSelected("");
-    } else {
-      setSelected(option);
-    }
+    setSelected(option);
   };
 
   return (

@@ -20,7 +20,6 @@ export default function ReservationProductsTable({ products }: Readonly<Props>) 
           options={filters}
           selected={selected}
           setSelected={setSelected}
-          required
         />
       </View>
       {products.map((product) => (
