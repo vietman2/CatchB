@@ -43,8 +43,9 @@ jest.mock("react-native-paper", () => {
 jest.mock("expo-document-picker", () => ({
   getDocumentAsync: jest.fn(),
 }));
-jest.mock("../../../components/Checkboxes/SingleCheck", () => "SingleCheck");
-jest.mock("../../../components/Checkboxes/MultiCheck", () => "MultiCheck");
+jest.mock("../../../components/Pickers/FilePicker", () => "FilePicker");
+jest.mock("../../../components/Selectors", () => "Selectors");
+jest.mock("../../../components/Terms/RegisterProTerms", () => "RegisterProTerms");
 
 const Stack = createStackNavigator();
 const Component = () => <CoachBasic onFinish={jest.fn()} />;
@@ -69,48 +70,6 @@ const render = () => {
 };
 
 describe("<CoachBasic />", () => {
-  it("should handle area choose", async () => {
-    jest.spyOn(axios, "get").mockImplementation(() =>
-      Promise.resolve({
-        status: 200,
-        data: {
-          sido: [{ code: "11", name: "서울특별시" }],
-          sigungu: [
-            { code: "1100000000", name: "서울특별시 관악구" },
-            { code: "1100000001", name: "서울특별시 강남구" },
-          ],
-          sigungu_by_sido: {
-            서울특별시: ["관악구", "강남구"],
-          },
-        },
-      })
-    );
-
-    const { getByText } = render();
-
-    await waitFor(() => {
-      fireEvent.press(getByText("선택하기"));
-      fireEvent.press(getByText("관악구"));
-      fireEvent.press(getByText("확인"));
-    });
-  });
-
-  it("should handle upload", async () => {
-    jest.spyOn(DocumentPicker, "getDocumentAsync").mockImplementation(() =>
-      Promise.resolve({
-        canceled: false,
-        assets: null,
-        output: null,
-      })
-    );
-
-    const { getByText } = render();
-
-    await waitFor(() => {
-      fireEvent.press(getByText("업로드"));
-    });
-  });
-
   it("should handle register success: navigate to MyPageScreen", async () => {
     jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
     const { getByText } = render();

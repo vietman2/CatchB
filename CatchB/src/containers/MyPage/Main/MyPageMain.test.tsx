@@ -34,19 +34,6 @@ jest.mock("rn-tourguide", () => ({
   TourGuideZone: "TourGuideZone",
   useTourGuideController: () => ({ start: jest.fn() }),
 }));
-jest.mock("../../../components/Avatar/AvatarHorizontal", () => {
-  const { View } = jest.requireActual("react-native");
-  return () => <View testID="badge">ProfileBadge</View>;
-});
-jest.mock("../../../components/Buttons/IconButton", () => {
-  const { Text, TouchableOpacity } = jest.requireActual("react-native");
-  return ({ icon, title, onPress }: any) => (
-    <TouchableOpacity onPress={onPress}>
-      <Text testID="icon">{icon}</Text>
-      <Text testID="title">{title}</Text>
-    </TouchableOpacity>
-  );
-});
 jest.mock("../../../components/Buttons/TabButton", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
   return ({ title, detail }: any) => (
@@ -56,10 +43,6 @@ jest.mock("../../../components/Buttons/TabButton", () => {
     </TouchableOpacity>
   );
 });
-jest.mock(
-  "../../../components/Divider/VerticalDivider",
-  () => "VerticalDivider"
-);
 
 const Stack = createStackNavigator();
 

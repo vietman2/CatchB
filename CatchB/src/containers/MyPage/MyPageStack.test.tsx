@@ -54,16 +54,6 @@ jest.mock("./Login/Login", () => "Login");
 jest.mock("./SignUp/SignUp", () => "SignUp");
 jest.mock("../../components/Divider/VerticalDivider", () => "VerticalDivider");
 jest.mock("../../components/Dialogs/LoginDialog", () => "LoginDialog");
-jest.mock("../../components/Avatar/AvatarImage", () => "AvatarImage");
-jest.mock("../../components/Logos/TopBar", () => ({
-  leftTitle: () => "leftTitle",
-}));
-jest.mock("../../components/Avatar/AvatarHorizontal", () => {
-  const { View } = jest.requireActual("react-native");
-  return () => <View testID="badge">ProfileBadge</View>;
-});
-jest.mock("../../components/Checkboxes/SingleCheck", () => "SingleCheck");
-jest.mock("../../components/Checkboxes/MultiCheck", () => "MultiCheck");
 jest.mock("../../components/Dialogs/AreaPicker", () => "AreaPicker");
 
 const Tab = createBottomTabNavigator();

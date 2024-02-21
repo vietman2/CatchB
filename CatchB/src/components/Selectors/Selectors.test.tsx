@@ -1,6 +1,6 @@
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 
-import Selector from ".";
+import Selector from "./";
 
 jest.mock("react-native-paper", () => ({
   Text: "Text",

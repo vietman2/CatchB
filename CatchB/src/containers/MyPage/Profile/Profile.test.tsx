@@ -14,11 +14,6 @@ import { admin } from "../../../variables/mvp_dummy_data/user";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("../../../components/Avatar/AvatarImage", () => "AvatarImage");
-jest.mock(
-  "../../../components/Divider/VerticalDivider",
-  () => "VerticalDivider"
-);
 jest.mock("../../../components/Buttons/TabButton", () => {
   const { View, Text } = jest.requireActual("react-native");
   return ({ title, detail, onPress }: any) => {

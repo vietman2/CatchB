@@ -16,7 +16,6 @@ jest.mock("react-native-paper", () => {
     Divider: "Divider",
   };
 });
-jest.mock("../../../components/Checkboxes/MultiCheck", () => "MultiCheck");
 
 describe("<CoachStep2 />", () => {
   it("renders correctly and handles time textinputs", () => {
