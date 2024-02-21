@@ -98,15 +98,13 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
   return (
     <ScrollView style={styles.container} keyboardDismissMode="on-drag">
       <>
-        <Text variant="headlineSmall" style={styles.title}>
+        <Text variant="titleLarge" style={styles.title}>
           상세 정보
         </Text>
         <Text variant="titleMedium" style={styles.description}>
           상세 정보를 다 입력하면 문의 받을 확률이 3배 높아요!
         </Text>
-        <Text variant="titleLarge" style={styles.subtitle}>
-          아카데미 소개
-        </Text>
+        <Text style={styles.subtitle}>아카데미 소개</Text>
         <TextInput
           mode="outlined"
           placeholder={
@@ -123,9 +121,9 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
           style={{ height: 150 }}
           testID="introduction"
         />
-        <Text variant="titleLarge" style={styles.subtitle}>
+        <Text style={styles.subtitle}>
           영업 시간
-          <Text variant="titleMedium" style={{ color: "gray" }}>
+          <Text variant="titleSmall" style={{ color: "gray" }}>
             {` (나중에 변경할 수 있어요!)`}
           </Text>
         </Text>
@@ -146,17 +144,13 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
       </>
       <Divider bold style={styles.divider} />
       <>
-        <Text variant="titleLarge" style={styles.subtitle}>
-          편의시설 및 서비스
-        </Text>
+        <Text style={styles.subtitle}>편의시설 및 서비스</Text>
         <MultiCheck
           options={amenityChoices}
           selected={amenities}
           setSelected={setAmenities}
         />
-        <Text variant="titleLarge" style={styles.subtitle}>
-          구비 시설
-        </Text>
+        <Text style={styles.subtitle}>구비 시설</Text>
         <NumberPicker
           label="마운드 수"
           value={numMounds}
@@ -194,9 +188,7 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
           dense
           testID="additionalEquipment"
         />
-        <Text variant="titleLarge" style={styles.subtitle}>
-          기타
-        </Text>
+        <Text style={styles.subtitle}>기타</Text>
         <MultiCheck
           options={otherChoices}
           selected={others}
@@ -204,6 +196,9 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
         />
       </>
       <Divider bold style={styles.divider} />
+      <Text style={styles.subtitle}>
+        {`아카데미 소개 사진: (${uploadedImages.length}/10)`}
+      </Text>
       <ImagePicker
         uploadedImages={uploadedImages}
         setUploadedImages={setUploadedImages}
@@ -235,6 +230,7 @@ const styles = StyleSheet.create({
   subtitle: {
     marginTop: 15,
     marginBottom: 10,
+    fontSize: 18,
     fontWeight: "bold",
   },
   description: {
@@ -242,7 +238,7 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   divider: {
-    marginTop: 5,
+    marginTop: 10,
   },
   button: {
     marginTop: 10,
