@@ -4,13 +4,13 @@ import {
   configureStore,
 } from "@reduxjs/toolkit";
 
-import generalReducer from "./general/generalSlice";
+import generalReducer from "./general";
 import authReducer from "./user_management/authSlice";
 import couponReducer from "./user_management/couponSlice";
 import pointReducer from "./user_management/pointSlice";
 import facilityReducer from "./products/facilitySlice";
 import coachReducer from "./products/coachSlice";
-import communityRedcucer from "./community/communitySlice";
+import communityRedcucer from "./community";
 import { RootState } from "../store";
 
 const rootReducer = combineReducers({

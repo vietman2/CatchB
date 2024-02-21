@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
-import communityReducer, { setSelectedPost } from "./communitySlice";
+import communityReducer, { setSelectedPost } from "./";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
 
 const createStore = () => {

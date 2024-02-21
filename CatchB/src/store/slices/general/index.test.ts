@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
-import generalReducer, { setMode } from "./generalSlice";
+import generalReducer, { setMode } from "./";
 
 // Create a mock store for testing
 const createStore = () => {
