@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Icon, IconButton, Text } from "react-native-paper";
 
 import { themeColors } from "../../variables/colors";
@@ -22,6 +22,37 @@ export function IconTextButton({ icon, title }: Readonly<IconProps>) {
       <Icon source={icon} size={20} color={themeColors.primary} />
       <Text style={styles.text}>{title}</Text>
     </View>
+  );
+}
+
+interface TabProps {
+  title: string;
+  detail: string;
+  showArrow: boolean;
+  onPress?: () => void;
+  paddingVertical?: number;
+}
+
+export function TabButton({
+  title,
+  detail,
+  showArrow,
+  onPress,
+  paddingVertical,
+}: Readonly<TabProps>) {
+  return (
+    <TouchableOpacity
+      style={{ ...styles.tab, paddingVertical: paddingVertical }}
+      onPress={onPress}
+    >
+      <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
+        {title}
+      </Text>
+      <View style={styles.tabRight}>
+        <Text variant="titleMedium">{detail}</Text>
+        {showArrow && <Icon size={20} source="chevron-right" />}
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -93,5 +124,16 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     marginLeft: 10,
+  },
+  tab: {
+    paddingHorizontal: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginLeft: 10,
+    paddingLeft: 10,
+  },
+  tabRight: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

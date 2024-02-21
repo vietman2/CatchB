@@ -13,8 +13,7 @@ import ProgressBar from "react-native-progress/Bar";
 import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 
 import { MainProfile } from "../../../components/Profile";
-import { IconTextButton } from "../../../components/Buttons";
-import TabButton from "../../../components/Buttons/TabButton";
+import { IconTextButton, TabButton } from "../../../components/Buttons";
 import { VerticalDivider } from "../../../components/Divider";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
