@@ -19,7 +19,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import LoginLogo from "../../../components/Logos/LoginLogo";
 import { NaverButton, KakaoButton } from "../../../components/Buttons";
-import DividerWithText from "../../../components/Divider/DividerWithText";
 import { login } from "../../../services/user_management/account";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { AppDispatch } from "../../../store/store";
@@ -164,7 +163,7 @@ export default function Login() {
               비밀번호 찾기
             </Button>
           </View>
-          <DividerWithText text="간편 로그인" />
+          <Divider />
           <TouchableOpacity onPress={handleKakaoLogin} testID="kakao-button">
             <KakaoButton />
           </TouchableOpacity>

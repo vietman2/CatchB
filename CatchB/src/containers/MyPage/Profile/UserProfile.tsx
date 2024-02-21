@@ -12,7 +12,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 import AvatarImage from "../../../components/Avatar/AvatarImage";
 import Tab from "../../../components/Buttons/TabButton";
-import VerticalDivider from "../../../components/Divider/VerticalDivider";
+import { VerticalDivider } from "../../../components/Divider";
 import { deleteAccount, logout } from "../../../services/user_management/account";
 import { RootState, AppDispatch } from "../../../store/store";
 import { get } from "../../../store/secure";

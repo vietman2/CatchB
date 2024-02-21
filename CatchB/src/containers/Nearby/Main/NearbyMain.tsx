@@ -14,7 +14,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 
 import CoachSimple from "../CoachDetail/CoachSimple";
 import FacilitySimple from "../FacilityDetail/FacilitySimple";
-import VerticalDivider from "../../../components/Divider/VerticalDivider";
+import { VerticalDivider } from "../../../components/Divider";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
 import { CoachType, FacilityType } from "../../../variables/types/products";

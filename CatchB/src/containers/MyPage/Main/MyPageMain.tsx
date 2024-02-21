@@ -15,7 +15,7 @@ import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 import AvatarHorizontal from "../../../components/Avatar/AvatarHorizontal";
 import { IconTextButton } from "../../../components/Buttons";
 import TabButton from "../../../components/Buttons/TabButton";
-import VerticalDivider from "../../../components/Divider/VerticalDivider";
+import { VerticalDivider } from "../../../components/Divider";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
