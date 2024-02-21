@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import StoreDashboard from "./StoreDashboard";
+import StoreDashboard from "./";
 
 jest.mock("react-native-paper", () => ({
   Surface: "Surface",

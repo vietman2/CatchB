@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 
 import CommunityMain from "./Main";
-import PostCreate from "./PostCreate/PostCreate";
+import PostCreate from "./PostCreate";
 import PostDetail from "./PostDetail/PostDetail";
 import { BackButton } from "../../components/Buttons";
 import { SmallLogo } from "../../components/Logos";

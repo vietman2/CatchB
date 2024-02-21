@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import PostCreate from "./PostCreate";
+import PostCreate from "./";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 

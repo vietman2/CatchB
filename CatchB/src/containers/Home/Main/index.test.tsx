@@ -2,7 +2,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import HomeMain from "./HomeMain";
+import HomeMain from ".";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 import { fireEvent, waitFor } from "@testing-library/react-native";

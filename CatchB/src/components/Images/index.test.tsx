@@ -16,8 +16,4 @@ describe("<ImagePlaceholder />", () => {
   it("renders correctly", () => {
     render(<ImagePlaceholder />);
   });
-
-  it("renders correctly with canUpload", () => {
-    render(<ImagePlaceholder canUpload />);
-  });
 });

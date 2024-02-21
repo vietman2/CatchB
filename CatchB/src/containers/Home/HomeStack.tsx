@@ -2,7 +2,7 @@ import { Dimensions, View } from "react-native";
 import { Badge, Icon } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import HomeMain from "./Main/HomeMain";
+import HomeMain from "./Main";
 import { SmallLogo } from "../../components/Logos";
 import { HomeStackParamList } from "../../variables/navigation";
 

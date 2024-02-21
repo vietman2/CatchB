@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import HistoryMain from "./HistoryMain";
+import HistoryMain from "./";
 import { renderWithProviders } from "../../../utils/test-utils";
 
 const Stack = createStackNavigator();

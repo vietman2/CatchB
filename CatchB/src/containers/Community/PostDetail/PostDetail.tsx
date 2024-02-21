@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import PostTagChip from "../../../components/Chips/PostTagChip";
-import PostAuthorProfile from "../../../components/Profile/PostAuthorProfile";
+import { CommunityPostProfile } from "../../../components/Profile";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 
@@ -23,7 +23,7 @@ export default function PostDetail() {
         <Text variant="headlineSmall" style={styles.title}>
           {post.title}
         </Text>
-        <PostAuthorProfile post={post} />
+        <CommunityPostProfile post={post} />
         <Divider />
         <Text variant="titleMedium" style={styles.body}>
           {post.body}
@@ -35,9 +35,16 @@ export default function PostDetail() {
         </View>
         <Divider />
       </ScrollView>
-      <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints} backgroundStyle={{backgroundColor: "rgb(250, 250, 250)"}}>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        backgroundStyle={{ backgroundColor: "rgb(250, 250, 250)" }}
+      >
         <View style={styles.comments}>
-          <Text variant="titleMedium" style={styles.commentTitle}>댓글 {post.num_comments}</Text>
+          <Text variant="titleMedium" style={styles.commentTitle}>
+            댓글 {post.num_comments}
+          </Text>
           <Divider />
         </View>
       </BottomSheet>

@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 
 import NormalHome from "./NormalHome";
 import ProHome from "./ProHome";
-import StoreDashboard from "../StoreDashboard/StoreDashboard";
+import StoreDashboard from "../StoreDashboard";
 import Sales from "../Sales/Sales";
 import Calendar from "../Calendar/Calendar";
 import { RootState } from "../../../store/store";

@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
-import CommunityMain from ".";
+import CommunityMain from "./";
 import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
