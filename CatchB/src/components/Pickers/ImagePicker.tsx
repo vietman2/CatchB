@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Alert, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { Text } from "react-native-paper";
+import { Alert, ScrollView, TouchableOpacity } from "react-native";
 import {
   launchImageLibraryAsync,
   ImagePickerAsset,
@@ -46,30 +45,17 @@ export default function ImagePicker({
   };
 
   return (
-    <>
-      <Text variant="titleLarge" style={styles.subtitle}>
-        {`아카데미 소개 사진: (${uploadedImages.length}/10)`}
-      </Text>
-      <ScrollView horizontal>
-        {uploadedImages.map((image) => (
-          <ImagePreview
-            key={image.assetId}
-            uri={image.uri}
-            removeImage={() => removeImage(uploadedImages.indexOf(image))}
-          />
-        ))}
-        <TouchableOpacity onPress={uploadImage} testID="imagePicker">
-          <ImagePlaceholder canUpload />
-        </TouchableOpacity>
-      </ScrollView>
-    </>
+    <ScrollView horizontal>
+      {uploadedImages.map((image) => (
+        <ImagePreview
+          key={image.assetId}
+          uri={image.uri}
+          removeImage={() => removeImage(uploadedImages.indexOf(image))}
+        />
+      ))}
+      <TouchableOpacity onPress={uploadImage} testID="imagePicker">
+        <ImagePlaceholder canUpload />
+      </TouchableOpacity>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  subtitle: {
-    marginTop: 15,
-    marginBottom: 10,
-    fontWeight: "bold",
-  },
-});
