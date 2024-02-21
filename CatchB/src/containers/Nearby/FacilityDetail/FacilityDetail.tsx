@@ -12,9 +12,9 @@ import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
+import { AvatarImage } from "../../../components/Profile";
 import ScheduleBar from "../../../components/Tables/ScheduleBar";
 import ReservationProductsTable from "../../../components/Tables/ReservationProductsTable";
-import CoachProfile from "../../../components/Avatar/CoachProfile";
 import { themeColors } from "../../../variables/colors";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 import { RootState } from "../../../store/store";
@@ -37,6 +37,15 @@ function DateTimePicker() {
       <Text variant="titleMedium">오후 5시 ~ 오후 6시</Text>
       <Icon source="chevron-down" size={20} />
     </TouchableOpacity>
+  );
+}
+
+function CoachProfilePlaceholder({ name }: Readonly<{ name: string }>) {
+  return (
+    <View style={styles.placeholderContainer}>
+      <AvatarImage />
+      <Text>{name}</Text>
+    </View>
   );
 }
 
@@ -135,11 +144,11 @@ export default function FacilityDetail() {
             코치진
           </Text>
           <ScrollView horizontal>
-            <CoachProfile name="김감독" />
-            <CoachProfile name="이코치" />
-            <CoachProfile name="박코치" />
-            <CoachProfile name="최코치" />
-            <CoachProfile name="김코치" />
+            <CoachProfilePlaceholder name="김감독" />
+            <CoachProfilePlaceholder name="이코치" />
+            <CoachProfilePlaceholder name="박코치" />
+            <CoachProfilePlaceholder name="최코치" />
+            <CoachProfilePlaceholder name="김코치" />
           </ScrollView>
         </View>
         <View style={styles.content}>
@@ -199,7 +208,11 @@ export default function FacilityDetail() {
         </Text>
         <DateTimePicker />
         <View style={styles.button}>
-          <Button mode="contained" onPress={handleReserve} testID="reserve-button">
+          <Button
+            mode="contained"
+            onPress={handleReserve}
+            testID="reserve-button"
+          >
             예약하기
           </Button>
         </View>
@@ -212,6 +225,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: themeColors.primaryContainer,
+  },
+  placeholderContainer: {
+    alignItems: "center",
+    marginRight: 15,
   },
   image: {
     flex: 1,

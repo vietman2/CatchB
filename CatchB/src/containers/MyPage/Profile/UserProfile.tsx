@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Text, Portal, Dialog, Button } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-import AvatarImage from "../../../components/Avatar/AvatarImage";
+import { AvatarImage } from "../../../components/Profile";
 import Tab from "../../../components/Buttons/TabButton";
 import { VerticalDivider } from "../../../components/Divider";
 import { deleteAccount, logout } from "../../../services/user_management/account";

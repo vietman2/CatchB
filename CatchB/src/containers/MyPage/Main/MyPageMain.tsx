@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import ProgressBar from "react-native-progress/Bar";
 import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 
-import AvatarHorizontal from "../../../components/Avatar/AvatarHorizontal";
+import { MainProfile } from "../../../components/Profile";
 import { IconTextButton } from "../../../components/Buttons";
 import TabButton from "../../../components/Buttons/TabButton";
 import { VerticalDivider } from "../../../components/Divider";
@@ -125,7 +125,7 @@ export default function MyPageMain() {
             onPress={handleBadgePress}
             testID="avatar-horizontal"
           >
-            <AvatarHorizontal user={user} />
+            <MainProfile user={user} />
           </TouchableOpacity>
         </TourGuideZone>
         <View style={styles.progress}>

@@ -4,11 +4,11 @@ import { Avatar, Text } from "react-native-paper";
 import { themeColors } from "../../variables/colors";
 import { UserProfileType } from "../../variables/types/users";
 
-interface ProfileBadgeProps {
+interface ProfileProps {
   user: UserProfileType | null;
 }
 
-export default function AvatarHorizontal(props: Readonly<ProfileBadgeProps>) {
+export function MainProfile({user}: Readonly<ProfileProps>) {
   return (
     <View style={styles.container}>
       <Avatar.Icon
@@ -18,16 +18,33 @@ export default function AvatarHorizontal(props: Readonly<ProfileBadgeProps>) {
       />
       <View style={styles.textBox}>
         <Text variant="titleMedium" style={{ color: "gray" }}>
-          {props.user === null
+          {user === null
             ? "로그인 후 편하게 서비스를 이용하세요!"
             : "일반 회원"}
         </Text>
         <Text variant="headlineSmall" style={styles.profileText}>
-          {props.user === null ? "로그인" : props.user.full_name}
+          {user === null ? "로그인" : user.full_name}
         </Text>
       </View>
     </View>
   );
+}
+
+interface ImageProps {
+  profileImage?: string;
+}
+
+export function AvatarImage({ profileImage }: Readonly<ImageProps>) {
+  if (profileImage) {
+    return (
+      <Avatar.Image
+        size={64}
+        source={{ uri: profileImage }}
+        style={styles.avatar}
+      />
+    );
+  }
+  return <Avatar.Icon size={64} icon="account" style={styles.avatar} />;
 }
 
 const styles = StyleSheet.create({
@@ -46,5 +63,9 @@ const styles = StyleSheet.create({
   profileText: {
     fontFamily: "Catch B ExtraBold",
     color: themeColors.primary,
+  },
+  avatar: {
+    marginVertical: 16,
+    backgroundColor: themeColors.secondaryContainer,
   },
 });
