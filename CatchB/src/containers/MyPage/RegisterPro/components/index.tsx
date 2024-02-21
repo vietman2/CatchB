@@ -7,25 +7,29 @@ interface Props {
 }
 
 export function MainTitle({ text, sub }: Readonly<Props>) {
+  const subExists = sub ? true : false;
+
   return (
     <>
       <Text variant="headlineSmall" style={styles.title}>
         {text}
       </Text>
-      {sub && (
+      {subExists ? (
         <Text variant="titleMedium" style={styles.description}>
           {sub}
         </Text>
-      )}
+      ) : null}
     </>
   );
 }
 
 export function SubTitle({ text, sub }: Readonly<Props>) {
+  const subExists = sub ? true : false;
+
   return (
     <Text style={styles.subtitle}>
       {text}
-      {sub && <Text variant="titleSmall">{sub}</Text>}
+      {subExists ? <Text variant="titleSmall" style={{color: "gray"}}>{sub}</Text> : null}
     </Text>
   );
 }
@@ -40,7 +44,6 @@ export function DisabledTextInput({ text }: Readonly<Props>) {
 
 const styles = StyleSheet.create({
   title: {
-    marginTop: 20,
     fontWeight: "bold",
   },
   description: {

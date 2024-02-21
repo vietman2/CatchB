@@ -6,18 +6,18 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { Button, Dialog, Portal, Text, TextInput } from "react-native-paper";
+import { Button, Dialog, Portal, TextInput } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import PostCode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
-import { DisabledTextInput, MainTitle, SubTitle } from "./components";
-import { AppDispatch, RootState } from "../../../store/store";
-import { setMyFacilityUuid } from "../../../store/slices/products/facilitySlice";
-import { registerFacility } from "../../../services/facility/facility";
-import { themeColors } from "../../../variables/colors";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
+import { DisabledTextInput, MainTitle, SubTitle } from "../../components";
+import { AppDispatch, RootState } from "../../../../../store/store";
+import { setMyFacilityUuid } from "../../../../../store/slices/products/facilitySlice";
+import { registerFacility } from "../../../../../services/facility/facility";
+import { themeColors } from "../../../../../variables/colors";
+import { MyPageStackScreenProps } from "../../../../../variables/navigation";
 
 interface Props {
   onFinish: () => void;
@@ -190,12 +190,16 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
 
   return (
     <>
-      <ScrollView keyboardDismissMode="on-drag" automaticallyAdjustKeyboardInsets style={styles.container}>
+      <ScrollView
+        keyboardDismissMode="on-drag"
+        automaticallyAdjustKeyboardInsets
+        style={styles.container}
+      >
         <MainTitle text="기본 정보" />
-          <SubTitle text="대표자 이름" />
-          <DisabledTextInput text={user.full_name} />
-          <SubTitle text="대표자 연락처" />
-          <DisabledTextInput text={user.phone_number} />
+        <SubTitle text="대표자 이름" />
+        <DisabledTextInput text={user.full_name} />
+        <SubTitle text="대표자 연락처" />
+        <DisabledTextInput text={user.phone_number} />
         <SubTitle text="아카데미 이름" />
         <TextInput
           mode="outlined"

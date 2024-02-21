@@ -11,13 +11,13 @@ import { Button, Divider, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { DocumentPickerAsset } from "expo-document-picker";
 
-import { DisabledTextInput, MainTitle, SubTitle } from "./components";
-import FilePicker from "../../../components/Pickers/FilePicker";
-import Selector from "../../../components/Selectors";
-import RegisterProTerms from "../../../components/Terms/RegisterProTerms";
-import { RootState } from "../../../store/store";
-import { themeColors } from "../../../variables/colors";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
+import { DisabledTextInput, MainTitle, SubTitle } from "../../components";
+import FilePicker from "../../../../../components/Pickers/FilePicker";
+import Selector from "../../../../../components/Selectors";
+import RegisterProTerms from "../../../../../components/Terms/RegisterProTerms";
+import { RootState } from "../../../../../store/store";
+import { themeColors } from "../../../../../variables/colors";
+import { MyPageStackScreenProps } from "../../../../../variables/navigation";
 
 interface Props {
   onFinish: () => void;
@@ -68,7 +68,7 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       <Divider bold style={styles.divider} />
       <SubTitle text="선수 경력" />
       <Selector
-      multiple={false}
+        multiple={false}
         options={[
           "프로 출신",
           "대학교 선수 출신",

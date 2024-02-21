@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render } from "@testing-library/react-native";
 
-import CoachStep2 from "./CoachStep2";
+import CoachDetail from "./";
 
 jest.mock("react-native-paper", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
@@ -19,7 +19,7 @@ jest.mock("react-native-paper", () => {
 
 describe("<CoachStep2 />", () => {
   it("renders correctly and handles time textinputs", () => {
-    const { getByTestId } = render(<CoachStep2 onFinish={jest.fn()} />);
+    const { getByTestId } = render(<CoachDetail onFinish={jest.fn()} />);
 
     fireEvent.changeText(getByTestId("weekdayStart"), "1234");
     fireEvent.changeText(getByTestId("weekdayEnd"), "5678");
@@ -33,7 +33,7 @@ describe("<CoachStep2 />", () => {
   });
 
   it("handles other text inputs", () => {
-    const { getByTestId } = render(<CoachStep2 onFinish={jest.fn()} />);
+    const { getByTestId } = render(<CoachDetail onFinish={jest.fn()} />);
 
     fireEvent.changeText(getByTestId("curriculum"), "curriculum");
     fireEvent.changeText(getByTestId("career"), "career");
@@ -41,7 +41,7 @@ describe("<CoachStep2 />", () => {
 
   it("handles the finish button", () => {
     const onFinish = jest.fn();
-    const { getByText } = render(<CoachStep2 onFinish={onFinish} />);
+    const { getByText } = render(<CoachDetail onFinish={onFinish} />);
 
     fireEvent.press(getByText("다음 (1/3)"));
   });

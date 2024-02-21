@@ -3,8 +3,8 @@ import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import CoachStep4 from "./CoachStep4";
-import { renderWithProviders } from "../../../utils/test-utils";
+import Prices from "./";
+import { renderWithProviders } from "../../../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -30,8 +30,8 @@ const render = () => {
   return renderWithProviders(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="CoachRegister" component={CoachStep4} />
-        <Stack.Screen name="MyPageScreen" component={CoachStep4} />
+        <Stack.Screen name="CoachRegister" component={Prices} />
+        <Stack.Screen name="MyPageScreen" component={Prices} />
       </Stack.Navigator>
     </NavigationContainer>
   );

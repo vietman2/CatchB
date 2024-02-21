@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render } from "@testing-library/react-native";
 
-import CoachStep3 from "./CoachStep3";
+import Account from "./";
 
 jest.mock("react-native-paper", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
@@ -19,7 +19,7 @@ jest.mock("react-native-paper", () => {
 
 describe("<CoachStep3 />", () => {
   it("renders correctly and handles button press", () => {
-    const { getByText } = render(<CoachStep3 onFinish={jest.fn()} />);
+    const { getByText } = render(<Account onFinish={jest.fn()} />);
 
     fireEvent.press(getByText("다음 (2/3)"));
   });

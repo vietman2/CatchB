@@ -1,9 +1,22 @@
 import { ScrollView, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from "../../../../variables/colors";
+import { MyPageStackScreenProps } from "../../../../variables/navigation";
 
-export default function FacilityStep4() {
+export default function Prices() {
+  const navigation =
+    useNavigation<MyPageStackScreenProps<"RegisterPro">["navigation"]>();
+
+  const handleSubmitSuccess = () => {
+    navigation.navigate("MyPageScreen");
+  };
+  /*
+  const handleDone = () => {
+    // TODO: API 연동
+  }; */
+
   return (
     <ScrollView
       style={styles.container}
@@ -14,20 +27,17 @@ export default function FacilityStep4() {
         가격 정보
       </Text>
       <Text variant="titleSmall" style={styles.description}>
-        상품의 가격을 구체적으로 작성하면 메인에 상위 노출돼요!
+        가격을 구체적으로 작성하면 메인에 상위 노출돼요!
       </Text>
       <Text variant="titleMedium" style={styles.subtitle}>
-        대관 가격
+        레슨 가격
       </Text>
-      <Button mode="text" icon="plus-circle">
-        상품 가격 정보 추가하기
-      </Button>
       <Button
         mode="contained"
         style={{ marginTop: 10, marginBottom: 20 }}
-        onPress={() => {}}
+        onPress={handleSubmitSuccess}
       >
-        완료 (3/3)
+        완료
       </Button>
     </ScrollView>
   );

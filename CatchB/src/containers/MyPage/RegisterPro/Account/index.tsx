@@ -1,14 +1,14 @@
 import { ScrollView, StyleSheet } from "react-native";
 import { Button, Divider, Text } from "react-native-paper";
 
-import RegisterProTerms from "../../../components/Terms/RegisterProTerms";
-import { themeColors } from "../../../variables/colors";
+import RegisterProTerms from "../../../../components/Terms/RegisterProTerms";
+import { themeColors } from "../../../../variables/colors";
 
 interface Props {
   onFinish: () => void;
 }
 
-export default function CoachStep3({ onFinish }: Readonly<Props>) {
+export default function Account({ onFinish }: Readonly<Props>) {
   const handleSubmitSuccess = () => {
     onFinish();
   };

@@ -3,11 +3,15 @@ import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-import CoachBasic from "./CoachBasic";
-import FacilityBasic from "./FacilityBasic";
+import CoachBasic from "./Basic/CoachBasic";
+import FacilityBasic from "./Basic/FacilityBasic";
+import FacilityDetail from "./Detail/FacilityDetail";
 import ProgressSteps from "../../../components/Progress/ProgressSteps";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
+import Account from "./Account";
+import Prices from "./Prices";
+import CoachDetail from "./Detail/CoachDetail";
 
 export default function RegisterPro() {
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
@@ -48,11 +52,14 @@ export default function RegisterPro() {
       }
       return <FacilityBasic onFinish={() => setStep(1)} />;
     } else if (step === 1) {
-      return <></>;
+      if (type === "coach") {
+        return <CoachDetail onFinish={() => setStep(2)} />;
+      }
+      return <FacilityDetail onFinish={() => setStep(2)} />;
     } else if (step === 2) {
-      return <></>;
+      return <Account onFinish={() => setStep(3)} />;
     } else {
-      return <></>;
+      return <Prices />;
     }
   };
 

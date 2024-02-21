@@ -2,8 +2,8 @@
 import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
-import FacilityStep2 from "./FacilityStep2";
-import { renderWithProviders } from "../../../utils/test-utils";
+import FacilityDetail from "./";
+import { renderWithProviders } from "../../../../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
@@ -56,7 +56,7 @@ jest.mock("../../../components/Pickers/NumberPicker", () => "NumberPicker");
 describe("<FacilityStep2 />", () => {
   it("should handle introduction input", async () => {
     const { getByTestId } = renderWithProviders(
-      <FacilityStep2 onFinish={() => {}} />
+      <FacilityDetail onFinish={() => {}} />
     );
 
     const textinput = getByTestId("introduction");
@@ -65,7 +65,7 @@ describe("<FacilityStep2 />", () => {
 
   it("should handle custom equipment", async () => {
     const { getByTestId, getByText } = renderWithProviders(
-      <FacilityStep2 onFinish={() => {}} />
+      <FacilityDetail onFinish={() => {}} />
     );
 
     const textinput = getByTestId("additionalEquipment");
@@ -86,7 +86,7 @@ describe("<FacilityStep2 />", () => {
       })
     );
     const { getByText } = renderWithProviders(
-      <FacilityStep2 onFinish={() => {}} />
+      <FacilityDetail onFinish={() => {}} />
     );
 
     const button = getByText("완료 (1/3)");
@@ -100,7 +100,7 @@ describe("<FacilityStep2 />", () => {
       })
     );
     const { getByText } = renderWithProviders(
-      <FacilityStep2 onFinish={() => {}} />
+      <FacilityDetail onFinish={() => {}} />
     );
 
     const button = getByText("완료 (1/3)");
@@ -114,7 +114,7 @@ describe("<FacilityStep2 />", () => {
       })
     );
     const { getByText } = renderWithProviders(
-      <FacilityStep2 onFinish={() => {}} />
+      <FacilityDetail onFinish={() => {}} />
     );
 
     const button = getByText("완료 (1/3)");

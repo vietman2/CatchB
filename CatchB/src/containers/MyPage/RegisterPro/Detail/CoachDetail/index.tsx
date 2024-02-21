@@ -2,16 +2,17 @@ import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { Button, Divider, Text, TextInput } from "react-native-paper";
 
-import Selector from "../../../components/Selectors";
-import WorkTimePickers from "../../../components/Pickers/WorkTimePickers";
-import { themeColors } from "../../../variables/colors";
+import Selector from "../../../../../components/Selectors";
+import WorkTimePickers from "../../../../../components/Pickers/WorkTimePickers";
+import { themeColors } from "../../../../../variables/colors";
+import { MainTitle, SubTitle } from "../../components";
 
 interface Props {
   onFinish: () => void;
 }
 
-export default function CoachStep2({ onFinish }: Readonly<Props>) {
-  const [selected, setSelected] = useState<string[]>([]);
+export default function CoachDetail({ onFinish }: Readonly<Props>) {
+  const [selected, setSelected] = useState<string[]>(["왕초보/기초"]);
   const [curriculum, setCurriculum] = useState<string>("");
   const [career, setCareer] = useState<string>("");
   // time
@@ -47,24 +48,18 @@ export default function CoachStep2({ onFinish }: Readonly<Props>) {
       automaticallyAdjustKeyboardInsets
       keyboardDismissMode="on-drag"
     >
-      <Text variant="titleLarge" style={styles.title}>
-        상세 정보
-      </Text>
-      <Text variant="titleSmall" style={styles.description}>
-        상세 정보를 다 입력하면 문의 받을 확률이 3배 높아요!
-      </Text>
-      <Text variant="titleMedium" style={styles.subtitle}>
-        전문 분야 (복수 선택 가능)
-      </Text>
+      <MainTitle
+        text="상세 정보"
+        sub="상세 정보를 다 입력하면 문의 받을 확률이 3배 높아요!"
+      />
+      <SubTitle text="전문 분야 (복수 선택 가능)" />
       <Selector
         multiple
         options={choices}
         multiSelected={selected}
         setMultiSelected={setSelected}
       />
-      <Text variant="titleMedium" style={styles.subtitle}>
-        커리큘럼
-      </Text>
+      <SubTitle text="커리큘럼" />
       <TextInput
         mode="outlined"
         placeholder="코치님만의 수업 방식을 자유롭게 작성해주세요! (최대 1000자)"
@@ -77,9 +72,7 @@ export default function CoachStep2({ onFinish }: Readonly<Props>) {
         style={{ height: 150 }}
         testID="curriculum"
       />
-      <Text variant="titleMedium" style={styles.subtitle}>
-        경력/자격
-      </Text>
+        <SubTitle text="경력/자격" />
       <TextInput
         mode="outlined"
         placeholder={"예)\n- 커리어1\n- 커리어2\n- 커리어3\n- ..."}
@@ -91,23 +84,6 @@ export default function CoachStep2({ onFinish }: Readonly<Props>) {
         maxLength={1000}
         style={{ height: 150 }}
         testID="career"
-      />
-      <Text variant="titleMedium" style={styles.subtitle}>
-        스케줄
-      </Text>
-      <WorkTimePickers
-        weekdayStart={weekdayStart}
-        setWeekdayStart={setWeekdayStart}
-        weekdayEnd={weekdayEnd}
-        setWeekdayEnd={setWeekdayEnd}
-        saturdayStart={saturdayStart}
-        setSaturdayStart={setSaturdayStart}
-        saturdayEnd={saturdayEnd}
-        setSaturdayEnd={setSaturdayEnd}
-        sundayStart={sundayStart}
-        setSundayStart={setSundayStart}
-        sundayEnd={sundayEnd}
-        setSundayEnd={setSundayEnd}
       />
       <Divider />
       <Text variant="titleLarge" style={styles.title}>
