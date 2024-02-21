@@ -3,7 +3,7 @@ import { Icon, Text } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 
-import CommunityMain from "./Main/CommunityMain";
+import CommunityMain from "./Main";
 import PostCreate from "./PostCreate/PostCreate";
 import PostDetail from "./PostDetail/PostDetail";
 import { BackButton } from "../../components/Buttons";
