@@ -13,7 +13,7 @@ import { DocumentPickerAsset } from "expo-document-picker";
 
 import { DisabledTextInput, MainTitle, SubTitle } from "./components";
 import FilePicker from "../../../components/Pickers/FilePicker";
-import SingleCheck from "../../../components/Checkboxes/SingleCheck";
+import Selector from "../../../components/Selectors";
 import RegisterProTerms from "../../../components/Terms/RegisterProTerms";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
@@ -67,7 +67,8 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       <DisabledTextInput text={user.phone_number} />
       <Divider bold style={styles.divider} />
       <SubTitle text="선수 경력" />
-      <SingleCheck
+      <Selector
+      multiple={false}
         options={[
           "프로 출신",
           "대학교 선수 출신",
@@ -75,8 +76,8 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
           "비선수 출신",
           "기타",
         ]}
-        selected={career}
-        setSelected={setCareer}
+        singleSelected={career}
+        setSingleSelected={setCareer}
       />
       <SubTitle text="경력 인증 서류" sub=" pdf, jpg, png만 가능합니다." />
       <View style={styles.uploadMenu}>

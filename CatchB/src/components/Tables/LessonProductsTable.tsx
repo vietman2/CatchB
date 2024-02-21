@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-import SingleCheck from "../Checkboxes/SingleCheck";
+import Selector from "../Selectors";
 import { LessonProduct } from "../../variables/types/products";
 
 interface Props {
@@ -24,16 +24,19 @@ export default function ReservationProductsTable({
   return (
     <View style={styles.container}>
       <View style={styles.filters}>
-        <SingleCheck
+        <Selector
+          multiple={false}
           options={filters}
-          selected={selected}
-          setSelected={setSelected}
+          singleSelected={selected}
+          setSingleSelected={setSelected}
         />
       </View>
       {products.map((product) => (
         <View key={product.id} style={styles.product}>
           <Text variant="titleLarge">{product.title}</Text>
-          <Text variant="titleMedium" style={{marginVertical: 10}}>{product.description}</Text>
+          <Text variant="titleMedium" style={{ marginVertical: 10 }}>
+            {product.description}
+          </Text>
           <Text variant="titleLarge">{renderPrice(product.price)}원</Text>
         </View>
       ))}

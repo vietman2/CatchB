@@ -5,7 +5,7 @@ import { Button, Divider, Text, TextInput } from "react-native-paper";
 import { ImagePickerAsset } from "expo-image-picker";
 
 import { amenityChoices, equipmentChoices, otherChoices } from "./options";
-import MultiCheck from "../../../components/Checkboxes/MultiCheck";
+import Selector from "../../../components/Selectors";
 import WorkTimePickers from "../../../components/Pickers/WorkTimePickers";
 import ImagePicker from "../../../components/Pickers/ImagePicker";
 import NumberPicker from "../../../components/Pickers/NumberPicker";
@@ -145,10 +145,11 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
       <Divider bold style={styles.divider} />
       <>
         <Text style={styles.subtitle}>편의시설 및 서비스</Text>
-        <MultiCheck
+        <Selector
+          multiple
           options={amenityChoices}
-          selected={amenities}
-          setSelected={setAmenities}
+          multiSelected={amenities}
+          setMultiSelected={setAmenities}
         />
         <Text style={styles.subtitle}>구비 시설</Text>
         <NumberPicker
@@ -161,15 +162,17 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
           value={numPlates}
           onChange={setNumPlates}
         />
-        <MultiCheck
+        <Selector
+          multiple
           options={equipmentChoices}
-          selected={equipment}
-          setSelected={setEquipment}
+          multiSelected={equipment}
+          setMultiSelected={setEquipment}
         />
-        <MultiCheck
+        <Selector
+          multiple
           options={custom}
-          selected={custom}
-          setSelected={setCustom}
+          multiSelected={custom}
+          setMultiSelected={setCustom}
         />
         <TextInput
           label="추가 구비 시설 (직접 입력)"
@@ -189,10 +192,11 @@ export default function FacilityStep2({ onFinish }: Readonly<Props>) {
           testID="additionalEquipment"
         />
         <Text style={styles.subtitle}>기타</Text>
-        <MultiCheck
+        <Selector
+          multiple
           options={otherChoices}
-          selected={others}
-          setSelected={setOthers}
+          multiSelected={others}
+          setMultiSelected={setOthers}
         />
       </>
       <Divider bold style={styles.divider} />

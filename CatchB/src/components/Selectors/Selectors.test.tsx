@@ -1,20 +1,20 @@
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 
-import SingleCheck from "./SingleCheck";
-import MultiCheck from "./MultiCheck";
+import Selector from ".";
 
 jest.mock("react-native-paper", () => ({
   Text: "Text",
   Icon: "Icon",
 }));
 
-describe("<SingleCheck />", () => {
-  it("renders the correct number of chips", async () => {
+describe("<Selector />", () => {
+  it("renders single choice selector", async () => {
     const { getByText } = render(
-      <SingleCheck
+      <Selector
+        multiple={false}
         options={["Option 1", "Option 2"]}
-        selected="Option 2"
-        setSelected={() => {}}
+        singleSelected="Option 2"
+        setSingleSelected={() => {}}
       />
     );
 
@@ -23,15 +23,14 @@ describe("<SingleCheck />", () => {
       fireEvent.press(getByText("Option 1"));
     });
   });
-});
 
-describe("<MultiCheck />", () => {
-  it("renders the correct number of chips", async () => {
+  it("renders multi choice selector", async () => {
     const { getByText } = render(
-      <MultiCheck
+      <Selector
+        multiple
         options={["Option 1", "Option 2"]}
-        selected={["Option 2"]}
-        setSelected={() => {}}
+        multiSelected={["Option 2"]}
+        setMultiSelected={() => {}}
       />
     );
 

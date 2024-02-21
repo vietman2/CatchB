@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { Button, Divider, Text, TextInput } from "react-native-paper";
 
-import MultiCheck from "../../../components/Checkboxes/MultiCheck";
+import Selector from "../../../components/Selectors";
 import WorkTimePickers from "../../../components/Pickers/WorkTimePickers";
 import { themeColors } from "../../../variables/colors";
 
@@ -56,10 +56,11 @@ export default function CoachStep2({ onFinish }: Readonly<Props>) {
       <Text variant="titleMedium" style={styles.subtitle}>
         전문 분야 (복수 선택 가능)
       </Text>
-      <MultiCheck
+      <Selector
+        multiple
         options={choices}
-        selected={selected}
-        setSelected={setSelected}
+        multiSelected={selected}
+        setMultiSelected={setSelected}
       />
       <Text variant="titleMedium" style={styles.subtitle}>
         커리큘럼
