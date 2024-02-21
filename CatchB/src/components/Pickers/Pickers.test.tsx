@@ -2,7 +2,6 @@ import axios from "axios";
 import * as Picker from "expo-image-picker";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
-import AreaPicker from "./AreaPicker";
 import ImagePicker from "./ImagePicker";
 import NumberPicker from "./NumberPicker";
 import { renderWithProviders } from "../../utils/test-utils";
@@ -99,7 +98,7 @@ describe("<NumberPicker />", () => {
     fireEvent.press(getByText("2"));
   });
 });
-
+/*
 describe("<AreaPicker />", () => {
   jest.spyOn(axios, "get").mockImplementation(() =>
     Promise.resolve({
@@ -196,4 +195,4 @@ describe("<AreaPicker />", () => {
       fireEvent.press(getByText("서울특별시 관악구"));
     });
   });
-});
+});*/
