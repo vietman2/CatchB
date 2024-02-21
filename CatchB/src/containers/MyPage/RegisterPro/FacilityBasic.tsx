@@ -12,11 +12,12 @@ import { useNavigation } from "@react-navigation/native";
 import PostCode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
+import { DisabledTextInput, MainTitle, SubTitle } from "./components";
 import { AppDispatch, RootState } from "../../../store/store";
 import { setMyFacilityUuid } from "../../../store/slices/products/facilitySlice";
+import { registerFacility } from "../../../services/facility/facility";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { registerFacility } from "../../../services/facility/facility";
 
 interface Props {
   onFinish: () => void;
@@ -32,7 +33,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
 
   const user = useSelector((state: RootState) => state.auth.user);
   const navigation =
-    useNavigation<MyPageStackScreenProps<"FacilityRegister">["navigation"]>();
+    useNavigation<MyPageStackScreenProps<"RegisterPro">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleAddressSelected = async (data: OnCompleteParams) => {
@@ -189,41 +190,13 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
 
   return (
     <>
-      <ScrollView
-        automaticallyAdjustKeyboardInsets
-        keyboardDismissMode="on-drag"
-        style={styles.container}
-      >
-        <Text variant="titleLarge" style={styles.title}>
-          기본 정보
-        </Text>
-        <>
-          <Text variant="titleSmall" style={styles.subtitle}>
-            대표자 이름 *
-          </Text>
-          <TextInput
-            style={styles.uneditable}
-            mode="outlined"
-            value={user.full_name}
-            editable={false}
-            textColor="black"
-          />
-        </>
-        <>
-          <Text variant="titleSmall" style={styles.subtitle}>
-            대표자 연락처 *
-          </Text>
-          <TextInput
-            style={styles.uneditable}
-            mode="outlined"
-            value={user.phone_number}
-            editable={false}
-            textColor="black"
-          />
-        </>
-        <Text variant="titleSmall" style={styles.subtitle}>
-          시설 이름 *
-        </Text>
+      <ScrollView keyboardDismissMode="on-drag" automaticallyAdjustKeyboardInsets style={styles.container}>
+        <MainTitle text="기본 정보" />
+          <SubTitle text="대표자 이름" />
+          <DisabledTextInput text={user.full_name} />
+          <SubTitle text="대표자 연락처" />
+          <DisabledTextInput text={user.phone_number} />
+        <SubTitle text="아카데미 이름" />
         <TextInput
           mode="outlined"
           placeholder="시설 이름을 입력하세요"
@@ -233,9 +206,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
           textColor="black"
           placeholderTextColor="gray"
         />
-        <Text variant="titleSmall" style={styles.subtitle}>
-          시설 연락처 *
-        </Text>
+        <SubTitle text="아카데미 연락처" />
         <TextInput
           mode="outlined"
           placeholder="- 없이 숫자만 입력하세요"
@@ -246,9 +217,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
           placeholderTextColor="gray"
           keyboardType="number-pad"
         />
-        <Text variant="titleSmall" style={styles.subtitle}>
-          사업자 등록번호 *
-        </Text>
+        <SubTitle text="사업자 등록번호" />
         <TextInput
           mode="outlined"
           placeholder="사업자 등록번호를 입력하세요 (- 제외)"
@@ -260,9 +229,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
           keyboardType="number-pad"
         />
         <>
-          <Text variant="titleSmall" style={styles.subtitle}>
-            시설 주소 *
-          </Text>
+          <SubTitle text="아카데미 주소" />
           <View style={styles.addressLine}>
             <TextInput
               mode="outlined"
@@ -299,7 +266,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
         <Button
           mode="contained-tonal"
           buttonColor={themeColors.primary}
-          onPress={handleRegister}
+          onPress={handleRegisterSuccess}
           style={{ marginTop: 20 }}
         >
           등록하기
@@ -334,20 +301,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingHorizontal: 20,
-  },
-  title: {
-    marginTop: 20,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    marginTop: 10,
-    marginBottom: 5,
-    fontWeight: "bold",
-  },
-  uneditable: {
-    backgroundColor: themeColors.secondaryContainer,
-    fontWeight: "bold",
-    height: 40,
   },
   bold: {
     fontWeight: "bold",

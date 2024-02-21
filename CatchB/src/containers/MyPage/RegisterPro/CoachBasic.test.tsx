@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as DocumentPicker from "expo-document-picker";
 
-import CoachStep1 from "./CoachStep1";
+import CoachBasic from "./CoachBasic";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 
@@ -47,15 +47,13 @@ jest.mock("../../../components/Checkboxes/SingleCheck", () => "SingleCheck");
 jest.mock("../../../components/Checkboxes/MultiCheck", () => "MultiCheck");
 
 const Stack = createStackNavigator();
-const Component = () => (
-  <CoachStep1 onFinish={jest.fn()} />
-);
+const Component = () => <CoachBasic onFinish={jest.fn()} />;
 
 const render = () => {
   return renderWithProviders(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="CoachRegister" component={Component} />
+        <Stack.Screen name="RegisterPro" component={Component} />
         <Stack.Screen name="MyPageScreen" component={Component} />
       </Stack.Navigator>
     </NavigationContainer>,
@@ -70,7 +68,7 @@ const render = () => {
   );
 };
 
-describe("<CoachStep1 />", () => {
+describe("<CoachBasic />", () => {
   it("should handle area choose", async () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({

@@ -5,7 +5,7 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import FacilityStep1 from "./FacilityStep1";
+import FacilityBasic from "./FacilityBasic";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 
@@ -53,13 +53,13 @@ jest.mock("@actbase/react-daum-postcode/lib/types", () => ({
 }));
 
 const Stack = createStackNavigator();
-const Component = () => <FacilityStep1 onFinish={jest.fn()} />;
+const Component = () => <FacilityBasic onFinish={jest.fn()} />;
 
 const render = () => {
   return renderWithProviders(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="FacilityStep1" component={Component} />
+        <Stack.Screen name="RegisterPro" component={Component} />
         <Stack.Screen name="MyPageScreen" component={Component} />
       </Stack.Navigator>
     </NavigationContainer>,
@@ -74,8 +74,8 @@ const render = () => {
   );
 };
 
-describe("<FacilityStep1 />", () => {
-  it("should handle <FacilityStep1 /> correctly", async () => {
+describe("<FacilityBasic />", () => {
+  it("should handle <FacilityBasic /> correctly", async () => {
     const { getByPlaceholderText, getByText } = render();
 
     const facilityNameInput = getByPlaceholderText("시설 이름을 입력하세요");
@@ -160,7 +160,7 @@ describe("<FacilityStep1 />", () => {
         status: 201,
         data: {
           uuid: "uuid",
-        }
+        },
       })
     );
     jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
