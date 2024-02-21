@@ -48,7 +48,7 @@ export default function NormalHome() {
   const navigation =
     useNavigation<HomeStackScreenProps<"SplashScreen">["navigation"]>();
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["3%", "50%"], []);
+  const snapPoints = useMemo(() => ["3%", "10%"], []);
   const user = useSelector((state: RootState) => state.auth.user);
   const { width } = Dimensions.get("window");
   const tabWidth = (width - 50) / 2;
