@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import CommunityMain from "./Main/CommunityMain";
 import PostCreate from "./PostCreate/PostCreate";
 import PostDetail from "./PostDetail/PostDetail";
-import BackButton from "../../components/Buttons/BackButton";
+import { BackButton } from "../../components/Buttons";
 import { leftTitle } from "../../components/Logos/TopBar";
 import {
   CommunityStackParamList,

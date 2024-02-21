@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { render } from "@testing-library/react-native";
 
-import BackButton from "./BackButton";
+import { BackButton } from ".";
 import KakaoButton from "./KakaoButton";
 import NaverButton from "./NaverButton";
 import IconButton from "./IconButton";

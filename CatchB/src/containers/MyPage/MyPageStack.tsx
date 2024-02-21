@@ -10,13 +10,12 @@ import EditProfile from "./Profile/EditProfile";
 import Points from "./Point/Points";
 import CouponList from "./Coupon/CouponList";
 import CouponRegister from "./Coupon/CouponRegister";
-import CoachRegister from "./CoachRegister/CoachRegister";
-import FacilityRegister from "./FacilityRegister/FacilityRegister";
+import RegisterPro from "./RegisterPro/RegisterPro";
 import Payments from "./Payment/Payments";
 import FAQ from "./FAQ/FAQ";
 import Reviews from "./Review/Reviews";
 import PasswordChange from "./PasswordChange/PasswordChange";
-import BackButton from "../../components/Buttons/BackButton";
+import { BackButton } from "../../components/Buttons";
 import { leftTitle } from "../../components/Logos/TopBar";
 import {
   MyPageStackParamList,
@@ -56,6 +55,7 @@ export default function MyPageContainer() {
       screenOptions={{
         headerTitle: leftTitle,
         headerShadowVisible: false,
+        headerTitleAlign: "center",
       }}
     >
       <MyPageStack.Screen name="MyPageScreen" component={MyPageMain} />
@@ -79,7 +79,6 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("프로필"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
@@ -88,7 +87,6 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToProfile(),
           headerTitle: () => headerTitle("프로필 수정"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
@@ -97,7 +95,6 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("쿠폰함"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
@@ -106,7 +103,6 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToCouponList(),
           headerTitle: () => headerTitle("쿠폰 등록"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
@@ -115,25 +111,13 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("포인트"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
-        name="CoachRegister"
-        component={CoachRegister}
+        name="RegisterPro"
+        component={RegisterPro}
         options={{
           headerLeft: () => backToMyPage(),
-          headerTitle: () => headerTitle("Catch B 레슨 코치 등록"),
-          headerTitleAlign: "center",
-        }}
-      />
-      <MyPageStack.Screen
-        name="FacilityRegister"
-        component={FacilityRegister}
-        options={{
-          headerLeft: () => backToMyPage(),
-          headerTitle: () => headerTitle("아카데미 등록"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
@@ -142,7 +126,6 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("결제수단 관리"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
@@ -151,7 +134,6 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("자주 묻는 질문"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
@@ -160,7 +142,6 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("내가 남긴 리뷰"),
-          headerTitleAlign: "center",
         }}
       />
       <MyPageStack.Screen
@@ -169,7 +150,6 @@ export default function MyPageContainer() {
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("비밀번호 변경"),
-          headerTitleAlign: "center",
         }}
       />
     </MyPageStack.Navigator>
