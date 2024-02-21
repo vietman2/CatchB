@@ -7,8 +7,7 @@ import {
   ImagePickerSuccessResult,
 } from "expo-image-picker";
 
-import ImagePreview from "../Images/ImagePreview";
-import ImagePlaceholder from "../Images/ImagePlaceholder";
+import { ImagePreview, ImagePlaceholder } from "../Images";
 
 interface Props {
   uploadedImages: ImagePickerAsset[];
@@ -54,7 +53,7 @@ export default function ImagePicker({
         />
       ))}
       <TouchableOpacity onPress={uploadImage} testID="imagePicker">
-        <ImagePlaceholder canUpload />
+        <ImagePlaceholder />
       </TouchableOpacity>
     </ScrollView>
   );

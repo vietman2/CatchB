@@ -3,8 +3,8 @@ import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-import CoachStep1 from "./CoachBasic";
-import FacilityStep1 from "./FacilityBasic";
+import CoachBasic from "./CoachBasic";
+import FacilityBasic from "./FacilityBasic";
 import ProgressSteps from "../../../components/Progress/ProgressSteps";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
@@ -44,9 +44,9 @@ export default function RegisterPro() {
   const render = () => {
     if (step === 0) {
       if (type === "coach") {
-        return <CoachStep1 onFinish={() => setStep(1)} />;
+        return <CoachBasic onFinish={() => setStep(1)} />;
       }
-      return <FacilityStep1 onFinish={() => setStep(1)} />;
+      return <FacilityBasic onFinish={() => setStep(1)} />;
     } else if (step === 1) {
       return <></>;
     } else if (step === 2) {
