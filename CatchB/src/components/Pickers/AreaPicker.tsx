@@ -15,7 +15,7 @@ import {
   Button,
 } from "react-native-paper";
 
-import { getList } from "../../services/address";
+import { getRegionsList } from "../../services/facility/facility";
 import { themeColors } from "../../variables/colors";
 
 interface Props {
@@ -65,7 +65,7 @@ export default function AreaPicker({
 
   useEffect(() => {
     async function getData() {
-      const response = await getList();
+      const response = await getRegionsList();
       setSidoList(response.data.sido);
       setSigunguBySido(response.data.sigungu_by_sido);
       setSigunguDisplay(response.data.sigungu_by_sido.서울특별시);
@@ -96,7 +96,7 @@ export default function AreaPicker({
                 <View
                   key={sido.code}
                   style={
-                    selectedSido === sido.name
+                    selectedSido === sido.sido_name
                       ? styles.selectedTextBox
                       : styles.textBox
                   }
@@ -105,12 +105,12 @@ export default function AreaPicker({
                     <Text
                       variant="titleLarge"
                       style={
-                        selectedSido === sido.name
+                        selectedSido === sido.sido_name
                           ? styles.selectedChoice
                           : styles.textChoices
                       }
                     >
-                      {sido.name}
+                      {sido.sido_name}
                     </Text>
                   </TouchableOpacity>
                 </View>
