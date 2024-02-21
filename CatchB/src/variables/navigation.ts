@@ -1,7 +1,7 @@
 import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 
-import { Coupon } from "./types";
+import { CouponType } from "./types/users";
 import { ReservationProduct } from "./types/products";
 
 export type RootTabParamList = {
@@ -88,11 +88,10 @@ export type MyPageStackParamList = {
   SignUp: undefined;
   Profile: undefined;
   EditProfile: { title: string; detail: string };
-  CouponList: { coupons: Coupon[] };
+  CouponList: { coupons: CouponType[] };
+  RegisterPro: { title: string; type: "coach" | "facility" };
   CouponRegister: undefined;
   Points: undefined;
-  CoachRegister: undefined;
-  FacilityRegister: undefined;
   Payments: undefined;
   FAQ: undefined;
   Reviews: undefined;
