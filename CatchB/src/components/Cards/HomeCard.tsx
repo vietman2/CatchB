@@ -11,7 +11,7 @@ interface Props {
   chip?: string;
 }
 
-export default function MyCard(props: Props) {
+export function HomeCard(props: Props) {
   const getBackgroundColor = () => {
     switch (props.type) {
       case 1:
@@ -86,17 +86,7 @@ export default function MyCard(props: Props) {
         </View>
       ) : null}
       {props.chip ? (
-        <View
-          style={{
-            position: "absolute",
-            bottom: 15,
-            left: 15,
-            backgroundColor: "gray",
-            paddingHorizontal: 7,
-            paddingVertical: 3,
-            borderRadius: 5,
-          }}
-        >
+        <View style={styles.chip}>
           <Text variant="bodyLarge" style={{ color: getSubColor() }}>
             {props.chip}
           </Text>
@@ -137,5 +127,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+  },
+  chip: {
+    position: "absolute",
+    bottom: 15,
+    left: 15,
+    backgroundColor: "gray",
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 5,
   },
 });

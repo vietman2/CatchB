@@ -1,31 +1,24 @@
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
-interface Props {
+interface StatsProps {
   title: string;
   content: string;
   icon?: string;
   iconColor?: string;
 }
 
-export default function StatsCard(props: Props) {
+export function StatsCard(props: StatsProps) {
   return (
-    <View style={styles.card}>
-      <Text style={styles.title} variant="titleLarge">
+    <View style={styles.container}>
+      <Text style={styles.bold} variant="titleLarge">
         {props.title}
       </Text>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 10,
-        }}
-      >
+      <View style={styles.content}>
         {props.icon ? (
           <Icon source={props.icon} size={20} color={props.iconColor} />
         ) : null}
-        <Text style={styles.content} variant="titleLarge">
+        <Text style={styles.bold} variant="titleLarge">
           {props.content}
         </Text>
       </View>
@@ -34,7 +27,7 @@ export default function StatsCard(props: Props) {
 }
 
 const styles = StyleSheet.create({
-  card: {
+  container: {
     width: Dimensions.get("window").width * 0.3,
     height: 100,
     padding: 15,
@@ -45,10 +38,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
+  bold: {
     fontWeight: "bold",
   },
   content: {
-    fontWeight: "bold",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
   },
 });
