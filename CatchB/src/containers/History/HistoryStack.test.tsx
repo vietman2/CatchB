@@ -26,7 +26,7 @@ jest.mock("../../components/Logos", () => {
 
 const Tab = createBottomTabNavigator();
 
-const components = () => {
+const Components = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
@@ -38,6 +38,6 @@ const components = () => {
 
 describe("<HistoryStack />", () => {
   it("renders", () => {
-    renderWithProviders(components());
+    renderWithProviders(<Components />);
   });
 });
