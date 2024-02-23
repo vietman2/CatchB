@@ -28,6 +28,7 @@
       "!src/**/*.d.ts",
       "!src/**/*/types.ts",
       "!src/**/*/navigation.ts",
+      "!src/**/*/index.tsx",
       "!src/**/*/store.ts",
       "!src/**/*/apiConfig.ts",
       "!src/hooks/**/*.{js,jsx,ts,tsx}",
