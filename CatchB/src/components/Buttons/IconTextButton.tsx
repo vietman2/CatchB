@@ -8,7 +8,7 @@ interface IconProps {
   title: string;
 }
 
-export default function IconTextButton({ icon, title }: Readonly<IconProps>) {
+export function IconTextButton({ icon, title }: Readonly<IconProps>) {
   return (
     <View style={styles.container}>
       <Icon source={icon} size={20} color={themeColors.primary} />

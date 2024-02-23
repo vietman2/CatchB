@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { render } from "@testing-library/react-native";
 
-import { BackButton, IconTextButton, NaverButton, KakaoButton, TabButton } from ".";
+import { BackButton, IconTextButton, NaverButton, KakaoButton, TabButton } from "./";
 
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),

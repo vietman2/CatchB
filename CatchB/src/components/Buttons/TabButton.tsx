@@ -9,7 +9,7 @@ interface TabProps {
   paddingVertical?: number;
 }
 
-export default function TabButton({
+export function TabButton({
   title,
   detail,
   showArrow,
