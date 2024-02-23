@@ -21,7 +21,7 @@ jest.mock("react-native-paper", () => {
 });
 jest.mock("./Main", () => "Main");
 jest.mock("./PostCreate", () => "PostCreate");
-jest.mock("./PostDetail/PostDetail", () => "PostDetail");
+jest.mock("./PostDetail", () => "PostDetail");
 jest.mock("../../components/Buttons", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {

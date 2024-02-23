@@ -12,12 +12,12 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Chips/PostTagChip", () => "PostTagChip");
-jest.mock("../../../components/Profile", () => {
-  return {
-    CommunityPostProfile: "CommunityPostProfile",
-  };
-});
+jest.mock("../../../components/Chips", () => ({
+  PostTagChip: "PostTagChip",
+}));
+jest.mock("../../../components/Profile", () => ({
+  CommunityPostProfile: "CommunityPostProfile",
+}));
 
 describe("<PostDetail />", () => {
   it("renders correctly", () => {

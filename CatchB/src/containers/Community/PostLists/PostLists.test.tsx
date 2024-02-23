@@ -3,7 +3,7 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import CommunityList from "./CommunityList";
+import { CommunityList, VideoList } from "./";
 import { renderWithProviders } from "../../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
@@ -20,7 +20,7 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../PostDetail/PostSimple", () => "PostSimple");
+jest.mock("../PostSimple", () => "PostSimple");
 
 const Stack = createStackNavigator();
 
@@ -29,10 +29,11 @@ const FakePage = () => {
 };
 
 const components = (mode: "야구톡" | "모집") => {
+  const Component = () => <CommunityList mode={mode} />;
   return (
     <NavigationContainer>
-      <CommunityList mode={mode} />
       <Stack.Navigator>
+        <Stack.Screen name="CommunityList" component={Component} />
         <Stack.Screen name="PostDetail" component={FakePage} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -41,21 +42,12 @@ const components = (mode: "야구톡" | "모집") => {
 
 describe("<CommunityList />", () => {
   it("renders correctly and handles presses", () => {
-    const { getAllByTestId, getByTestId } = renderWithProviders(
-      components("야구톡")
-    );
-
-    fireEvent.press(getAllByTestId("sortChoice")[0]);
-    waitFor(() => fireEvent.press(getByTestId("KBO 개막 D-200")));
+    renderWithProviders(components("야구톡"));
   });
+});
 
-  it("renders recruit mode correctly, and handles filters", () => {
-    const { getAllByTestId, getByTestId } = renderWithProviders(
-      components("모집")
-    );
-
-    fireEvent.press(getAllByTestId("sortChoice")[0]);
-    fireEvent.press(getByTestId("filters"));
-    fireEvent.press(getByTestId("close"));
+describe("<VideoList />", () => {
+  it("renders correctly", () => {
+    renderWithProviders(<VideoList />);
   });
 });

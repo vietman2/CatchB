@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import PostCreate from "./";
+import PostCreate from "./PostCreate";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
@@ -24,8 +24,8 @@ jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 const Stack = createStackNavigator();
 
-const render = () => {
-  return renderWithProviders(
+const Components = () => {
+  return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="PostCreate" component={PostCreate} />
@@ -37,7 +37,7 @@ const render = () => {
 
 describe("<PostCreate />", () => {
   it("renders correctly and handles forum select", () => {
-    const { getByTestId, getByText } = render();
+    const { getByTestId, getByText } = renderWithProviders(<Components />);
 
     fireEvent.press(getByTestId("forum-picker"));
     fireEvent.press(getByText("모집"));
@@ -46,13 +46,13 @@ describe("<PostCreate />", () => {
   });
 
   it("handles tag picker open", async () => {
-    const { getByTestId } = render();
+    const { getByTestId } = renderWithProviders(<Components />);
 
     waitFor(() => fireEvent.press(getByTestId("tag-picker")));
   });
 
   it("handles create post", () => {
-    const { getByText } = render();
+    const { getByText } = renderWithProviders(<Components />);
 
     waitFor(() => fireEvent.press(getByText("등록")));
   });

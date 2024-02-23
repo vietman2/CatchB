@@ -4,7 +4,7 @@ import { Divider, Text } from "react-native-paper";
 import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import PostTagChip from "../../../components/Chips/PostTagChip";
+import { PostTagChip } from "../../../components/Chips";
 import { CommunityPostProfile } from "../../../components/Profile";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";

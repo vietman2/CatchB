@@ -11,13 +11,13 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import PostSimple from "../PostDetail/PostSimple";
-import { themeColors } from "../../../variables/colors";
-import { CommunityStackScreenProps } from "../../../variables/navigation";
-import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
+import PostSimple from "../PostSimple";
 import { AppDispatch } from "../../../store/store";
 import { setSelectedPost } from "../../../store/slices/community";
+import { themeColors } from "../../../variables/colors";
 import { PostType } from "../../../variables/types/community";
+import { CommunityStackScreenProps } from "../../../variables/navigation";
+import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
 
 interface Props {
   mode: "야구톡" | "모집";
@@ -25,7 +25,7 @@ interface Props {
 
 type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순";
 
-export default function CommunityList({ mode }: Readonly<Props>) {
+export function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
   const [sort, setSort] = useState<Sort>("최신순");
