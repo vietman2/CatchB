@@ -19,7 +19,27 @@ jest.mock("react-native-paper", () => {
     Icon: "Icon",
   };
 });
-jest.mock("./Main", () => "Main");
+jest.mock("./Main", () => {
+  // mock default
+  const { View, Text, TouchableOpacity } = jest.requireActual("react-native");
+
+  return () => {
+    const navigation = jest
+      .requireActual("@react-navigation/native")
+      .useNavigation();
+    return (
+      <View>
+        <Text>CommunityMain</Text>
+        <TouchableOpacity
+          testID="post-detail-button"
+          onPress={() => navigation.navigate("PostDetail")}
+        >
+          <Text>Details</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+});
 jest.mock("./PostCreate", () => "PostCreate");
 jest.mock("./PostDetail", () => "PostDetail");
 jest.mock("../../components/Buttons", () => {
@@ -45,7 +65,7 @@ jest.mock("../../components/Logos", () => {
 
 const Tab = createBottomTabNavigator();
 
-const components = () => {
+const Components = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
@@ -57,15 +77,26 @@ const components = () => {
 
 describe("<CommunityStack />", () => {
   it("renders correctly and navigates to <PostCreate /> and back", () => {
-    const { getByTestId } = renderWithProviders(components(), {
+    const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         community: {
           selectedPost: samplePosts[0],
         },
       },
     });
-
     fireEvent.press(getByTestId("create-post-button"));
+    fireEvent.press(getByTestId("back"));
+  });
+
+  it("renders correctly and navigates to <PostDetail /> and back", () => {
+    const { getByTestId } = renderWithProviders(<Components />, {
+      preloadedState: {
+        community: {
+          selectedPost: samplePosts[0],
+        },
+      },
+    });
+    fireEvent.press(getByTestId("post-detail-button"));
     fireEvent.press(getByTestId("back"));
   });
 });

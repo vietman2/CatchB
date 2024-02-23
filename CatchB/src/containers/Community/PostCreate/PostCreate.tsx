@@ -120,7 +120,7 @@ export default function PostCreate() {
             style={styles.button}
             testID="tag-picker"
           >
-            <Text>{selectedTags.length === 0 ? "선택" : "변경"}</Text>
+            <Text>선택{/*selectedTags.length === 0 ? "선택" : "변경"*/}</Text>
           </TouchableOpacity>
         </View>
         <TextInput

@@ -100,7 +100,10 @@ export function CommunityList({ mode }: Readonly<Props>) {
           outlineStyle={styles.searchBar}
         />
         <View style={styles.filters}>
-          <TouchableOpacity onPress={handleOpenBottomSheet} testID="filters">
+          <TouchableOpacity
+            onPress={handleOpenBottomSheet}
+            testID="sort-button"
+          >
             <Chip
               compact
               icon="sort"
@@ -145,7 +148,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
           <View key={post.id}>
             <TouchableOpacity
               onPress={() => handlePress(post)}
-              testID={post.title}
+              testID={`post-id-${post.id}`}
             >
               <PostSimple post={post} />
             </TouchableOpacity>
