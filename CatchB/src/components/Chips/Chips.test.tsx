@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { PostTagChip } from ".";
+import { PostTagChip } from "./";
 
 jest.mock("react-native-paper", () => {
   return {
