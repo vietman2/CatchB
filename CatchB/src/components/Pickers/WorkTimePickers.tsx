@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, TextInput } from "react-native-paper";
 
-export default function WorkTimePickers() {
+export function WorkTimePickers() {
   const [weekdayStart, setWeekdayStart] = useState<string>("");
   const [weekdayEnd, setWeekdayEnd] = useState<string>("");
   const [saturdayStart, setSaturdayStart] = useState<string>("");

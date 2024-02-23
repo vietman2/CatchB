@@ -2,17 +2,24 @@ import axios from "axios";
 import * as Picker from "expo-image-picker";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
-import ImagePicker from "./ImagePicker";
-import NumberPicker from "./NumberPicker";
+import { AreaPicker, FilePicker, ImagePicker, NumberPicker, WorkTimePickers } from "./";
 import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").Provider;
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
+    ...jest.requireActual("react-native-paper"),
     PaperProvider: Provider,
     Text: "Text",
     Icon: "Icon",
+    Divider: "Divider",
+    Chip: ({ children, onClose }) => (
+      <TouchableOpacity onPress={onClose}>
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
   };
 });
 jest.mock("expo-image-picker", () => ({
@@ -78,10 +85,7 @@ describe("<ImagePicker />", () => {
 
   it("should handle image removal", () => {
     const { getByTestId } = renderWithProviders(
-      <ImagePicker
-        uploadedImages={assets}
-        setUploadedImages={jest.fn()}
-      />
+      <ImagePicker uploadedImages={assets} setUploadedImages={jest.fn()} />
     );
 
     fireEvent.press(getByTestId("removeImage"));
@@ -98,16 +102,16 @@ describe("<NumberPicker />", () => {
     fireEvent.press(getByText("2"));
   });
 });
-/*
+
 describe("<AreaPicker />", () => {
   jest.spyOn(axios, "get").mockImplementation(() =>
     Promise.resolve({
       status: 200,
       data: {
         sido: [
-          { code: "11", name: "서울특별시" },
-          { code: "26", name: "부산광역시" },
-          { code: "01", name: "세종특별자치시" },
+          { code: "11", sido_name: "서울특별시" },
+          { code: "26", sido_name: "부산광역시" },
+          { code: "01", sido_name: "세종특별자치시" },
         ],
         sigungu: [
           { code: "1100000000", name: "서울특별시 관악구" },
@@ -146,13 +150,11 @@ describe("<AreaPicker />", () => {
       )
     );
 
-    await waitFor(() => {
-      fireEvent.press(getByText("부산광역시"));
-      fireEvent.press(getByText("연제구"));
-      fireEvent.press(getByText("연제구"));
-      fireEvent.press(getAllByText("세종특별자치시")[0]);
-      fireEvent.press(getAllByText("세종특별자치시")[1]);
-    });
+    fireEvent.press(getByText("부산광역시"));
+    fireEvent.press(getByText("연제구"));
+    fireEvent.press(getByText("연제구"));
+    fireEvent.press(getAllByText("세종특별자치시")[0]);
+    fireEvent.press(getAllByText("세종특별자치시")[1]);
   });
 
   it("handles over 5 presses correctly", async () => {
@@ -166,14 +168,12 @@ describe("<AreaPicker />", () => {
       )
     );
 
-    await waitFor(() => {
-      fireEvent.press(getByText("관악구"));
-      fireEvent.press(getByText("송파구"));
-      fireEvent.press(getByText("구로구"));
-      fireEvent.press(getByText("강남구"));
-      fireEvent.press(getByText("종로구"));
-      fireEvent.press(getByText("강동구"));
-    });
+    fireEvent.press(getByText("관악구"));
+    fireEvent.press(getByText("송파구"));
+    fireEvent.press(getByText("구로구"));
+    fireEvent.press(getByText("강남구"));
+    fireEvent.press(getByText("종로구"));
+    fireEvent.press(getByText("강동구"));
   });
 
   it("handles chip close correctly", async () => {
@@ -187,12 +187,55 @@ describe("<AreaPicker />", () => {
       )
     );
 
-    await waitFor(() => {
-      fireEvent.press(getByText("관악구"));
-    });
-
-    await waitFor(() => {
-      fireEvent.press(getByText("서울특별시 관악구"));
-    });
+    fireEvent.press(getByText("관악구"));
+    fireEvent.press(getByText("서울특별시 관악구"));
   });
-});*/
+
+  it("handles confirm correctly", async () => {
+    const { getByText } = await waitFor(() =>
+      renderWithProviders(
+        <AreaPicker
+          visible={true}
+          onDismiss={() => {}}
+          setSelectedAreas={() => {}}
+        />
+      )
+    );
+
+    fireEvent.press(getByText("확인"));
+  });
+});
+
+describe("<FilePicker />", () => {
+  it("should handle file picker", () => {
+    const { getByText } = renderWithProviders(
+      <FilePicker uploadedFile={null} setUploadedFile={jest.fn()} />
+    );
+
+    fireEvent.press(getByText("파일 업로드"));
+  });
+});
+
+describe("<WorkTimePickers />", () => {
+  it("should handle all textinputs", () => {
+    const { getByTestId } = renderWithProviders(
+      <WorkTimePickers />
+    );
+
+    fireEvent.changeText(getByTestId("weekdayStart"), "1234");
+    fireEvent.changeText(getByTestId("weekdayEnd"), "1234");
+    fireEvent.changeText(getByTestId("saturdayStart"), "1234");
+    fireEvent.changeText(getByTestId("saturdayEnd"), "1234");
+    fireEvent.changeText(getByTestId("sundayStart"), "1234");
+    fireEvent.changeText(getByTestId("sundayEnd"), "1234");
+  });
+
+  it("should correctly format time", () => {
+    const { getByTestId } = renderWithProviders(
+      <WorkTimePickers />
+    );
+
+    fireEvent.changeText(getByTestId("weekdayStart"), "1");
+    fireEvent.changeText(getByTestId("weekdayStart"), "12345");
+  });
+});

@@ -24,20 +24,25 @@ interface Props {
   setSelectedAreas: (selectedSigungu: string[]) => void;
 }
 
-export default function AreaPicker({
+type Sido = {
+  code: string;
+  sido_name: string;
+};
+
+export function AreaPicker({
   visible,
   onDismiss,
   setSelectedAreas,
 }: Readonly<Props>) {
-  const [sidoList, setSidoList] = useState([]);
+  const [sidoList, setSidoList] = useState<Sido[]>([]);
   const [selectedSido, setSelectedSido] = useState<string>("서울특별시");
+  const [selectedSigungu, setSelectedSigungu] = useState<string[]>([]);
   const [sigunguDisplay, setSigunguDisplay] = useState([]);
   const [sigunguBySido, setSigunguBySido] = useState({});
-  const [selectedSigungu, setSelectedSigungu] = useState<string[]>([]);
 
-  const handleSidoPress = async (sido: { name: string; code: string }) => {
-    setSelectedSido(sido.name);
-    setSigunguDisplay(sigunguBySido[sido.name]);
+  const handleSidoPress = async (sido: Sido) => {
+    setSelectedSido(sido.sido_name);
+    setSigunguDisplay(sigunguBySido[sido.sido_name]);
   };
 
   const handleSigunguPress = (sigungu: string) => {
@@ -66,6 +71,7 @@ export default function AreaPicker({
   useEffect(() => {
     async function getData() {
       const response = await getRegionsList();
+
       setSidoList(response.data.sido);
       setSigunguBySido(response.data.sigungu_by_sido);
       setSigunguDisplay(response.data.sigungu_by_sido.서울특별시);

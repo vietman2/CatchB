@@ -14,7 +14,7 @@ interface Props {
   setUploadedImages: Dispatch<SetStateAction<ImagePickerAsset[]>>;
 }
 
-export default function ImagePicker({
+export function ImagePicker({
   uploadedImages,
   setUploadedImages,
 }: Readonly<Props>) {

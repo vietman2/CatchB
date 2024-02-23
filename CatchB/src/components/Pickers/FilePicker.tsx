@@ -8,7 +8,7 @@ interface Props {
   setUploadedFile: Dispatch<SetStateAction<DocumentPickerAsset>>;
 }
 
-export default function FilePicker({
+export function FilePicker({
   uploadedFile,
   setUploadedFile,
 }: Readonly<Props>) {
