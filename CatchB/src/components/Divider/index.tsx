@@ -1,5 +1,3 @@
-import { Divider } from "react-native-paper";
+import { VerticalDivider } from "./VerticalDivider";
 
-export function VerticalDivider() {
-  return <Divider style={{ height: "100%", width: 1 }} />;
-}
+export { VerticalDivider };
