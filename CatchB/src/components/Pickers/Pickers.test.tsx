@@ -2,7 +2,13 @@ import axios from "axios";
 import * as Picker from "expo-image-picker";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
-import { AreaPicker, FilePicker, ImagePicker, NumberPicker, WorkTimePickers } from "./";
+import {
+  AreaPicker,
+  FilePicker,
+  ImagePicker,
+  NumberPicker,
+  WorkTimePickers,
+} from "./";
 import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
@@ -28,6 +34,18 @@ jest.mock("expo-image-picker", () => ({
   MediaTypeOptions: jest.fn(),
   ImagePickerSuccessResult: jest.fn(),
 }));
+jest.mock("../Images", () => {
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
+  return {
+    ImagePreview: ({ removeImage }) => (
+      <TouchableOpacity onPress={removeImage} testID="removeImage">
+        <Text>ImagePreview</Text>
+      </TouchableOpacity>
+    ),
+    ImagePlaceholder: "ImagePlaceholder",
+  };
+});
 
 describe("<ImagePicker />", () => {
   const assets = [
@@ -218,9 +236,7 @@ describe("<FilePicker />", () => {
 
 describe("<WorkTimePickers />", () => {
   it("should handle all textinputs", () => {
-    const { getByTestId } = renderWithProviders(
-      <WorkTimePickers />
-    );
+    const { getByTestId } = renderWithProviders(<WorkTimePickers />);
 
     fireEvent.changeText(getByTestId("weekdayStart"), "1234");
     fireEvent.changeText(getByTestId("weekdayEnd"), "1234");
@@ -231,9 +247,7 @@ describe("<WorkTimePickers />", () => {
   });
 
   it("should correctly format time", () => {
-    const { getByTestId } = renderWithProviders(
-      <WorkTimePickers />
-    );
+    const { getByTestId } = renderWithProviders(<WorkTimePickers />);
 
     fireEvent.changeText(getByTestId("weekdayStart"), "1");
     fireEvent.changeText(getByTestId("weekdayStart"), "12345");

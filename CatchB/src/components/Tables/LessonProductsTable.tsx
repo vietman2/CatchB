@@ -2,16 +2,14 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-import Selector from "../Selectors";
+import { Selector } from "../Selectors";
 import { LessonProduct } from "../../variables/types/products";
 
 interface Props {
   products: LessonProduct[];
 }
 
-export default function ReservationProductsTable({
-  products,
-}: Readonly<Props>) {
+export function LessonProductsTable({ products }: Readonly<Props>) {
   const [selected, setSelected] = useState("그룹 레슨");
 
   const renderPrice = (price: number) => {

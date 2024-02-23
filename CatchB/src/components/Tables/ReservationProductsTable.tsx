@@ -2,16 +2,14 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-import Selector from "../Selectors";
+import { Selector } from "../Selectors";
 import { ReservationProduct } from "../../variables/types/products";
 
 interface Props {
   products: ReservationProduct[];
 }
 
-export default function ReservationProductsTable({
-  products,
-}: Readonly<Props>) {
+export function ReservationProductsTable({ products }: Readonly<Props>) {
   const [selected, setSelected] = useState("1회 대관");
   const filters = ["1회 대관", "정기 대관", "기타"];
 
