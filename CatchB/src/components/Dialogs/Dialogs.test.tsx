@@ -1,8 +1,18 @@
 import { fireEvent } from "@testing-library/react-native";
 
-import SwitchModeDialog from "./";
-import { renderWithProviders } from "../../../utils/test-utils";
-import { admin, exampleUser } from "../../../variables/mvp_dummy_data/user";
+import { LoginDialog, SwitchModeDialog } from "./";
+import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
+import { renderWithProviders } from "../../utils/test-utils";
+
+describe("<LoginDialog />", () => {
+  it("renders correctly", () => {
+    const { getByText } = renderWithProviders(
+      <LoginDialog visible={true} onClose={() => {}} />
+    );
+
+    fireEvent.press(getByText("확인"));
+  });
+});
 
 describe("<SwitchModeDialog />", () => {
   it("renders basic mode correctly, and handles button press", () => {

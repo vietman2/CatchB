@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, Portal, Text, Button } from "react-native-paper";
 
-import { UserProfileType } from "../../../variables/types/users";
+import { UserProfileType } from "../../variables/types/users";
 
 interface Props {
   visible: boolean;
