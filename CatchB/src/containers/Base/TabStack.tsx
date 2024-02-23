@@ -9,15 +9,16 @@ import {
 } from "expo-location";
 import { TourGuideZone } from "rn-tourguide";
 
-import HomeContainer from "../Home/HomeStack";
-import NearbyContainer from "../Nearby/NearbyStack";
-import CommunityContainer from "../Community/CommunityStack";
-import HistoryContainer from "../History/HistoryStack";
-import MyPageContainer from "../MyPage/MyPageStack";
-import MyStoreContainer from "../MyStore/MyStoreStack";
-import PromotionContainer from "../Promotion/PromotionStack";
-import SwitchModeDialog from "../../components/Dialogs/SwitchModeDialog";
-import LoginDialog from "../../components/Dialogs/LoginDialog";
+import {
+  HomeContainer,
+  NearbyContainer,
+  MyStoreContainer,
+  CommunityContainer,
+  HistoryContainer,
+  PromotionContainer,
+  MyPageContainer,
+} from "../";
+import { SwitchModeDialog, LoginDialog } from "../../components/Dialogs";
 import {
   RootTabParamList,
   RootTabScreenProps,
@@ -34,7 +35,6 @@ import {
 } from "../../store/slices/user_management/authSlice";
 import { AppDispatch, RootState } from "../../store/store";
 import { get } from "../../store/secure";
-
 /**
  * TabContainer
  * 하단 탭의 구성을 담당한다.

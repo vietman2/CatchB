@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as expoLocation from "expo-location";
 
-import TabContainer from "./";
+import TabContainer from "./TabStack";
 import { renderWithProviders } from "../../utils/test-utils";
 import { admin } from "../../variables/mvp_dummy_data/user";
 import * as SecureStore from "../../store/secure";
@@ -14,31 +14,28 @@ jest.mock("react-native-gesture-handler", () => ({
 jest.mock("rn-tourguide", () => ({
   TourGuideZone: "TourGuideZone",
 }));
-jest.mock("../Home/HomeStack", () => "HomeStack");
-jest.mock("../Nearby/NearbyStack", () => "NearbyStack");
-jest.mock("../Community/CommunityStack", () => "CommunityStack");
-jest.mock("../History/HistoryStack", () => "HistoryStack");
-jest.mock("../MyPage/MyPageStack", () => "MyPageStack");
-jest.mock("../MyStore/MyStoreStack", () => "MyStoreStack");
-jest.mock("../Promotion/PromotionStack", () => "PromotionStack");
-jest.mock("../../components/Dialogs/SwitchModeDialog", () => {
+jest.mock("../", () => {
+  return {
+    HomeContainer: "HomeContainer",
+    NearbyContainer: "NearbyContainer",
+    MyStoreContainer: "MyStoreContainer",
+    CommunityContainer: "CommunityContainer",
+    HistoryContainer: "HistoryContainer",
+    PromotionContainer: "PromotionContainer",
+    MyPageContainer: "MyPageContainer",
+  };
+});
+jest.mock("../../components/Dialogs", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
-    __esModule: true,
-    default: ({ onClose }: { onClose: () => void }) => {
+    SwitchModeDialog: ({ onClose }: { onClose: () => void }) => {
       return (
         <TouchableOpacity onPress={onClose}>
           <Text>Close</Text>
         </TouchableOpacity>
       );
     },
-  };
-});
-jest.mock("../../components/Dialogs/LoginDialog", () => {
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
-  return {
-    __esModule: true,
-    default: ({ onClose }: { onClose: () => void }) => {
+    LoginDialog: ({ onClose }: { onClose: () => void }) => {
       return (
         <TouchableOpacity onPress={onClose}>
           <Text>닫기</Text>
@@ -46,6 +43,10 @@ jest.mock("../../components/Dialogs/LoginDialog", () => {
       );
     },
   };
+});
+jest.mock("../../components/Dialogs/LoginDialog", () => {
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+  return {};
 });
 
 jest.spyOn(SecureStore, "get").mockImplementation((key) => {
@@ -99,8 +100,8 @@ jest
     });
   });
 
-const render = () => {
-  return renderWithProviders(
+const Components = () => {
+  return (
     <NavigationContainer>
       <TabContainer />
     </NavigationContainer>
@@ -109,19 +110,13 @@ const render = () => {
 
 describe("<TabContainer />", () => {
   it("handles long press: successfully change mode", async () => {
-
     const { getAllByTestId } = await waitFor(() =>
-      renderWithProviders(
-        <NavigationContainer>
-          <TabContainer />
-        </NavigationContainer>,
-        {
-          preloadedState: {
-            general: { mode: "pro", location: null },
-            auth: { user: admin, token: "token" },
-          },
-        }
-      )
+      renderWithProviders(<Components />, {
+        preloadedState: {
+          general: { mode: "pro", location: null },
+          auth: { user: admin, token: "token" },
+        },
+      })
     );
     const tab = getAllByTestId("MyPageIcon")[0];
 
@@ -131,14 +126,16 @@ describe("<TabContainer />", () => {
   });
 
   it("handles long press: change mode fail", async () => {
-    const { getAllByTestId } = await waitFor(() => render());
+    const { getAllByTestId } = await waitFor(() =>
+      renderWithProviders(<Components />)
+    );
     const tab = getAllByTestId("MyPageIcon")[0];
 
     waitFor(() => {
       fireEvent(tab, "onLongPress");
     });
   });
-/*
+  /*
   it("handles token renewal and auto login", async () => {
     jest.spyOn(userService, "renewToken").mockImplementation(async () =>
       Promise.resolve({
