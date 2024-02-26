@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import { Card, Icon, Text } from "react-native-paper";
 
-import MyCard from "../../../../components/Cards/MyCard";
-import { themeColors } from "../../../../variables/colors";
+import { NotificationChip } from "./components";
+import { HomeCard } from "../../../components/Cards";
+import { themeColors } from "../../../variables/colors";
 
 type Notification = {
   type: "store" | "worker" | "reservation";
@@ -36,73 +37,16 @@ const notifications: Notification[] = [
   },
 ];
 
-interface ChipProps {
-  color: string;
-  icon: string;
-  title: string;
-  content: string;
-}
-
-function NotificationChip({ color, icon, title, content }: ChipProps) {
-  return (
-    <View
-      style={[
-        styles.notificationChip,
-        {
-          backgroundColor: color,
-        },
-      ]}
-    >
-      <Icon source={icon} size={24} />
-      <View style={{ marginLeft: 10 }}>
-        <Text style={{ color: "gray", marginBottom: 5 }}>{title}</Text>
-        <Text>{content}</Text>
-      </View>
-    </View>
-  );
-}
-
-function AlertIcon() {
-  return <Icon source="bell-alert-outline" size={24} />;
-}
-
-export default function ProHome() {
+export function ProHome() {
   const [hide, setHide] = useState(true);
+
+  function AlertIcon() {
+    return <Icon source="bell-alert-outline" size={24} />;
+  }
 
   function ShowHideIcon() {
     return <Icon source={hide ? "chevron-down" : "chevron-up"} size={24} />;
   }
-
-  const renderNotification = (notification: Notification) => {
-    if (notification.type === "store") {
-      return (
-        <NotificationChip
-          color="rgba(64, 196, 20, 0.35)"
-          icon="store-check"
-          title="가게관리"
-          content={notification.label}
-        />
-      );
-    } else if (notification.type === "worker") {
-      return (
-        <NotificationChip
-          color="rgba(57, 167, 255, 0.35)"
-          icon="table-account"
-          title="직원관리"
-          content={notification.label}
-        />
-      );
-    } else {
-      return (
-        <NotificationChip
-          color="rgba(255, 57, 57, 0.35)"
-          icon="calendar-clock"
-          title="예약관리"
-          content={notification.label}
-        />
-      );
-    }
-  };
 
   const image = {
     uri: "https://files.oaiusercontent.com/file-Uk2ehUrgmoihJwSm6ZZKYeo0?se=2024-02-15T01%3A19%3A40Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D68765414-ad4e-4cc2-8401-5d54c9248ef0.webp&sig=/2IeZOGdDhJxu/65%2BdO8Mh0L7OP9u/Dz/pNBPWGEWi8%3D",
@@ -119,7 +63,7 @@ export default function ProHome() {
           }}
           showsHorizontalScrollIndicator={false}
         >
-          <MyCard
+          <HomeCard
             title={"아카데미\n파워랭킹"}
             content="서울 2위, 전국 3위"
             type={1}
@@ -127,33 +71,33 @@ export default function ProHome() {
             action={() => {}}
             icon="trophy"
           />
-          <MyCard
+          <HomeCard
             title="서울대 야구부"
             content="오늘 오후 3시~7시"
             type={2}
             chip="대관"
           />
-          <MyCard
+          <HomeCard
             title="김동혁"
             content={"오늘 오후 7시~8시반\n홍승우 코치"}
             type={2}
             chip="레슨"
           />
-          <MyCard
+          <HomeCard
             title="AI 컨설팅"
             content="Catch B AI를 통해 가게의 실적을 높여보세요."
             actionText="더 알아보기"
             action={() => {}}
             type={3}
           />
-          <MyCard
+          <HomeCard
             title="예약률: 72%"
             content="우리 가게 통계"
             actionText="더 많은 통계 확인"
             action={() => {}}
             type={4}
           />
-          <MyCard
+          <HomeCard
             title="커뮤니티"
             content="사장님들을 위한 전용 커뮤니티를 이용해보세요"
             type={1}
@@ -202,7 +146,11 @@ export default function ProHome() {
         {hide ? null : (
           <View style={{ paddingHorizontal: 5 }}>
             {notifications.slice(0, 3).map((notification, index) => (
-              <View key={index}>{renderNotification(notification)}</View>
+              <NotificationChip
+                type={notification.type}
+                key={index}
+                label={notification.label}
+              />
             ))}
             {notifications.length > 3 && (
               <TouchableOpacity
@@ -254,14 +202,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 5,
     borderRadius: 15,
-  },
-  notificationChip: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 10,
-    marginHorizontal: 5,
-    marginBottom: 10,
   },
   card: {
     margin: 10,

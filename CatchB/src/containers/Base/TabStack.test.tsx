@@ -16,13 +16,14 @@ jest.mock("rn-tourguide", () => ({
 }));
 jest.mock("../", () => {
   return {
-    HomeContainer: "HomeContainer",
-    NearbyContainer: "NearbyContainer",
-    MyStoreContainer: "MyStoreContainer",
     CommunityContainer: "CommunityContainer",
     HistoryContainer: "HistoryContainer",
-    PromotionContainer: "PromotionContainer",
     MyPageContainer: "MyPageContainer",
+    MyStoreContainer: "MyStoreContainer",
+    NearbyContainer: "NearbyContainer",
+    NormalContainer: "NormalContainer",
+    ProContainer: "ProContainer",
+    PromotionContainer: "PromotionContainer",
   };
 });
 jest.mock("../../components/Dialogs", () => {
@@ -43,10 +44,6 @@ jest.mock("../../components/Dialogs", () => {
       );
     },
   };
-});
-jest.mock("../../components/Dialogs/LoginDialog", () => {
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
-  return {};
 });
 
 jest.spyOn(SecureStore, "get").mockImplementation((key) => {

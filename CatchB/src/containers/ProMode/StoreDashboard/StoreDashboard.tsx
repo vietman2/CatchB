@@ -7,9 +7,9 @@ import {
   PieChart,
 } from "react-native-gifted-charts";
 
-import StatsCard from "../../../components/Cards/StatsCard";
+import { StatsCard } from "../../../components/Cards";
 
-export default function StoreDashboard() {
+export function StoreDashboard() {
   const monthlyData = [
     {
       label: "2023년",

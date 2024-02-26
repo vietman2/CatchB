@@ -10,13 +10,14 @@ import {
 import { TourGuideZone } from "rn-tourguide";
 
 import {
-  HomeContainer,
-  NearbyContainer,
-  MyStoreContainer,
   CommunityContainer,
   HistoryContainer,
-  PromotionContainer,
   MyPageContainer,
+  MyStoreContainer,
+  NearbyContainer,
+  NormalContainer,
+  ProContainer,
+  PromotionContainer,
 } from "../";
 import { SwitchModeDialog, LoginDialog } from "../../components/Dialogs";
 import {
@@ -104,6 +105,14 @@ export default function TabContainer() {
     setSwitchModeVisible(false);
     setLoginVisible(false);
   };
+
+  function HomeContainer() {
+    if (mode === "basic") {
+      return <NormalContainer />;
+    } else {
+      return <ProContainer />;
+    }
+  }
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import StoreDashboard from "./";
+import { StoreDashboard } from "./StoreDashboard";
 
 jest.mock("react-native-paper", () => ({
   Surface: "Surface",
@@ -16,7 +16,9 @@ jest.mock("react-native-gifted-charts", () => {
     PieChart: PieChart,
   };
 });
-jest.mock("../../../components/Cards/StatsCard", () => "StatsCard");
+jest.mock("../../../components/Cards", () => ({
+  StatsCard: "StatsCard",
+}));
 
 describe("StoreDashboard", () => {
   it("renders correctly", () => {

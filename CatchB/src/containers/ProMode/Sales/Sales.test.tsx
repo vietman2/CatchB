@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import Daily from "./";
-import { DailySalesList } from "../../../../variables/mvp_dummy_data/sales";
+import { Sales } from "./Sales";
 
 jest.mock("react-native-paper", () => {
   return {
@@ -10,8 +9,8 @@ jest.mock("react-native-paper", () => {
   };
 });
 
-describe("<Daily />", () => {
+describe("<Sales />", () => {
   it("renders correctly", () => {
-    render(<Daily sales={DailySalesList[0]} />);
+    render(<Sales />);
   });
 });

@@ -2,9 +2,9 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Normal from "./";
-import { renderWithProviders } from "../../../../utils/test-utils";
-import { admin } from "../../../../variables/mvp_dummy_data/user";
+import NormalHome from "./NormalHome";
+import { renderWithProviders } from "../../utils/test-utils";
+import { admin } from "../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -14,13 +14,17 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Chip: "Chip",
-    Icon: "Icon",
     Surface: "Surface",
     Text: "Text",
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock("./components", () => ({
+  CoachPreview: "CoachPreview",
+  CoachTypes: "CoachTypes",
+  Filters: "Filters",
+  Shortcut: "Shortcut",
+}));
 
 const Stack = createStackNavigator();
 
@@ -28,8 +32,8 @@ function Components() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="HomeMain" component={Normal} />
-        <Stack.Screen name="Nearby" component={Normal} />
+        <Stack.Screen name="Normal" component={NormalHome} />
+        <Stack.Screen name="Nearby" component={NormalHome} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -6,7 +6,7 @@ import {
 
 import { themeColors } from "../../../variables/colors";
 
-export default function Calendar() {
+export function Calendar() {
   const [today, setToday] = useState<string>("");
   const [ready, setReady] = useState<boolean>(false);
 
