@@ -29,11 +29,16 @@ jest.mock("../", () => {
 jest.mock("../../components/Dialogs", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
-    SwitchModeDialog: ({ onClose }: { onClose: () => void }) => {
+    SwitchModeDialog: ({ onClose, setMode }) => {
       return (
-        <TouchableOpacity onPress={onClose}>
-          <Text>Close</Text>
-        </TouchableOpacity>
+        <>
+          <TouchableOpacity onPress={onClose}>
+            <Text>Close</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={setMode}>
+            <Text>OK</Text>
+          </TouchableOpacity>
+        </>
       );
     },
     LoginDialog: ({ onClose }: { onClose: () => void }) => {
@@ -107,7 +112,7 @@ const Components = () => {
 
 describe("<TabContainer />", () => {
   it("handles long press: successfully change mode", async () => {
-    const { getAllByTestId } = await waitFor(() =>
+    const { getAllByTestId, getByText } = await waitFor(() =>
       renderWithProviders(<Components />, {
         preloadedState: {
           general: { mode: "pro", location: null },
@@ -119,6 +124,7 @@ describe("<TabContainer />", () => {
 
     waitFor(() => {
       fireEvent(tab, "onLongPress");
+      fireEvent.press(getByText("OK"));
     });
   });
 
@@ -132,7 +138,7 @@ describe("<TabContainer />", () => {
       fireEvent(tab, "onLongPress");
     });
   });
-  /*
+
   it("handles token renewal and auto login", async () => {
     jest.spyOn(userService, "renewToken").mockImplementation(async () =>
       Promise.resolve({
@@ -149,7 +155,9 @@ describe("<TabContainer />", () => {
       })
     );
 
-    render();
+    waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles token renewal and auto login fail: no profile", async () => {
@@ -168,7 +176,9 @@ describe("<TabContainer />", () => {
       })
     );
 
-    const { getByText } = await waitFor(() => render());
+    const { getByText } = await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
 
     fireEvent.press(getByText("닫기"));
   });
@@ -183,7 +193,9 @@ describe("<TabContainer />", () => {
       })
     );
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles token renewal and auto login fail: no token", async () => {
@@ -196,7 +208,9 @@ describe("<TabContainer />", () => {
       } else return Promise.reject(new Error("error"));
     });
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles token renewal and auto login fail: no uuid", async () => {
@@ -223,7 +237,9 @@ describe("<TabContainer />", () => {
       } else return Promise.reject(new Error("error"));
     });
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles permission rejection", async () => {
@@ -238,7 +254,9 @@ describe("<TabContainer />", () => {
         });
       });
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles permission rejection: no location", async () => {
@@ -248,6 +266,8 @@ describe("<TabContainer />", () => {
         return Promise.resolve(null);
       });
 
-    await waitFor(() => render());
-  });*/
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
+  });
 });

@@ -29,7 +29,7 @@ import {
   getUserProfile,
   renewToken,
 } from "../../services/user_management/account";
-import { setMode, setLocation } from "../../store/slices/general";
+import { setMode, setLocation } from "../../store/slices/general/generalSlice";
 import {
   setUserProfile,
   setNewToken,
