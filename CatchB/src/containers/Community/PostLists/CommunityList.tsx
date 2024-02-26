@@ -11,9 +11,9 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import PostSimple from "../PostSimple";
+import { PostSimple } from "../fragments";
 import { AppDispatch } from "../../../store/store";
-import { setSelectedPost } from "../../../store/slices/community";
+import { setSelectedPost } from "../../../store/slices/community/postSlice";
 import { themeColors } from "../../../variables/colors";
 import { PostType } from "../../../variables/types/community";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
@@ -82,7 +82,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
         )}
       </TouchableOpacity>
     );
-  }
+  };
 
   return (
     <View style={styles.container}>

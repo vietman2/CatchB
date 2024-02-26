@@ -2,7 +2,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { CommunityList, VideoList } from "./";
+import { BaseballCommunity, RecruitmentCommunity } from "./";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
@@ -23,7 +23,9 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../PostSimple", () => "PostSimple");
+jest.mock("../fragments", () => ({
+  PostSimple: "PostSimple",
+}));
 
 const Stack = createStackNavigator();
 
@@ -32,7 +34,13 @@ const FakePage = () => {
 };
 
 const Components = ({ mode }: { mode: "야구톡" | "모집" }) => {
-  const Component = () => <CommunityList mode={mode} />;
+  const Component = () => {
+    if (mode === "야구톡") {
+      return <BaseballCommunity />;
+    } else {
+      return <RecruitmentCommunity />;
+    }
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -64,11 +72,5 @@ describe("<CommunityList />", () => {
 
   it("renders recruit mode correctly", () => {
     renderWithProviders(<Components mode="모집" />);
-  });
-});
-
-describe("<VideoList />", () => {
-  it("renders correctly", () => {
-    renderWithProviders(<VideoList />);
   });
 });

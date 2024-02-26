@@ -2,12 +2,12 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
+import { PlaceholderComponent } from "./";
 import {
-  PlaceholderComponent,
   BaseballCommunity,
   RecruitmentCommunity,
-} from "./";
-import { VideoList } from "../PostLists";
+  VideoCommunity,
+} from "../PostLists";
 import { themeColors } from "../../../variables/colors";
 
 const Tab = createMaterialTopTabNavigator();
@@ -41,7 +41,7 @@ export default function Community() {
         }}
       />
       <Tab.Screen name="벼룩시장" component={PlaceholderComponent} />
-      <Tab.Screen name="자세분석" component={VideoList} />
+      <Tab.Screen name="자세분석" component={VideoCommunity} />
       <Tab.Screen name="내 활동" component={PlaceholderComponent} />
     </Tab.Navigator>
   );

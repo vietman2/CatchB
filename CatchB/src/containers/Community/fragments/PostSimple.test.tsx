@@ -1,7 +1,8 @@
+import { waitFor } from "@testing-library/react-native";
+
 import PostSimple from "./PostSimple";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
-import { waitFor } from "@testing-library/react-native";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;

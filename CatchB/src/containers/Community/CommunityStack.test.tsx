@@ -43,14 +43,10 @@ jest.mock("./Main", () => {
 jest.mock("./PostCreate", () => "PostCreate");
 jest.mock("./PostDetail", () => "PostDetail");
 jest.mock("../../components/Buttons", () => {
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+  const { TouchableOpacity } = jest.requireActual("react-native");
   return {
     BackButton: ({ onPress }: { onPress: () => void }) => {
-      return (
-        <TouchableOpacity onPress={onPress} testID="back">
-          <Text>Back</Text>
-        </TouchableOpacity>
-      );
+      return <TouchableOpacity onPress={onPress} testID="back" />;
     },
   };
 });

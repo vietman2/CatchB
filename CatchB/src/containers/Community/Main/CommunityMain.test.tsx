@@ -20,11 +20,11 @@ jest.mock("react-native-paper", () => {
 });
 jest.mock("./", () => ({
   PlaceholderComponent: "PlaceholderComponent",
-  BaseballCommunity: "BaseballCommunity",
-  RecruitmentCommunity: "RecruitmentCommunity",
 }));
 jest.mock("../PostLists", () => ({
-  VideoList: "VideoList",
+  BaseballCommunity: "BaseballCommunity",
+  RecruitmentCommunity: "RecruitmentCommunity",
+  VideoCommunity: "VideoCommunity",
 }));
 
 const Stack = createStackNavigator();

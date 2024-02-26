@@ -16,4 +16,12 @@ export function PlaceholderComponent({ color }: Readonly<{ color: string }>) {
   );
 }
 
-export { CommunityList, VideoList };
+function BaseballCommunity() {
+  return <CommunityList mode="야구톡" />;
+}
+
+function RecruitmentCommunity() {
+  return <CommunityList mode="모집" />;
+}
+
+export { BaseballCommunity, RecruitmentCommunity, VideoList as VideoCommunity };
