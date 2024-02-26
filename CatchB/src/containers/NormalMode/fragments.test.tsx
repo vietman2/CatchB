@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render } from "@testing-library/react-native";
 
-import { CoachPreview, Shortcut, Filters } from "./components";
+import { CoachPreview, Shortcut, Filters } from "./fragments";
 import { sampleCoaches } from "../../variables/mvp_dummy_data/coaches";
 
 jest.mock("react-native-paper", () => ({
-  Chip: ({ children }) => {
-    const { Text } = require("react-native");
+  Chip: ({ children }: any) => {
+    const { Text } = jest.requireActual("react-native");
 
     return <Text>{children}</Text>;
   },

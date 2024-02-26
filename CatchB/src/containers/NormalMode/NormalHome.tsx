@@ -1,4 +1,4 @@
-import { useRef, useMemo, useState } from "react";
+import { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -10,7 +10,7 @@ import {
 import { Surface, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import { CoachPreview, CoachTypes, Filters, Shortcut } from "./components";
+import { CoachPreview, CoachTypes, Filters, Shortcut } from "./fragments";
 import { HomeStackScreenProps } from "../../variables/navigation";
 import { sampleCoaches } from "../../variables/mvp_dummy_data/coaches";
 
