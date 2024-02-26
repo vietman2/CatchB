@@ -3,9 +3,9 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import CoachBasic from "./";
-import { renderWithProviders } from "../../../../../utils/test-utils";
-import { admin } from "../../../../../variables/mvp_dummy_data/user";
+import CoachBasic from "./CoachBasic";
+import { renderWithProviders } from "../../../../utils/test-utils";
+import { admin } from "../../../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -13,37 +13,35 @@ jest.mock("react-native-gesture-handler", () => ({
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").Provider;
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
-  const { Dialog } = jest.requireActual("react-native-paper");
-
-  const mockButton = ({ children, onPress }) => (
-    <TouchableOpacity onPress={onPress}>
-      <Text>{children}</Text>
-    </TouchableOpacity>
-  );
-
-  const mockChip = ({ children, onClose }) => (
-    <TouchableOpacity onPress={onClose}>
-      <Text>{children}</Text>
-    </TouchableOpacity>
-  );
 
   return {
     PaperProvider: Provider,
     Text: "Text",
-    TextInput: "TextInput",
-    Portal: "Portal",
     Divider: "Divider",
-    Button: mockButton,
-    Chip: mockChip,
-    Dialog,
+    Button: ({ children, onPress }) => (
+      <TouchableOpacity onPress={onPress}>
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
   };
 });
 jest.mock("expo-document-picker", () => ({
-  getDocumentAsync: jest.fn(),
+  DocumentPickerAsset: "DocumentPickerAsset",
 }));
-jest.mock("../../../components/Pickers/FilePicker", () => "FilePicker");
-jest.mock("../../../components/Selectors", () => "Selectors");
-jest.mock("../../../components/Terms/RegisterProTerms", () => "RegisterProTerms");
+jest.mock("../fragments", () => ({
+  MainTitle: "MainTitle",
+  SubTitle: "SubTitle",
+  DisabledTextInput: "DisabledTextInput",
+}));
+jest.mock("../../../../components/Pickers", () => ({
+  FilePicker: "FilePicker",
+}));
+jest.mock("../../../../components/Selectors", () => ({
+  Selector: "Selector",
+}));
+jest.mock("../../../../components/Terms", () => ({
+  RegisterProTerms: "RegisterProTerms",
+}));
 
 const Stack = createStackNavigator();
 const Component = () => <CoachBasic onFinish={jest.fn()} />;

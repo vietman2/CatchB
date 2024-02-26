@@ -12,12 +12,12 @@ import { useNavigation } from "@react-navigation/native";
 import PostCode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
-import { DisabledTextInput, MainTitle, SubTitle } from "../../components";
-import { AppDispatch, RootState } from "../../../../../store/store";
-import { setMyFacilityUuid } from "../../../../../store/slices/products/facilitySlice";
-import { registerFacility } from "../../../../../services/facility/facility";
-import { themeColors } from "../../../../../variables/colors";
-import { MyPageStackScreenProps } from "../../../../../variables/navigation";
+import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
+import { AppDispatch, RootState } from "../../../../store/store";
+import { setMyFacilityUuid } from "../../../../store/slices/products/facilitySlice";
+import { registerFacility } from "../../../../services/facility/facility";
+import { themeColors } from "../../../../variables/colors";
+import { MyPageStackScreenProps } from "../../../../variables/navigation";
 
 interface Props {
   onFinish: () => void;
@@ -270,7 +270,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
         <Button
           mode="contained-tonal"
           buttonColor={themeColors.primary}
-          onPress={handleRegisterSuccess}
+          onPress={handleRegister}
           style={{ marginTop: 20 }}
         >
           등록하기

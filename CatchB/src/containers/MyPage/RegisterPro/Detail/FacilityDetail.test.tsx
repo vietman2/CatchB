@@ -2,8 +2,8 @@
 import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
-import FacilityDetail from "./";
-import { renderWithProviders } from "../../../../../utils/test-utils";
+import FacilityDetail from "./FacilityDetail";
+import { renderWithProviders } from "../../../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
@@ -22,7 +22,6 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Text: "Text",
     TextInput,
     Button: ({ onPress, children }: any) => (
       <TouchableOpacity onPress={onPress}>
@@ -34,26 +33,23 @@ jest.mock("react-native-paper", () => {
 });
 jest.mock("expo-image-picker", () => {
   return {
-    launchImageLibraryAsync: jest.fn(),
-    MediaTypeOptions: {
-      Images: "Images",
-    },
+    ImagePickerAsset: "ImagePickerAsset",
   };
 });
-jest.mock("../../../components/Checkboxes/MultiCheck", () => "MultiCheck");
-jest.mock("../../../components/Pickers/ImagePicker", () => "ImagePicker");
-jest.mock("../../../components/Images/ImagePreview", () => "ImagePreview");
-jest.mock(
-  "../../../components/Images/ImagePlaceholder",
-  () => "ImagePlaceholder"
-);
-jest.mock(
-  "../../../components/Pickers/WorkTimePickers",
-  () => "WorkTimePickers"
-);
-jest.mock("../../../components/Pickers/NumberPicker", () => "NumberPicker");
+jest.mock("../fragments", () => ({
+  MainTitle: "MainTitle",
+  SubTitle: "SubTitle",
+}));
+jest.mock("../../../../components/Selectors", () => ({
+  Selector: "Selector",
+}));
+jest.mock("../../../../components/Pickers", () => ({
+  ImagePicker: "ImagePicker",
+  NumberPicker: "NumberPicker",
+  WorkTimePickers: "WorkTimePickers",
+}));
 
-describe("<FacilityStep2 />", () => {
+describe("<FacilityDetail />", () => {
   it("should handle introduction input", async () => {
     const { getByTestId } = renderWithProviders(
       <FacilityDetail onFinish={() => {}} />

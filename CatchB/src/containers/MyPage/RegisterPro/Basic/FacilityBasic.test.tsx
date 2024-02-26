@@ -5,9 +5,9 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import FacilityBasic from "./";
-import { renderWithProviders } from "../../../../../utils/test-utils";
-import { admin } from "../../../../../variables/mvp_dummy_data/user";
+import FacilityBasic from "./FacilityBasic";
+import { renderWithProviders } from "../../../../utils/test-utils";
+import { admin } from "../../../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -19,7 +19,6 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Text: "Text",
     TextInput: "TextInput",
     Portal: "Portal",
     Button: ({ children, onPress }: any) => (
@@ -28,7 +27,6 @@ jest.mock("react-native-paper", () => {
       </TouchableOpacity>
     ),
     Dialog,
-    Chip: "Chip",
   };
 });
 jest.mock("@actbase/react-daum-postcode", () => {
@@ -50,6 +48,11 @@ jest.mock("@actbase/react-daum-postcode", () => {
 });
 jest.mock("@actbase/react-daum-postcode/lib/types", () => ({
   OnCompleteParams: "OnCompleteParams",
+}));
+jest.mock("../fragments", () => ({
+  MainTitle: "MainTitle",
+  SubTitle: "SubTitle",
+  DisabledTextInput: "DisabledTextInput",
 }));
 
 const Stack = createStackNavigator();

@@ -3,15 +3,15 @@ import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
+import Account from "./Account/Account";
+import Prices from "./Prices/Prices";
+import CoachDetail from "./Detail/CoachDetail";
 import CoachBasic from "./Basic/CoachBasic";
 import FacilityBasic from "./Basic/FacilityBasic";
 import FacilityDetail from "./Detail/FacilityDetail";
-import ProgressSteps from "../../../components/Progress/ProgressSteps";
+import { ProgressSteps } from "../../../components/Progress";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
-import Account from "./Account";
-import Prices from "./Prices";
-import CoachDetail from "./Detail/CoachDetail";
 
 export default function RegisterPro() {
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0);

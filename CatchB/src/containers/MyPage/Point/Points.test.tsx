@@ -6,10 +6,17 @@ import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 import { samplePoints } from "../../../variables/mvp_dummy_data/points";
 
-jest.mock("react-native-paper", () => ({
-  ...jest.requireActual("react-native-paper"),
-  ActivityIndicator: "ActivityIndicator",
-}));
+jest.mock("react-native-paper", () => {
+  const Provider = jest.requireActual("react-native-paper").Provider;
+
+  return {
+    PaperProvider: Provider,
+    ActivityIndicator: "ActivityIndicator",
+    Divider: "Divider",
+    Text: "Text",
+  };
+});
+jest.mock("./PointsDetail", () => "PointsDetail");
 
 describe("<Points />", () => {
   it("renders correctly with 0 points", async () => {

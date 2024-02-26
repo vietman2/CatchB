@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render } from "@testing-library/react-native";
 
-import Account from "./";
+import Account from "./Account";
 
 jest.mock("react-native-paper", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
@@ -12,12 +12,14 @@ jest.mock("react-native-paper", () => {
       </TouchableOpacity>
     ),
     Divider: "Divider",
-    Icon: "Icon",
     Text: "Text",
   };
 });
+jest.mock("../../../../components/Terms", () => ({
+  RegisterProTerms: "RegisterProTerms",
+}));
 
-describe("<CoachStep3 />", () => {
+describe("<Account />", () => {
   it("renders correctly and handles button press", () => {
     const { getByText } = render(<Account onFinish={jest.fn()} />);
 

@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet } from "react-native";
 import { Button, Divider, Text } from "react-native-paper";
 
-import RegisterProTerms from "../../../../components/Terms/RegisterProTerms";
+import { RegisterProTerms } from "../../../../components/Terms";
 import { themeColors } from "../../../../variables/colors";
 
 interface Props {

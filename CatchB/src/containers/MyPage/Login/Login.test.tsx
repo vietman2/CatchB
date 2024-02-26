@@ -9,17 +9,41 @@ import { renderWithProviders } from "../../../utils/test-utils";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("react-native-paper", () => ({
-  ...jest.requireActual("react-native-paper"),
-  ActivityIndicator: "ActivityIndicator",
+jest.mock("react-native-paper", () => {
+  const Provider = jest.requireActual("react-native-paper").Provider;
+  const ActualTextInput = jest.requireActual("react-native-paper").TextInput;
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
+  const TextInput = (props: any) => {
+    return <ActualTextInput {...props}>{props.right}</ActualTextInput>;
+  };
+  const TextInputIcon = ({ icon, onPress }: any) => (
+    <TouchableOpacity onPress={onPress}>
+      <Text>{icon}</Text>
+    </TouchableOpacity>
+  );
+  TextInput.Icon = TextInputIcon;
+
+  return {
+    PaperProvider: Provider,
+    ActivityIndicator: "ActivityIndicator",
+    Button: ({ onPress, children, testID }: any) => (
+      <TouchableOpacity onPress={onPress} testID={testID}>
+        <Text>{children}</Text>
+      </TouchableOpacity>
+    ),
+    Divider: "Divider",
+    Text: "Text",
+    TextInput: TextInput,
+  };
+});
+jest.mock("../../../components/Logos", () => ({
+  LoginLogo: "Logo",
 }));
-jest.mock("../../../components/Logos/LoginLogo", () => "LoginLogo");
-jest.mock("../../../components/Buttons/NaverButton", () => "NaverButton");
-jest.mock("../../../components/Buttons/KakaoButton", () => "KakaoButton");
-jest.mock(
-  "../../../components/Divider/DividerWithText",
-  () => "DividerWithText"
-);
+jest.mock("../../../components/Buttons", () => ({
+  NaverButton: "NaverButton",
+  KakaoButton: "KakaoButton",
+}));
 
 const Stack = createStackNavigator();
 
@@ -46,10 +70,6 @@ const render = () => {
 };
 
 describe("<Login />", () => {
-  it("should render correctly", () => {
-    render();
-  });
-
   it("should handle login error: wrong credentials", () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
       Promise.resolve({
@@ -180,16 +200,14 @@ describe("<Login />", () => {
   });
 
   it("should handle eye icon", async () => {
-    const { getByTestId } = render();
-
-    const eyeIcon = getByTestId("password-eye-icon");
+    const { getByText } = render();
 
     await act(async () => {
-      fireEvent.press(eyeIcon);
+      fireEvent.press(getByText("eye-outline"));
     });
 
     await act(async () => {
-      fireEvent.press(eyeIcon);
+      fireEvent.press(getByText("eye-off-outline"));
     });
   });
 });

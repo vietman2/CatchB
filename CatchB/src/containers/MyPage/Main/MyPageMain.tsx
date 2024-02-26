@@ -14,7 +14,7 @@ import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 
 import { MainProfile } from "../../../components/Profile";
 import { IconTextButton, TabButton } from "../../../components/Buttons";
-import { VerticalDivider } from "../../../components/Divider";
+import { VerticalDivider } from "../../../components/Dividers";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
@@ -196,7 +196,7 @@ export default function MyPageMain() {
               style={{ flex: 1 }}
               labelStyle={styles.labelText}
             >
-              시설 등록하기
+              아카데미 등록하기
             </Button>
           </View>
           <Divider style={styles.divider} />

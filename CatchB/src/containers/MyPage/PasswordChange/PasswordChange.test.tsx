@@ -12,10 +12,20 @@ import { renderWithProviders } from "../../../utils/test-utils";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("react-native-paper", () => ({
-  ...jest.requireActual("react-native-paper"),
-  ActivityIndicator: "ActivityIndicator",
-}));
+jest.mock("react-native-paper", () => {
+  const Provider = jest.requireActual("react-native-paper").Provider;
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
+  return {
+    PaperProvider: Provider,
+    ActivityIndicator: "ActivityIndicator",
+    Button: ({ onPress, children }: any) => (
+      <TouchableOpacity onPress={onPress}><Text>{children}</Text></TouchableOpacity>
+    ),
+    Text: "Text",
+    TextInput: "TextInput",
+  };
+});
 
 const Stack = createStackNavigator();
 

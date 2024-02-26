@@ -2,10 +2,9 @@ import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { Button, Divider, Text, TextInput } from "react-native-paper";
 
-import Selector from "../../../../../components/Selectors";
-import WorkTimePickers from "../../../../../components/Pickers/WorkTimePickers";
-import { themeColors } from "../../../../../variables/colors";
-import { MainTitle, SubTitle } from "../../components";
+import { MainTitle, SubTitle } from "../fragments";
+import { Selector } from "../../../../components/Selectors";
+import { themeColors } from "../../../../variables/colors";
 
 interface Props {
   onFinish: () => void;
@@ -72,7 +71,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
         style={{ height: 150 }}
         testID="curriculum"
       />
-        <SubTitle text="경력/자격" />
+      <SubTitle text="경력/자격" />
       <TextInput
         mode="outlined"
         placeholder={"예)\n- 커리어1\n- 커리어2\n- 커리어3\n- ..."}

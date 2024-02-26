@@ -10,7 +10,7 @@ import EditProfile from "./Profile/EditProfile";
 import Points from "./Point/Points";
 import CouponList from "./Coupon/CouponList";
 import CouponRegister from "./Coupon/CouponRegister";
-import RegisterPro from "./RegisterPro";
+import RegisterPro from "./RegisterPro/RegisterPro";
 import Payments from "./Payment/Payments";
 import FAQ from "./FAQ/FAQ";
 import Reviews from "./Review/Reviews";

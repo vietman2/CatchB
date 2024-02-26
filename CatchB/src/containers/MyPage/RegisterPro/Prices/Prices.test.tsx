@@ -3,7 +3,7 @@ import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Prices from "./";
+import Prices from "./Prices";
 import { renderWithProviders } from "../../../../utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
@@ -37,7 +37,7 @@ const render = () => {
   );
 };
 
-describe("<CoachStep4 />", () => {
+describe("<Prices />", () => {
   it("renders correctly and handles submit", () => {
     const { getByText } = render();
 

@@ -6,7 +6,7 @@ import {
   View,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Button, TextInput, Text, ActivityIndicator } from "react-native-paper";
+import { ActivityIndicator, Button, Text, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
 
 import {

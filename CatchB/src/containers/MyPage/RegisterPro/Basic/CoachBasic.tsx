@@ -11,13 +11,13 @@ import { Button, Divider, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { DocumentPickerAsset } from "expo-document-picker";
 
-import { DisabledTextInput, MainTitle, SubTitle } from "../../components";
-import FilePicker from "../../../../../components/Pickers/FilePicker";
-import Selector from "../../../../../components/Selectors";
-import RegisterProTerms from "../../../../../components/Terms/RegisterProTerms";
-import { RootState } from "../../../../../store/store";
-import { themeColors } from "../../../../../variables/colors";
-import { MyPageStackScreenProps } from "../../../../../variables/navigation";
+import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
+import { FilePicker } from "../../../../components/Pickers";
+import { Selector } from "../../../../components/Selectors";
+import { RegisterProTerms } from "../../../../components/Terms";
+import { RootState } from "../../../../store/store";
+import { themeColors } from "../../../../variables/colors";
+import { MyPageStackScreenProps } from "../../../../variables/navigation";
 
 interface Props {
   onFinish: () => void;

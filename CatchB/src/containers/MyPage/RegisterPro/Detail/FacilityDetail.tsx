@@ -5,14 +5,16 @@ import { Button, Divider, TextInput } from "react-native-paper";
 import { ImagePickerAsset } from "expo-image-picker";
 
 import { amenityChoices, equipmentChoices, otherChoices } from "./options";
-import Selector from "../../../../../components/Selectors";
-import WorkTimePickers from "../../../../../components/Pickers/WorkTimePickers";
-import ImagePicker from "../../../../../components/Pickers/ImagePicker";
-import NumberPicker from "../../../../../components/Pickers/NumberPicker";
-import { uploadDetails } from "../../../../../services/facility/facility";
-import { RootState } from "../../../../../store/store";
-import { themeColors } from "../../../../../variables/colors";
-import { MainTitle, SubTitle } from "../../components";
+import { MainTitle, SubTitle } from "../fragments";
+import { Selector } from "../../../../components/Selectors";
+import {
+  ImagePicker,
+  NumberPicker,
+  WorkTimePickers,
+} from "../../../../components/Pickers";
+import { uploadDetails } from "../../../../services/facility/facility";
+import { RootState } from "../../../../store/store";
+import { themeColors } from "../../../../variables/colors";
 
 interface Props {
   onFinish: () => void;
@@ -182,7 +184,7 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
       <Button
         mode="contained"
         style={styles.button}
-        onPress={handleSubmitSuccess}
+        onPress={handleNext}
         loading={waiting}
       >
         {waiting ? "" : "완료 (1/3)"}
