@@ -56,7 +56,7 @@ describe("<FacilityDetail />", () => {
     );
 
     const textinput = getByTestId("introduction");
-    fireEvent.changeText(textinput, "test");
+    waitFor(() => fireEvent.changeText(textinput, "test"));
   });
 
   it("should handle custom equipment", async () => {
@@ -67,11 +67,13 @@ describe("<FacilityDetail />", () => {
     const textinput = getByTestId("additionalEquipment");
     const button = getByText("Icon");
 
-    fireEvent.press(button);
-    fireEvent.changeText(textinput, "test");
-    fireEvent.press(button);
-    fireEvent.changeText(textinput, "test");
-    fireEvent.press(button);
+    waitFor(() => {
+      fireEvent.press(button);
+      fireEvent.changeText(textinput, "test");
+      fireEvent.press(button);
+      fireEvent.changeText(textinput, "test");
+      fireEvent.press(button);
+    });
   });
 
   it("should handle next: failure", async () => {

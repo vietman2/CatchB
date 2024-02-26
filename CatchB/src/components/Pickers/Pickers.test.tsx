@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import * as Picker from "expo-image-picker";
+import * as IPicker from "expo-image-picker";
+import * as FPicker from "expo-document-picker";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
 import {
@@ -59,7 +60,7 @@ describe("<ImagePicker />", () => {
   ];
 
   it("should handle image picker: uploaded", async () => {
-    jest.spyOn(Picker, "launchImageLibraryAsync").mockImplementation(() =>
+    jest.spyOn(IPicker, "launchImageLibraryAsync").mockImplementation(() =>
       Promise.resolve({
         canceled: false,
         assets: assets,
@@ -75,7 +76,7 @@ describe("<ImagePicker />", () => {
   });
 
   it("should handle image picker: duplicated", async () => {
-    jest.spyOn(Picker, "launchImageLibraryAsync").mockImplementation(() =>
+    jest.spyOn(IPicker, "launchImageLibraryAsync").mockImplementation(() =>
       Promise.resolve({
         canceled: false,
         assets: assets,
@@ -89,7 +90,7 @@ describe("<ImagePicker />", () => {
   });
 
   it("should handle image picker: cancelled", async () => {
-    jest.spyOn(Picker, "launchImageLibraryAsync").mockImplementation(() =>
+    jest.spyOn(IPicker, "launchImageLibraryAsync").mockImplementation(() =>
       Promise.resolve({
         canceled: true,
         assets: null,
@@ -227,6 +228,12 @@ describe("<AreaPicker />", () => {
 
 describe("<FilePicker />", () => {
   it("should handle file picker", () => {
+    jest.spyOn(FPicker, "getDocumentAsync").mockImplementation(() =>
+      Promise.resolve({
+        canceled: true,
+        assets: null,
+      })
+    );
     const { getByText } = renderWithProviders(
       <FilePicker setUploadedFile={jest.fn()} />
     );
@@ -239,18 +246,22 @@ describe("<WorkTimePickers />", () => {
   it("should handle all textinputs", () => {
     const { getByTestId } = renderWithProviders(<WorkTimePickers />);
 
-    fireEvent.changeText(getByTestId("weekdayStart"), "1234");
-    fireEvent.changeText(getByTestId("weekdayEnd"), "1234");
-    fireEvent.changeText(getByTestId("saturdayStart"), "1234");
-    fireEvent.changeText(getByTestId("saturdayEnd"), "1234");
-    fireEvent.changeText(getByTestId("sundayStart"), "1234");
-    fireEvent.changeText(getByTestId("sundayEnd"), "1234");
+    waitFor(() => {
+      fireEvent.changeText(getByTestId("weekdayStart"), "1234");
+      fireEvent.changeText(getByTestId("weekdayEnd"), "1234");
+      fireEvent.changeText(getByTestId("saturdayStart"), "1234");
+      fireEvent.changeText(getByTestId("saturdayEnd"), "1234");
+      fireEvent.changeText(getByTestId("sundayStart"), "1234");
+      fireEvent.changeText(getByTestId("sundayEnd"), "1234");
+    });
   });
 
   it("should correctly format time", () => {
     const { getByTestId } = renderWithProviders(<WorkTimePickers />);
 
-    fireEvent.changeText(getByTestId("weekdayStart"), "1");
-    fireEvent.changeText(getByTestId("weekdayStart"), "12345");
+    waitFor(() => {
+      fireEvent.changeText(getByTestId("weekdayStart"), "1");
+      fireEvent.changeText(getByTestId("weekdayStart"), "12345");
+    });
   });
 });

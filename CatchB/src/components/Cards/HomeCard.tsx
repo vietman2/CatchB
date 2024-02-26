@@ -11,7 +11,7 @@ interface Props {
   chip?: string;
 }
 
-export function HomeCard(props: Props) {
+export function HomeCard(props: Readonly<Props>) {
   const getBackgroundColor = () => {
     switch (props.type) {
       case 1:

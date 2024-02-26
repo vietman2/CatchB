@@ -19,7 +19,7 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("./components", () => ({
+jest.mock("./fragments", () => ({
   CoachPreview: "CoachPreview",
   CoachTypes: "CoachTypes",
   Filters: "Filters",

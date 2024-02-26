@@ -57,7 +57,7 @@ describe("<FacilityDetail />", () => {
     });
 
     const likeButton = getByTestId("like");
-    await waitFor(() => {
+    waitFor(() => {
       fireEvent.press(likeButton);
       fireEvent.press(getByTestId("reserve-button"));
     });
@@ -73,7 +73,9 @@ describe("<FacilityDetail />", () => {
       },
     });
 
-    await waitFor(() => fireEvent.press(getByTestId("expand-collapse")));
-    await waitFor(() => fireEvent.press(getByTestId("expand-collapse")));
+    waitFor(() => {
+      fireEvent.press(getByTestId("expand-collapse"));
+      fireEvent.press(getByTestId("expand-collapse"));
+    });
   });
 });
