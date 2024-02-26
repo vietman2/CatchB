@@ -13,8 +13,10 @@ import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { AvatarImage } from "../../../components/Profile";
-import ScheduleBar from "../../../components/Tables/ScheduleBar";
-import ReservationProductsTable from "../../../components/Tables/ReservationProductsTable";
+import {
+  ScheduleBar,
+  ReservationProductsTable,
+} from "../../../components/Tables";
 import { themeColors } from "../../../variables/colors";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 import { RootState } from "../../../store/store";

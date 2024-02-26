@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fireEvent } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -20,9 +20,11 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("react-native-maps", () => {
-  const { View } = jest.requireActual("react-native");
+  const { View, TouchableOpacity } = jest.requireActual("react-native");
   const MockMapView = (props: any) => {
-    return <View>{props.children}</View>;
+    return (
+        <TouchableOpacity onPress={props.onPress} testID="touch-me">{props.children}</TouchableOpacity>
+    );
   };
   const MockMarker = (props: any) => {
     return <View>{props.children}</View>;
@@ -35,30 +37,45 @@ jest.mock("react-native-maps", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../FacilityDetail/FacilitySimple", () => "FacilitySimple");
-jest.mock("../CoachDetail/CoachSimple", () => "CoachSimple");
+jest.mock("../CoachDetail/CoachSimple", () => {
+  const { Text } = jest.requireActual("react-native");
+
+  return {
+    CoachSimple: ({ coach }) => {
+      return <Text>{coach.coach_name}</Text>;
+    },
+  };
+});
+jest.mock("../FacilityDetail/FacilitySimple", () => {
+  const { Text } = jest.requireActual("react-native");
+
+  return {
+    FacilitySimple: ({ facility }) => {
+      return <Text>{facility.name}</Text>;
+    },
+  };
+});
+jest.mock("../../../components/Dividers", () => ({
+  VerticalDivider: "VerticalDivider",
+}));
 
 const Stack = createStackNavigator();
 
-const components = () => {
+const Components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Nearby" component={NearbyMain} />
+        <Stack.Screen name="FacilityDetail" component={NearbyMain} />
+        <Stack.Screen name="CoachDetail" component={NearbyMain} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-describe("Nearby", () => {
-  it("renders correctly and handles mode switch", async () => {
-    const { getByText } = renderWithProviders(components());
-
-    fireEvent.press(getByText("시설"));
-  });
-
+describe("<NearbyMain />", () => {
   it("renders with location", async () => {
-    renderWithProviders(components(), {
+    renderWithProviders(<Components />, {
       preloadedState: {
         general: {
           location: {
@@ -78,4 +95,23 @@ describe("Nearby", () => {
       },
     });
   });
+
+  it("renders correctly and handles facility navigation", async () => {
+    const { getByText } = renderWithProviders(<Components />);
+
+    waitFor(() => {
+      fireEvent.press(getByText("시설"));
+      fireEvent.press(getByText("서울대 야구장"));
+    });
+  });
+
+  it("renders correctly and handles coach navigation", async () => {
+    const { getByText } = renderWithProviders(<Components />);
+
+    waitFor(() => {
+      fireEvent.press(getByText("코치"));
+      fireEvent.press(getByText("홍승우"));
+    });
+  });
+
 });

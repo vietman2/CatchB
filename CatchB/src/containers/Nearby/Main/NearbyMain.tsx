@@ -12,9 +12,9 @@ import MapView, { PROVIDER_GOOGLE, MapMarker } from "react-native-maps";
 import { Divider, Searchbar, Text } from "react-native-paper";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import CoachSimple from "../CoachDetail/CoachSimple";
-import FacilitySimple from "../FacilityDetail/FacilitySimple";
-import { VerticalDivider } from "../../../components/Divider";
+import { CoachSimple } from "../CoachDetail/CoachSimple";
+import { FacilitySimple } from "../FacilityDetail/FacilitySimple";
+import { VerticalDivider } from "../../../components/Dividers";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
 import { CoachType, FacilityType } from "../../../variables/types/products";
@@ -75,7 +75,7 @@ export default function NearbyMain() {
         mapPadding={{ right: 0, bottom: 0, left: 0, top: 100 }}
         region={region}
         onPanDrag={Keyboard.dismiss}
-        onPress={() => bottomSheetRef.current.snapToIndex(0)}
+        //onPress={() => bottomSheetRef.current.snapToIndex(0)}
       >
         {facilities.map((facility) => (
           <MapMarker

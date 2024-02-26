@@ -13,7 +13,7 @@ function FacilityImage({ facility }: Readonly<Props>) {
   return <Image source={facility.image} style={styles.imageBox} />;
 }
 
-export default function FacilitySimple({ facility }: Readonly<Props>) {
+export function FacilitySimple({ facility }: Readonly<Props>) {
   const [isLiked, setIsLiked] = useState(false);
 
   return (

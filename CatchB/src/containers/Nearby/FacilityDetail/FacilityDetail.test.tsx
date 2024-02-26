@@ -15,8 +15,8 @@ jest.mock("react-native-paper", () => {
   return {
     ...jest.requireActual("react-native-paper"),
     Icon: "Icon",
-    Button: ({ onPress, children }: any) => (
-      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+    Button: ({ onPress, children, testID }: any) => (
+      <TouchableOpacity onPress={onPress} testID={testID}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
@@ -24,44 +24,51 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Avatar/CoachProfile", () => "CoachProfile");
-jest.mock("../../../components/Tables/ScheduleBar", () => "ScheduleBar");
-jest.mock(
-  "../../../components/Tables/ReservationProductsTable",
-  () => "ReservationProductsTable"
-);
+jest.mock("../../../components/Profile", () => ({
+  AvatarImage: "AvatarImage",
+}));
+jest.mock("../../../components/Tables", () => ({
+  ScheduleBar: "ScheduleBar",
+  ReservationProductsTable: "ReservationProductsTable",
+}));
 
 const Stack = createStackNavigator();
 
-const components = () => {
+const Components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="FacilityDetail" component={FacilityDetail} />
+        <Stack.Screen name="FacilityReserve" component={FacilityDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 describe("<FacilityDetail />", () => {
-  it("handles like button", async () => {
-    const { getByTestId } = renderWithProviders(components(), {
+  it("handles buttons", async () => {
+    const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         facility: {
           selectedFacility: sampleFacilities[0],
+          myFacilityUuid: "1234",
         },
       },
     });
 
     const likeButton = getByTestId("like");
-    await waitFor(() => fireEvent.press(likeButton));
+    await waitFor(() => {
+      fireEvent.press(likeButton);
+      fireEvent.press(getByTestId("reserve-button"));
+    });
   });
 
   it("handles long descriptions", async () => {
-    const { getByTestId } = renderWithProviders(components(), {
+    const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         facility: {
           selectedFacility: sampleFacilities[1],
+          myFacilityUuid: "1235",
         },
       },
     });
