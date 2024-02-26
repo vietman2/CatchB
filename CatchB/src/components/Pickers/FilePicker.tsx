@@ -4,18 +4,20 @@ import { Icon, Text } from "react-native-paper";
 import { DocumentPickerAsset, getDocumentAsync } from "expo-document-picker";
 
 interface Props {
-  uploadedFile: DocumentPickerAsset;
   setUploadedFile: Dispatch<SetStateAction<DocumentPickerAsset>>;
 }
 
 export function FilePicker({
-  uploadedFile,
   setUploadedFile,
 }: Readonly<Props>) {
   const handleUpload = async () => {
-    await getDocumentAsync({
-      type: ["image/*", "application/pdf"],
+    const result = await getDocumentAsync({
+      type: ["application/pdf"],
     });
+
+    if (!result.canceled) {
+      setUploadedFile(result.assets[0]);
+    }
   };
 
   return (

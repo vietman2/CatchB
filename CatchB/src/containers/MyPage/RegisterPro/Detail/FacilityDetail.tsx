@@ -26,12 +26,12 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
   const [introduction, setIntroduction] = useState<string>("");
   const [additionalEquipment, setAdditionalEquipment] = useState<string>("");
   // time
-  const [weekdayStart, setWeekdayStart] = useState<string>("");
-  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
-  const [saturdayStart, setSaturdayStart] = useState<string>("");
-  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
-  const [sundayStart, setSundayStart] = useState<string>("");
-  const [sundayEnd, setSundayEnd] = useState<string>("");
+  //const [weekdayStart, setWeekdayStart] = useState<string>("");
+  //const [weekdayEnd, setWeekdayEnd] = useState<string>("");
+  //const [saturdayStart, setSaturdayStart] = useState<string>("");
+  //const [saturdayEnd, setSaturdayEnd] = useState<string>("");
+  //const [sundayStart, setSundayStart] = useState<string>("");
+  //const [sundayEnd, setSundayEnd] = useState<string>("");
   // selected items
   const [amenities, setAmenities] = useState<string[]>(["Wi-Fi"]);
   const [equipment, setEquipment] = useState<string[]>(["나무배트"]);
@@ -72,12 +72,12 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
       facility_uuid,
       introduction,
       {
-        weekday_open: weekdayStart,
-        weekday_close: weekdayEnd,
-        saturday_open: saturdayStart,
-        saturday_close: saturdayEnd,
-        sunday_open: sundayStart,
-        sunday_close: sundayEnd,
+        weekday_open: "weekdayStart",
+        weekday_close: "weekdayEnd",
+        saturday_open: "saturdayStart",
+        saturday_close: "saturdayEnd",
+        sunday_open: "sundayStart",
+        sunday_close: "sundayEnd",
       },
       amenities,
       equipment,

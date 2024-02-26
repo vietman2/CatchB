@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render } from "@testing-library/react-native";
 
 import { ProHome } from "./ProHome";
@@ -40,7 +41,7 @@ jest.mock("./components", () => ({
 jest.mock("../../../components/Cards", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
-    HomeCard: ({ actionText, action }) => (
+    HomeCard: ({ actionText, action }: any) => (
       <TouchableOpacity onPress={action}>
         <Text>{actionText}</Text>
       </TouchableOpacity>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import * as Picker from "expo-image-picker";
 import { fireEvent, waitFor } from "@testing-library/react-native";
@@ -21,7 +22,7 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
     Icon: "Icon",
     Divider: "Divider",
-    Chip: ({ children, onClose }) => (
+    Chip: ({ children, onClose }: any) => (
       <TouchableOpacity onPress={onClose}>
         <Text>{children}</Text>
       </TouchableOpacity>
@@ -38,7 +39,7 @@ jest.mock("../Images", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
-    ImagePreview: ({ removeImage }) => (
+    ImagePreview: ({ removeImage }: any) => (
       <TouchableOpacity onPress={removeImage} testID="removeImage">
         <Text>ImagePreview</Text>
       </TouchableOpacity>
@@ -227,7 +228,7 @@ describe("<AreaPicker />", () => {
 describe("<FilePicker />", () => {
   it("should handle file picker", () => {
     const { getByText } = renderWithProviders(
-      <FilePicker uploadedFile={null} setUploadedFile={jest.fn()} />
+      <FilePicker setUploadedFile={jest.fn()} />
     );
 
     fireEvent.press(getByText("파일 업로드"));

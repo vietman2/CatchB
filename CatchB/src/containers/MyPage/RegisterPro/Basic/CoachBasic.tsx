@@ -50,10 +50,11 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
     );
   };
 
-  /*
   const handleRegister = () => {
     // TODO: API 연동
-  }; */
+    console.log(uploadedFile);
+    handleRegisterSuccess();
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -83,29 +84,18 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       <View style={styles.uploadMenu}>
         <TouchableOpacity
           onPress={() => setType("pdf")}
-          style={{
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-            padding: 5,
-            paddingRight: 10,
-            backgroundColor: "rgba(192, 192, 192, 0.15)",
-          }}
+          style={type === "pdf" ? styles.chosen : styles.notChosen}
         >
           <Text style={styles.textButton}>pdf 업로드</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setType("image")}
-          style={{
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-            padding: 5,
-          }}
+          style={type === "image" ? styles.chosen : styles.notChosen}
         >
           <Text style={styles.textButton}>이미지 업로드</Text>
         </TouchableOpacity>
       </View>
       <FilePicker
-        uploadedFile={uploadedFile}
         setUploadedFile={setUploadedFile}
       />
       <Divider bold style={styles.divider} />
@@ -114,7 +104,7 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       <Divider bold style={styles.divider} />
       <Button
         mode="contained"
-        onPress={handleRegisterSuccess}
+        onPress={handleRegister}
         style={{ marginTop: 10 }}
       >
         등록하기
@@ -127,14 +117,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themeColors.primaryContainer,
     paddingHorizontal: 20,
-  },
-  title: {
-    marginTop: 10,
-    fontWeight: "bold",
-  },
-  uneditable: {
-    backgroundColor: "rgba(192, 192, 192, 0.15)",
-    height: 40,
   },
   divider: {
     marginTop: 10,
@@ -149,5 +131,17 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
     paddingLeft: 5,
+  },
+  chosen: {
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    padding: 5,
+    paddingRight: 10,
+    backgroundColor: "rgba(192, 192, 192, 0.15)",
+  },
+  notChosen: {
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    padding: 5,
   },
 });

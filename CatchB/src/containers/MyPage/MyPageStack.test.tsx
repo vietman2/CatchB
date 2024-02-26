@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
-import axios from "axios";
-import { fireEvent, waitFor } from "@testing-library/react-native";
+import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 

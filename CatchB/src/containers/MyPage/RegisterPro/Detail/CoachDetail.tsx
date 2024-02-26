@@ -15,12 +15,12 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
   const [curriculum, setCurriculum] = useState<string>("");
   const [career, setCareer] = useState<string>("");
   // time
-  const [weekdayStart, setWeekdayStart] = useState<string>("");
-  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
-  const [saturdayStart, setSaturdayStart] = useState<string>("");
-  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
-  const [sundayStart, setSundayStart] = useState<string>("");
-  const [sundayEnd, setSundayEnd] = useState<string>("");
+  //const [weekdayStart, setWeekdayStart] = useState<string>("");
+  //const [weekdayEnd, setWeekdayEnd] = useState<string>("");
+  //const [saturdayStart, setSaturdayStart] = useState<string>("");
+  //const [saturdayEnd, setSaturdayEnd] = useState<string>("");
+  //const [sundayStart, setSundayStart] = useState<string>("");
+  //const [sundayEnd, setSundayEnd] = useState<string>("");
 
   const choices = [
     "왕초보/기초",

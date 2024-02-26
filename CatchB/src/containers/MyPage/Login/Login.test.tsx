@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { fireEvent, act, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";

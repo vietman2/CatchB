@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NavigationContainer } from "@react-navigation/native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as expoLocation from "expo-location";
@@ -29,7 +30,7 @@ jest.mock("../", () => {
 jest.mock("../../components/Dialogs", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
-    SwitchModeDialog: ({ onClose, setMode }) => {
+    SwitchModeDialog: ({ onClose, setMode }: any) => {
       return (
         <>
           <TouchableOpacity onPress={onClose}>

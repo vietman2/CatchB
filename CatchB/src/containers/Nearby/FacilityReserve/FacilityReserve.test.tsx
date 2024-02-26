@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -15,7 +16,7 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Button: ({ children, onPress }) => (
+    Button: ({ children, onPress }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{children}</Text>
       </TouchableOpacity>
@@ -29,7 +30,7 @@ const Stack = createStackNavigator();
 
 const FakeComponent = () => {
   return <>FacilityReserve</>;
-}
+};
 
 const Components = ({
   selectedDate,
@@ -52,10 +53,7 @@ const Components = ({
             selectedProduct: selectedProduct,
           }}
         />
-        <Stack.Screen
-          name="Payment"
-          component={FakeComponent}
-        />
+        <Stack.Screen name="Payment" component={FakeComponent} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -78,7 +76,7 @@ describe("<FacilityReserve />", () => {
       <Components
         selectedDate="2024-01-01"
         selectedTime="00:00"
-        selectedProduct={{title: "test"}}
+        selectedProduct={{ title: "test" }}
       />,
       {
         preloadedState: {
@@ -91,7 +89,7 @@ describe("<FacilityReserve />", () => {
     );
 
     waitFor(() => {
-    fireEvent.press(getByText("결제하기"));
+      fireEvent.press(getByText("결제하기"));
     });
   });
 });

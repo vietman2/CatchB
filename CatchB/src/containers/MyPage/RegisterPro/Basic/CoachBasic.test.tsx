@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert } from "react-native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -18,7 +19,7 @@ jest.mock("react-native-paper", () => {
     PaperProvider: Provider,
     Text: "Text",
     Divider: "Divider",
-    Button: ({ children, onPress }) => (
+    Button: ({ children, onPress }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{children}</Text>
       </TouchableOpacity>

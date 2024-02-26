@@ -41,7 +41,7 @@ jest.mock("../CoachDetail/CoachSimple", () => {
   const { Text } = jest.requireActual("react-native");
 
   return {
-    CoachSimple: ({ coach }) => {
+    CoachSimple: ({ coach }: any) => {
       return <Text>{coach.coach_name}</Text>;
     },
   };
@@ -50,7 +50,7 @@ jest.mock("../FacilityDetail/FacilitySimple", () => {
   const { Text } = jest.requireActual("react-native");
 
   return {
-    FacilitySimple: ({ facility }) => {
+    FacilitySimple: ({ facility }: any) => {
       return <Text>{facility.name}</Text>;
     },
   };

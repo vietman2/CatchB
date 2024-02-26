@@ -39,8 +39,8 @@ jest.mock("../../../components/Buttons", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
-    IconTextButton: ({ title }) => <Text>{title}</Text>,
-    TabButton: ({ title, onPress }) => (
+    IconTextButton: ({ title }: any) => <Text>{title}</Text>,
+    TabButton: ({ title, onPress }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{title}</Text>
       </TouchableOpacity>
