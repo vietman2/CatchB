@@ -1,6 +1,17 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import { PlaceholderComponent } from "./";
+// TODO: Remove This Later
+export function PlaceholderComponent({ color }: Readonly<{ color: string }>) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        height: 200,
+        backgroundColor: color,
+      }}
+    />
+  );
+}
 
 export function VideoList() {
   return (

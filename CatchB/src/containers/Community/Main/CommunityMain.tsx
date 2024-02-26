@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import { PlaceholderComponent } from "./";
 import {
   BaseballCommunity,
   RecruitmentCommunity,
@@ -11,6 +11,15 @@ import {
 import { themeColors } from "../../../variables/colors";
 
 const Tab = createMaterialTopTabNavigator();
+
+// TODO: Remove This Later
+export function PlaceholderComponent() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text variant="titleMedium">준비 중입니다.</Text>
+    </View>
+  );
+}
 
 export default function Community() {
   const width = Dimensions.get("window").width;
