@@ -17,7 +17,6 @@ export default function PostCreate() {
   const tagPickerSnapPoints = useMemo(() => ["60%"], []);
   const [selectedForum, setSelectedForum] = useState<Forums>("야구톡");
   //const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const selectedTags = [];
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const navigation =
@@ -120,7 +119,7 @@ export default function PostCreate() {
             style={styles.button}
             testID="tag-picker"
           >
-            <Text>{selectedTags.length === 0 ? "선택" : "변경"}</Text>
+            <Text>선택{/*selectedTags.length === 0 ? "선택" : "변경"*/}</Text>
           </TouchableOpacity>
         </View>
         <TextInput

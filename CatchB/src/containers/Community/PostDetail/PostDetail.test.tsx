@@ -7,15 +7,19 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Text: "Text",
     Divider: "Divider",
+    Text: "Text",
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Chips/PostTagChip", () => "PostTagChip");
-jest.mock("../../../components/Profile/PostAuthorProfile", () => "PostAuthorProfile");
+jest.mock("../../../components/Chips", () => ({
+  PostTagChip: "PostTagChip",
+}));
+jest.mock("../../../components/Profile", () => ({
+  CommunityPostProfile: "CommunityPostProfile",
+}));
 
-describe("PostDetail", () => {
+describe("<PostDetail />", () => {
   it("renders correctly", () => {
     renderWithProviders(<PostDetail />, {
       preloadedState: {

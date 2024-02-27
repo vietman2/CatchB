@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import CoachSimple from "./CoachSimple";
+import { CoachSimple } from "./CoachSimple";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
 
 jest.mock("react-native-paper", () => ({
@@ -11,8 +11,6 @@ jest.mock("react-native-paper", () => ({
 
 describe("<CoachSimple />", () => {
   it("handles the like and share button correctly", () => {
-    render(
-      <CoachSimple coach={sampleCoaches[0]} />
-    );
+    render(<CoachSimple coach={sampleCoaches[0]} />);
   });
 });

@@ -9,7 +9,7 @@ interface Props {
   onChange: (value: number) => void;
 }
 
-export default function NumberPicker({
+export function NumberPicker({
   label,
   value,
   onChange,

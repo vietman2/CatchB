@@ -1,4 +1,4 @@
-import axios from "axios";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NavigationContainer } from "@react-navigation/native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as expoLocation from "expo-location";
@@ -15,17 +15,34 @@ jest.mock("react-native-gesture-handler", () => ({
 jest.mock("rn-tourguide", () => ({
   TourGuideZone: "TourGuideZone",
 }));
-jest.mock("../Home/HomeStack", () => "HomeStack");
-jest.mock("../Nearby/NearbyStack", () => "NearbyStack");
-jest.mock("../Community/CommunityStack", () => "CommunityStack");
-jest.mock("../History/HistoryStack", () => "HistoryStack");
-jest.mock("../MyPage/MyPageStack", () => "MyPageStack");
-jest.mock("../MyStore/MyStoreStack", () => "MyStoreStack");
-jest.mock("../../components/Dialogs/LoginDialog", () => {
+jest.mock("../", () => {
+  return {
+    CommunityContainer: "CommunityContainer",
+    HistoryContainer: "HistoryContainer",
+    MyPageContainer: "MyPageContainer",
+    MyStoreContainer: "MyStoreContainer",
+    NearbyContainer: "NearbyContainer",
+    NormalContainer: "NormalContainer",
+    ProContainer: "ProContainer",
+    PromotionContainer: "PromotionContainer",
+  };
+});
+jest.mock("../../components/Dialogs", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
-    __esModule: true,
-    default: ({ onClose }: { onClose: () => void }) => {
+    SwitchModeDialog: ({ onClose, setMode }: any) => {
+      return (
+        <>
+          <TouchableOpacity onPress={onClose}>
+            <Text>Close</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={setMode}>
+            <Text>OK</Text>
+          </TouchableOpacity>
+        </>
+      );
+    },
+    LoginDialog: ({ onClose }: { onClose: () => void }) => {
       return (
         <TouchableOpacity onPress={onClose}>
           <Text>닫기</Text>
@@ -34,6 +51,7 @@ jest.mock("../../components/Dialogs/LoginDialog", () => {
     },
   };
 });
+
 jest.spyOn(SecureStore, "get").mockImplementation((key) => {
   if (key === "refresh_token") {
     return Promise.resolve("refresh");
@@ -42,7 +60,7 @@ jest.spyOn(SecureStore, "get").mockImplementation((key) => {
     return Promise.resolve("uuid");
   } else return Promise.reject(new Error("error"));
 });
-jest.spyOn(axios, "get").mockImplementation(() =>
+jest.spyOn(userService, "getUserProfile").mockImplementation(() =>
   Promise.resolve({
     status: 200,
     data: {
@@ -50,7 +68,7 @@ jest.spyOn(axios, "get").mockImplementation(() =>
     },
   })
 );
-jest.spyOn(axios, "post").mockImplementation(() =>
+jest.spyOn(userService, "renewToken").mockImplementation(() =>
   Promise.resolve({
     status: 200,
     data: {
@@ -85,8 +103,8 @@ jest
     });
   });
 
-const render = () => {
-  return renderWithProviders(
+const Components = () => {
+  return (
     <NavigationContainer>
       <TabContainer />
     </NavigationContainer>
@@ -95,40 +113,31 @@ const render = () => {
 
 describe("<TabContainer />", () => {
   it("handles long press: successfully change mode", async () => {
-
     const { getAllByTestId, getByText } = await waitFor(() =>
-      renderWithProviders(
-        <NavigationContainer>
-          <TabContainer />
-        </NavigationContainer>,
-        {
-          preloadedState: {
-            general: { mode: "pro", location: null },
-            auth: { user: admin, token: "token" },
-          },
-        }
-      )
+      renderWithProviders(<Components />, {
+        preloadedState: {
+          general: { mode: "pro", location: null },
+          auth: { user: admin, token: "token" },
+        },
+      })
+    );
+    const tab = getAllByTestId("MyPageIcon")[0];
+
+    waitFor(() => {
+      fireEvent(tab, "onLongPress");
+      fireEvent.press(getByText("OK"));
+    });
+  });
+
+  it("handles long press: change mode fail", async () => {
+    const { getAllByTestId } = await waitFor(() =>
+      renderWithProviders(<Components />)
     );
     const tab = getAllByTestId("MyPageIcon")[0];
 
     waitFor(() => {
       fireEvent(tab, "onLongPress");
     });
-
-    const button = getByText("확인");
-
-    fireEvent.press(button);
-  });
-
-  it("handles long press: change mode fail", async () => {
-    const { getAllByTestId, getByText } = await waitFor(() => render());
-    const tab = getAllByTestId("MyPageIcon")[0];
-
-    waitFor(() => {
-      fireEvent(tab, "onLongPress");
-    });
-
-    fireEvent.press(getByText("확인"));
   });
 
   it("handles token renewal and auto login", async () => {
@@ -147,7 +156,9 @@ describe("<TabContainer />", () => {
       })
     );
 
-    await waitFor(() => render());
+    waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles token renewal and auto login fail: no profile", async () => {
@@ -166,7 +177,9 @@ describe("<TabContainer />", () => {
       })
     );
 
-    const { getByText } = await waitFor(() => render());
+    const { getByText } = await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
 
     fireEvent.press(getByText("닫기"));
   });
@@ -181,7 +194,9 @@ describe("<TabContainer />", () => {
       })
     );
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles token renewal and auto login fail: no token", async () => {
@@ -194,7 +209,9 @@ describe("<TabContainer />", () => {
       } else return Promise.reject(new Error("error"));
     });
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles token renewal and auto login fail: no uuid", async () => {
@@ -221,7 +238,9 @@ describe("<TabContainer />", () => {
       } else return Promise.reject(new Error("error"));
     });
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles permission rejection", async () => {
@@ -236,7 +255,9 @@ describe("<TabContainer />", () => {
         });
       });
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 
   it("handles permission rejection: no location", async () => {
@@ -246,6 +267,8 @@ describe("<TabContainer />", () => {
         return Promise.resolve(null);
       });
 
-    await waitFor(() => render());
+    await waitFor(
+      async () => await waitFor(() => renderWithProviders(<Components />))
+    );
   });
 });

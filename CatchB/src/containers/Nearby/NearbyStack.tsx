@@ -7,7 +7,7 @@ import FacilityDetail from "./FacilityDetail/FacilityDetail";
 import FacilityReserve from "./FacilityReserve/FacilityReserve";
 import CoachDetail from "./CoachDetail/CoachDetail";
 import Payment from "./Payment/Payment";
-import BackButton from "../../components/Buttons/BackButton";
+import { BackButton } from "../../components/Buttons";
 import {
   NearbyStackParamList,
   NearbyStackScreenProps,

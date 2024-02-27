@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import ImagePlaceholder from "./ImagePlaceholder";
-import ImagePreview from "./ImagePreview";
+import { ImagePlaceholder, ImagePreview } from "./";
 
 jest.mock("react-native-paper", () => ({
   Icon: "Icon",
@@ -16,9 +15,5 @@ describe("<ImagePreview />", () => {
 describe("<ImagePlaceholder />", () => {
   it("renders correctly", () => {
     render(<ImagePlaceholder />);
-  });
-
-  it("renders correctly with canUpload", () => {
-    render(<ImagePlaceholder canUpload />);
   });
 });

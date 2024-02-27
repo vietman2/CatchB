@@ -9,43 +9,20 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {
+  ActivityIndicator,
+  Button,
   Divider,
   Text,
   TextInput,
-  ActivityIndicator,
-  Button,
 } from "react-native-paper";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import LoginLogo from "../../../components/Logos/LoginLogo";
-import NaverButton from "../../../components/Buttons/NaverButton";
-import KakaoButton from "../../../components/Buttons/KakaoButton";
-import DividerWithText from "../../../components/Divider/DividerWithText";
+import { LoginLogo } from "../../../components/Logos";
+import { NaverButton, KakaoButton } from "../../../components/Buttons";
 import { login } from "../../../services/user_management/account";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { AppDispatch } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
-
-function EmailIcon() {
-  return (
-    <MaterialCommunityIcons
-      name="account-outline"
-      size={24}
-      color={themeColors.primary}
-    />
-  );
-}
-
-function PasswordIcon() {
-  return (
-    <MaterialCommunityIcons
-      name="lock-outline"
-      size={24}
-      color={themeColors.primary}
-    />
-  );
-}
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -93,18 +70,6 @@ export default function Login() {
 
   const onPressEyeIcon = () => setIsPasswordVisible(!isPasswordVisible);
 
-  function PasswordVisibleIcon() {
-    return (
-      <MaterialCommunityIcons
-        name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
-        size={24}
-        color={themeColors.primary}
-        onPress={onPressEyeIcon}
-        testID="password-eye-icon"
-      />
-    );
-  }
-
   return (
     <ScrollView style={styles.mainContainer}>
       <KeyboardAvoidingView behavior="height">
@@ -114,7 +79,7 @@ export default function Login() {
             label="이메일"
             onChangeText={(text) => setUsername(text)}
             value={username}
-            left={<TextInput.Icon icon={EmailIcon} />}
+            left={<TextInput.Icon icon="account-outline" color="green" />}
             style={{ marginVertical: 5 }}
             testID="username-input"
           />
@@ -123,8 +88,14 @@ export default function Login() {
             onChangeText={(text) => setPassword(text)}
             value={password}
             secureTextEntry={!isPasswordVisible}
-            left={<TextInput.Icon icon={PasswordIcon} />}
-            right={<TextInput.Icon icon={PasswordVisibleIcon} />}
+            left={<TextInput.Icon icon="lock-outline" color="green" />}
+            right={
+              <TextInput.Icon
+                icon={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+                color="green"
+                onPress={onPressEyeIcon}
+              />
+            }
             style={{ marginVertical: 5 }}
             testID="password-input"
           />
@@ -165,7 +136,7 @@ export default function Login() {
               비밀번호 찾기
             </Button>
           </View>
-          <DividerWithText text="간편 로그인" />
+          <Divider />
           <TouchableOpacity onPress={handleKakaoLogin} testID="kakao-button">
             <KakaoButton />
           </TouchableOpacity>

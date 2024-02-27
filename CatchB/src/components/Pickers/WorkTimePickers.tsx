@@ -1,23 +1,15 @@
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, TextInput } from "react-native-paper";
 
-interface Props {
-  weekdayStart: string;
-  weekdayEnd: string;
-  saturdayStart: string;
-  saturdayEnd: string;
-  sundayStart: string;
-  sundayEnd: string;
-  setWeekdayStart: Dispatch<SetStateAction<string>>;
-  setWeekdayEnd: Dispatch<SetStateAction<string>>;
-  setSaturdayStart: Dispatch<SetStateAction<string>>;
-  setSaturdayEnd: Dispatch<SetStateAction<string>>;
-  setSundayStart: Dispatch<SetStateAction<string>>;
-  setSundayEnd: Dispatch<SetStateAction<string>>;
-}
+export function WorkTimePickers() {
+  const [weekdayStart, setWeekdayStart] = useState<string>("");
+  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
+  const [saturdayStart, setSaturdayStart] = useState<string>("");
+  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
+  const [sundayStart, setSundayStart] = useState<string>("");
+  const [sundayEnd, setSundayEnd] = useState<string>("");
 
-export default function WorkTimePickers(props: Readonly<Props>) {
   const formatTime = (input: string) => {
     let cleanInput = input.replace(/\D/g, ""); // Remove non-numeric characters
     if (cleanInput.length > 4) cleanInput = cleanInput.slice(0, 4); // Limit length to 4 digits
@@ -31,27 +23,36 @@ export default function WorkTimePickers(props: Readonly<Props>) {
   };
 
   const handleWeekdayStart = (input: string) => {
-    props.setWeekdayStart(formatTime(input));
+    setWeekdayStart(formatTime(input));
   };
 
   const handleWeekdayEnd = (input: string) => {
-    props.setWeekdayEnd(formatTime(input));
+    setWeekdayEnd(formatTime(input));
   };
 
   const handleSaturdayStart = (input: string) => {
-    props.setSaturdayStart(formatTime(input));
+    setSaturdayStart(formatTime(input));
   };
 
   const handleSaturdayEnd = (input: string) => {
-    props.setSaturdayEnd(formatTime(input));
+    setSaturdayEnd(formatTime(input));
   };
 
   const handleSundayStart = (input: string) => {
-    props.setSundayStart(formatTime(input));
+    setSundayStart(formatTime(input));
   };
 
   const handleSundayEnd = (input: string) => {
-    props.setSundayEnd(formatTime(input));
+    setSundayEnd(formatTime(input));
+  };
+
+  const commonProps = {
+    dense: true,
+    style: styles.timePickerBox,
+    placeholderTextColor: "gray",
+    outlineColor: "rgba(0, 128, 0, 0.8)",
+    activeOutlineColor: "rgba(0, 128, 0, 0.8)",
+    maxLength: 5,
   };
 
   return (
@@ -59,96 +60,66 @@ export default function WorkTimePickers(props: Readonly<Props>) {
       <View style={styles.timeBox}>
         <Text style={{ flex: 1 }}>평일</Text>
         <TextInput
+          {...commonProps}
           placeholder="10:00"
-          dense
           mode="outlined"
-          style={styles.timePickerBox}
-          placeholderTextColor="gray"
-          outlineColor="rgba(0, 128, 0, 0.8)"
-          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={props.weekdayStart}
+          value={weekdayStart}
           onChangeText={handleWeekdayStart}
-          maxLength={5}
           testID="weekdayStart"
         />
         <Text>~</Text>
         <TextInput
+          {...commonProps}
           placeholder="22:00"
-          dense
           mode="outlined"
-          style={styles.timePickerBox}
-          placeholderTextColor="gray"
-          outlineColor="rgba(0, 128, 0, 0.8)"
-          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={props.weekdayEnd}
+          value={weekdayEnd}
           onChangeText={handleWeekdayEnd}
-          maxLength={5}
           testID="weekdayEnd"
         />
       </View>
       <View style={styles.timeBox}>
         <Text style={{ flex: 1 }}>토요일</Text>
         <TextInput
+          {...commonProps}
           placeholder="10:00"
-          dense
           mode="outlined"
-          style={styles.timePickerBox}
-          placeholderTextColor="gray"
-          outlineColor="rgba(0, 128, 0, 0.8)"
-          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={props.saturdayStart}
+          value={saturdayStart}
           onChangeText={handleSaturdayStart}
-          maxLength={5}
           testID="saturdayStart"
         />
         <Text>~</Text>
         <TextInput
+          {...commonProps}
           placeholder="22:00"
-          dense
           mode="outlined"
-          style={styles.timePickerBox}
-          placeholderTextColor="gray"
-          outlineColor="rgba(0, 128, 0, 0.8)"
-          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={props.saturdayEnd}
+          value={saturdayEnd}
           onChangeText={handleSaturdayEnd}
-          maxLength={5}
           testID="saturdayEnd"
         />
       </View>
       <View style={styles.timeBox}>
         <Text style={{ flex: 1 }}>일요일</Text>
         <TextInput
+          {...commonProps}
           placeholder="10:00"
-          dense
           mode="outlined"
-          style={styles.timePickerBox}
-          placeholderTextColor="gray"
-          outlineColor="rgba(0, 128, 0, 0.8)"
-          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={props.sundayStart}
+          value={sundayStart}
           onChangeText={handleSundayStart}
-          maxLength={5}
           testID="sundayStart"
         />
         <Text>~</Text>
         <TextInput
+          {...commonProps}
           placeholder="22:00"
-          dense
           mode="outlined"
-          style={styles.timePickerBox}
-          placeholderTextColor="gray"
-          outlineColor="rgba(0, 128, 0, 0.8)"
-          activeOutlineColor="rgba(0, 128, 0, 0.8)"
           inputMode="numeric"
-          value={props.sundayEnd}
+          value={sundayEnd}
           onChangeText={handleSundayEnd}
-          maxLength={5}
           testID="sundayEnd"
         />
       </View>

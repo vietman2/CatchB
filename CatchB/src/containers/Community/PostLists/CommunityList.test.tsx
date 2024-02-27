@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import CommunityList from "./CommunityList";
+import { BaseballCommunity, RecruitmentCommunity } from "./";
 import { renderWithProviders } from "../../../utils/test-utils";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 
+jest.mock("react-native-gesture-handler", () => ({
+  PanGestureHandler: "PanGestureHandler",
+}));
 jest.mock("react-native-paper", () => {
   return {
     ...jest.requireActual("react-native-paper"),
@@ -20,7 +23,9 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../PostDetail/PostSimple", () => "PostSimple");
+jest.mock("../fragments", () => ({
+  PostSimple: "PostSimple",
+}));
 
 const Stack = createStackNavigator();
 
@@ -28,11 +33,18 @@ const FakePage = () => {
   return <></>;
 };
 
-const components = (mode: "야구톡" | "모집") => {
+const Components = ({ mode }: { mode: "야구톡" | "모집" }) => {
+  const Component = () => {
+    if (mode === "야구톡") {
+      return <BaseballCommunity />;
+    } else {
+      return <RecruitmentCommunity />;
+    }
+  };
   return (
     <NavigationContainer>
-      <CommunityList mode={mode} />
       <Stack.Navigator>
+        <Stack.Screen name="CommunityList" component={Component} />
         <Stack.Screen name="PostDetail" component={FakePage} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -40,22 +52,25 @@ const components = (mode: "야구톡" | "모집") => {
 };
 
 describe("<CommunityList />", () => {
-  it("renders correctly and handles presses", () => {
-    const { getAllByTestId, getByTestId } = renderWithProviders(
-      components("야구톡")
-    );
+  it("renders community mode correctly, and handles navigate to <PostDetail />", async () => {
+    const { getByTestId } = renderWithProviders(<Components mode="야구톡" />);
 
-    fireEvent.press(getAllByTestId("sortChoice")[0]);
-    waitFor(() => fireEvent.press(getByTestId("KBO 개막 D-200")));
+    waitFor(() => fireEvent.press(getByTestId("post-id-1")));
   });
 
-  it("renders recruit mode correctly, and handles filters", () => {
-    const { getAllByTestId, getByTestId } = renderWithProviders(
-      components("모집")
+  it("renders community mode correctly, and handles sort", () => {
+    const { getByTestId, getByText } = renderWithProviders(
+      <Components mode="야구톡" />
     );
 
-    fireEvent.press(getAllByTestId("sortChoice")[0]);
-    fireEvent.press(getByTestId("filters"));
-    fireEvent.press(getByTestId("close"));
+    fireEvent.press(getByTestId("sort-button"));
+    fireEvent.press(getByText("최신순"));
+    fireEvent.press(getByText("인기순"));
+    fireEvent.press(getByText("인기순"));
+    fireEvent.press(getByText("닫기"));
+  });
+
+  it("renders recruit mode correctly", () => {
+    renderWithProviders(<Components mode="모집" />);
   });
 });

@@ -11,13 +11,13 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import PostSimple from "../PostDetail/PostSimple";
+import { PostSimple } from "../fragments";
+import { AppDispatch } from "../../../store/store";
+import { setSelectedPost } from "../../../store/slices/community/postSlice";
 import { themeColors } from "../../../variables/colors";
+import { PostType } from "../../../variables/types/community";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
-import { AppDispatch } from "../../../store/store";
-import { setSelectedPost } from "../../../store/slices/community/communitySlice";
-import { PostType } from "../../../variables/types/community";
 
 interface Props {
   mode: "야구톡" | "모집";
@@ -25,7 +25,7 @@ interface Props {
 
 type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순";
 
-export default function CommunityList({ mode }: Readonly<Props>) {
+export function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
   const [sort, setSort] = useState<Sort>("최신순");
@@ -82,7 +82,7 @@ export default function CommunityList({ mode }: Readonly<Props>) {
         )}
       </TouchableOpacity>
     );
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -100,7 +100,10 @@ export default function CommunityList({ mode }: Readonly<Props>) {
           outlineStyle={styles.searchBar}
         />
         <View style={styles.filters}>
-          <TouchableOpacity onPress={handleOpenBottomSheet} testID="filters">
+          <TouchableOpacity
+            onPress={handleOpenBottomSheet}
+            testID="sort-button"
+          >
             <Chip
               compact
               icon="sort"
@@ -145,7 +148,7 @@ export default function CommunityList({ mode }: Readonly<Props>) {
           <View key={post.id}>
             <TouchableOpacity
               onPress={() => handlePress(post)}
-              testID={post.title}
+              testID={`post-id-${post.id}`}
             >
               <PostSimple post={post} />
             </TouchableOpacity>

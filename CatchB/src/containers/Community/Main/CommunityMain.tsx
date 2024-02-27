@@ -3,26 +3,22 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import CommunityList from "../PostLists/CommunityList";
-import VideoList from "../PostLists/VideoList";
+import {
+  BaseballCommunity,
+  RecruitmentCommunity,
+  VideoCommunity,
+} from "../PostLists";
 import { themeColors } from "../../../variables/colors";
 
 const Tab = createMaterialTopTabNavigator();
 
-function PlaceholderComponent() {
+// TODO: Remove This Later
+export function PlaceholderComponent() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text variant="titleMedium">준비 중입니다.</Text>
     </View>
   );
-}
-
-function BaseballCommunity() {
-  return <CommunityList mode="야구톡" />;
-}
-
-function RecruitmentCommunity() {
-  return <CommunityList mode="모집" />;
 }
 
 export default function Community() {
@@ -54,7 +50,7 @@ export default function Community() {
         }}
       />
       <Tab.Screen name="벼룩시장" component={PlaceholderComponent} />
-      <Tab.Screen name="자세분석" component={VideoList} />
+      <Tab.Screen name="자세분석" component={VideoCommunity} />
       <Tab.Screen name="내 활동" component={PlaceholderComponent} />
     </Tab.Navigator>
   );

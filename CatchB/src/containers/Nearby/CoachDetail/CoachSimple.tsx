@@ -15,10 +15,7 @@ function CoachImage({ coach }: Readonly<Props>) {
   );
 }
 
-export default function CoachSimple({ coach }: Readonly<Props>) {
-
-  
-
+export function CoachSimple({ coach }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <Text variant="headlineMedium" style={{ fontWeight: "bold" }}>

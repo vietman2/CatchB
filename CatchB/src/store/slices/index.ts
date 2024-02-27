@@ -10,7 +10,7 @@ import couponReducer from "./user_management/couponSlice";
 import pointReducer from "./user_management/pointSlice";
 import facilityReducer from "./products/facilitySlice";
 import coachReducer from "./products/coachSlice";
-import communityRedcucer from "./community/communitySlice";
+import communityRedcucer from "./community/postSlice";
 import { RootState } from "../store";
 
 const rootReducer = combineReducers({

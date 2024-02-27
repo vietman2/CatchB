@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { render } from "@testing-library/react-native";
 
-import BackButton from "./BackButton";
-import KakaoButton from "./KakaoButton";
-import NaverButton from "./NaverButton";
-import IconButton from "./IconButton";
-import TabButton from "./TabButton";
+import { BackButton, IconTextButton, NaverButton, KakaoButton, TabButton } from "./";
 
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),
@@ -39,7 +35,7 @@ describe("<BackButton />", () => {
 
 describe("<IconButton />", () => {
   it("renders correctly", () => {
-    render(<IconButton icon="home" title="Home" />);
+    render(<IconTextButton icon="home" title="Home" />);
   });
 });
 

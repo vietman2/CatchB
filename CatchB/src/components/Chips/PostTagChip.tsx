@@ -5,7 +5,7 @@ interface Props {
   label: string;
 }
 
-export default function PostTagChip({ label }: Readonly<Props>) {
+export function PostTagChip({ label }: Readonly<Props>) {
   return (
     <Chip style={styles.chip} textStyle={styles.text} compact>
       {label}

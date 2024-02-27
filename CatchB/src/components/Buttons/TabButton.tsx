@@ -1,7 +1,7 @@
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Text, Icon } from "react-native-paper";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Icon, Text } from "react-native-paper";
 
-interface Props {
+interface TabProps {
   title: string;
   detail: string;
   showArrow: boolean;
@@ -9,13 +9,13 @@ interface Props {
   paddingVertical?: number;
 }
 
-export default function TabButton({
+export function TabButton({
   title,
   detail,
   showArrow,
   onPress,
   paddingVertical,
-}: Readonly<Props>) {
+}: Readonly<TabProps>) {
   return (
     <TouchableOpacity
       style={{ ...styles.tab, paddingVertical: paddingVertical }}

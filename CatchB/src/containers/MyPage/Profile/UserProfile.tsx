@@ -10,9 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Text, Portal, Dialog, Button } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-import AvatarImage from "../../../components/Avatar/AvatarImage";
-import Tab from "../../../components/Buttons/TabButton";
-import VerticalDivider from "../../../components/Divider/VerticalDivider";
+import { AvatarImage } from "../../../components/Profile";
+import { TabButton } from "../../../components/Buttons";
+import { VerticalDivider } from "../../../components/Dividers";
 import { deleteAccount, logout } from "../../../services/user_management/account";
 import { RootState, AppDispatch } from "../../../store/store";
 import { get } from "../../../store/secure";
@@ -72,13 +72,13 @@ export default function UserProfile({ navigation }: Readonly<Props>) {
           <AvatarImage profileImage={user?.profile_image} />
           <Text variant="titleLarge">{`${user?.full_name} (${user?.gender})`}</Text>
           <View style={styles.tabs}>
-            <Tab
+            <TabButton
               title="아이디"
               detail={user?.username || ""}
               showArrow={false}
               paddingVertical={15}
             />
-            <Tab
+            <TabButton
               title="이메일"
               detail={user?.email || ""}
               showArrow
@@ -90,7 +90,7 @@ export default function UserProfile({ navigation }: Readonly<Props>) {
               }
               paddingVertical={15}
             />
-            <Tab
+            <TabButton
               title="휴대폰 번호"
               detail={user?.phone_number || ""}
               showArrow
@@ -104,7 +104,7 @@ export default function UserProfile({ navigation }: Readonly<Props>) {
             />
           </View>
           <View style={styles.tabs}>
-            <Tab
+            <TabButton
               title="닉네임"
               detail={user?.nickname || ""}
               showArrow
@@ -116,7 +116,7 @@ export default function UserProfile({ navigation }: Readonly<Props>) {
               }
               paddingVertical={15}
             />
-            <Tab
+            <TabButton
               title="야구 경력"
               detail={user?.experience_tier || ""}
               showArrow
@@ -128,7 +128,7 @@ export default function UserProfile({ navigation }: Readonly<Props>) {
               }
               paddingVertical={15}
             />
-            <Tab
+            <TabButton
               title="생년월일"
               detail={user?.birth_date || ""}
               showArrow
@@ -142,7 +142,7 @@ export default function UserProfile({ navigation }: Readonly<Props>) {
             />
           </View>
           <View style={styles.tabs}>
-            <Tab
+            <TabButton
               title="비밀번호 변경하기"
               detail=""
               paddingVertical={15}
@@ -151,13 +151,13 @@ export default function UserProfile({ navigation }: Readonly<Props>) {
             />
           </View>
           <View style={styles.tabs}>
-            <Tab
+            <TabButton
               title="연동된 소셜 계정"
               detail="없음"
               paddingVertical={15}
               showArrow
             />
-            <Tab
+            <TabButton
               title="가입 날짜"
               detail={user?.date_joined || ""}
               showArrow={false}

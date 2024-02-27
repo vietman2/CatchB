@@ -9,15 +9,17 @@ import {
 } from "expo-location";
 import { TourGuideZone } from "rn-tourguide";
 
-import HomeContainer from "../Home/HomeStack";
-import NearbyContainer from "../Nearby/NearbyStack";
-import CommunityContainer from "../Community/CommunityStack";
-import HistoryContainer from "../History/HistoryStack";
-import MyPageContainer from "../MyPage/MyPageStack";
-import MyStoreContainer from "../MyStore/MyStoreStack";
-import PromotionContainer from "../Promotion/PromotionStack";
-import SwitchModeDialog from "../../components/Dialogs/SwitchModeDialog";
-import LoginDialog from "../../components/Dialogs/LoginDialog";
+import {
+  CommunityContainer,
+  HistoryContainer,
+  MyPageContainer,
+  MyStoreContainer,
+  NearbyContainer,
+  NormalContainer,
+  ProContainer,
+  PromotionContainer,
+} from "../";
+import { SwitchModeDialog, LoginDialog } from "../../components/Dialogs";
 import {
   RootTabParamList,
   RootTabScreenProps,
@@ -34,7 +36,6 @@ import {
 } from "../../store/slices/user_management/authSlice";
 import { AppDispatch, RootState } from "../../store/store";
 import { get } from "../../store/secure";
-
 /**
  * TabContainer
  * 하단 탭의 구성을 담당한다.
@@ -44,9 +45,7 @@ const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
 export default function TabContainer() {
   const [switchModeVisible, setSwitchModeVisible] = useState(false);
-  const [loginVisible, setLoginVisible] = useState(false);
-  const [loginTitle, setLoginTitle] = useState("");
-  const [loginContents, setLoginContents] = useState("");
+  const [loginVisible, setLoginVisible] = useState(true);
   const mode = useSelector((state: RootState) => state.general.mode);
   const user = useSelector((state: RootState) => state.auth.user);
   const access = useSelector((state: RootState) => state.auth.token);
@@ -72,20 +71,7 @@ export default function TabContainer() {
           await dispatch(setNewToken(response.data));
         } else {
           setLoginVisible(true);
-          setLoginTitle("다시 로그인하기.");
-          setLoginContents(
-            "마지막 로그인 후 30일이 지났습니다. 다시 로그인해주세요."
-          );
         }
-      } else {
-        // 토큰이 없다는 것은 둘중 하나
-        // 1. 로그인을 한 적이 없다.
-        // 2. 로그아웃을 했다.
-
-        // TODO: 로그인을 한 적이 없으면 계정을 만들어보라고 알림 띄우기
-        setLoginVisible(true);
-        setLoginTitle("로그인이 필요합니다.");
-        setLoginContents("더 많은 서비스를 이용하려면 로그인을 해주세요.");
       }
     });
   }, []);
@@ -119,6 +105,14 @@ export default function TabContainer() {
     setSwitchModeVisible(false);
     setLoginVisible(false);
   };
+
+  function HomeContainer() {
+    if (mode === "basic") {
+      return <NormalContainer />;
+    } else {
+      return <ProContainer />;
+    }
+  }
 
   return (
     <>
@@ -207,11 +201,7 @@ export default function TabContainer() {
             options={{
               tabBarLabel: "프로모션",
               tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="gift"
-                  color={color}
-                  size={26}
-                />
+                <MaterialCommunityIcons name="gift" color={color} size={26} />
               ),
             }}
           />
@@ -247,12 +237,7 @@ export default function TabContainer() {
         onClose={onClose}
         setMode={navigate}
       />
-      <LoginDialog
-        visible={loginVisible}
-        title={loginTitle}
-        contents={loginContents}
-        onClose={onClose}
-      />
+      <LoginDialog visible={loginVisible} onClose={onClose} />
     </>
   );
 }

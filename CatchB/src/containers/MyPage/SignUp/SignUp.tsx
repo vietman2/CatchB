@@ -1,22 +1,50 @@
-import { useState } from "react";
+import { useState, SetStateAction } from "react";
 import {
   KeyboardAvoidingView,
   View,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
   Alert,
 } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput, Surface } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import GenderButton from "../../../components/Buttons/GenderButton";
 import { login, register } from "../../../services/user_management/account";
 import { AppDispatch } from "../../../store/store";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
+
+interface Props {
+  gender: "M" | "F" | "N";
+  setGender: (gender: SetStateAction<"M" | "F" | "N">) => void;
+}
+
+function GenderButton({ gender, setGender }: Readonly<Props>) {
+  return (
+    <View style={styles.genderContainer}>
+      <TouchableOpacity onPress={() => setGender("M")} testID="male-button">
+        <Surface
+          mode="flat"
+          style={gender === "M" ? styles.chosen : styles.notChosen}
+        >
+          <Text>남</Text>
+        </Surface>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => setGender("F")} testID="female-button">
+        <Surface
+          mode="flat"
+          style={gender === "F" ? styles.chosen : styles.notChosen}
+        >
+          <Text>여</Text>
+        </Surface>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
 export default function SignUp() {
   const [username, setUsername] = useState<string>("");
@@ -218,6 +246,20 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     marginTop: 60,
+  },
+  genderContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  chosen: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "rgba(64, 196, 20, 0.75)",
+  },
+  notChosen: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "rgba(64, 196, 20, 0.05)",
   },
   errorText: {
     color: themeColors.error,

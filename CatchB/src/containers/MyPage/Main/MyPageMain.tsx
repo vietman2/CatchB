@@ -12,10 +12,9 @@ import { useNavigation } from "@react-navigation/native";
 import ProgressBar from "react-native-progress/Bar";
 import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 
-import AvatarHorizontal from "../../../components/Avatar/AvatarHorizontal";
-import IconButton from "../../../components/Buttons/IconButton";
-import TabButton from "../../../components/Buttons/TabButton";
-import VerticalDivider from "../../../components/Divider/VerticalDivider";
+import { MainProfile } from "../../../components/Profile";
+import { IconTextButton, TabButton } from "../../../components/Buttons";
+import { VerticalDivider } from "../../../components/Dividers";
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
@@ -88,7 +87,10 @@ export default function MyPageMain() {
     if (!user) {
       LoginAlert();
     } else {
-      navigation.navigate("FacilityRegister");
+      navigation.navigate("RegisterPro", {
+        title: "아카데미 등록",
+        type: "facility",
+      });
     }
   };
 
@@ -96,7 +98,10 @@ export default function MyPageMain() {
     if (!user) {
       LoginAlert();
     } else {
-      navigation.navigate("CoachRegister");
+      navigation.navigate("RegisterPro", {
+        title: "코치 등록",
+        type: "coach",
+      });
     }
   };
 
@@ -119,7 +124,7 @@ export default function MyPageMain() {
             onPress={handleBadgePress}
             testID="avatar-horizontal"
           >
-            <AvatarHorizontal user={user} />
+            <MainProfile user={user} />
           </TouchableOpacity>
         </TourGuideZone>
         <View style={styles.progress}>
@@ -134,18 +139,18 @@ export default function MyPageMain() {
         <View style={styles.mainOptions}>
           <View style={styles.menuHorizontal}>
             <TouchableOpacity style={{ flex: 1 }} onPress={() => start()}>
-              <IconButton icon="bookmark" title="찜" />
+              <IconTextButton icon="bookmark" title="찜" />
             </TouchableOpacity>
             <VerticalDivider />
             <TouchableOpacity style={{ flex: 1 }} onPress={handlePaymentsPress}>
-              <IconButton
+              <IconTextButton
                 icon="credit-card-multiple-outline"
                 title="결제수단"
               />
             </TouchableOpacity>
             <VerticalDivider />
             <TouchableOpacity style={{ flex: 1 }} onPress={handleReviewPress}>
-              <IconButton icon="comment-processing" title="리뷰" />
+              <IconTextButton icon="comment-processing" title="리뷰" />
             </TouchableOpacity>
           </View>
           <View style={{ paddingHorizontal: 10 }}>
@@ -191,7 +196,7 @@ export default function MyPageMain() {
               style={{ flex: 1 }}
               labelStyle={styles.labelText}
             >
-              시설 등록하기
+              아카데미 등록하기
             </Button>
           </View>
           <Divider style={styles.divider} />

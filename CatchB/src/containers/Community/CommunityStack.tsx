@@ -3,11 +3,11 @@ import { Icon, Text } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 
-import CommunityMain from "./Main/CommunityMain";
-import PostCreate from "./PostCreate/PostCreate";
-import PostDetail from "./PostDetail/PostDetail";
-import BackButton from "../../components/Buttons/BackButton";
-import { leftTitle } from "../../components/Logos/TopBar";
+import CommunityMain from "./Main";
+import PostCreate from "./PostCreate";
+import PostDetail from "./PostDetail";
+import { BackButton } from "../../components/Buttons";
+import { SmallLogo } from "../../components/Logos";
 import {
   CommunityStackParamList,
   CommunityStackScreenProps,
@@ -43,7 +43,7 @@ export default function CommunityContainer() {
         <Icon source="pencil-plus-outline" size={24} color="black" />
       </TouchableOpacity>
     );
-  }
+  };
 
   return (
     <CommunityStack.Navigator
@@ -56,7 +56,7 @@ export default function CommunityContainer() {
         name="CommunityScreen"
         component={CommunityMain}
         options={{
-          headerLeft: leftTitle,
+          headerLeft: SmallLogo,
           headerTitle: () => null,
           headerRight: () => WriteIcon(),
         }}

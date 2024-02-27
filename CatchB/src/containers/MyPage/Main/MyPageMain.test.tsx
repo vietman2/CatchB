@@ -18,15 +18,13 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Divider: "Divider",
-    Text: "Text",
-    TouchableRipple: "TouchableRipple",
     Button: ({ onPress, children }: any) => (
-      <TouchableOpacity onPress={onPress} accessibilityLabel="버튼">
+      <TouchableOpacity onPress={onPress}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
-    Chip: "Chip",
+    Divider: "Divider",
+    Text: "Text",
   };
 });
 jest.mock("react-native-progress/Bar", () => "ProgressBar");
@@ -34,36 +32,28 @@ jest.mock("rn-tourguide", () => ({
   TourGuideZone: "TourGuideZone",
   useTourGuideController: () => ({ start: jest.fn() }),
 }));
-jest.mock("../../../components/Avatar/AvatarHorizontal", () => {
-  const { View } = jest.requireActual("react-native");
-  return () => <View testID="badge">ProfileBadge</View>;
+jest.mock("../../../components/Profile", () => ({
+  MainProfile: "MainProfile",
+}));
+jest.mock("../../../components/Buttons", () => {
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+
+  return {
+    IconTextButton: ({ title }: any) => <Text>{title}</Text>,
+    TabButton: ({ title, onPress }: any) => (
+      <TouchableOpacity onPress={onPress}>
+        <Text>{title}</Text>
+      </TouchableOpacity>
+    ),
+  };
 });
-jest.mock("../../../components/Buttons/IconButton", () => {
-  const { Text, TouchableOpacity } = jest.requireActual("react-native");
-  return ({ icon, title, onPress }: any) => (
-    <TouchableOpacity onPress={onPress}>
-      <Text testID="icon">{icon}</Text>
-      <Text testID="title">{title}</Text>
-    </TouchableOpacity>
-  );
-});
-jest.mock("../../../components/Buttons/TabButton", () => {
-  const { Text, TouchableOpacity } = jest.requireActual("react-native");
-  return ({ title, detail }: any) => (
-    <TouchableOpacity>
-      <Text testID="title">{title}</Text>
-      <Text testID="detail">{detail}</Text>
-    </TouchableOpacity>
-  );
-});
-jest.mock(
-  "../../../components/Divider/VerticalDivider",
-  () => "VerticalDivider"
-);
+jest.mock("../../../components/Dividers", () => ({
+  VerticalDivider: "VerticalDivider",
+}));
 
 const Stack = createStackNavigator();
 
-const components = () => {
+const Components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -73,8 +63,7 @@ const components = () => {
         <Stack.Screen name="EditProfile" component={MyPageMain} />
         <Stack.Screen name="CouponList" component={MyPageMain} />
         <Stack.Screen name="Points" component={MyPageMain} />
-        <Stack.Screen name="CoachRegister" component={MyPageMain} />
-        <Stack.Screen name="FacilityRegister" component={MyPageMain} />
+        <Stack.Screen name="RegisterPro" component={MyPageMain} />
         <Stack.Screen name="Payments" component={MyPageMain} />
         <Stack.Screen name="Reviews" component={MyPageMain} />
         <Stack.Screen name="FAQ" component={MyPageMain} />
@@ -84,38 +73,45 @@ const components = () => {
 };
 
 describe("<MyPage />", () => {
-  it("navigates to Login screen when user is not logged in", () => {
-    const { getByTestId, getByText } = renderWithProviders(components());
+  it("handles navigate to login when not logged in", () => {
+    const { getByText, getByTestId } = renderWithProviders(<Components />);
 
     waitFor(() => {
+      fireEvent.press(getByTestId("avatar-horizontal"));
       fireEvent.press(getByText("찜"));
-      fireEvent.press(getByText("결제수단"));
       fireEvent.press(getByText("리뷰"));
-      fireEvent.press(getByTestId("badge"));
+      fireEvent.press(getByText("결제수단"));
       fireEvent.press(getByText("쿠폰함"));
       fireEvent.press(getByText("포인트"));
       fireEvent.press(getByText("코치 등록하기"));
-      fireEvent.press(getByText("시설 등록하기"));
+      fireEvent.press(getByText("아카데미 등록하기"));
     });
   });
 
-  it("handles login alert", async () => {
-    jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
-    const { getByText } = renderWithProviders(components());
-
-    await waitFor(() => {
-      fireEvent.press(getByText("쿠폰함"));
+  it("handles navigate when logged in", () => {
+    const { getByText, getByTestId } = renderWithProviders(<Components />, {
+      preloadedState: {
+        auth: {
+          token: "token",
+          user: admin,
+        },
+      },
     });
-
-    const alert = Alert.alert.mock.calls[0][2];
 
     waitFor(() => {
-      alert[1].onPress();
+      fireEvent.press(getByTestId("avatar-horizontal"));
+      fireEvent.press(getByText("찜"));
+      fireEvent.press(getByText("리뷰"));
+      fireEvent.press(getByText("결제수단"));
+      fireEvent.press(getByText("쿠폰함"));
+      fireEvent.press(getByText("포인트"));
+      fireEvent.press(getByText("코치 등록하기"));
+      fireEvent.press(getByText("아카데미 등록하기"));
     });
   });
 
-  it("handles menu press", () => {
-    const { getByText } = renderWithProviders(components());
+  it("handles menu press : not ready yet", () => {
+    const { getByText } = renderWithProviders(<Components />);
 
     waitFor(() => {
       fireEvent.press(getByText("친구 초대하기"));
@@ -133,7 +129,7 @@ describe("<MyPage />", () => {
   });
 
   it("handles share", () => {
-    const { getByText } = renderWithProviders(components(), {
+    const { getByText } = renderWithProviders(<Components />, {
       preloadedState: {
         auth: {
           token: "token",
@@ -146,6 +142,21 @@ describe("<MyPage />", () => {
 
     waitFor(() => {
       fireEvent.press(getByText("친구 초대하기"));
+    });
+  });
+
+  it("handles login alert", async () => {
+    jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
+    const { getByText } = renderWithProviders(<Components />);
+
+    await waitFor(() => {
+      fireEvent.press(getByText("쿠폰함"));
+    });
+
+    const alert = Alert.alert.mock.calls[0][2];
+
+    waitFor(() => {
+      alert[1].onPress();
     });
   });
 });

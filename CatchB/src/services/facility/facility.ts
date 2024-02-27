@@ -17,7 +17,7 @@ export async function registerFacility(
   zip_code: number,
   bcode: string
 ) {
-  const url = `${API_LOCAL_URL}/api/facilities/`;
+  const url = `${API_LOCAL_URL}/api/products/facilities/`;
 
   try {
     const response = await axios.post(
@@ -79,7 +79,7 @@ export async function uploadDetails(
   others: string[],
   images: ImagePickerAsset[]
 ) {
-  const url = `${API_LOCAL_URL}/api/facilities/${facility_uuid}/`;
+  const url = `${API_LOCAL_URL}/api/products/facilities/${facility_uuid}/`;
   const formData = new FormData();
 
   for (let i = 0; i < images.length; i++) {
@@ -138,5 +138,29 @@ export async function uploadDetails(
         data: "Server Error",
       };
     }
+  }
+}
+
+export async function getRegionsList() {
+  const url = `${API_LOCAL_URL}/api/products/regions/`;
+
+  try {
+    const response = await axios.get(url);
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
   }
 }

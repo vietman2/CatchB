@@ -1,10 +1,10 @@
 import { StyleSheet, View } from "react-native";
-import { Button, Icon, Text } from "react-native-paper";
 import { useSelector } from "react-redux";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Button, Icon, Text } from "react-native-paper";
 
 import { RootState } from "../../../store/store";
 import { themeColors } from "../../../variables/colors";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 
 export default function FacilityReserve() {

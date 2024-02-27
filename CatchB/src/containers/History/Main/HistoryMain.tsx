@@ -4,15 +4,17 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 
 import { themeColors } from "../../../variables/colors";
 
-const Tab = createMaterialTopTabNavigator();
-
-function NotReady() {
+// TODO: Remove this later
+export function NotReady() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text variant="headlineSmall">준비중입니다.</Text>
     </View>
   );
 }
+
+
+const Tab = createMaterialTopTabNavigator();
 
 export default function HistoryMain() {
   return (

@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import HistoryMain from "./Main/HistoryMain";
-import { leftTitle } from "../../components/Logos/TopBar";
+import HistoryMain from "./Main";
+import { SmallLogo } from "../../components/Logos";
 import { HistoryStackParamList } from "../../variables/navigation";
 
 const HistoryStack = createStackNavigator<HistoryStackParamList>();
@@ -11,7 +11,7 @@ export default function HistoryContainer() {
     <HistoryStack.Navigator
       initialRouteName="HistoryScreen"
       screenOptions={{
-        headerLeft: leftTitle,
+        headerLeft: SmallLogo,
         headerTitle: () => {
           return null;
         },

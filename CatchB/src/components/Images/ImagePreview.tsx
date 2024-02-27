@@ -1,27 +1,20 @@
-import { View, ImageBackground, TouchableOpacity } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Icon } from "react-native-paper";
 
-interface Props {
+interface PreviewProps {
   uri: string;
   removeImage: () => void;
 }
 
-export default function ImagePreview({ uri, removeImage }: Readonly<Props>) {
+export function ImagePreview({ uri, removeImage }: Readonly<PreviewProps>) {
   return (
-    <View
-      style={{
-        width: 120,
-        height: 120,
-        marginRight: 10,
-        marginBottom: 10,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <ImageBackground
-        source={{ uri }}
-        style={{ width: 120, height: 120, borderRadius: 8 }}
-      >
+    <View style={styles.container}>
+      <ImageBackground source={{ uri }} style={styles.image}>
         <TouchableOpacity
           onPress={removeImage}
           style={{
@@ -39,3 +32,18 @@ export default function ImagePreview({ uri, removeImage }: Readonly<Props>) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: 120,
+    height: 120,
+    marginRight: 10,
+    marginBottom: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width: 120,
+    height: 120,
+  },
+});

@@ -7,10 +7,6 @@ import { renderWithProviders } from "../../utils/test-utils";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("../../components/Logos/TopBar", () => ({
-  leftTitle: () => "leftTitle",
-  rightTitle: () => "rightTitle",
-}));
 jest.mock("./Main/MyStoreMain", () => "MyStoreMain");
 jest.mock("./WorkProgress/WorkProgress", () => "WorkProgress");
 

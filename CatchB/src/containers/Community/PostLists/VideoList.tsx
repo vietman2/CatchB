@@ -1,31 +1,40 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
-function PlaceholderView({ color }: Readonly<{ color: string }>) {
-  return <View style={[styles.placeholder, { backgroundColor: color }]} />;
+// TODO: Remove This Later
+export function PlaceholderComponent({ color }: Readonly<{ color: string }>) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        height: 200,
+        backgroundColor: color,
+      }}
+    />
+  );
 }
 
-export default function VideoList() {
+export function VideoList() {
   return (
     <ScrollView>
       <View style={styles.horizontal}>
-        <PlaceholderView color="gray" />
-        <PlaceholderView color="silver" />
-        <PlaceholderView color="lightgray" />
+        <PlaceholderComponent color="gray" />
+        <PlaceholderComponent color="silver" />
+        <PlaceholderComponent color="lightgray" />
       </View>
       <View style={styles.horizontal}>
-        <PlaceholderView color="lemonchiffon" />
-        <PlaceholderView color="ivory" />
-        <PlaceholderView color="beige" />
+        <PlaceholderComponent color="lemonchiffon" />
+        <PlaceholderComponent color="ivory" />
+        <PlaceholderComponent color="beige" />
       </View>
       <View style={styles.horizontal}>
-        <PlaceholderView color="green" />
-        <PlaceholderView color="lightgreen" />
-        <PlaceholderView color="teal" />
+        <PlaceholderComponent color="green" />
+        <PlaceholderComponent color="lightgreen" />
+        <PlaceholderComponent color="teal" />
       </View>
       <View style={styles.horizontal}>
-        <PlaceholderView color="blue" />
-        <PlaceholderView color="skyblue" />
-        <PlaceholderView color="lightblue" />
+        <PlaceholderComponent color="blue" />
+        <PlaceholderComponent color="skyblue" />
+        <PlaceholderComponent color="lightblue" />
       </View>
     </ScrollView>
   );
@@ -34,9 +43,5 @@ export default function VideoList() {
 const styles = StyleSheet.create({
   horizontal: {
     flexDirection: "row",
-  },
-  placeholder: {
-    flex: 1,
-    height: 200,
   },
 });

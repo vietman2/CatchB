@@ -1,85 +1,15 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { ActivityIndicator, Divider, Icon, Text } from "react-native-paper";
+import { Divider, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
 
+import { ActivityIndicator, Coupon, NoCoupon } from "./fragments";
 import { getCouponList } from "../../../services/user_management/coupon";
 import { setCouponListState } from "../../../store/slices/user_management/couponSlice";
 import { AppDispatch, RootState } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
-import { CouponType } from "../../../variables/types/users";
-
-function NoCoupon() {
-  return (
-    <View style={styles.noCouponContainer}>
-      <View style={styles.noCoupon} />
-      <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
-        보유한 쿠폰이 없습니다.
-      </Text>
-    </View>
-  );
-}
-
-function MyCoupon({ coupon }: Readonly<{ coupon: CouponType }>) {
-  return (
-    <View style={styles.coupon}>
-      <LinearGradient
-        colors={["lightblue", "gold"]}
-        style={styles.gradient}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        locations={[0.4, 0.9]}
-      >
-        <View style={styles.couponInfo}>
-          <Text
-            variant="headlineMedium"
-            style={{ fontFamily: "Catch B ExtraBold", marginBottom: 5 }}
-          >
-            {coupon.coupon_class.coupon_name}
-          </Text>
-          <Text variant="bodyLarge">
-            {coupon.coupon_class.coupon_description}
-          </Text>
-          <Text variant="bodySmall">만료기한 {coupon.valid_until}</Text>
-        </View>
-      </LinearGradient>
-    </View>
-  );
-}
-
-function NewCoupon() {
-  return (
-    <View style={styles.coupon}>
-      <LinearGradient
-        colors={["white", "silver"]}
-        style={styles.gradient}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        locations={[0.4, 0.9]}
-      >
-        <View style={styles.couponInfo}>
-          <Text variant="headlineMedium">다운 가능한 쿠폰</Text>
-        </View>
-        <View style={styles.download}>
-          <Icon source="tray-arrow-down" size={32} />
-        </View>
-      </LinearGradient>
-    </View>
-  );
-}
-
-function MyActivityIndicator() {
-  return (
-    <ActivityIndicator
-      size={"large"}
-      color={themeColors.primary}
-      style={{ flex: 1, marginBottom: 30 }}
-    />
-  );
-}
 
 export default function CouponList() {
   const [loading, setLoading] = useState(true);
@@ -114,10 +44,10 @@ export default function CouponList() {
       return (
         <ScrollView>
           {coupons.map((coupon) => {
-            return <MyCoupon key={coupon.id} coupon={coupon} />;
+            return <Coupon key={coupon.id} coupon={coupon} />;
           })}
           <Divider />
-          <NewCoupon />
+          <Coupon />
         </ScrollView>
       );
     }
@@ -131,7 +61,7 @@ export default function CouponList() {
           <Text variant="titleMedium">+ 쿠폰등록</Text>
         </TouchableOpacity>
       </View>
-      {loading ? <MyActivityIndicator /> : renderCoupons()}
+      {loading ? <ActivityIndicator /> : renderCoupons()}
     </View>
   );
 }
@@ -147,36 +77,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 20,
     marginBottom: 10,
-  },
-  noCoupon: {
-    backgroundColor: "gray",
-    width: 100,
-    height: 100,
-    marginBottom: 20,
-  },
-  noCouponContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  coupon: {
-    borderRadius: 10,
-    borderWidth: 1,
-    backgroundColor: "silver",
-    flexDirection: "row",
-    marginHorizontal: 20,
-    marginVertical: 10,
-  },
-  gradient: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 25,
-    borderRadius: 10,
-  },
-  couponInfo: {
-    marginVertical: 20,
-  },
-  download: {
-    flex: 1,
   },
 });
