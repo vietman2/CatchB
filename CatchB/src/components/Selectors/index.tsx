@@ -1,3 +1,4 @@
+import { RegionSelector } from "./RegionSelector";
 import { Selector } from "./Selectors";
 
-export { Selector }
+export { RegionSelector, Selector }

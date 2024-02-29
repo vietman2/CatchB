@@ -4,4 +4,10 @@ import { ImagePicker } from "./ImagePicker";
 import { NumberPicker } from "./NumberPicker";
 import { WorkTimePickers } from "./WorkTimePickers";
 
-export { AreaPicker, FilePicker, ImagePicker, NumberPicker, WorkTimePickers };
+export {
+  AreaPicker,
+  FilePicker,
+  ImagePicker,
+  NumberPicker,
+  WorkTimePickers,
+};

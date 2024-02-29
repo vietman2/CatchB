@@ -20,7 +20,7 @@ export function ImagePicker({
 }: Readonly<Props>) {
   const uploadImage = async () => {
     const result = await launchImageLibraryAsync({
-      mediaTypes: MediaTypeOptions.Images,
+      mediaTypes: MediaTypeOptions.All,
       allowsMultipleSelection: true,
       selectionLimit: 10 - uploadedImages.length,
     });

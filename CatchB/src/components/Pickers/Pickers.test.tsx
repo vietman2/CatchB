@@ -235,7 +235,7 @@ describe("<FilePicker />", () => {
       })
     );
     const { getByText } = renderWithProviders(
-      <FilePicker setUploadedFile={jest.fn()} />
+      <FilePicker setUploadedFile={jest.fn()} uploadedFile={null} type="pdf" />
     );
 
     fireEvent.press(getByText("파일 업로드"));
