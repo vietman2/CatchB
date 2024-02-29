@@ -16,20 +16,19 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Icon: "Icon",
-    Text: "Text",
     Button: ({ onPress, children, testID }: any) => (
       <TouchableOpacity onPress={onPress} testID={testID}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
+    Icon: "Icon",
+    Text: "Text",
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock(
-  "../../../components/Tables/LessonProductsTable",
-  () => "LessonProductsTable"
-);
+jest.mock("../../../components/Tables", () => ({
+  LessonProductsTable: "LessonProductsTable",
+}));
 
 const Stack = createStackNavigator();
 

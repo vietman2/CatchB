@@ -11,7 +11,7 @@ import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import LessonProductsTable from "../../../components/Tables/LessonProductsTable";
+import { LessonProductsTable } from "../../../components/Tables";
 import { themeColors } from "../../../variables/colors";
 import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
