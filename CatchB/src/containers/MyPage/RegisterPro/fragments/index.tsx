@@ -1,3 +1,21 @@
-import { MainTitle, SubTitle, DisabledTextInput } from "./fragments";
+import {
+  MainTitle,
+  SubTitle,
+  DisabledTextInput,
+  IconButton,
+  IconText,
+  BankAccountPreview,
+  Bank,
+  BankChoice,
+} from "./fragments";
 
-export { MainTitle, SubTitle, DisabledTextInput };
+export {
+  MainTitle,
+  SubTitle,
+  DisabledTextInput,
+  IconButton,
+  IconText,
+  BankAccountPreview,
+  Bank,
+  BankChoice,
+};
