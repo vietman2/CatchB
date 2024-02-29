@@ -64,3 +64,15 @@ export type LessonProduct = {
   description: string;
   price: number;
 };
+
+export type Sido = {
+  sido_code: string;
+  sido_name: string;
+  label: string;
+};
+
+export type Sigungu = {
+  code: string;
+  name: string;
+  label: string;
+};
