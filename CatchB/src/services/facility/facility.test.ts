@@ -25,7 +25,8 @@ describe("registerFacility", () => {
       "road_address_part2",
       "building_name",
       12345,
-      "1100000000"
+      "1100000000",
+      "token"
     );
 
   it("should successfully register facility", async () => {

@@ -15,7 +15,8 @@ export async function registerFacility(
   road_address_part2: string,
   building_name: string,
   zip_code: number,
-  bcode: string
+  bcode: string,
+  token: string
 ) {
   const url = `${API_LOCAL_URL}/api/products/facilities/`;
 
@@ -37,7 +38,7 @@ export async function registerFacility(
       },
       {
         headers: {
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
