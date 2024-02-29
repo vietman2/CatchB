@@ -3,7 +3,7 @@ import HistoryContainer from "./History/HistoryStack";
 import MyPageContainer from "./MyPage/MyPageStack";
 import MyStoreContainer from "./MyStore/MyStoreStack";
 import NearbyContainer from "./Nearby/NearbyStack";
-import NormalHome from "./NormalMode/NormalHome";
+import NormalHome from "./NormalMode/NormalModeContainer";
 import ProMode from "./ProMode/ProModeContainer";
 import PromotionContainer from "./Promotion/PromotionStack";
 

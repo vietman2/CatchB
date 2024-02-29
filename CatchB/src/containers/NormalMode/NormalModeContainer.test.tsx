@@ -1,8 +1,8 @@
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import NormalHome from "./NormalHome";
+import NormalHome from "./NormalModeContainer";
 import { renderWithProviders } from "../../utils/test-utils";
 import { admin } from "../../variables/mvp_dummy_data/user";
 
@@ -18,23 +18,25 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
   };
 });
-jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("./fragments", () => ({
   CoachPreview: "CoachPreview",
   CoachTypes: "CoachTypes",
   Filters: "Filters",
   Shortcut: "Shortcut",
 }));
+jest.mock("../../components/Logos", () => ({
+  SmallLogo: () => "SmallLogo",
+}));
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function Components() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Normal" component={NormalHome} />
-        <Stack.Screen name="Nearby" component={NormalHome} />
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Normal" component={NormalHome} />
+        <Tab.Screen name="Nearby" component={NormalHome} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
