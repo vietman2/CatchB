@@ -9,12 +9,19 @@ import {
 } from "react-native";
 import { Surface, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import { CoachPreview, CoachTypes, Filters, Shortcut } from "./fragments";
-import { HomeStackScreenProps } from "../../variables/navigation";
+import { SmallLogo } from "../../components/Logos";
+import {
+  HomeStackScreenProps,
+  HomeStackParamList,
+} from "../../variables/navigation";
 import { sampleCoaches } from "../../variables/mvp_dummy_data/coaches";
 
-export default function NormalHome() {
+const NormalStack = createStackNavigator<HomeStackParamList>();
+
+function NormalHome() {
   const [selected, setSelected] = useState<CoachTypes>("타격");
   const navigation =
     useNavigation<HomeStackScreenProps<"SplashScreen">["navigation"]>();
@@ -78,6 +85,23 @@ export default function NormalHome() {
       </View>
     </ScrollView>
   );
+}
+
+export default function NormalModeContainer() {
+ return (
+   <NormalStack.Navigator
+     initialRouteName="SplashScreen"
+     screenOptions={{
+       headerLeft: SmallLogo,
+       headerTitle: () => {
+         return null;
+       },
+       headerShadowVisible: false,
+     }}
+   >
+     <NormalStack.Screen name="SplashScreen" component={NormalHome} />
+   </NormalStack.Navigator>
+ );
 }
 
 const styles = StyleSheet.create({
