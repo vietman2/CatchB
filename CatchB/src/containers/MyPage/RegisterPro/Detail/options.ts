@@ -42,3 +42,14 @@ export const otherChoices = [
   "반려동물 출입가능",
   "휠체어 출입가능",
 ];
+
+export const partChoices = ["투구", "타격", "수비", "포수수비", "재활", "컨디셔닝"];
+
+export const levelChoices = [
+  "왕초보/기초",
+  "주니어/아동",
+  "중고등 선수",
+  "사회인 야구",
+  "그룹 레슨",
+  "기타",
+];
