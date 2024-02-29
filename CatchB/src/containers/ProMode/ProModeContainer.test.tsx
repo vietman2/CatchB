@@ -12,29 +12,26 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
+    Badge: "Badge",
+    Icon: "Icon",
     Text: "Text",
   };
 });
-jest.mock("./Home/ProHome", () => {
-  return {
-    ProHome: "ProHome",
-  };
-});
-jest.mock("./Calendar/Calendar", () => {
-  return {
-    Calendar: "Calendar",
-  };
-});
-jest.mock("./StoreDashboard/StoreDashboard", () => {
-  return {
-    StoreDashboard: "StoreDashboard",
-  };
-});
-jest.mock("./Sales/Sales", () => {
-  return {
-    Sales: "Sales",
-  };
-});
+jest.mock("./Home/ProHome", () => ({
+  ProHome: "ProHome",
+}));
+jest.mock("./Calendar/Calendar", () => ({
+  Calendar: "Calendar",
+}));
+jest.mock("./StoreDashboard/StoreDashboard", () => ({
+  StoreDashboard: "StoreDashboard",
+}));
+jest.mock("./Sales/Sales", () => ({
+  Sales: "Sales",
+}));
+jest.mock("../../components/Logos", () => ({
+  SmallLogo: () => "SmallLogo",
+}));
 
 const Tab = createBottomTabNavigator();
 
