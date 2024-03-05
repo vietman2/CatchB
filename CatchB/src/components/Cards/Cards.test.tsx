@@ -2,12 +2,10 @@ import { render } from "@testing-library/react-native";
 
 import { HomeCard, StatsCard } from "./";
 
-jest.mock("react-native-paper", () => {
-  return {
-    Icon: "Icon",
-    Text: "Text",
-  };
-});
+jest.mock("react-native-paper", () => ({
+  Icon: "Icon",
+  Text: "Text",
+}));
 
 describe("<MyCard />", () => {
   it("renders type 1 correctly", () => {
@@ -76,11 +74,6 @@ describe("<StatsCard />", () => {
   });
 
   it("renders no icons correctly", () => {
-    render(
-      <StatsCard
-        title="Title"
-        content="Content"
-      />
-    );
+    render(<StatsCard title="Title" content="Content" />);
   });
 });
