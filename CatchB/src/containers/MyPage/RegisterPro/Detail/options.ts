@@ -16,7 +16,7 @@ export const amenityChoices = [
   "어린이 놀이시설",
   "노키즈존",
   "자판기",
-  "프로샵"
+  "프로샵",
 ];
 
 export const equipmentChoices = [
@@ -43,13 +43,22 @@ export const otherChoices = [
   "휠체어 출입가능",
 ];
 
-export const partChoices = ["투구", "타격", "수비", "포수수비", "재활", "컨디셔닝"];
+export const partChoices = [
+  "투구",
+  "타격",
+  "수비",
+  "포수수비",
+  "재활",
+  "컨디셔닝",
+];
 
 export const levelChoices = [
-  "왕초보/기초",
-  "주니어/아동",
-  "중고등 선수",
-  "사회인 야구",
-  "그룹 레슨",
-  "기타",
+  "비기너1",
+  "비기너2",
+  "아마추어",
+  "베테랑",
+  "루키",
+  "엘리트"
 ];
+
+export const typeChoices = ["개인 레슨", "소그룹 레슨", "팀 레슨", "기타"];
