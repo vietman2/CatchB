@@ -2,14 +2,53 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, TextInput } from "react-native-paper";
 
-export function WorkTimePickers() {
-  const [weekdayStart, setWeekdayStart] = useState<string>("");
-  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
-  const [saturdayStart, setSaturdayStart] = useState<string>("");
-  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
-  const [sundayStart, setSundayStart] = useState<string>("");
-  const [sundayEnd, setSundayEnd] = useState<string>("");
+interface Props {
+  weekdayStart: string;
+  setWeekdayStart: (input: string) => void;
+  weekdayEnd: string;
+  setWeekdayEnd: (input: string) => void;
+  saturdayStart: string;
+  setSaturdayStart: (input: string) => void;
+  saturdayEnd: string;
+  setSaturdayEnd: (input: string) => void;
+  sundayStart: string;
+  setSundayStart: (input: string) => void;
+  sundayEnd: string;
+  setSundayEnd: (input: string) => void;
+}
 
+export function WorkTimePickers({
+  weekdayStart,
+  setWeekdayStart,
+  weekdayEnd,
+  setWeekdayEnd,
+  saturdayStart,
+  setSaturdayStart,
+  saturdayEnd,
+  setSaturdayEnd,
+  sundayStart,
+  setSundayStart,
+  sundayEnd,
+  setSundayEnd,
+}: Readonly<Props>) {
+  if (weekdayStart === undefined) {
+    throw new Error("weekdayStart is undefined");
+  }
+  if (weekdayEnd === undefined) {
+    throw new Error("weekdayEnd is undefined");
+  }
+  if (saturdayStart === undefined) {
+    throw new Error("saturdayStart is undefined");
+  }
+  if (saturdayEnd === undefined) {
+    throw new Error("saturdayEnd is undefined");
+  }
+  if (sundayStart === undefined) {
+    throw new Error("sundayStart is undefined");
+  }
+  if (sundayEnd === undefined) {
+    throw new Error("sundayEnd is undefined");
+  }
   const formatTime = (input: string) => {
     let cleanInput = input.replace(/\D/g, ""); // Remove non-numeric characters
     if (cleanInput.length > 4) cleanInput = cleanInput.slice(0, 4); // Limit length to 4 digits
