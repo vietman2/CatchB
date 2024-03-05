@@ -3,8 +3,6 @@ export type BankType = {
   name: string;
   kor_code: string;
   eng_code: string;
-
-  //image: Image;
 };
 
 export type BankAccountType = {
