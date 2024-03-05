@@ -9,15 +9,11 @@ interface Props {
   onChange: (value: number) => void;
 }
 
-export function NumberPicker({
-  label,
-  value,
-  onChange,
-}: Readonly<Props>) {
+export function NumberPicker({ label, value, onChange }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <View style={styles.numbers}>
-        <View style={{ flex: 2 }}>
+        <View style={styles.titleBox}>
           <Text variant="bodyLarge" style={styles.title}>
             {label}
           </Text>
@@ -55,6 +51,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 8,
     backgroundColor: themeColors.tertiary,
+  },
+  titleBox: {
+    flex: 2,
   },
   title: {
     fontWeight: "600",

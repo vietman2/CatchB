@@ -23,7 +23,7 @@ export function Selector({
   setMultiSelected,
 }: Readonly<Props>) {
   const { width } = Dimensions.get("window");
-  const itemWidth =  (width - 40) / 2;
+  const itemWidth = (width - 40) / 2;
 
   const isSelected = (option: string) => {
     if (multiple) {
@@ -46,7 +46,7 @@ export function Selector({
   };
 
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    <View style={styles.selector}>
       {options.map((option) => (
         <View key={option} style={noIcon ? {} : { width: itemWidth }}>
           <TouchableOpacity
@@ -60,7 +60,11 @@ export function Selector({
                 : themeColors.tertiary,
             }}
           >
-            <SelectionChip label={option} selected={isSelected(option)} noIcon={noIcon} />
+            <SelectionChip
+              label={option}
+              selected={isSelected(option)}
+              noIcon={noIcon}
+            />
           </TouchableOpacity>
         </View>
       ))}
@@ -123,5 +127,9 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
+  },
+  selector: {
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 });

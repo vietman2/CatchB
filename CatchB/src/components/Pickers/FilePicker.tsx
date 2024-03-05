@@ -22,17 +22,18 @@ export function FilePicker({
   setUploadedFile,
   type,
 }: Readonly<Props>) {
+  // TODO: Implement file removal
   const handleUpload = async () => {
     if (type === "image") {
       const result = await launchImageLibraryAsync({
         mediaTypes: MediaTypeOptions.Images,
       });
 
-      if (result.canceled) return;
+      if (!result.canceled) {
+        const image = result as ImagePickerSuccessResult;
 
-      const image = result as ImagePickerSuccessResult;
-
-      setUploadedFile(image.assets[0]);
+        setUploadedFile(image.assets[0]);
+      }
     } else {
       const result = await getDocumentAsync({
         type: ["application/pdf"],
@@ -60,7 +61,7 @@ export function FilePicker({
   return (
     <TouchableOpacity style={styles.upload} onPress={handleUpload}>
       <Icon source="plus-circle" size={24} color="green" />
-      <Text variant="titleMedium" style={{ marginLeft: 10, color: "gray" }}>
+      <Text variant="titleMedium" style={styles.text}>
         {renderText()}
       </Text>
     </TouchableOpacity>
@@ -77,5 +78,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     alignItems: "center",
     overflow: "hidden",
+  },
+  text: {
+    marginLeft: 10,
+    color: "gray",
   },
 });

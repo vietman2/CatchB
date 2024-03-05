@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, TextInput } from "react-native-paper";
 
@@ -31,24 +30,6 @@ export function WorkTimePickers({
   sundayEnd,
   setSundayEnd,
 }: Readonly<Props>) {
-  if (weekdayStart === undefined) {
-    throw new Error("weekdayStart is undefined");
-  }
-  if (weekdayEnd === undefined) {
-    throw new Error("weekdayEnd is undefined");
-  }
-  if (saturdayStart === undefined) {
-    throw new Error("saturdayStart is undefined");
-  }
-  if (saturdayEnd === undefined) {
-    throw new Error("saturdayEnd is undefined");
-  }
-  if (sundayStart === undefined) {
-    throw new Error("sundayStart is undefined");
-  }
-  if (sundayEnd === undefined) {
-    throw new Error("sundayEnd is undefined");
-  }
   const formatTime = (input: string) => {
     let cleanInput = input.replace(/\D/g, ""); // Remove non-numeric characters
     if (cleanInput.length > 4) cleanInput = cleanInput.slice(0, 4); // Limit length to 4 digits
@@ -97,7 +78,7 @@ export function WorkTimePickers({
   return (
     <>
       <View style={styles.timeBox}>
-        <Text style={{ flex: 1 }}>평일</Text>
+        <Text style={styles.text}>평일</Text>
         <TextInput
           {...commonProps}
           placeholder="10:00"
@@ -119,7 +100,7 @@ export function WorkTimePickers({
         />
       </View>
       <View style={styles.timeBox}>
-        <Text style={{ flex: 1 }}>토요일</Text>
+        <Text style={styles.text}>토요일</Text>
         <TextInput
           {...commonProps}
           placeholder="10:00"
@@ -141,7 +122,7 @@ export function WorkTimePickers({
         />
       </View>
       <View style={styles.timeBox}>
-        <Text style={{ flex: 1 }}>일요일</Text>
+        <Text style={styles.text}>일요일</Text>
         <TextInput
           {...commonProps}
           placeholder="10:00"
@@ -176,5 +157,8 @@ const styles = StyleSheet.create({
     flex: 3,
     marginHorizontal: 10,
     height: 35,
+  },
+  text: {
+    flex: 1,
   },
 });
