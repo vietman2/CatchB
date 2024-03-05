@@ -78,7 +78,8 @@ export async function uploadDetails(
   numPlates: number,
   additionalEquipment: string[],
   others: string[],
-  images: ImagePickerAsset[]
+  images: ImagePickerAsset[],
+  token: string
 ) {
   const url = `${API_LOCAL_URL}/api/products/facilities/${facility_uuid}/`;
   const formData = new FormData();
@@ -120,6 +121,7 @@ export async function uploadDetails(
     const response = await axios.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`,
       },
     });
 
