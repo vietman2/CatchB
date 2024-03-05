@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { Points } from "../../../variables/types";
+import { PointsType } from "../../../variables/types/users";
 
 const initialState: {
   totalPoints: number;
-  pointsDetails: Points[];
+  pointsDetails: PointsType[];
 } = {
   totalPoints: 0,
   pointsDetails: [],
@@ -12,7 +12,7 @@ const initialState: {
 
 export const setPointsState = createAsyncThunk(
   "point/setPointsState",
-  async (data: { total: number; details: Points[] }) => {
+  async (data: { total: number; details: PointsType[] }) => {
     return data;
   }
 );

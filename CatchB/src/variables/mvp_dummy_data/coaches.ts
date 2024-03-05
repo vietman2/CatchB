@@ -9,7 +9,8 @@ export const sampleCoaches: CoachType[] = [
     academic_background: "고졸",
     baseball_career: "삼성 레전드",
     coaching_career: "현 두산 베어스 감독",
-    description: "현 두산 베어스 감독으로 활동 중인 이승엽입니다. 타격 레슨을 진행합니다.",
+    description:
+      "현 두산 베어스 감독으로 활동 중인 이승엽입니다. 타격 레슨을 진행합니다.",
     working_area: "인천시",
     rating: 4.5,
     image: require("assets/images/LSY.jpg"),
@@ -35,7 +36,8 @@ export const sampleCoaches: CoachType[] = [
     academic_background: "서울대 체육교육과",
     baseball_career: "대학선수 출신",
     coaching_career: "없음 ㅋ",
-    description: "서울고.\n노란사자기 엄청 잘한 선수상.\n서울대\n\n틀린 부분을 정확하게 짚어 드릴 수 있습니다.\n헛스윙으로 고생하시는 분!\n비거리가 안 나오시는 분!\n레슨 한 번 받아보시면 달라진 모습을 보실 수 있습니다 ㅎㅎ",
+    description:
+      "서울고.\n노란사자기 엄청 잘한 선수상.\n서울대\n\n틀린 부분을 정확하게 짚어 드릴 수 있습니다.\n헛스윙으로 고생하시는 분!\n비거리가 안 나오시는 분!\n레슨 한 번 받아보시면 달라진 모습을 보실 수 있습니다 ㅎㅎ",
     working_area: "인천 서구 청라",
     rating: 9.2,
     image: require("assets/images/HSW.jpg"),

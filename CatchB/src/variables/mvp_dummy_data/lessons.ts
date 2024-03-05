@@ -12,7 +12,8 @@ export const sampleLessonProducts: LessonProduct[] = [
     id: 2,
     coach_uuid: "3",
     title: "타격 레슨: 선수지망생",
-    description: "고교, 대학야구 4할타자 홍승우의 타격레슨.\n결제하시기 전에 문의 부탁드립니다.",
+    description:
+      "고교, 대학야구 4할타자 홍승우의 타격레슨.\n결제하시기 전에 문의 부탁드립니다.",
     price: 35000,
   },
 ];

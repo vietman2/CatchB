@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
-import facilityReducer, { setSelectedFacility, setMyFacilityUuid } from "./facilitySlice";
+import facilityReducer, {
+  setSelectedFacility,
+  setMyFacilityUuid,
+} from "./facilitySlice";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 
 const createStore = () => {

@@ -212,13 +212,15 @@ describe("register", () => {
 
     await act(() =>
       register(
-        username,
-        first_name,
-        last_name,
-        email,
-        phone_number,
-        password,
-        password2,
+        {
+          username,
+          first_name,
+          last_name,
+          email,
+          phone_number,
+          password,
+          password2,
+        },
         gender
       )
     );
@@ -231,13 +233,15 @@ describe("register", () => {
 
     await act(() =>
       register(
-        username,
-        first_name,
-        last_name,
-        email,
-        phone_number,
-        password,
-        password2,
+        {
+          username,
+          first_name,
+          last_name,
+          email,
+          phone_number,
+          password,
+          password2,
+        },
         gender
       )
     );
@@ -254,13 +258,15 @@ describe("register", () => {
 
     await act(() =>
       register(
-        username,
-        first_name,
-        last_name,
-        email,
-        phone_number,
-        password,
-        password2,
+        {
+          username,
+          first_name,
+          last_name,
+          email,
+          phone_number,
+          password,
+          password2,
+        },
         gender
       )
     );

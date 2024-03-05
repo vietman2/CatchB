@@ -90,7 +90,8 @@ describe("uploadDetails", () => {
           exif: {},
           fileSize: 100,
         },
-      ]
+      ],
+      "token"
     );
 
   it("should successfully upload details", async () => {
