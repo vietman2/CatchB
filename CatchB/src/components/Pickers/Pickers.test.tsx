@@ -239,9 +239,6 @@ describe("<WorkTimePickers />", () => {
       />
     );
   };
-  it("should render correctly", () => {
-    const { getByTestId } = renderWithProviders(<Component />);
-  });
 
   it("should correctly format time", () => {
     const { getByTestId } = renderWithProviders(<Component />);

@@ -55,7 +55,7 @@ export function FilePicker({
         return file.name;
       }
     }
-    return type === "image" ? "이미지 업로드" : "파일 업로드";
+    return type === "image" ? "이미지 선택하기" : "파일 선택하기";
   };
 
   return (
@@ -65,7 +65,7 @@ export function FilePicker({
         {renderText()}
       </Text>
     </TouchableOpacity>
-  );
+  );                    
 }
 
 const styles = StyleSheet.create({
