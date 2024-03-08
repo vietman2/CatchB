@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, Divider } from "react-native-paper";
 import { useSelector } from "react-redux";
@@ -14,14 +14,11 @@ import {
   SubTitle,
 } from "../fragments";
 import { RegisterProTerms } from "../../../../components/Terms";
-import { themeColors } from "../../../../variables/colors";
 import { RootState } from "../../../../store/store";
 import { getBankList } from "../../../../services/payments/account";
-import {
-  sampleBankAccounts,
-  sampleBanks,
-} from "../../../../variables/mvp_dummy_data/payments";
-import { BankAccountType } from "../../../../variables/types/payments";
+import { themeColors } from "../../../../variables/colors";
+import { sampleBankAccounts } from "../../../../variables/mvp_dummy_data/payments";
+import { BankType } from "../../../../variables/types/payments";
 
 interface Props {
   onFinish: () => void;
@@ -30,9 +27,10 @@ interface Props {
 export default function Account({ onFinish }: Readonly<Props>) {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["90%"], []);
-  const [selectedBank, setSelectedBank] = useState<BankAccountType | null>(
-    null
-  );
+  //const [selectedBank, setSelectedBank] = useState<BankAccountType | null>(
+  //  null
+  //);
+  const [bankList, setBankList] = useState<BankType[]>([]);
   const [addNew, setAddNew] = useState<boolean>(false);
   const token = useSelector((state: RootState) => state.auth.token);
 
@@ -46,10 +44,19 @@ export default function Account({ onFinish }: Readonly<Props>) {
   }; */
 
   const handleBankChoicePress = async () => {
-    const response = await getBankList(token);
-
     bottomSheetRef.current?.expand();
   };
+
+  useEffect(() => {
+    const getList = async () => {
+      const response = await getBankList(token);
+      if (response) {
+        setBankList(response.data);
+      }
+    };
+
+    getList();
+  }, []);
 
   const handleNewAccount = () => {
     setAddNew(true);
@@ -101,15 +108,11 @@ export default function Account({ onFinish }: Readonly<Props>) {
                 justifyContent: "center",
               }}
             >
-              <BankChoice bank={sampleBanks[0]} />
-              <BankChoice bank={sampleBanks[0]} />
-              <BankChoice bank={sampleBanks[0]} />
-              <BankChoice bank={sampleBanks[0]} />
-              <BankChoice bank={sampleBanks[0]} />
-              <BankChoice bank={sampleBanks[0]} />
-              <BankChoice bank={sampleBanks[0]} />
-              <BankChoice bank={sampleBanks[0]} />
-              <BankChoice bank={sampleBanks[0]} />
+              {bankList.map((bank, index) => (
+                <TouchableOpacity key={index} onPress={() => {}}>
+                  <BankChoice key={index} bank={bank} />
+                </TouchableOpacity>
+              ))}
             </View>
           </ScrollView>
           <Button
