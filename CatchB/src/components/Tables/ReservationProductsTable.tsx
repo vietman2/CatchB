@@ -18,6 +18,7 @@ export function ReservationProductsTable({ products }: Readonly<Props>) {
       <View style={styles.filters}>
         <Selector
           multiple={false}
+          numItemsInRow={2}
           options={filters}
           singleSelected={selected}
           setSingleSelected={setSelected}

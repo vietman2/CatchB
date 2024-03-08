@@ -5,6 +5,7 @@ import { themeColors } from "../../variables/colors";
 
 interface Props {
   options: string[];
+  numItemsInRow: number;
   multiple?: boolean;
   noIcon?: boolean;
   singleSelected?: string;
@@ -15,6 +16,7 @@ interface Props {
 
 export function Selector({
   options,
+  numItemsInRow,
   multiple,
   noIcon,
   singleSelected,
@@ -23,7 +25,7 @@ export function Selector({
   setMultiSelected,
 }: Readonly<Props>) {
   const { width } = Dimensions.get("window");
-  const itemWidth = (width - 40) / 2;
+  const itemWidth = (width - 40) / numItemsInRow;
 
   const isSelected = (option: string) => {
     if (multiple) {

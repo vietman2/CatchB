@@ -124,7 +124,7 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
         testID="introduction"
       />
       <SubTitle text="영업 시간" sub={" 나중에 변경할 수 있어요!"} />
-      <WorkTimePickers 
+      <WorkTimePickers
         weekdayStart={weekdayStart}
         setWeekdayStart={setWeekdayStart}
         weekdayEnd={weekdayEnd}
@@ -142,6 +142,7 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
       <SubTitle text="편의시설 및 서비스" />
       <Selector
         multiple
+        numItemsInRow={2}
         options={amenityChoices}
         multiSelected={amenities}
         setMultiSelected={setAmenities}
@@ -155,12 +156,14 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
       <NumberPicker label="타석 수" value={numPlates} onChange={setNumPlates} />
       <Selector
         multiple
+        numItemsInRow={2}
         options={equipmentChoices}
         multiSelected={equipment}
         setMultiSelected={setEquipment}
       />
       <Selector
         multiple
+        numItemsInRow={2}
         options={custom}
         multiSelected={custom}
         setMultiSelected={setCustom}
@@ -185,6 +188,7 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
       <SubTitle text="기타" />
       <Selector
         multiple
+        numItemsInRow={2}
         options={otherChoices}
         multiSelected={others}
         setMultiSelected={setOthers}
