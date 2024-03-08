@@ -10,6 +10,7 @@ import {
 import { Button, Divider, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { DocumentPickerAsset } from "expo-document-picker";
+import { ImagePickerAsset } from "expo-image-picker";
 
 import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
 import { FilePicker } from "../../../../components/Pickers";
@@ -24,9 +25,11 @@ interface Props {
 }
 
 export default function CoachStep1({ onFinish }: Readonly<Props>) {
-  const [uploadedFile, setUploadedFile] = useState<DocumentPickerAsset>(null);
-  const [career, setCareer] = useState<string>("프로 출신");
-  const [type, setType] = useState<string>("pdf");
+  const [uploadedFile, setUploadedFile] = useState<
+    DocumentPickerAsset | ImagePickerAsset
+  >(null);
+  const [career, setCareer] = useState<string>("프로 선수 출신");
+  const [type, setType] = useState<"pdf"|"image">("pdf");
   const user = useSelector((state: RootState) => state.auth.user);
   const navigation =
     useNavigation<MyPageStackScreenProps<"RegisterPro">["navigation"]>();
@@ -52,7 +55,6 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
 
   const handleRegister = () => {
     // TODO: API 연동
-    console.log(uploadedFile);
     handleRegisterSuccess();
   };
 
@@ -71,7 +73,7 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       <Selector
         multiple={false}
         options={[
-          "프로 출신",
+          "프로 선수 출신",
           "대학교 선수 출신",
           "고등학교 선수 출신",
           "비선수 출신",
@@ -96,7 +98,9 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
         </TouchableOpacity>
       </View>
       <FilePicker
+        uploadedFile={uploadedFile}
         setUploadedFile={setUploadedFile}
+        type={type}
       />
       <Divider bold style={styles.divider} />
       <SubTitle text="약관 동의" />
@@ -143,5 +147,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     padding: 5,
+    paddingRight: 10,
   },
 });

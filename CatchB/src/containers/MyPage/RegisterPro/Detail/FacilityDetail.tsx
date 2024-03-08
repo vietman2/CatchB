@@ -26,12 +26,12 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
   const [introduction, setIntroduction] = useState<string>("");
   const [additionalEquipment, setAdditionalEquipment] = useState<string>("");
   // time
-  //const [weekdayStart, setWeekdayStart] = useState<string>("");
-  //const [weekdayEnd, setWeekdayEnd] = useState<string>("");
-  //const [saturdayStart, setSaturdayStart] = useState<string>("");
-  //const [saturdayEnd, setSaturdayEnd] = useState<string>("");
-  //const [sundayStart, setSundayStart] = useState<string>("");
-  //const [sundayEnd, setSundayEnd] = useState<string>("");
+  const [weekdayStart, setWeekdayStart] = useState<string>("");
+  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
+  const [saturdayStart, setSaturdayStart] = useState<string>("");
+  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
+  const [sundayStart, setSundayStart] = useState<string>("");
+  const [sundayEnd, setSundayEnd] = useState<string>("");
   // selected items
   const [amenities, setAmenities] = useState<string[]>(["Wi-Fi"]);
   const [equipment, setEquipment] = useState<string[]>(["나무배트"]);
@@ -45,6 +45,7 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
   const facility_uuid = useSelector(
     (state: RootState) => state.facility.myFacilityUuid
   );
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const handleAddEquipment = () => {
     if (additionalEquipment === "") {
@@ -66,18 +67,18 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
     );
   };
 
-  const handleNext = async () => {
+  const handleSubmit = async () => {
     setWaiting(true);
     const response = await uploadDetails(
       facility_uuid,
       introduction,
       {
-        weekday_open: "weekdayStart",
-        weekday_close: "weekdayEnd",
-        saturday_open: "saturdayStart",
-        saturday_close: "saturdayEnd",
-        sunday_open: "sundayStart",
-        sunday_close: "sundayEnd",
+        weekday_open: weekdayStart,
+        weekday_close: weekdayEnd,
+        saturday_open: saturdayStart,
+        saturday_close: saturdayEnd,
+        sunday_open: sundayStart,
+        sunday_close: sundayEnd,
       },
       amenities,
       equipment,
@@ -85,7 +86,8 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
       numPlates,
       custom,
       others,
-      uploadedImages
+      uploadedImages,
+      token
     );
 
     if (response.status === 201) {
@@ -122,7 +124,20 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
         testID="introduction"
       />
       <SubTitle text="영업 시간" sub={" 나중에 변경할 수 있어요!"} />
-      <WorkTimePickers />
+      <WorkTimePickers 
+        weekdayStart={weekdayStart}
+        setWeekdayStart={setWeekdayStart}
+        weekdayEnd={weekdayEnd}
+        setWeekdayEnd={setWeekdayEnd}
+        saturdayStart={saturdayStart}
+        setSaturdayStart={setSaturdayStart}
+        saturdayEnd={saturdayEnd}
+        setSaturdayEnd={setSaturdayEnd}
+        sundayStart={sundayStart}
+        setSundayStart={setSundayStart}
+        sundayEnd={sundayEnd}
+        setSundayEnd={setSundayEnd}
+      />
       <Divider bold style={styles.divider} />
       <SubTitle text="편의시설 및 서비스" />
       <Selector
@@ -184,7 +199,7 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
       <Button
         mode="contained"
         style={styles.button}
-        onPress={handleNext}
+        onPress={handleSubmit}
         loading={waiting}
       >
         {waiting ? "" : "완료 (1/3)"}

@@ -20,7 +20,7 @@ export function ImagePicker({
 }: Readonly<Props>) {
   const uploadImage = async () => {
     const result = await launchImageLibraryAsync({
-      mediaTypes: MediaTypeOptions.Images,
+      mediaTypes: MediaTypeOptions.All,
       allowsMultipleSelection: true,
       selectionLimit: 10 - uploadedImages.length,
     });
@@ -30,8 +30,9 @@ export function ImagePicker({
     const images = result as ImagePickerSuccessResult;
     for (let i = 0; i < images.assets.length; i++) {
       const imageAsset = images.assets[i];
-      // if same image is already uploaded, skip
+
       if (uploadedImages.some((img) => img.fileName === imageAsset.fileName)) {
+        // if same image is already uploaded, skip
         Alert.alert("이미 업로드된 사진이 포함되어 있습니다.");
         continue;
       }

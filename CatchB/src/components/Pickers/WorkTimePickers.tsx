@@ -1,15 +1,35 @@
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, TextInput } from "react-native-paper";
 
-export function WorkTimePickers() {
-  const [weekdayStart, setWeekdayStart] = useState<string>("");
-  const [weekdayEnd, setWeekdayEnd] = useState<string>("");
-  const [saturdayStart, setSaturdayStart] = useState<string>("");
-  const [saturdayEnd, setSaturdayEnd] = useState<string>("");
-  const [sundayStart, setSundayStart] = useState<string>("");
-  const [sundayEnd, setSundayEnd] = useState<string>("");
+interface Props {
+  weekdayStart: string;
+  setWeekdayStart: (input: string) => void;
+  weekdayEnd: string;
+  setWeekdayEnd: (input: string) => void;
+  saturdayStart: string;
+  setSaturdayStart: (input: string) => void;
+  saturdayEnd: string;
+  setSaturdayEnd: (input: string) => void;
+  sundayStart: string;
+  setSundayStart: (input: string) => void;
+  sundayEnd: string;
+  setSundayEnd: (input: string) => void;
+}
 
+export function WorkTimePickers({
+  weekdayStart,
+  setWeekdayStart,
+  weekdayEnd,
+  setWeekdayEnd,
+  saturdayStart,
+  setSaturdayStart,
+  saturdayEnd,
+  setSaturdayEnd,
+  sundayStart,
+  setSundayStart,
+  sundayEnd,
+  setSundayEnd,
+}: Readonly<Props>) {
   const formatTime = (input: string) => {
     let cleanInput = input.replace(/\D/g, ""); // Remove non-numeric characters
     if (cleanInput.length > 4) cleanInput = cleanInput.slice(0, 4); // Limit length to 4 digits
@@ -58,7 +78,7 @@ export function WorkTimePickers() {
   return (
     <>
       <View style={styles.timeBox}>
-        <Text style={{ flex: 1 }}>평일</Text>
+        <Text style={styles.text}>평일</Text>
         <TextInput
           {...commonProps}
           placeholder="10:00"
@@ -80,7 +100,7 @@ export function WorkTimePickers() {
         />
       </View>
       <View style={styles.timeBox}>
-        <Text style={{ flex: 1 }}>토요일</Text>
+        <Text style={styles.text}>토요일</Text>
         <TextInput
           {...commonProps}
           placeholder="10:00"
@@ -102,7 +122,7 @@ export function WorkTimePickers() {
         />
       </View>
       <View style={styles.timeBox}>
-        <Text style={{ flex: 1 }}>일요일</Text>
+        <Text style={styles.text}>일요일</Text>
         <TextInput
           {...commonProps}
           placeholder="10:00"
@@ -137,5 +157,8 @@ const styles = StyleSheet.create({
     flex: 3,
     marginHorizontal: 10,
     height: 35,
+  },
+  text: {
+    flex: 1,
   },
 });

@@ -22,20 +22,18 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    TextInput,
     Button: ({ onPress, children }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
     Divider: "Divider",
+    TextInput,
   };
 });
-jest.mock("expo-image-picker", () => {
-  return {
-    ImagePickerAsset: "ImagePickerAsset",
-  };
-});
+jest.mock("expo-image-picker", () => ({
+  ImagePickerAsset: "ImagePickerAsset",
+}));
 jest.mock("../fragments", () => ({
   MainTitle: "MainTitle",
   SubTitle: "SubTitle",

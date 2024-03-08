@@ -11,13 +11,9 @@ interface ProfileProps {
 export function MainProfile({ user }: Readonly<ProfileProps>) {
   return (
     <View style={styles.container}>
-      <Avatar.Icon
-        size={80}
-        icon="account"
-        style={{ backgroundColor: themeColors.primary }}
-      />
+      <Avatar.Icon size={80} icon="account" style={styles.icon} />
       <View style={styles.textBox}>
-        <Text variant="titleMedium" style={{ color: "gray" }}>
+        <Text variant="titleMedium" style={styles.guideText}>
           {user === null
             ? "로그인 후 편하게 서비스를 이용하세요!"
             : "일반 회원"}
@@ -38,6 +34,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 10,
   },
+  icon: {
+    backgroundColor: themeColors.primary,
+  },
   textBox: {
     flex: 1,
     marginLeft: 10,
@@ -46,5 +45,8 @@ const styles = StyleSheet.create({
   profileText: {
     fontFamily: "Catch B ExtraBold",
     color: themeColors.primary,
+  },
+  guideText: {
+    color: "gray",
   },
 });

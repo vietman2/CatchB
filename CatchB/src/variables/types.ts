@@ -12,4 +12,3 @@ export type DailySalesInfo = {
     sales: number;
   }[];
 };
-

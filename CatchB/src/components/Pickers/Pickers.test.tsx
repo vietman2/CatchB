@@ -1,16 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
 import * as IPicker from "expo-image-picker";
 import * as FPicker from "expo-document-picker";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
-import {
-  AreaPicker,
-  FilePicker,
-  ImagePicker,
-  NumberPicker,
-  WorkTimePickers,
-} from "./";
+import { FilePicker, ImagePicker, NumberPicker, WorkTimePickers } from "./";
 import { renderWithProviders } from "../../utils/test-utils";
 
 jest.mock("react-native-paper", () => {
@@ -30,6 +23,10 @@ jest.mock("react-native-paper", () => {
     ),
   };
 });
+jest.mock("expo-document-picker", () => ({
+  getDocumentAsync: jest.fn(),
+  DocumentPickerAsset: jest.fn(),
+}));
 jest.mock("expo-image-picker", () => ({
   launchImageLibraryAsync: jest.fn(),
   ImagePickerAsset: jest.fn(),
@@ -123,111 +120,15 @@ describe("<NumberPicker />", () => {
   });
 });
 
-describe("<AreaPicker />", () => {
-  jest.spyOn(axios, "get").mockImplementation(() =>
-    Promise.resolve({
-      status: 200,
-      data: {
-        sido: [
-          { code: "11", sido_name: "서울특별시" },
-          { code: "26", sido_name: "부산광역시" },
-          { code: "01", sido_name: "세종특별자치시" },
-        ],
-        sigungu: [
-          { code: "1100000000", name: "서울특별시 관악구" },
-          { code: "1100000001", name: "서울특별시 강남구" },
-          { code: "1100000002", name: "서울특별시 송파구" },
-          { code: "1100000003", name: "서울특별시 구로구" },
-          { code: "1100000004", name: "서울특별시 종로구" },
-          { code: "1100000005", name: "서울특별시 강동구" },
-          { code: "2600000000", name: "부산광역시 연제구" },
-          { code: "0100000000", name: "세종특별자치시" },
-        ],
-        sigungu_by_sido: {
-          서울특별시: [
-            "관악구",
-            "강남구",
-            "송파구",
-            "구로구",
-            "종로구",
-            "강동구",
-          ],
-          부산광역시: ["연제구"],
-          세종특별자치시: ["세종특별자치시"],
-        },
-      },
-    })
-  );
-
-  it("renders and handles onPresses correctly", async () => {
-    const { getByText, getAllByText } = await waitFor(() =>
-      renderWithProviders(
-        <AreaPicker
-          visible={true}
-          onDismiss={() => {}}
-          setSelectedAreas={() => {}}
-        />
-      )
-    );
-
-    fireEvent.press(getByText("부산광역시"));
-    fireEvent.press(getByText("연제구"));
-    fireEvent.press(getByText("연제구"));
-    fireEvent.press(getAllByText("세종특별자치시")[0]);
-    fireEvent.press(getAllByText("세종특별자치시")[1]);
-  });
-
-  it("handles over 5 presses correctly", async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithProviders(
-        <AreaPicker
-          visible={true}
-          onDismiss={() => {}}
-          setSelectedAreas={() => {}}
-        />
-      )
-    );
-
-    fireEvent.press(getByText("관악구"));
-    fireEvent.press(getByText("송파구"));
-    fireEvent.press(getByText("구로구"));
-    fireEvent.press(getByText("강남구"));
-    fireEvent.press(getByText("종로구"));
-    fireEvent.press(getByText("강동구"));
-  });
-
-  it("handles chip close correctly", async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithProviders(
-        <AreaPicker
-          visible={true}
-          onDismiss={() => {}}
-          setSelectedAreas={() => {}}
-        />
-      )
-    );
-
-    fireEvent.press(getByText("관악구"));
-    fireEvent.press(getByText("서울특별시 관악구"));
-  });
-
-  it("handles confirm correctly", async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithProviders(
-        <AreaPicker
-          visible={true}
-          onDismiss={() => {}}
-          setSelectedAreas={() => {}}
-        />
-      )
-    );
-
-    fireEvent.press(getByText("확인"));
-  });
-});
-
 describe("<FilePicker />", () => {
-  it("should handle file picker", () => {
+  const mockFile = {
+    uri: "testUri",
+    name: "testName",
+    type: "testType",
+    fileExtension: "testExtension",
+  };
+
+  it("should handle file picker: pdf, cancelled", () => {
     jest.spyOn(FPicker, "getDocumentAsync").mockImplementation(() =>
       Promise.resolve({
         canceled: true,
@@ -235,33 +136,122 @@ describe("<FilePicker />", () => {
       })
     );
     const { getByText } = renderWithProviders(
-      <FilePicker setUploadedFile={jest.fn()} />
+      <FilePicker setUploadedFile={jest.fn()} uploadedFile={null} type="pdf" />
     );
 
-    fireEvent.press(getByText("파일 업로드"));
+    fireEvent.press(getByText("파일 선택하기"));
+  });
+
+  it("should handle file picker: pdf, uploaded", () => {
+    jest.spyOn(FPicker, "getDocumentAsync").mockImplementation(() =>
+      Promise.resolve({
+        canceled: false,
+        assets: [mockFile],
+      })
+    );
+    const { getByText } = renderWithProviders(
+      <FilePicker setUploadedFile={jest.fn()} uploadedFile={null} type="pdf" />
+    );
+
+    fireEvent.press(getByText("파일 선택하기"));
+  });
+
+  it("should handle file picker: pdf, already uploaded", () => {
+    renderWithProviders(
+      <FilePicker
+        setUploadedFile={jest.fn()}
+        uploadedFile={mockFile}
+        type="pdf"
+      />
+    );
+  });
+
+  const mockImage = {
+    assetId: "testId",
+    uri: "testUri",
+    width: 100,
+    height: 100,
+  };
+
+  it("should handle file picker: image, cancelled", () => {
+    jest.spyOn(IPicker, "launchImageLibraryAsync").mockImplementation(() =>
+      Promise.resolve({
+        canceled: true,
+        assets: null,
+      })
+    );
+    const { getByText } = renderWithProviders(
+      <FilePicker
+        setUploadedFile={jest.fn()}
+        uploadedFile={null}
+        type="image"
+      />
+    );
+
+    fireEvent.press(getByText("이미지 선택하기"));
+  });
+
+  it("should handle file picker: image, uploaded", () => {
+    jest.spyOn(IPicker, "launchImageLibraryAsync").mockImplementation(() =>
+      Promise.resolve({
+        canceled: false,
+        assets: [mockImage],
+      })
+    );
+    const { getByText } = renderWithProviders(
+      <FilePicker
+        setUploadedFile={jest.fn()}
+        uploadedFile={null}
+        type="image"
+      />
+    );
+
+    fireEvent.press(getByText("이미지 선택하기"));
+  });
+
+  it("should handle file picker: image, already uploaded", () => {
+    renderWithProviders(
+      <FilePicker
+        setUploadedFile={jest.fn()}
+        uploadedFile={mockImage}
+        type="image"
+      />
+    );
   });
 });
 
 describe("<WorkTimePickers />", () => {
-  it("should handle all textinputs", () => {
-    const { getByTestId } = renderWithProviders(<WorkTimePickers />);
-
-    waitFor(() => {
-      fireEvent.changeText(getByTestId("weekdayStart"), "1234");
-      fireEvent.changeText(getByTestId("weekdayEnd"), "1234");
-      fireEvent.changeText(getByTestId("saturdayStart"), "1234");
-      fireEvent.changeText(getByTestId("saturdayEnd"), "1234");
-      fireEvent.changeText(getByTestId("sundayStart"), "1234");
-      fireEvent.changeText(getByTestId("sundayEnd"), "1234");
-    });
-  });
+  const Component = () => {
+    return (
+      <WorkTimePickers
+        weekdayStart=""
+        setWeekdayStart={() => {}}
+        weekdayEnd=""
+        setWeekdayEnd={() => {}}
+        saturdayStart=""
+        setSaturdayStart={() => {}}
+        saturdayEnd=""
+        setSaturdayEnd={() => {}}
+        sundayStart=""
+        setSundayStart={() => {}}
+        sundayEnd=""
+        setSundayEnd={() => {}}
+      />
+    );
+  };
 
   it("should correctly format time", () => {
-    const { getByTestId } = renderWithProviders(<WorkTimePickers />);
+    const { getByTestId } = renderWithProviders(<Component />);
 
     waitFor(() => {
       fireEvent.changeText(getByTestId("weekdayStart"), "1");
       fireEvent.changeText(getByTestId("weekdayStart"), "12345");
+
+      fireEvent.changeText(getByTestId("weekdayEnd"), "1");
+      fireEvent.changeText(getByTestId("saturdayStart"), "1");
+      fireEvent.changeText(getByTestId("saturdayEnd"), "1");
+      fireEvent.changeText(getByTestId("sundayStart"), "1");
+      fireEvent.changeText(getByTestId("sundayEnd"), "1");
     });
   });
 });

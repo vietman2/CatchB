@@ -23,16 +23,14 @@ export function ProgressSteps({ steps, currentStep }: Readonly<Props>) {
               style={[
                 styles.circle,
                 currentStep >= step.step
-                  ? { backgroundColor: themeColors.primary }
-                  : { backgroundColor: "silver" },
+                  ? styles.mainBackgroundColor
+                  : styles.silverBackgroundColor,
               ]}
             >
               <Text
                 variant="titleMedium"
                 style={
-                  currentStep >= step.step
-                    ? { color: "white" }
-                    : { color: "gray" }
+                  currentStep >= step.step ? styles.whiteText : styles.grayText
                 }
               >
                 {currentStep > step.step ? "✓" : step.step}
@@ -42,8 +40,8 @@ export function ProgressSteps({ steps, currentStep }: Readonly<Props>) {
               key={step.step}
               style={
                 currentStep === step.step
-                  ? { color: themeColors.primary, fontWeight: "bold" }
-                  : { color: "silver" }
+                  ? styles.currentText
+                  : styles.silverText
               }
             >
               {step.label}
@@ -54,8 +52,8 @@ export function ProgressSteps({ steps, currentStep }: Readonly<Props>) {
               style={[
                 styles.line,
                 currentStep > step.step
-                  ? { backgroundColor: themeColors.primary }
-                  : { backgroundColor: "silver" },
+                  ? styles.mainBackgroundColor
+                  : styles.silverBackgroundColor,
               ]}
             />
           )}
@@ -87,5 +85,24 @@ const styles = StyleSheet.create({
     height: 3,
     width: 60,
     marginBottom: 17,
+  },
+  mainBackgroundColor: {
+    backgroundColor: themeColors.primary,
+  },
+  silverBackgroundColor: {
+    backgroundColor: "silver",
+  },
+  whiteText: {
+    color: "white",
+  },
+  silverText: {
+    color: "silver",
+  },
+  grayText: {
+    color: "gray",
+  },
+  currentText: {
+    color: themeColors.primary,
+    fontWeight: "bold",
   },
 });

@@ -9,7 +9,7 @@ export function ScheduleBar() {
   return (
     <ScrollView horizontal style={styles.container}>
       <View>
-        <View style={{ marginLeft: 20, flexDirection: "row" }}>
+        <View style={styles.times}>
           {Array.from({ length: 48 }, (_, i) => (
             <View
               key={i}
@@ -17,7 +17,7 @@ export function ScheduleBar() {
             />
           ))}
         </View>
-        <View style={{ flexDirection: "row" }}>
+        <View style={styles.bars}>
           {Array.from({ length: 25 }, (_, i) => (
             <Text key={i} style={styles.textBox}>
               {renderTime(i)}
@@ -52,5 +52,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "gray",
     marginRight: 20,
+  },
+  times: {
+    flexDirection: "row",
+    marginLeft: 20,
+  },
+  bars: {
+    flexDirection: "row",
   },
 });

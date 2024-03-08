@@ -21,7 +21,7 @@ export function TabButton({
       style={{ ...styles.tab, paddingVertical: paddingVertical }}
       onPress={onPress}
     >
-      <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
+      <Text variant="titleLarge" style={styles.bold}>
         {title}
       </Text>
       <View style={styles.tabRight}>
@@ -43,5 +43,8 @@ const styles = StyleSheet.create({
   tabRight: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  bold: {
+    fontWeight: "bold",
   },
 });

@@ -20,5 +20,6 @@
     "rules": {
         "react/react-in-jsx-scope": "off",
         "react/prop-types": ["error", { "ignore": ["navigation"] }]
-    }
+    },
+    "ignorePatterns": ["node_modules/", "dist/", "metro.config.js", "babel.config.js"]
 }

@@ -1,6 +1,6 @@
-import { ImageRequireSource } from 'react-native';
+import { ImageRequireSource } from "react-native";
 
-import { ReservationStatus } from '../enums';
+import { ReservationStatus } from "../enums";
 
 export type ReservationProduct = {
   id: number;
@@ -55,7 +55,7 @@ export type CoachType = {
   image: ImageRequireSource;
 
   facility?: FacilityType;
-}
+};
 
 export type LessonProduct = {
   id: number;
@@ -63,4 +63,16 @@ export type LessonProduct = {
   title: string;
   description: string;
   price: number;
+};
+
+export type Sido = {
+  sido_code: string;
+  sido_name: string;
+  label: string;
+};
+
+export type Sigungu = {
+  code: string;
+  name: string;
+  label: string;
 };

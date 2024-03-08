@@ -4,16 +4,12 @@ import { LessonProductsTable, ReservationProductsTable, ScheduleBar } from "./";
 import { sampleLessonProducts } from "../../variables/mvp_dummy_data/lessons";
 import { reservationProducts } from "../../variables/mvp_dummy_data/reservations";
 
-jest.mock("react-native-paper", () => {
-  return {
-    Text: "Text",
-  };
-});
-jest.mock("../Selectors", () => {
-  return {
-    Selector: "Selector",
-  };
-});
+jest.mock("react-native-paper", () => ({
+  Text: "Text",
+}));
+jest.mock("../Selectors", () => ({
+  Selector: "Selector",
+}));
 
 describe("<LessonProductsTable />", () => {
   it("renders correctly with no products", () => {

@@ -5,7 +5,8 @@ import { themeColors } from "../../variables/colors";
 
 interface Props {
   options: string[];
-  multiple: boolean;
+  multiple?: boolean;
+  noIcon?: boolean;
   singleSelected?: string;
   multiSelected?: string[];
   setSingleSelected?: (selected: string) => void;
@@ -15,6 +16,7 @@ interface Props {
 export function Selector({
   options,
   multiple,
+  noIcon,
   singleSelected,
   multiSelected,
   setSingleSelected,
@@ -44,9 +46,9 @@ export function Selector({
   };
 
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    <View style={styles.selector}>
       {options.map((option) => (
-        <View key={option} style={{ width: itemWidth }}>
+        <View key={option} style={noIcon ? {} : { width: itemWidth }}>
           <TouchableOpacity
             onPress={() => toggleSelected(option)}
             style={{
@@ -58,7 +60,11 @@ export function Selector({
                 : themeColors.tertiary,
             }}
           >
-            <SelectionChip label={option} selected={isSelected(option)} />
+            <SelectionChip
+              label={option}
+              selected={isSelected(option)}
+              noIcon={noIcon}
+            />
           </TouchableOpacity>
         </View>
       ))}
@@ -69,25 +75,38 @@ export function Selector({
 interface ChipProps {
   selected: boolean;
   label: string;
+  noIcon?: boolean;
 }
 
-function SelectionChip({ selected, label }: Readonly<ChipProps>) {
-  return (
-    <View style={styles.container}>
-      <Text style={[styles.text, { color: selected ? "white" : "black" }]}>
-        {label}
-      </Text>
-      <Icon
-        source="check"
-        color={selected ? "white" : "transparent"}
-        size={20}
-      />
-    </View>
-  );
+function SelectionChip({ selected, label, noIcon }: Readonly<ChipProps>) {
+  if (noIcon) {
+    return (
+      <View style={styles.box}>
+        <Text style={[styles.label, { color: selected ? "white" : "black" }]}>
+          {label}
+        </Text>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.chipContainer}>
+        <Text
+          style={[styles.chipText, { color: selected ? "white" : "black" }]}
+        >
+          {label}
+        </Text>
+        <Icon
+          source="check"
+          color={selected ? "white" : "transparent"}
+          size={20}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  chipContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -95,10 +114,22 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 6,
   },
-  text: {
+  chipText: {
     fontSize: 16,
     fontWeight: "600",
     textAlign: "center",
     paddingLeft: 5,
+  },
+  box: {
+    justifyContent: "center",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  label: {
+    fontSize: 16,
+  },
+  selector: {
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 });

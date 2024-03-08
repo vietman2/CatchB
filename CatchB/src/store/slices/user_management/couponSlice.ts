@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { Coupon } from "../../../variables/types";
+import { CouponType } from "../../../variables/types/users";
 
 const initialState: {
-  coupons: Coupon[];
-  selectedCoupon: Coupon | null;
+  coupons: CouponType[];
+  selectedCoupon: CouponType | null;
 } = {
   coupons: [],
   selectedCoupon: null,
@@ -12,7 +12,7 @@ const initialState: {
 
 export const setCouponListState = createAsyncThunk(
   "coupon/setCouponListState",
-  async (data: Coupon[]) => {
+  async (data: CouponType[]) => {
     return data;
   }
 );

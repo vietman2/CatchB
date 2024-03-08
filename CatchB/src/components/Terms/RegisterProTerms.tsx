@@ -21,13 +21,20 @@ export function RegisterProTerms() {
         </View>
         <Text>보기</Text>
       </View>
+      <View style={styles.terms}>
+        <View style={styles.horizontal}>
+          <Icon source="checkbox-outline" size={16} />
+          <Text> Catch B 약관 1</Text>
+          <Text style={styles.required}> (필수)</Text>
+        </View>
+        <Text>보기</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   termsBox: {
-    marginTop: 10,
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 5,

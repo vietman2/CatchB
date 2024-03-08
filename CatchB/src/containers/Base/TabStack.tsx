@@ -45,7 +45,7 @@ const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
 export default function TabContainer() {
   const [switchModeVisible, setSwitchModeVisible] = useState(false);
-  const [loginVisible, setLoginVisible] = useState(true);
+  const [loginVisible, setLoginVisible] = useState(false);
   const mode = useSelector((state: RootState) => state.general.mode);
   const user = useSelector((state: RootState) => state.auth.user);
   const access = useSelector((state: RootState) => state.auth.token);

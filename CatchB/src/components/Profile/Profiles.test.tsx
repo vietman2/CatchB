@@ -4,16 +4,14 @@ import { AvatarImage, CommunityPostProfile, MainProfile } from "./";
 import { samplePosts } from "../../variables/mvp_dummy_data/posts";
 import { admin } from "../../variables/mvp_dummy_data/user";
 
-jest.mock("react-native-paper", () => {
-  return {
-    Avatar: {
-      ...jest.requireActual("react-native-paper").Avatar,
-      Icon: "Icon",
-      Image: "Image",
-    },
-    Text: "Text",
-  };
-});
+jest.mock("react-native-paper", () => ({
+  Avatar: {
+    ...jest.requireActual("react-native-paper").Avatar,
+    Icon: "Icon",
+    Image: "Image",
+  },
+  Text: "Text",
+}));
 
 describe("<MainProfile />", () => {
   it("renders correctly with no user", () => {

@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { render } from "@testing-library/react-native";
 
-import { BackButton, IconTextButton, NaverButton, KakaoButton, TabButton } from "./";
+import {
+  BackButton,
+  IconTextButton,
+  NaverButton,
+  KakaoButton,
+  TabButton,
+} from "./";
 
 jest.mock("react-native-paper", () => ({
-  ...jest.requireActual("react-native-paper"),
-  Surface: (props: any) => props.children,
-  Icon: (props: any) => props.children,
-  IconButton: (props: any) => props.children,
-}));
-jest.requireActual("react-native-paper");
-jest.mock("react", () => ({
-  ...jest.requireActual("react"),
-  useState: (initial: any) => [initial, jest.fn()],
+  Surface: "Surface",
+  Icon: "Icon",
+  IconButton: "IconButton",
+  Text: "Text",
 }));
 
 describe("<KakaoButton />", () => {

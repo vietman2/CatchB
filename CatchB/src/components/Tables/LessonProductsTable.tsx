@@ -32,7 +32,7 @@ export function LessonProductsTable({ products }: Readonly<Props>) {
       {products.map((product) => (
         <View key={product.id} style={styles.product}>
           <Text variant="titleLarge">{product.title}</Text>
-          <Text variant="titleMedium" style={{ marginVertical: 10 }}>
+          <Text variant="titleMedium" style={styles.description}>
             {product.description}
           </Text>
           <Text variant="titleLarge">{renderPrice(product.price)}원</Text>
@@ -57,5 +57,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 5,
+  },
+  description: {
+    marginVertical: 10,
   },
 });

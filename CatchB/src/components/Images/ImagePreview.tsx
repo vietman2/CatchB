@@ -17,13 +17,7 @@ export function ImagePreview({ uri, removeImage }: Readonly<PreviewProps>) {
       <ImageBackground source={{ uri }} style={styles.image}>
         <TouchableOpacity
           onPress={removeImage}
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            borderRadius: 15,
-            backgroundColor: "rgba(255, 255, 255, 0.25)",
-          }}
+          style={styles.preview}
           testID="removeImage"
         >
           <Icon source="minus" size={20} color="red" />
@@ -45,5 +39,12 @@ const styles = StyleSheet.create({
   image: {
     width: 120,
     height: 120,
+  },
+  preview: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    borderRadius: 15,
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
   },
 });

@@ -6,44 +6,39 @@ import CoachDetail from "./CoachDetail";
 jest.mock("react-native-paper", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
-    TextInput: "TextInput",
     Button: ({ onPress, children }: any) => (
       <TouchableOpacity onPress={onPress}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
-    Text: "Text",
+    Chip: "Chip",
     Divider: "Divider",
+    Snackbar: "Snackbar",
+    Text: "Text",
+    TextInput: "TextInput",
   };
 });
+jest.mock("expo-image-picker", () => ({
+  ImagePickerAsset: "ImagePickerAsset",
+}));
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../fragments", () => ({
   MainTitle: "MainTitle",
   SubTitle: "SubTitle",
 }));
+jest.mock("../../../../components/Pickers", () => ({
+  ImagePicker: "ImagePicker",
+}));
 jest.mock("../../../../components/Selectors", () => ({
+  RegionSelector: "RegionSelector",
   Selector: "Selector",
 }));
 
-describe("<CoachDetail />", () => {/*
-  it("renders correctly and handles time textinputs", () => {
-    const { getByTestId } = render(<CoachDetail onFinish={jest.fn()} />);
-
-    fireEvent.changeText(getByTestId("weekdayStart"), "1234");
-    fireEvent.changeText(getByTestId("weekdayEnd"), "5678");
-    fireEvent.changeText(getByTestId("saturdayStart"), "9101");
-    fireEvent.changeText(getByTestId("saturdayEnd"), "1121");
-    fireEvent.changeText(getByTestId("sundayStart"), "3141");
-    fireEvent.changeText(getByTestId("sundayEnd"), "4151");
-    fireEvent.changeText(getByTestId("sundayEnd"), "41511");
-    fireEvent.changeText(getByTestId("sundayEnd"), "41-");
-    fireEvent.changeText(getByTestId("sundayEnd"), "41");
-  });*/
-
+describe("<CoachDetail />", () => {
   it("handles other text inputs", () => {
     const { getByTestId } = render(<CoachDetail onFinish={jest.fn()} />);
 
     fireEvent.changeText(getByTestId("curriculum"), "curriculum");
-    fireEvent.changeText(getByTestId("career"), "career");
   });
 
   it("handles the finish button", () => {

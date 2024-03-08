@@ -32,6 +32,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
   const [address2, setAddress2] = useState("");
 
   const user = useSelector((state: RootState) => state.auth.user);
+  const token = useSelector((state: RootState) => state.auth.token);
   const navigation =
     useNavigation<MyPageStackScreenProps<"RegisterPro">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
@@ -72,7 +73,8 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
       address2,
       addressData?.buildingName || "",
       addressData?.zonecode,
-      addressData?.bcode
+      addressData?.bcode,
+      token
     );
 
     if (response.status === 201) {

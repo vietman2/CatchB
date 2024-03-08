@@ -37,4 +37,16 @@ describe("<Selector />", () => {
     await waitFor(() => fireEvent.press(getByText("Option 1")));
     await waitFor(() => fireEvent.press(getByText("Option 2")));
   });
+
+  it("handles no icon correctly", async () => {
+    render(
+      <Selector
+        noIcon
+        multiple
+        options={["Option 1", "Option 2"]}
+        multiSelected={["Option 2"]}
+        setMultiSelected={() => {}}
+      />
+    );
+  });
 });

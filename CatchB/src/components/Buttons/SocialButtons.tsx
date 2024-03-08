@@ -3,18 +3,13 @@ import { Text } from "react-native-paper";
 
 export function NaverButton() {
   return (
-    <View
-      style={{
-        ...styles.social,
-        backgroundColor: "#03C75A",
-      }}
-    >
+    <View style={[styles.social, styles.naverBackground]}>
       <Image
-        style={{ ...styles.image, height: 45 }}
+        style={[styles.image, styles.naverHeight]}
         source={require("assets/images/btnG_아이콘사각.png")}
         resizeMode="contain"
       />
-      <Text style={{ ...styles.socialText, color: "white" }}>
+      <Text style={[styles.socialText, styles.naverColor]}>
         네이버로 로그인
       </Text>
     </View>
@@ -23,23 +18,13 @@ export function NaverButton() {
 
 export function KakaoButton() {
   return (
-    <View
-      style={{
-        ...styles.social,
-        backgroundColor: "#fee500",
-      }}
-    >
+    <View style={[styles.social, styles.kakaoBackground]}>
       <Image
-        style={{ ...styles.image, height: 30 }}
+        style={[styles.image, styles.kakaoHeight]}
         source={require("assets/images/kakao_login_large_wide.png")}
         resizeMode="contain"
       />
-      <Text
-        style={{
-          ...styles.socialText,
-          color: "rgba(0, 0, 0, 0.85)",
-        }}
-      >
+      <Text style={[styles.socialText, styles.kakaoColor]}>
         카카오로 로그인
       </Text>
     </View>
@@ -62,5 +47,23 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     marginLeft: 10,
+  },
+  naverHeight: {
+    height: 45,
+  },
+  naverBackground: {
+    backgroundColor: "#03C75A",
+  },
+  naverColor: {
+    color: "white",
+  },
+  kakaoHeight: {
+    height: 30,
+  },
+  kakaoBackground: {
+    backgroundColor: "#fee500",
+  },
+  kakaoColor: {
+    color: "rgba(0, 0, 0, 0.85)",
   },
 });
