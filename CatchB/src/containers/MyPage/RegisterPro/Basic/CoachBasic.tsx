@@ -28,7 +28,7 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
   const [uploadedFile, setUploadedFile] = useState<
     DocumentPickerAsset | ImagePickerAsset
   >(null);
-  const [career, setCareer] = useState<string>("프로 출신");
+  const [career, setCareer] = useState<string>("프로 선수 출신");
   const [type, setType] = useState<"pdf"|"image">("pdf");
   const user = useSelector((state: RootState) => state.auth.user);
   const navigation =
@@ -73,7 +73,7 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       <Selector
         multiple={false}
         options={[
-          "프로 출신",
+          "프로 선수 출신",
           "대학교 선수 출신",
           "고등학교 선수 출신",
           "비선수 출신",
