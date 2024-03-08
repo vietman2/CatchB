@@ -11,7 +11,7 @@ import {
 import { ImagePickerAsset } from "expo-image-picker";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { partChoices, levelChoices } from "./options";
+import { partChoices, levelChoices, typeChoices } from "./options";
 import { MainTitle, SubTitle } from "../fragments";
 import { ImagePicker } from "../../../../components/Pickers";
 import { RegionSelector, Selector } from "../../../../components/Selectors";
@@ -32,9 +32,8 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["93%"], []);
   const [selectedParts, setSelectedParts] = useState<string[]>(["투구"]);
-  const [selectedLevels, setSelectedLevels] = useState<string[]>([
-    "왕초보/기초",
-  ]);
+  const [selectedLevels, setSelectedLevels] = useState<string[]>(["비기너1"]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>(["개인"]);
   const [visible, setVisible] = useState<boolean>(false);
   const [intro, setIntro] = useState<string>("");
   const [medias, setMedias] = useState<ImagePickerAsset[]>([]);
@@ -67,17 +66,38 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
     setSelectedRegions(selectedRegions.filter((region) => region !== selected));
   };
 
+  const textInputProps = {
+    placeholder:
+      "선수 경력: \n- 양천중-서울고-서울대\n- 2018: 두산 베어스 입단\n\n코치 경력: \n- 2023년 키움 히어로즈 작전코치\n\n소개글:\n안녕하세요 홍승우입니다.\n\n야구 입문자부터 선수까지 개개인의 특성에 맞춰 친절하고 자세히 설명해드립니다.\n\n비디오 분석을 통한 꼼꼼한 레슨으로 여러분들의 야구 실력을 향상시켜드리겠습니다.",
+    textColor: "black",
+    placeholderTextColor: "gray",
+    multiline: true,
+    maxLength: 1000,
+    style: styles.textInput,
+    testID: "curriculum",
+  };
+
   return (
     <>
       <ScrollView
         style={styles.container}
-        automaticallyAdjustKeyboardInsets
         keyboardDismissMode="on-drag"
       >
         <MainTitle
           text="상세 정보"
           sub="상세 정보를 다 입력하면 문의 받을 확률이 3배 높아요!"
         />
+        <SubTitle
+          text="소개글"
+          sub=" 코치님의 소개글을 자유롭게 작성해주세요. (최대 1000자)"
+        />
+        <TextInput
+          mode="outlined"
+          value={intro}
+          onChangeText={(text) => setIntro(text)}
+          {...textInputProps}
+        />
+        <Divider style={styles.divider} />
         <SubTitle text="전문 파트 (복수 선택 가능)" />
         <Selector
           multiple
@@ -92,36 +112,22 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
           multiSelected={selectedLevels}
           setMultiSelected={setSelectedLevels}
         />
-        <Divider style={{ marginVertical: 10 }} />
-        <SubTitle
-          text="소개글"
-          sub=" 코치님의 소개글을 자유롭게 작성해주세요. (최대 1000자)"
+        <SubTitle text="레슨 유형 (복수 선택 가능)" />
+        <Selector
+          multiple
+          options={typeChoices}
+          multiSelected={selectedTypes}
+          setMultiSelected={setSelectedTypes}
         />
-        <TextInput
-          mode="outlined"
-          placeholder={
-            "선수 경력: \n- 양천중-서울고-서울대\n- 2018: 두산 베어스 입단\n\n코치 경력: \n- 2023년 키움 히어로즈 작전코치\n\n소개글:\n안녕하세요 홍승우입니다.\n\n야구 입문자부터 선수까지 개개인의 특성에 맞춰 친절하고 자세히 설명해드립니다.\n\n비디오 분석을 통한 꼼꼼한 레슨으로 여러분들의 야구 실력을 향상시켜드리겠습니다."
-          }
-          value={intro}
-          onChangeText={(text) => setIntro(text)}
-          textColor="black"
-          placeholderTextColor="gray"
-          multiline
-          maxLength={1000}
-          style={{ height: 300 }}
-          testID="curriculum"
-        />
-        <Divider style={{ marginVertical: 10 }} />
+        <Divider style={styles.divider} />
         <SubTitle text="소개 사진/영상" sub=" 소개 영상은 최대 15MB" />
         <ImagePicker uploadedImages={medias} setUploadedImages={setMedias} />
-        <Divider style={{ marginVertical: 10 }} />
-        <SubTitle
-          text="선호 활동 지역"
-          sub=" 최소 1개 최대 5개"
-        />
+        <Divider style={styles.divider} />
+        <SubTitle text="선호 활동 지역" sub=" 선택하면 초기 검색에 유리해요!" />
         {selectedRegions.length > 0 && (
           <Text style={{ marginBottom: 10 }}>
-            선택한 지역: {selectedRegions.map((region) => region.name).join(", ")}
+            선택한 지역:{" "}
+            {selectedRegions.map((region) => region.name).join(", ")}
           </Text>
         )}
         <Button onPress={() => bottomSheetRef.current?.expand()}>
@@ -141,7 +147,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
         snapPoints={snapPoints}
         enableHandlePanningGesture={false}
       >
-        <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
+        <ScrollView style={{ flex: 1, paddingHorizontal: 20 }}>
           <View style={{ flexDirection: "row" }}>
             <Text style={{ flex: 2, marginRight: 10 }}>시/도</Text>
             <View style={{ flex: 8 }}>
@@ -172,6 +178,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
               flexDirection: "row",
               justifyContent: "center",
               flexWrap: "wrap",
+              paddingHorizontal: 20,
             }}
           >
             {selectedRegions.map((region) => (
@@ -228,8 +235,15 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: "gray",
   },
+  divider: {
+    marginVertical: 10,
+  },
+  textInput: {
+    height: 300,
+  },
   button: {
     marginTop: 10,
     marginBottom: 20,
+    marginHorizontal: 20,
   },
 });
