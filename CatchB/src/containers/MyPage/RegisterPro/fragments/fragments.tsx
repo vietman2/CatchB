@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
+import { SvgCssUri } from "react-native-svg";
 
 import { themeColors } from "../../../../variables/colors";
 import {
@@ -87,15 +88,7 @@ export function BankAccountPreview({ account }: Readonly<AccountProps>) {
 
   return (
     <View style={styles.bankAccount}>
-      {/* TODO: Replace this with bank icon */}
-      <View
-        style={{
-          width: 40,
-          height: 40,
-          backgroundColor: "#ffbc00",
-          borderRadius: 20,
-        }}
-      />
+      <SvgCssUri width="40" height="40" uri={account.bank.icon} />
       <Text variant="titleLarge" style={styles.accountText}>
         {account.bank.name} {renderAccountNumber(account.account_number)}
       </Text>
@@ -121,15 +114,7 @@ export function Bank({ bank }: Readonly<BankProps>) {
 export function BankChoice({ bank }: Readonly<BankProps>) {
   return (
     <View style={styles.bankChoice}>
-      <View
-        style={{
-          width: 40,
-          height: 40,
-          backgroundColor: "#ffbc00",
-          borderRadius: 20,
-          marginBottom: 5,
-        }}
-      />
+      <SvgCssUri width="40" height="40" uri={bank.icon} />
       <Text variant="titleMedium">{bank.name}</Text>
     </View>
   );
