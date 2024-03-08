@@ -139,7 +139,7 @@ describe("<FilePicker />", () => {
       <FilePicker setUploadedFile={jest.fn()} uploadedFile={null} type="pdf" />
     );
 
-    fireEvent.press(getByText("파일 업로드"));
+    fireEvent.press(getByText("파일 선택하기"));
   });
 
   it("should handle file picker: pdf, uploaded", () => {
@@ -153,7 +153,7 @@ describe("<FilePicker />", () => {
       <FilePicker setUploadedFile={jest.fn()} uploadedFile={null} type="pdf" />
     );
 
-    fireEvent.press(getByText("파일 업로드"));
+    fireEvent.press(getByText("파일 선택하기"));
   });
 
   it("should handle file picker: pdf, already uploaded", () => {
@@ -188,7 +188,7 @@ describe("<FilePicker />", () => {
       />
     );
 
-    fireEvent.press(getByText("이미지 업로드"));
+    fireEvent.press(getByText("이미지 선택하기"));
   });
 
   it("should handle file picker: image, uploaded", () => {
@@ -206,7 +206,7 @@ describe("<FilePicker />", () => {
       />
     );
 
-    fireEvent.press(getByText("이미지 업로드"));
+    fireEvent.press(getByText("이미지 선택하기"));
   });
 
   it("should handle file picker: image, already uploaded", () => {
