@@ -1,4 +1,4 @@
-import { TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
@@ -27,21 +27,40 @@ export default function CommunityContainer() {
 
   const headerTitle = (title: string) => {
     return (
-      <Text variant="headlineSmall" style={{ fontWeight: "bold" }}>
+      <Text variant="headlineSmall" style={styles.bold}>
         {title}
       </Text>
     );
   };
 
-  const WriteIcon = () => {
+  const HomeIcons = () => {
     return (
-      <TouchableOpacity
-        style={{ marginRight: 15 }}
-        onPress={() => navigation.navigate("PostCreate")}
-        testID="create-post-button"
-      >
-        <Icon source="pencil-plus-outline" size={24} color="black" />
-      </TouchableOpacity>
+      <View style={styles.horizontal}>
+        <TouchableOpacity
+          style={styles.whiteSpace}
+          onPress={() => {}}
+          testID="create-steal-button"
+        >
+          <Icon source="video-plus-outline" size={24} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.whiteSpace}
+          onPress={() => navigation.navigate("PostCreate")}
+          testID="create-post-button"
+        >
+          <Icon source="pencil-plus-outline" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const HelpIcon = () => {
+    return (
+      <View style={styles.horizontal}>
+        <TouchableOpacity onPress={() => {}} style={styles.whiteSpace}>
+          <Icon source="help-circle-outline" size={24} color="green" />
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -58,7 +77,7 @@ export default function CommunityContainer() {
         options={{
           headerLeft: SmallLogo,
           headerTitle: () => null,
-          headerRight: () => WriteIcon(),
+          headerRight: () => <HomeIcons />,
         }}
       />
       <CommunityStack.Screen
@@ -66,7 +85,8 @@ export default function CommunityContainer() {
         component={PostCreate}
         options={{
           headerLeft: () => backToMain(),
-          headerTitle: () => headerTitle("글 작성"),
+          headerTitle: () => headerTitle("포스트 작성"),
+          headerRight: () => <HelpIcon />,
         }}
       />
       <CommunityStack.Screen
@@ -80,3 +100,15 @@ export default function CommunityContainer() {
     </CommunityStack.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  horizontal: {
+    flexDirection: "row",
+  },
+  whiteSpace: {
+    marginRight: 15,
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+});
