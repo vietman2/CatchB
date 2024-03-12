@@ -1,4 +1,4 @@
-import { CouponIssuerType, CouponStatus, CouponType } from "../enums";
+import { CouponIssuerType, CouponStatus } from "../enums";
 
 export type UserProfileType = {
   uuid: string;
@@ -21,7 +21,6 @@ export type UserProfileType = {
 };
 
 type CouponStatusKey = keyof typeof CouponStatus;
-type CouponTypeKey = keyof typeof CouponType;
 type CouponIssuerTypeKey = keyof typeof CouponIssuerType;
 
 export type CouponClassType = {
@@ -38,7 +37,7 @@ export type CouponClassType = {
   max_count: number;
   current_count: number;
 
-  coupon_type: CouponTypeKey;
+  coupon_type: "AMNT" | "PCNT" | "FREE";
   discount_value: number;
 };
 

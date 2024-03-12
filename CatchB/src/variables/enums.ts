@@ -4,12 +4,6 @@ export const CouponStatus = {
   EXPIRED: { value: "EXP", label: "기한 만료" },
 };
 
-export const CouponType = {
-  AMOUNT: { value: "AMNT", label: "금액 할인" },
-  PERCENTAGE: { value: "PCNT", label: "비율 할인" },
-  FREE: { value: "FREE", label: "무료" },
-};
-
 export const CouponIssuerType = {
   CATCH_B: { value: "CAT", label: "캐치비" },
   FACILITY: { value: "FAC", label: "시설" },
