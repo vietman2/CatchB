@@ -44,10 +44,10 @@ describe("<CommunityMain />", () => {
     const { getAllByText } = renderWithProviders(<Components />);
 
     waitFor(() => {
-      fireEvent.press(getAllByText("모집")[0]);
-      fireEvent.press(getAllByText("야구톡")[0]);
-      fireEvent.press(getAllByText("벼룩시장")[0]);
-      fireEvent.press(getAllByText("자세분석")[0]);
+      fireEvent.press(getAllByText("드래프트")[0]);
+      fireEvent.press(getAllByText("덕아웃")[0]);
+      fireEvent.press(getAllByText("장터")[0]);
+      fireEvent.press(getAllByText("스틸")[0]);
       fireEvent.press(getAllByText("내 활동")[0]);
     });
   });

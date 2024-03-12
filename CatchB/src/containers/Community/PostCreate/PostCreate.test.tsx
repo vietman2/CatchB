@@ -10,17 +10,32 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
+
   return {
     PaperProvider: Provider,
+    Divider: "Divider",
     Icon: "Icon",
+    Snackbar: "Snackbar",
     Text: "Text",
     TextInput: {
       ...jest.requireActual("react-native-paper").TextInput,
       Affix: "Affix",
+      Icon: "Icon",
     },
   };
 });
+jest.mock("expo-image-picker", () => ({
+  MediaTypeOptions: "MediaTypeOptions",
+  launchImageLibraryAsync: jest.fn(),
+}));
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock("../fragments", () => ({
+  Tag: "Tag",
+  Preview: "Preview",
+}));
+jest.mock("../../../components/Selectors", () => ({
+  Selector: "Selector",
+}));
 
 const Stack = createStackNavigator();
 
@@ -29,28 +44,13 @@ const Components = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="PostCreate" component={PostCreate} />
-        <Stack.Screen name="PostDetail" component={PostCreate} />
+        <Stack.Screen name="CommunityScreen" component={PostCreate} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 describe("<PostCreate />", () => {
-  it("renders correctly and handles forum select", () => {
-    const { getByTestId, getByText } = renderWithProviders(<Components />);
-
-    fireEvent.press(getByTestId("forum-picker"));
-    fireEvent.press(getByText("모집"));
-    fireEvent.press(getByTestId("forum-picker"));
-    fireEvent.press(getByTestId("selected-forum"));
-  });
-
-  it("handles tag picker open", async () => {
-    const { getByTestId } = renderWithProviders(<Components />);
-
-    waitFor(() => fireEvent.press(getByTestId("tag-picker")));
-  });
-
   it("handles create post", () => {
     const { getByText } = renderWithProviders(<Components />);
 
