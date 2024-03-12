@@ -1,97 +1,119 @@
-import { useEffect, useRef, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { Icon, Text, TextInput } from "react-native-paper";
+import { Divider, Icon, Snackbar, Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import BottomSheet from "@gorhom/bottom-sheet";
+import { useSelector } from "react-redux";
+import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 
+import { forumChoices, MyImageAsset } from "./variables";
+import { Tag, Preview } from "../fragments";
+import { Selector } from "../../../components/Selectors";
+import { getTagsList, uploadImageFile } from "../../../services/community/media";
 import { themeColors } from "../../../variables/colors";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
-
-type Forums = "야구톡" | "모집" | "벼룩시장" | "자세 분석";
-const forums: Forums[] = ["야구톡", "모집", "벼룩시장", "자세 분석"];
+import { TagType } from "../../../variables/types/community";
+import { RootState } from "../../../store/store";
 
 export default function PostCreate() {
-  const forumBottomSheetRef = useRef<BottomSheet>(null);
-  const tagBottomSheetRef = useRef<BottomSheet>(null);
-  const forumPickerSnapPoints = useMemo(() => ["35%"], []);
-  const tagPickerSnapPoints = useMemo(() => ["60%"], []);
-  const [selectedForum, setSelectedForum] = useState<Forums>("야구톡");
-  //const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [snackbarText, setSnackbarText] = useState<string>("");
+  const [visible, setVisible] = useState<boolean>(false);
+  const [tagChoices, setTagChoices] = useState<{}>();
+  const [selectedForum, setSelectedForum] = useState<string>("덕아웃");
+  const [selectedTags, setSelectedTags] = useState<TagType[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<MyImageAsset[]>([]);
+
+  const user = useSelector((state: RootState) => state.auth.user);
   const navigation =
     useNavigation<CommunityStackScreenProps<"PostCreate">["navigation"]>();
 
   useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={handleCreatePost} style={styles.button}>
-          <Text variant="titleLarge" style={styles.buttonText}>
-            등록
-          </Text>
-        </TouchableOpacity>
-      ),
-    });
+    const fetchTags = async () => {
+      const response = await getTagsList();
+
+      if (response.status === 200) {
+        setTagChoices(response.data);
+      }
+    };
+
+    fetchTags();
   }, []);
 
   const handleCreatePost = () => {
     // TODO: API 연동
     // + setSelectedPost to new post
-    navigation.navigate("PostDetail");
+    navigation.navigate("CommunityScreen"); // 새로운 글의 PostDetail로 바로 이동
   };
 
-  const handleForumSelect = (forum: Forums) => {
-    setSelectedForum(forum);
-    forumBottomSheetRef.current?.close();
-  };
-
-  const handleForumPickerOpen = () => {
-    forumBottomSheetRef.current?.expand();
-  };
-
-  const handleTagPickerOpen = () => {
-    tagBottomSheetRef.current?.expand();
-  };
-  /*
-  const handleTagPickerClose = () => {
-    tagBottomSheetRef.current?.close();
-  };
-
-  const handleTagSelect = (tag: string) => {
+  const handleTagSelect = (tag: TagType) => {
     if (selectedTags.includes(tag)) {
-      setSelectedTags(
-        selectedTags.filter((selectedTag) => selectedTag !== tag)
-      );
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
     } else {
+      if (selectedTags.length >= 3) {
+        setSnackbarText("태그는 최대 3개까지 선택할 수 있습니다.");
+        setVisible(true);
+        return;
+      }
       setSelectedTags([...selectedTags, tag]);
     }
-  };*/
+  };
 
-  function SelectedForum({ forum }: Readonly<{ forum: Forums }>) {
-    return (
-      <TouchableOpacity
-        onPress={() => handleForumSelect(forum)}
-        style={styles.option}
-        testID="selected-forum"
-      >
-        <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
-          {forum}
-        </Text>
-        <Icon source="check" size={24} color="green" />
-      </TouchableOpacity>
-    );
-  }
+  const renderTags = () => {
+    if (tagChoices) {
+      return tagChoices[selectedForum].map((tag: TagType) => (
+        <TouchableOpacity key={tag.name} onPress={() => handleTagSelect(tag)}>
+          <Tag tag={tag} active={selectedTags.includes(tag)} />
+        </TouchableOpacity>
+      ));
+    }
+  };
 
-  function UnselectedForum({ forum }: Readonly<{ forum: Forums }>) {
-    return (
-      <TouchableOpacity
-        onPress={() => handleForumSelect(forum)}
-        style={styles.option}
-      >
-        <Text variant="titleLarge">{forum}</Text>
-      </TouchableOpacity>
-    );
-  }
+  const handleForumSelect = (forum: string) => {
+    setSelectedForum(forum);
+    setSelectedTags([]);
+  };
+
+  const closeSnackbar = () => {
+    setVisible(false);
+  };
+
+  const uploadImage = async () => {
+    const result = await launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.All,
+      allowsMultipleSelection: false,
+    });
+
+    if (result.canceled) return;
+
+    const image = result;
+    const imageAsset = image.assets[0];
+
+    if (
+      uploadedImages.some((img) => img.asset.fileName === imageAsset.fileName)
+    ) {
+      // if same image is already uploaded, skip
+      setSnackbarText("이미 업로드된 사진입니다.");
+      setVisible(true);
+      return;
+    }
+
+    const response = await uploadImageFile(user.uuid, imageAsset);
+
+    if (response.status !== 201) {
+      setSnackbarText("이미지 업로드에 실패했습니다.");
+      setVisible(true);
+    } else {
+      const url = response.data.url;
+      const id = response.data.id;
+      setUploadedImages((prev) => [...prev, { id, url, asset: imageAsset }]);
+
+      const newContent =
+        content +
+        `\n![업로드${uploadedImages.length + 1}](${imageAsset.fileName})`;
+      setContent(newContent);
+    }
+  };
 
   return (
     <>
@@ -100,28 +122,20 @@ export default function PostCreate() {
         automaticallyAdjustKeyboardInsets
         keyboardDismissMode="on-drag"
       >
-        <View style={styles.pickers}>
-          <TouchableOpacity
-            onPress={handleForumPickerOpen}
-            style={styles.button}
-            testID="forum-picker"
-          >
-            <View style={styles.chip}>
-              <Text style={styles.chipText}>{selectedForum}</Text>
-              <Icon source="chevron-down" size={18} />
-            </View>
-          </TouchableOpacity>
-          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            <Text>태그</Text>
-          </View>
-          <TouchableOpacity
-            onPress={handleTagPickerOpen}
-            style={styles.button}
-            testID="tag-picker"
-          >
-            <Text>선택{/*selectedTags.length === 0 ? "선택" : "변경"*/}</Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.subtitle}>게시판</Text>
+        <Selector
+          multiple={false}
+          numItemsInRow={3}
+          options={forumChoices}
+          singleSelected={selectedForum}
+          setSingleSelected={handleForumSelect}
+        />
+        <Text style={styles.subtitle}>
+          태그
+          <Text style={styles.helperText}>{`\t ${selectedTags.length}/3`}</Text>
+        </Text>
+        <View style={styles.selectedTags}>{renderTags()}</View>
+        <Divider style={styles.divider} />
         <TextInput
           label="제목"
           mode="outlined"
@@ -129,12 +143,12 @@ export default function PostCreate() {
           onChangeText={setTitle}
           right={
             <TextInput.Affix
-              text={`${title.length}/50`}
-              textStyle={{ fontSize: 14, color: "gray" }}
+              text={`${title.length}/40`}
+              textStyle={styles.count}
             />
           }
           dense
-          error={title.length > 50}
+          error={title.length > 40}
           style={styles.textInput}
         />
         <TextInput
@@ -142,50 +156,48 @@ export default function PostCreate() {
           mode="outlined"
           value={content}
           onChangeText={setContent}
+          dense
+          style={styles.textInput}
+          multiline
           right={
-            <TextInput.Affix
-              text={`${content.length}/1000`}
-              textStyle={{ fontSize: 14, color: "gray" }}
+            <TextInput.Icon
+              icon="image-plus"
+              color="green"
+              onPress={uploadImage}
             />
           }
-          dense
-          error={content.length > 1000}
-          style={[styles.textInput, { height: 360 }]}
-          multiline
         />
+        {uploadedImages.length > 0 && (
+          <>
+            <Divider style={styles.divider} />
+            <Text style={styles.subtitle}>포함된 이미지</Text>
+            {uploadedImages.map((image) => (
+              <View style={styles.box} key={image.url}>
+                <Icon source="image" size={24} color="green" />
+                <Text variant="titleMedium" style={styles.text}>
+                  {image.asset.fileName}
+                </Text>
+              </View>
+            ))}
+          </>
+        )}
+        <Divider style={styles.divider} />
+        <TouchableOpacity style={styles.button} onPress={handleCreatePost}>
+          <Text style={styles.buttonText}>등록</Text>
+        </TouchableOpacity>
+        <View style={styles.space} />
       </ScrollView>
-      <BottomSheet
-        ref={forumBottomSheetRef}
-        index={-1}
-        snapPoints={forumPickerSnapPoints}
-        backgroundStyle={styles.bottomSheet}
+      <Preview content={content} uploadedImages={uploadedImages} />
+      <Snackbar
+        visible={visible}
+        onDismiss={closeSnackbar}
+        action={{
+          label: "닫기",
+          onPress: closeSnackbar,
+        }}
       >
-        <View style={styles.forumPicker}>
-          <Text variant="titleLarge" style={styles.forumTitle}>
-            게시판 선택
-          </Text>
-          {forums.map((forum) => {
-            return selectedForum === forum ? (
-              <SelectedForum key={forum} forum={forum} />
-            ) : (
-              <UnselectedForum key={forum} forum={forum} />
-            );
-          })}
-        </View>
-      </BottomSheet>
-      <BottomSheet
-        ref={tagBottomSheetRef}
-        index={-1}
-        snapPoints={tagPickerSnapPoints}
-        backgroundStyle={styles.bottomSheet}
-      >
-        <View style={styles.forumPicker}>
-          <Text variant="titleLarge" style={styles.forumTitle}>
-            태그 선택
-          </Text>
-          <Text variant="titleLarge">태그 선택</Text>
-        </View>
-      </BottomSheet>
+        {snackbarText}
+      </Snackbar>
     </>
   );
 }
@@ -196,53 +208,54 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.primaryContainer,
     paddingHorizontal: 20,
   },
-  pickers: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  button: {
-    marginRight: 15,
-  },
-  buttonText: {
-    color: themeColors.primary,
-    fontWeight: "bold",
-  },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "silver",
-    marginRight: 10,
-    borderRadius: 7.5,
+  subtitle: {
+    marginVertical: 5,
     paddingLeft: 10,
-    paddingRight: 5,
-    paddingVertical: 5,
-  },
-  chipText: {
-    fontWeight: "bold",
-    marginRight: 2,
-  },
-  bottomSheet: {
-    backgroundColor: "rgb(245, 245, 245)",
-  },
-  forumPicker: {
-    alignItems: "center",
-  },
-  forumTitle: {
-    fontWeight: "bold",
-    fontFamily: "Catch B Bold",
-    color: themeColors.primary,
-  },
-  option: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "80%",
-    marginTop: 10,
+    fontSize: 18,
   },
   textInput: {
-    marginTop: 20,
     backgroundColor: "white",
+    marginBottom: 15,
+  },
+  count: {
+    color: "gray",
+    fontSize: 14,
+  },
+  space: {
+    height: 50,
+  },
+  selectedTags: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginBottom: 5,
+  },
+  helperText: {
+    color: "gray",
+    fontSize: 14,
+  },
+  box: {
+    flexDirection: "row",
+    backgroundColor: "rgba(192, 192, 192, 0.15)",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 5,
+  },
+  text: {
+    marginLeft: 10,
+  },
+  divider: {
+    marginVertical: 10,
+  },
+  button: {
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 15,
+    borderRadius: 25,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
   },
 });
