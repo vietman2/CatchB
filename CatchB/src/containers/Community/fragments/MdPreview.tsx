@@ -16,7 +16,7 @@ export default function Preview({ content, uploadedImages }: Readonly<Props>) {
   const renderContent = () => {
     const contentWithImages = content
       .split("\n")
-      .map((line, index) => {
+      .map((line) => {
         if (line.startsWith("![업로드")) {
           const imageIndex = parseInt(line.match(/\d+/)[0]) - 1;
           return `![업로드${imageIndex + 1}](${
