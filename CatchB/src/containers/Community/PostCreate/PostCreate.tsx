@@ -19,7 +19,7 @@ export default function PostCreate() {
   const [content, setContent] = useState<string>("");
   const [snackbarText, setSnackbarText] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
-  const [tagChoices, setTagChoices] = useState<{}>();
+  const [tagChoices, setTagChoices] = useState<Record<string, TagType[]>>();
   const [selectedForum, setSelectedForum] = useState<string>("덕아웃");
   const [selectedTags, setSelectedTags] = useState<TagType[]>([]);
   const [uploadedImages, setUploadedImages] = useState<MyImageAsset[]>([]);
