@@ -36,21 +36,21 @@ export default function Community() {
       }}
     >
       <Tab.Screen
-        name="야구톡"
+        name="덕아웃"
         component={BaseballCommunity}
         initialParams={{
-          mode: "야구톡",
+          mode: "덕아웃",
         }}
       />
       <Tab.Screen
-        name="모집"
+        name="드래프트"
         component={RecruitmentCommunity}
         initialParams={{
-          mode: "모집",
+          mode: "드래프트",
         }}
       />
-      <Tab.Screen name="벼룩시장" component={PlaceholderComponent} />
-      <Tab.Screen name="자세분석" component={VideoCommunity} />
+      <Tab.Screen name="장터" component={PlaceholderComponent} />
+      <Tab.Screen name="스틸" component={VideoCommunity} />
       <Tab.Screen name="내 활동" component={PlaceholderComponent} />
     </Tab.Navigator>
   );

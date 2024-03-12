@@ -20,7 +20,7 @@ import { CommunityStackScreenProps } from "../../../variables/navigation";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
 
 interface Props {
-  mode: "야구톡" | "모집";
+  mode: "덕아웃" | "드래프트";
 }
 
 type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순";
@@ -53,7 +53,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
   };
 
   useEffect(() => {
-    if (mode === "야구톡") {
+    if (mode === "덕아웃") {
       setPosts(samplePosts.filter((post) => post.forum_id === 1));
     } else {
       setPosts(samplePosts.filter((post) => post.forum_id === 2));
@@ -126,7 +126,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
               전체
             </Chip>
           </TouchableOpacity>
-          {mode === "모집" ? (
+          {mode === "드래프트" ? (
             <TouchableOpacity>
               <Chip
                 compact
