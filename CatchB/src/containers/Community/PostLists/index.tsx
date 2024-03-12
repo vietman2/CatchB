@@ -3,11 +3,11 @@ import { VideoList } from "./VideoList";
 
 
 function BaseballCommunity() {
-  return <CommunityList mode="야구톡" />;
+  return <CommunityList mode="덕아웃" />;
 }
 
 function RecruitmentCommunity() {
-  return <CommunityList mode="모집" />;
+  return <CommunityList mode="드래프트" />;
 }
 
 export { BaseballCommunity, RecruitmentCommunity, VideoList as VideoCommunity };
