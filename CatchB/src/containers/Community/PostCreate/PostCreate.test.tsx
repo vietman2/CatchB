@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, waitFor } from "@testing-library/react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { Alert } from "react-native";
 import * as IPicker from "expo-image-picker";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import PostCreate from "./PostCreate";
 import { renderWithProviders } from "../../../utils/test-utils";
@@ -31,7 +32,7 @@ jest.mock("react-native-paper", () => {
   TextInput.Icon = TextInputIcon;
   TextInput.Affix = "Affix";
 
-  const Snackbar = ({ visible, onDismiss }: any) => {
+  const Snackbar = ({ onDismiss }: any) => {
     return (
       <TouchableOpacity onPress={onDismiss}>
         <Text>Snackbar</Text>
@@ -233,7 +234,7 @@ describe("<PostCreate />", () => {
       alert[0].onPress();
       alert[1].onPress();
     });
-      fireEvent.press(getByText("Selector"));
+    fireEvent.press(getByText("Selector"));
 
     waitFor(() => {
       fireEvent.press(getByText("등록"));
