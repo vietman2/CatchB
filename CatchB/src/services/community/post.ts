@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import { API_LOCAL_URL } from "../";
-import { TagType } from "../../variables/types/community";
 
 export async function createPost(
   forum: string,
@@ -36,7 +35,6 @@ export async function createPost(
     };
   } catch (err) {
     if (err.response) {
-      console.log(err.response.data);
       return {
         status: err.response.status,
         data: err.response.data,
