@@ -1,7 +1,7 @@
 import axios from "axios";
 import FormData from "form-data";
 
-import { API_LOCAL_URL } from "..";
+import { API_LOCAL_URL } from "../";
 import { ImagePickerAsset } from "expo-image-picker";
 
 export async function getTagsList() {
