@@ -1,30 +1,37 @@
 import { useEffect, useState } from "react";
-import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { Divider, Icon, Snackbar, Text, TextInput } from "react-native-paper";
+import { View, ScrollView, StyleSheet, Alert } from "react-native";
+import { Snackbar, Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 
 import { forumChoices, MyImageAsset } from "./variables";
-import { Tag, Preview } from "../fragments";
+import { Buttons, ImageList, MyDivider, Preview, Tags } from "./fragments";
 import { Selector } from "../../../components/Selectors";
-import { getTagsList, uploadImageFile } from "../../../services/community/media";
+import {
+  getTagsList,
+  uploadImageFile,
+} from "../../../services/community/media";
+import { createPost } from "../../../services/community/post";
 import { themeColors } from "../../../variables/colors";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
 import { TagType } from "../../../variables/types/community";
 import { RootState } from "../../../store/store";
+import { getTemp, removeTemp, saveTemp } from "../../../store/asyncStorage";
 
 export default function PostCreate() {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [snackbarText, setSnackbarText] = useState<string>("");
-  const [visible, setVisible] = useState<boolean>(false);
-  const [tagChoices, setTagChoices] = useState<Record<string, TagType[]>>();
   const [selectedForum, setSelectedForum] = useState<string>("덕아웃");
   const [selectedTags, setSelectedTags] = useState<TagType[]>([]);
   const [uploadedImages, setUploadedImages] = useState<MyImageAsset[]>([]);
 
+  const [tagChoices, setTagChoices] = useState<Record<string, TagType[]>>();
+  const [snackbarText, setSnackbarText] = useState<string>("");
+  const [visible, setVisible] = useState<boolean>(false);
+
   const user = useSelector((state: RootState) => state.auth.user);
+  const token = useSelector((state: RootState) => state.auth.token);
   const navigation =
     useNavigation<CommunityStackScreenProps<"PostCreate">["navigation"]>();
 
@@ -37,36 +44,59 @@ export default function PostCreate() {
       }
     };
 
+    const getSavedPost = async () => {
+      const tempPost = await getTemp();
+
+      if (tempPost) {
+        Alert.alert("임시 저장된 글이 있습니다.", "이어서 작성하시겠습니까?", [
+          {
+            text: "네",
+            onPress: async () => {
+              setUploadedImages(tempPost.uploadedImages);
+              setTitle(tempPost.title);
+              setContent(tempPost.content);
+              setSelectedForum(tempPost.selectedForum);
+
+              await removeTemp();
+            },
+          },
+          {
+            text: "아니요",
+            onPress: async () => {
+              await removeTemp();
+            },
+          },
+        ]);
+      }
+    };
+
     fetchTags();
+    getSavedPost();
   }, []);
 
-  const handleCreatePost = () => {
-    // TODO: API 연동
-    // + setSelectedPost to new post
-    navigation.navigate("CommunityScreen"); // 새로운 글의 PostDetail로 바로 이동
-  };
+  const handleCreatePost = async () => {
+    const response = await createPost(
+      selectedForum,
+      user.uuid,
+      title,
+      content,
+      selectedTags.map((tag) => tag.id),
+      uploadedImages.map((img) => img.id),
+      token
+    );
 
-  const handleTagSelect = (tag: TagType) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
-    } else {
-      if (selectedTags.length >= 3) {
-        setSnackbarText("태그는 최대 3개까지 선택할 수 있습니다.");
-        setVisible(true);
-        return;
+    if (response.status !== 201) {
+      if (response.data.message) {
+        setSnackbarText(response.data.message);
+      } else {
+        setSnackbarText("오류가 발생했습니다.");
       }
-      setSelectedTags([...selectedTags, tag]);
+      setVisible(true);
+      return;
     }
-  };
 
-  const renderTags = () => {
-    if (tagChoices) {
-      return tagChoices[selectedForum].map((tag: TagType) => (
-        <TouchableOpacity key={tag.name} onPress={() => handleTagSelect(tag)}>
-          <Tag tag={tag} active={selectedTags.includes(tag)} />
-        </TouchableOpacity>
-      ));
-    }
+    // + setSelectedPost to new post
+    //navigation.navigate("CommunityScreen"); // 새로운 글의 PostDetail로 바로 이동
   };
 
   const handleForumSelect = (forum: string) => {
@@ -89,9 +119,7 @@ export default function PostCreate() {
     const image = result;
     const imageAsset = image.assets[0];
 
-    if (
-      uploadedImages.some((img) => img.asset.fileName === imageAsset.fileName)
-    ) {
+    if (uploadedImages.some((img) => img.fileName === imageAsset.fileName)) {
       // if same image is already uploaded, skip
       setSnackbarText("이미 업로드된 사진입니다.");
       setVisible(true);
@@ -106,13 +134,21 @@ export default function PostCreate() {
     } else {
       const url = response.data.url;
       const id = response.data.id;
-      setUploadedImages((prev) => [...prev, { id, url, asset: imageAsset }]);
+      setUploadedImages((prev) => [
+        ...prev,
+        { id, url, fileName: imageAsset.fileName },
+      ]);
 
       const newContent =
         content +
         `\n![업로드${uploadedImages.length + 1}](${imageAsset.fileName})`;
       setContent(newContent);
     }
+  };
+
+  const handleTemporarySave = async () => {
+    await saveTemp(title, content, selectedForum, uploadedImages);
+    navigation.navigate("CommunityScreen");
   };
 
   return (
@@ -130,12 +166,15 @@ export default function PostCreate() {
           singleSelected={selectedForum}
           setSingleSelected={handleForumSelect}
         />
-        <Text style={styles.subtitle}>
-          태그
-          <Text style={styles.helperText}>{`\t ${selectedTags.length}/3`}</Text>
-        </Text>
-        <View style={styles.selectedTags}>{renderTags()}</View>
-        <Divider style={styles.divider} />
+        <Tags
+          tagChoices={tagChoices}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+          setSnackbarText={setSnackbarText}
+          setVisible={setVisible}
+          selectedForum={selectedForum}
+        />
+        <MyDivider />
         <TextInput
           label="제목"
           mode="outlined"
@@ -169,22 +208,16 @@ export default function PostCreate() {
         />
         {uploadedImages.length > 0 && (
           <>
-            <Divider style={styles.divider} />
+            <MyDivider />
             <Text style={styles.subtitle}>포함된 이미지</Text>
-            {uploadedImages.map((image) => (
-              <View style={styles.box} key={image.url}>
-                <Icon source="image" size={24} color="green" />
-                <Text variant="titleMedium" style={styles.text}>
-                  {image.asset.fileName}
-                </Text>
-              </View>
-            ))}
+            <ImageList uploadedImages={uploadedImages} />
           </>
         )}
-        <Divider style={styles.divider} />
-        <TouchableOpacity style={styles.button} onPress={handleCreatePost}>
-          <Text style={styles.buttonText}>등록</Text>
-        </TouchableOpacity>
+        <MyDivider />
+        <Buttons
+          handleCreatePost={handleCreatePost}
+          handleTemporarySave={handleTemporarySave}
+        />
         <View style={styles.space} />
       </ScrollView>
       <Preview content={content} uploadedImages={uploadedImages} />
@@ -223,39 +256,5 @@ const styles = StyleSheet.create({
   },
   space: {
     height: 50,
-  },
-  selectedTags: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginBottom: 5,
-  },
-  helperText: {
-    color: "gray",
-    fontSize: 14,
-  },
-  box: {
-    flexDirection: "row",
-    backgroundColor: "rgba(192, 192, 192, 0.15)",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 10,
-    marginBottom: 5,
-  },
-  text: {
-    marginLeft: 10,
-  },
-  divider: {
-    marginVertical: 10,
-  },
-  button: {
-    backgroundColor: "green",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 15,
-    borderRadius: 25,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
   },
 });
