@@ -72,6 +72,7 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       <SubTitle text="선수 경력" />
       <Selector
         multiple={false}
+        numItemsInRow={2}
         options={[
           "프로 선수 출신",
           "대학교 선수 출신",

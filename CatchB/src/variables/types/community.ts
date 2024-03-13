@@ -14,3 +14,15 @@ export type PostType = {
   num_likes: number;
   num_clicks: number;
 };
+
+export type ForumType = {
+  name: string;
+};
+
+export type TagType = {
+  id: number;
+  name: string;
+  icon: string;
+  color: string;
+  bgcolor: string;
+};

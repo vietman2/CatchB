@@ -15,7 +15,7 @@ export const sampleCouponClasses: CouponClassType[] = [
     max_count: 100,
     current_count: 100,
 
-    coupon_type: "PERCENTAGE",
+    coupon_type: "PCNT",
     discount_value: 10,
   },
   {
@@ -32,7 +32,7 @@ export const sampleCouponClasses: CouponClassType[] = [
     max_count: 100,
     current_count: 100,
 
-    coupon_type: "AMOUNT",
+    coupon_type: "AMNT",
     discount_value: 5000,
   },
 ];

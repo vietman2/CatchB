@@ -79,10 +79,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
 
   return (
     <>
-      <ScrollView
-        style={styles.container}
-        keyboardDismissMode="on-drag"
-      >
+      <ScrollView style={styles.container} keyboardDismissMode="on-drag">
         <MainTitle
           text="상세 정보"
           sub="상세 정보를 다 입력하면 문의 받을 확률이 3배 높아요!"
@@ -101,6 +98,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
         <SubTitle text="전문 파트 (복수 선택 가능)" />
         <Selector
           multiple
+          numItemsInRow={2}
           options={partChoices}
           multiSelected={selectedParts}
           setMultiSelected={setSelectedParts}
@@ -108,6 +106,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
         <SubTitle text="레슨 레벨 (복수 선택 가능)" />
         <Selector
           multiple
+          numItemsInRow={2}
           options={levelChoices}
           multiSelected={selectedLevels}
           setMultiSelected={setSelectedLevels}
@@ -115,6 +114,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
         <SubTitle text="레슨 유형 (복수 선택 가능)" />
         <Selector
           multiple
+          numItemsInRow={2}
           options={typeChoices}
           multiSelected={selectedTypes}
           setMultiSelected={setSelectedTypes}
@@ -152,6 +152,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
             <Text style={{ flex: 2, marginRight: 10 }}>시/도</Text>
             <View style={{ flex: 8 }}>
               <Selector
+                numItemsInRow={2}
                 options={data?.sido.map((sido) => sido.label) || []}
                 singleSelected={selectedSido}
                 setSingleSelected={setSelectedSido}

@@ -29,6 +29,9 @@ jest.mock("react-native-paper", () => {
 jest.mock("expo-document-picker", () => ({
   DocumentPickerAsset: "DocumentPickerAsset",
 }));
+jest.mock("expo-image-picker", () => ({
+  ImagePickerAsset: "ImagePickerAsset",
+}));
 jest.mock("../fragments", () => ({
   MainTitle: "MainTitle",
   SubTitle: "SubTitle",
