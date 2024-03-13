@@ -20,6 +20,7 @@ export type ForumType = {
 };
 
 export type TagType = {
+  id: number;
   name: string;
   icon: string;
   color: string;
