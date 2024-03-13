@@ -1,6 +1,6 @@
 import { useRef, useMemo } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { Text, Divider } from "react-native-paper";
+import { Divider, Text } from "react-native-paper";
 import BottomSheet from "@gorhom/bottom-sheet";
 import Markdown, { MarkdownIt } from "react-native-markdown-display";
 

@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
-import { View, ScrollView, StyleSheet, Alert } from "react-native";
-import { Snackbar, Text, TextInput } from "react-native-paper";
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Icon, Snackbar, Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 
-import { Buttons, ImageList, MyDivider, Preview, Tags } from "./fragments";
+import { MyDivider, Preview, Tags } from "./fragments";
 import { forumChoices, MyImageAsset } from "./variables";
 import { Selector } from "../../../components/Selectors";
 import {
@@ -95,13 +101,13 @@ export default function PostCreate() {
       return;
     }
 
-    // + setSelectedPost to new post
+    // TODO: + setSelectedPost to new post
     //navigation.navigate("CommunityScreen"); // 새로운 글의 PostDetail로 바로 이동
   };
 
   const handleForumSelect = (forum: string) => {
     setSelectedForum(forum);
-    setSelectedTags([]);
+    setSelectedTags([tagChoices[forum][0]]);
   };
 
   const closeSnackbar = () => {
@@ -189,6 +195,7 @@ export default function PostCreate() {
           dense
           error={title.length > 40}
           style={styles.textInput}
+          testID="titleInput"
         />
         <TextInput
           label="내용"
@@ -205,19 +212,37 @@ export default function PostCreate() {
               onPress={uploadImage}
             />
           }
+          testID="contentInput"
         />
         {uploadedImages.length > 0 && (
           <>
             <MyDivider />
             <Text style={styles.subtitle}>포함된 이미지</Text>
-            <ImageList uploadedImages={uploadedImages} />
+            {uploadedImages.map((image) => (
+              <View style={styles.box} key={image.url}>
+                <Icon source="image" size={24} color="green" />
+                <Text variant="titleMedium" style={styles.text}>
+                  {image.fileName}
+                </Text>
+              </View>
+            ))}
           </>
         )}
         <MyDivider />
-        <Buttons
-          handleCreatePost={handleCreatePost}
-          handleTemporarySave={handleTemporarySave}
-        />
+        <View style={styles.buttons}>
+          <TouchableOpacity
+            style={[styles.button, styles.tempButton]}
+            onPress={handleTemporarySave}
+          >
+            <Text style={styles.buttonText}>임시 저장</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, styles.uploadButton]}
+            onPress={handleCreatePost}
+          >
+            <Text style={styles.buttonText}>등록</Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.space} />
       </ScrollView>
       <Preview content={content} uploadedImages={uploadedImages} />
@@ -256,5 +281,39 @@ const styles = StyleSheet.create({
   },
   space: {
     height: 50,
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 15,
+    borderRadius: 25,
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  tempButton: {
+    flex: 1,
+    marginRight: 10,
+    backgroundColor: "gray",
+  },
+  uploadButton: {
+    flex: 3,
+    backgroundColor: "green",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  box: {
+    flexDirection: "row",
+    backgroundColor: "rgba(192, 192, 192, 0.15)",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 5,
+  },
+  text: {
+    marginLeft: 10,
   },
 });

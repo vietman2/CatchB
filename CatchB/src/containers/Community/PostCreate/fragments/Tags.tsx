@@ -23,13 +23,11 @@ export default function Tags({
   tagChoices,
 }: Props) {
   const renderTags = () => {
-    if (tagChoices) {
-      return tagChoices[selectedForum].map((tag: TagType) => (
-        <TouchableOpacity key={tag.name} onPress={() => handleTagSelect(tag)}>
-          <Tag tag={tag} active={selectedTags.includes(tag)} />
-        </TouchableOpacity>
-      ));
-    }
+    return tagChoices[selectedForum].map((tag: TagType) => (
+      <TouchableOpacity key={tag.name} onPress={() => handleTagSelect(tag)}>
+        <Tag tag={tag} active={selectedTags.includes(tag)} />
+      </TouchableOpacity>
+    ));
   };
 
   const handleTagSelect = (tag: TagType) => {
