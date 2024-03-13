@@ -1,6 +1,6 @@
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 
-import { Selector } from "./";
+import { Selector } from "./Selectors";
 
 jest.mock("react-native-paper", () => ({
   Text: "Text",
@@ -15,6 +15,7 @@ describe("<Selector />", () => {
         options={["Option 1", "Option 2"]}
         singleSelected="Option 2"
         setSingleSelected={() => {}}
+        numItemsInRow={2}
       />
     );
 
@@ -31,6 +32,7 @@ describe("<Selector />", () => {
         options={["Option 1", "Option 2"]}
         multiSelected={["Option 2"]}
         setMultiSelected={() => {}}
+        numItemsInRow={2}
       />
     );
 
@@ -46,6 +48,7 @@ describe("<Selector />", () => {
         options={["Option 1", "Option 2"]}
         multiSelected={["Option 2"]}
         setMultiSelected={() => {}}
+        numItemsInRow={2}
       />
     );
   });

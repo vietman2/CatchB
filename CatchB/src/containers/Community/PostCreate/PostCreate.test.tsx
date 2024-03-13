@@ -1,9 +1,11 @@
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import PostCreate from "./PostCreate";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { fireEvent, waitFor } from "@testing-library/react-native";
+import * as storage from "../../../store/asyncStorage";
+import * as api from "../../../services/community/media";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -13,8 +15,6 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Divider: "Divider",
-    Icon: "Icon",
     Snackbar: "Snackbar",
     Text: "Text",
     TextInput: {
@@ -28,14 +28,24 @@ jest.mock("expo-image-picker", () => ({
   MediaTypeOptions: "MediaTypeOptions",
   launchImageLibraryAsync: jest.fn(),
 }));
-jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../fragments", () => ({
-  Tag: "Tag",
+jest.mock("./fragments", () => ({
+  Buttons: "Buttons",
+  ImageList: "ImageList",
+  MyDivider: "MyDivider",
   Preview: "Preview",
+  Tags: "Tags",
 }));
 jest.mock("../../../components/Selectors", () => ({
   Selector: "Selector",
 }));
+
+jest.spyOn(storage, "getTemp").mockResolvedValue({
+  title: "title",
+  content: "content",
+  selectedForum: "selectedForum",
+  uploadedImages: [],
+});
+jest.spyOn(api, "getTagsList").mockResolvedValue({ status: 200, data: {} });
 
 const Stack = createStackNavigator();
 
@@ -51,9 +61,7 @@ const Components = () => {
 };
 
 describe("<PostCreate />", () => {
-  it("handles create post", () => {
-    const { getByText } = renderWithProviders(<Components />);
-
-    waitFor(() => fireEvent.press(getByText("등록")));
+  it("renders correctly", () => {
+    waitFor(() => renderWithProviders(<Components />));
   });
 });

@@ -35,7 +35,7 @@ export function RegionSelector({
   };
 
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    <View style={styles.container}>
       {options.map((option) => (
         <TouchableOpacity
           key={option.code}
@@ -66,6 +66,10 @@ export function RegionSelector({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
   box: {
     justifyContent: "center",
     paddingVertical: 5,
