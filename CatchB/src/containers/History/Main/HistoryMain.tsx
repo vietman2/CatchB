@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 // TODO: Remove this later
 export function NotReady() {

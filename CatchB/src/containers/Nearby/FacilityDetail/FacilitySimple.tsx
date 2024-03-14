@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 import { FacilityType } from ".types/products";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 interface Props {
   facility: FacilityType;

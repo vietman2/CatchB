@@ -1,6 +1,6 @@
 import { ActivityIndicator } from "react-native-paper";
 
-import { themeColors } from "../../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 export function MyActivityIndicator() {
   return (

@@ -17,7 +17,7 @@ import {
   ScheduleBar,
   ReservationProductsTable,
 } from "../../../components/Tables";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 import { RootState } from "../../../store/store";
 import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";

@@ -9,7 +9,7 @@ import { getCouponList } from "../../../services/user_management/coupon";
 import { setCouponListState } from "../../../store/slices/user_management/couponSlice";
 import { AppDispatch, RootState } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 export default function CouponList() {
   const [loading, setLoading] = useState(true);

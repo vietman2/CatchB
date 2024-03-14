@@ -2,7 +2,7 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Divider, Text } from "react-native-paper";
 
 import { ReservationType } from ".types/products";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 interface Props {
   tab: string;

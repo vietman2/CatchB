@@ -22,7 +22,7 @@ import { login } from "../../../services/user_management/account";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { AppDispatch } from "../../../store/store";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");

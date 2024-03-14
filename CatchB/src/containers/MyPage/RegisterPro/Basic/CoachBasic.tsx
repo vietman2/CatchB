@@ -17,7 +17,7 @@ import { FilePicker } from "../../../../components/Pickers";
 import { Selector } from "../../../../components/Selectors";
 import { RegisterProTerms } from "../../../../components/Terms";
 import { RootState } from "../../../../store/store";
-import { themeColors } from "../../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { MyPageStackScreenProps } from "../../../../variables/navigation";
 
 interface Props {

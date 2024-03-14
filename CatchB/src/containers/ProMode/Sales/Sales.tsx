@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 type DailySalesInfo = {
   date: string;

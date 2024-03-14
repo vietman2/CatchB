@@ -16,7 +16,7 @@ import { MainProfile } from "../../../components/Profile";
 import { IconTextButton, TabButton } from "../../../components/Buttons";
 import { VerticalDivider } from "../../../components/Dividers";
 import { RootState } from "../../../store/store";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
 export default function MyPageMain() {

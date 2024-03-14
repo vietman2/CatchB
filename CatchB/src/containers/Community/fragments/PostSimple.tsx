@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 import { Avatar, Chip, Icon, Text } from "react-native-paper";
 
 import { PostType } from ".types/community";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 interface Props {
   post: PostType;

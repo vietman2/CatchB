@@ -7,7 +7,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { PostTagChip } from "../../../components/Chips";
 import { CommunityPostProfile } from "../../../components/Profile";
 import { RootState } from "../../../store/store";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 export default function PostDetail() {
   const bottomSheetRef = useRef<BottomSheet>(null);

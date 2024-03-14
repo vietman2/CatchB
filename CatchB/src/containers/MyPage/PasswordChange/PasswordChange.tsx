@@ -8,7 +8,7 @@ import { changePassword, logout } from "../../../services/user_management/accoun
 import { AppDispatch, RootState } from "../../../store/store";
 import { get } from "../../../store/secure";
 import { logout as resetUserState } from "../../../store/slices/user_management/authSlice";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
 export default function PasswordChange() {

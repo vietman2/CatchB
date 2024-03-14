@@ -1,11 +1,11 @@
 /* eslint-disable react/display-name */
+import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import RegisterPro from "./RegisterPro";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
-import { fireEvent } from "@testing-library/react-native";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

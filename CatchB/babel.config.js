@@ -10,6 +10,7 @@ module.exports = function (api) {
           root: ["."],
           alias: {
             assets: "./assets",
+            ".themes": "./src/constants/themes",
             ".types": "./src/constants/types",
             //'components': './src/components',
             //'constants': './src/constants',

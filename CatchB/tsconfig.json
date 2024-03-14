@@ -4,6 +4,7 @@
     "strict": false,
     "baseUrl": "./",
     "paths": {
+      ".themes/*": ["src/constants/themes/*"],
       ".types/*": ["src/constants/types/*"]
     }
   }

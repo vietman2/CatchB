@@ -8,7 +8,7 @@ import { Calendar } from "./Calendar/Calendar";
 import { StoreDashboard } from "./StoreDashboard/StoreDashboard";
 import { Sales } from "./Sales/Sales";
 import { SmallLogo } from "../../components/Logos";
-import { themeColors } from "../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { HomeStackParamList } from "../../variables/navigation";
 
 // TODO: Remove this later

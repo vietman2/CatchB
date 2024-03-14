@@ -19,7 +19,7 @@ import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
 import { CoachType, FacilityType } from ".types/products";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { AppDispatch, RootState } from "../../../store/store";
 import { setSelectedFacility } from "../../../store/slices/products/facilitySlice";
 import { setSelectedCoach } from "../../../store/slices/products/coachSlice";

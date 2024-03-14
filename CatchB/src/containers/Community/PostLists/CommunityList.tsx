@@ -14,7 +14,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { PostSimple } from "../fragments";
 import { AppDispatch } from "../../../store/store";
 import { setSelectedPost } from "../../../store/slices/community/postSlice";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { PostType } from ".types/community";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";

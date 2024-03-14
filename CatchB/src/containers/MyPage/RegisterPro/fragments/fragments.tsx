@@ -2,11 +2,8 @@ import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 import { SvgCssUri } from "react-native-svg";
 
-import { themeColors } from "../../../../variables/colors";
-import {
-  BankAccountType,
-  BankType,
-} from ".types/payments";
+import { themeColors } from ".themes/colors";
+import { BankAccountType, BankType } from ".types/payments";
 
 interface Props {
   text: string;

@@ -4,7 +4,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 
 import TaskBoard from "../../MyStore/TaskBoard/TaskBoard";
 import ManageReservations from "../../MyStore/ManageReservations/ManageReservations";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 const Tab = createMaterialTopTabNavigator();
 

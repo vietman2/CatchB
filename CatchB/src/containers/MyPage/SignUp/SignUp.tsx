@@ -15,7 +15,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { login, register } from "../../../services/user_management/account";
 import { AppDispatch } from "../../../store/store";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
 interface Props {

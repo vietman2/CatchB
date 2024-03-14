@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
-import { themeColors } from "../../variables/colors";
-import { SigunguType } from "src/constants/types/products";
+import { themeColors } from ".themes/colors";
+import { SigunguType } from ".types/products";
 
 interface Props {
   options: SigunguType[];

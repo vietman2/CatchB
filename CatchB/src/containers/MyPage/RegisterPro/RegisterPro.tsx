@@ -10,7 +10,7 @@ import CoachBasic from "./Basic/CoachBasic";
 import FacilityBasic from "./Basic/FacilityBasic";
 import FacilityDetail from "./Detail/FacilityDetail";
 import { ProgressSteps } from "../../../components/Progress";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { MyPageStackScreenProps } from "../../../variables/navigation";
 
 export default function RegisterPro() {

@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Avatar } from "react-native-paper";
 
-import { themeColors } from "../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 interface ImageProps {
   profileImage?: string;

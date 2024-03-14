@@ -14,7 +14,7 @@ import {
   checkStatus,
 } from "../../../services/user_management/coupon";
 import { RootState } from "../../../store/store";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 export default function CouponRegister() {
   const [code, setCode] = useState<string>("");

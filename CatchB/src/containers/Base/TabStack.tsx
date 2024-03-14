@@ -24,7 +24,7 @@ import {
   RootTabParamList,
   RootTabScreenProps,
 } from "../../variables/navigation";
-import { themeColors } from "../../variables/colors";
+import { themeColors } from ".themes/colors";
 import {
   getUserProfile,
   renewToken,

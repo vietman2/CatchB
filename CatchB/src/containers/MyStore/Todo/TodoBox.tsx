@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Divider, Icon, ProgressBar, Text } from "react-native-paper";
 
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 type Todo = {
   id: number;

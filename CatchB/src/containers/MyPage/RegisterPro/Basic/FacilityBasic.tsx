@@ -16,7 +16,7 @@ import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { setMyFacilityUuid } from "../../../../store/slices/products/facilitySlice";
 import { registerFacility } from "../../../../services/facility/facility";
-import { themeColors } from "../../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { MyPageStackScreenProps } from "../../../../variables/navigation";
 
 interface Props {

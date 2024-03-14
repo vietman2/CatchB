@@ -14,7 +14,7 @@ import {
 } from "../../../../components/Pickers";
 import { uploadDetails } from "../../../../services/facility/facility";
 import { RootState } from "../../../../store/store";
-import { themeColors } from "../../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 interface Props {
   onFinish: () => void;

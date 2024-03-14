@@ -19,7 +19,7 @@ import {
   uploadImageFile,
 } from "../../../services/community/media";
 import { createPost } from "../../../services/community/post";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
 import { TagType } from ".types/community";
 import { RootState } from "../../../store/store";
