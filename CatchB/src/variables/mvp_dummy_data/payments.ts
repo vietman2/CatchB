@@ -6,7 +6,7 @@ export const sampleBanks: BankType[] = [
     name: "KB국민은행",
     kor_code: "국민은행",
     eng_code: "KB",
-    icon: "http://fake.url/icon.png"
+    icon: "fake.url/icon.png"
   },
 ];
 
