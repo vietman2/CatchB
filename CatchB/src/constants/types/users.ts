@@ -1,5 +1,3 @@
-import { CouponIssuerType, CouponStatus } from "../enums";
-
 export type UserProfileType = {
   uuid: string;
   username: string;
@@ -20,14 +18,13 @@ export type UserProfileType = {
   total_points: string;
 };
 
-type CouponStatusKey = keyof typeof CouponStatus;
-type CouponIssuerTypeKey = keyof typeof CouponIssuerType;
+type CouponIssuerChoices = "CAT" | "FAC" | "COA" | "NUL";
 
 export type CouponClassType = {
   code: string;
   coupon_name: string;
   coupon_description: string;
-  coupon_issuer_type: CouponIssuerTypeKey;
+  coupon_issuer_type: CouponIssuerChoices;
   coupon_issuer: string;
 
   issue_valid_days: number;
@@ -41,12 +38,14 @@ export type CouponClassType = {
   discount_value: number;
 };
 
+type CouponStatusChoices = "ACT" | "USE" | "EXP";
+
 export type CouponType = {
   id: number;
   user: string;
   coupon_class: CouponClassType;
   issued_at: string;
-  status: CouponStatusKey;
+  status: CouponStatusChoices;
   valid_until: string;
   used_at: string | null;
 };

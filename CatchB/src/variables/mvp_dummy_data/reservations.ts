@@ -1,6 +1,6 @@
-import { Reservation, ReservationProduct } from "../types/products";
+import { ReservationType, ReservationProductType } from ".types/products";
 
-export const reservationProducts: ReservationProduct[] = [
+export const reservationProducts: ReservationProductType[] = [
   {
     id: 1,
     title: "2시간 대관",
@@ -48,7 +48,7 @@ export const reservationProducts: ReservationProduct[] = [
   },
 ];
 
-export const newReservations: Reservation[] = [
+export const newReservations: ReservationType[] = [
   {
     uuid: "reservation-uuid-1",
     product: reservationProducts[0],
@@ -56,7 +56,7 @@ export const newReservations: Reservation[] = [
     lesson_session: "fake",
     start_datetime: "내일 14:00",
     end_datetime: "내일 16:00",
-    status: "WAITING",
+    status: "WA",
     created_at: "방금 전",
     confirmed_at: null,
   },
@@ -67,13 +67,13 @@ export const newReservations: Reservation[] = [
     lesson_session: null,
     start_datetime: "다음주 수요일 18:00",
     end_datetime: "다음주 수요일 22:00",
-    status: "WAITING",
+    status: "WA",
     created_at: "44분 전",
     confirmed_at: null,
   },
 ];
 
-export const confirmedReservations: Reservation[] = [
+export const confirmedReservations: ReservationType[] = [
   {
     uuid: "reservation-uuid-3",
     product: reservationProducts[0],
@@ -81,13 +81,13 @@ export const confirmedReservations: Reservation[] = [
     lesson_session: null,
     start_datetime: "오늘 17:30",
     end_datetime: "오늘 19:30",
-    status: "CONFIRMED",
+    status: "CO",
     created_at: "지난주 일요일",
     confirmed_at: "월요일",
   },
 ];
 
-export const finishedReservations: Reservation[] = [
+export const finishedReservations: ReservationType[] = [
   {
     uuid: "reservation-uuid-4",
     product: reservationProducts[1],
@@ -95,10 +95,10 @@ export const finishedReservations: Reservation[] = [
     lesson_session: null,
     start_datetime: "어제 14:00",
     end_datetime: "어제 18:00",
-    status: "FINISHED",
+    status: "FI",
     created_at: "지난주 월요일",
     confirmed_at: "지난주 화요일",
   },
 ];
 
-export const cancelledReservations: Reservation[] = [];
+export const cancelledReservations: ReservationType[] = [];

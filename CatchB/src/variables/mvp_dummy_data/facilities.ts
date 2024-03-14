@@ -1,4 +1,4 @@
-import { FacilityType } from "../types/products";
+import { FacilityType } from ".types/products";
 import { reservationProducts } from "./reservations";
 
 export const sampleFacilities: FacilityType[] = [

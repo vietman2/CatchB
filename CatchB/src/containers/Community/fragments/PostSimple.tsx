@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Avatar, Chip, Icon, Text } from "react-native-paper";
 
-import { PostType } from "../../../variables/types/community";
+import { PostType } from ".types/community";
 import { themeColors } from "../../../variables/colors";
 
 interface Props {

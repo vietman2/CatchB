@@ -1,8 +1,8 @@
 import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 
-import { CouponType } from "./types/users";
-import { ReservationProduct } from "./types/products";
+import { CouponType } from ".types/users";
+import { ReservationProductType } from ".types/products";
 
 export type RootTabParamList = {
   Home: undefined;
@@ -31,7 +31,7 @@ export type NearbyStackParamList = {
   FacilityReserve: {
     selectedDate?: string;
     selectedTime?: string;
-    selectedProduct?: ReservationProduct;
+    selectedProduct?: ReservationProductType;
   };
   CoachDetail: undefined;
   Payment: undefined;

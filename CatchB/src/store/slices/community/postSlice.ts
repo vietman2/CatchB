@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { PostType } from "../../../variables/types/community";
+import { PostType } from ".types/community";
 
 const initialState: {
   selectedPost: PostType | null;

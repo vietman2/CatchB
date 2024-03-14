@@ -21,7 +21,7 @@ import {
 import { createPost } from "../../../services/community/post";
 import { themeColors } from "../../../variables/colors";
 import { CommunityStackScreenProps } from "../../../variables/navigation";
-import { TagType } from "../../../variables/types/community";
+import { TagType } from ".types/community";
 import { RootState } from "../../../store/store";
 import { getTemp, removeTemp, saveTemp } from "../../../store/asyncStorage";
 

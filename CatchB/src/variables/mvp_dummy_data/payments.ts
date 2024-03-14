@@ -1,4 +1,4 @@
-import { BankType, BankAccountType } from "../types/payments";
+import { BankType, BankAccountType } from ".types/payments";
 
 export const sampleBanks: BankType[] = [
   {
@@ -6,6 +6,7 @@ export const sampleBanks: BankType[] = [
     name: "KB국민은행",
     kor_code: "국민은행",
     eng_code: "KB",
+    icon: "http://fake.url/icon.png"
   },
 ];
 

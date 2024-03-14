@@ -17,7 +17,7 @@ import { FacilitySimple } from "../FacilityDetail/FacilitySimple";
 import { VerticalDivider } from "../../../components/Dividers";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
-import { CoachType, FacilityType } from "../../../variables/types/products";
+import { CoachType, FacilityType } from ".types/products";
 import { NearbyStackScreenProps } from "../../../variables/navigation";
 import { themeColors } from "../../../variables/colors";
 import { AppDispatch, RootState } from "../../../store/store";

@@ -1,6 +1,6 @@
-import { LessonProduct } from "../types/products";
+import { LessonProductType } from ".types/products";
 
-export const sampleLessonProducts: LessonProduct[] = [
+export const sampleLessonProducts: LessonProductType[] = [
   {
     id: 1,
     coach_uuid: "1",

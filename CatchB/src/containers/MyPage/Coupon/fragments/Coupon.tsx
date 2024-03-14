@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { CouponType } from "../../../../variables/types/users";
+import { CouponType } from ".types/users";
 
 interface Props {
   coupon?: CouponType;

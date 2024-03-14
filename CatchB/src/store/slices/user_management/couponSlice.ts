@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { CouponType } from "../../../variables/types/users";
+import { CouponType } from ".types/users";
 
 const initialState: {
   coupons: CouponType[];

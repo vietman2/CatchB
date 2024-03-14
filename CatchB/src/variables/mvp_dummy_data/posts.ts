@@ -1,4 +1,4 @@
-import { PostType } from "../types/community";
+import { PostType } from ".types/community";
 
 export const samplePosts: PostType[] = [
   {

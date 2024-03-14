@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { CoachType } from "../../../variables/types/products";
+import { CoachType } from ".types/products";
 
 const initialState: {
   selectedCoach: CoachType | null;

@@ -1,4 +1,4 @@
-import { TagType } from "../types/community";
+import { TagType } from ".types/community";
 
 export const tag1: TagType = {
   id: 1,

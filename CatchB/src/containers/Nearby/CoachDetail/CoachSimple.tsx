@@ -1,7 +1,7 @@
 import { View, StyleSheet, Image, Dimensions } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
-import { CoachType } from "../../../variables/types/products";
+import { CoachType } from ".types/products";
 
 const { width } = Dimensions.get("window");
 

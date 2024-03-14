@@ -6,7 +6,7 @@ import { themeColors } from "../../../../variables/colors";
 import {
   BankAccountType,
   BankType,
-} from "../../../../variables/types/payments";
+} from ".types/payments";
 
 interface Props {
   text: string;

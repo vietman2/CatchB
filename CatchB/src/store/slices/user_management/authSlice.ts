@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { save, remove } from "../../secure";
-import { UserProfileType } from "../../../variables/types/users";
+import { UserProfileType } from ".types/users";
 
 const initialState: {
   token: string;

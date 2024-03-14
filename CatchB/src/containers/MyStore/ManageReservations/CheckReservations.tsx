@@ -1,12 +1,12 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Divider, Text } from "react-native-paper";
 
-import { Reservation } from "../../../variables/types/products";
+import { ReservationType } from ".types/products";
 import { themeColors } from "../../../variables/colors";
 
 interface Props {
   tab: string;
-  reservations: Reservation[];
+  reservations: ReservationType[];
 }
 
 type Tab = "신규" | "미확정인" | "취소된" | "완료된";
@@ -30,7 +30,7 @@ export default function CheckReservations({
     return "완료된";
   };
 
-  const renderReservation = (reservation: Reservation) => {
+  const renderReservation = (reservation: ReservationType) => {
     return (
       <View style={styles.reservation} key={reservation.uuid}>
         <View style={styles.line}>

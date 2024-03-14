@@ -1,4 +1,4 @@
-import { PointsType } from "../types/users";
+import { PointsType } from ".types/users";
 
 export const samplePoints: PointsType[] = [
   {

@@ -1,8 +1,6 @@
 import { ImageRequireSource } from "react-native";
 
-import { ReservationStatus } from "../enums";
-
-export type ReservationProduct = {
+export type ReservationProductType = {
   id: number;
   title: string;
   description: string;
@@ -12,16 +10,16 @@ export type ReservationProduct = {
   minutes: number;
 };
 
-type ReservationStatusKey = keyof typeof ReservationStatus;
+type ReservationStatusChoices = "WA" | "CO" | "CA" | "FI";
 
-export type Reservation = {
+export type ReservationType = {
   uuid: string;
-  product: ReservationProduct;
+  product: ReservationProductType;
   reserved_user: string;
   lesson_session: string | null;
   start_datetime: string;
   end_datetime: string;
-  status: ReservationStatusKey;
+  status: ReservationStatusChoices;
   created_at: string;
   confirmed_at: string | null;
 };
@@ -37,7 +35,7 @@ export type FacilityType = {
     lat: number;
     lng: number;
   };
-  products: ReservationProduct[];
+  products: ReservationProductType[];
   image: ImageRequireSource;
 };
 
@@ -57,7 +55,7 @@ export type CoachType = {
   facility?: FacilityType;
 };
 
-export type LessonProduct = {
+export type LessonProductType = {
   id: number;
   coach_uuid: string;
   title: string;
@@ -65,13 +63,13 @@ export type LessonProduct = {
   price: number;
 };
 
-export type Sido = {
+export type SidoType = {
   sido_code: string;
   sido_name: string;
   label: string;
 };
 
-export type Sigungu = {
+export type SigunguType = {
   code: string;
   name: string;
   label: string;

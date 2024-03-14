@@ -18,7 +18,7 @@ import { RootState } from "../../../../store/store";
 import { getBankList } from "../../../../services/payments/account";
 import { themeColors } from "../../../../variables/colors";
 import { sampleBankAccounts } from "../../../../variables/mvp_dummy_data/payments";
-import { BankType } from "../../../../variables/types/payments";
+import { BankType } from ".types/payments";
 
 interface Props {
   onFinish: () => void;

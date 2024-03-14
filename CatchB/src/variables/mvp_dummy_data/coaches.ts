@@ -1,4 +1,4 @@
-import { CoachType } from "../types/products";
+import { CoachType } from ".types/products";
 
 export const sampleCoaches: CoachType[] = [
   {
