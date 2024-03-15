@@ -30,10 +30,10 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
   };
 });
-jest.mock("../../../components/Profile", () => ({
-  AvatarImage: "AvatarImage",
+jest.mock(".components/Profile", () => ({
+  AvatarIcon: "AvatarIcon",
 }));
-jest.mock("../../../components/Buttons", () => {
+jest.mock(".components/Buttons", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
     TabButton: ({ title, onPress }: any) => (
@@ -43,7 +43,7 @@ jest.mock("../../../components/Buttons", () => {
     ),
   };
 });
-jest.mock("../../../components/Dividers", () => ({
+jest.mock(".components/Dividers", () => ({
   VerticalDivider: "VerticalDivider",
 }));
 

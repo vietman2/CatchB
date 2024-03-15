@@ -10,7 +10,7 @@ module.exports = function (api) {
           root: ["."],
           alias: {
             assets: "./assets",
-            "/components": "./src/components",
+            ".components": "./src/components",
             ".constants": "./src/constants",
             ".data": "./src/constants/test_data",
             ".services": "./src/services",

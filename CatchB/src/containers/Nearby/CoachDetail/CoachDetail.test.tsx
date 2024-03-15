@@ -26,13 +26,13 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Tables", () => ({
-  LessonProductsTable: "LessonProductsTable",
+jest.mock(".components/Tables", () => ({
+  LessonsTable: "LessonsTable",
 }));
 
 const Stack = createStackNavigator();
 
-const components = () => {
+const Components = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -45,7 +45,7 @@ const components = () => {
 
 describe("<CoachDetail />", () => {
   it("handles like button", async () => {
-    const { getByTestId } = renderWithProviders(components(), {
+    const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         coach: {
           selectedCoach: sampleCoaches[0],
@@ -60,7 +60,7 @@ describe("<CoachDetail />", () => {
   });
 
   it("renders long description", async () => {
-    const { getByTestId } = renderWithProviders(components(), {
+    const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         coach: {
           selectedCoach: sampleCoaches[2],
