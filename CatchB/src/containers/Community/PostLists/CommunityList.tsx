@@ -7,7 +7,7 @@ import {
   Keyboard,
 } from "react-native";
 import { Chip, Divider, Icon, Text, TextInput } from "react-native-paper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
@@ -15,9 +15,10 @@ import { PostSimple } from "../fragments";
 import { AppDispatch } from "../../../store/store";
 import { setSelectedPost } from "../../../store/slices/community/postSlice";
 import { themeColors } from ".themes/colors";
-import { PostType } from ".types/community";
+import { PostSimpleType } from ".types/community";
 import { CommunityScreenProps } from ".constants/navigation";
-import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
+import { getPostList } from "../../../services/community/post";
+import { RootState } from "../../../store/store";
 
 interface Props {
   mode: "덕아웃" | "드래프트";
@@ -27,16 +28,17 @@ type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순
 
 export function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostSimpleType[]>([]);
   const [sort, setSort] = useState<Sort>("최신순");
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
+  const token = useSelector((state: RootState) => state.auth.token);
   const navigation =
     useNavigation<CommunityScreenProps<"PostDetail">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
-  const handlePress = async (post: PostType) => {
-    await dispatch(setSelectedPost(post));
+  const handlePress = async (post: PostSimpleType) => {
+    await dispatch(setSelectedPost(post.id));
     navigation.navigate("PostDetail");
   };
 
@@ -53,11 +55,15 @@ export function CommunityList({ mode }: Readonly<Props>) {
   };
 
   useEffect(() => {
-    if (mode === "덕아웃") {
-      setPosts(samplePosts.filter((post) => post.forum_id === 1));
-    } else {
-      setPosts(samplePosts.filter((post) => post.forum_id === 2));
-    }
+    const fetchPosts = async () => {
+      const response = await getPostList(mode, token);
+
+      if (response.status === 200) {
+        setPosts(response.data);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   const SortComponent = ({ choice }: Readonly<{ choice: Sort }>) => {
