@@ -13,8 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { login, register } from "../../../services/user_management/account";
-import { AppDispatch } from "../../../store/store";
-import { login as setUserState } from "../../../store/slices/user_management/authSlice";
+import { AppDispatch } from ".store/index";
+import { login as setUserState } from ".store/user_management/authSlice";
 import { themeColors } from ".themes/colors";
 import { MyPageScreenProps } from ".constants/navigation";
 

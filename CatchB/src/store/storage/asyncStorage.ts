@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { MyImageAsset } from "../containers/Community/PostCreate/variables";
+import { MyImageAsset } from "../../containers/Community/PostCreate/variables";
 
 export async function saveTemp(
   title: string,

@@ -8,9 +8,9 @@ import {
   changePassword,
   logout,
 } from "../../../services/user_management/account";
-import { AppDispatch, RootState } from "../../../store/store";
-import { get } from "../../../store/secure";
-import { logout as resetUserState } from "../../../store/slices/user_management/authSlice";
+import { AppDispatch, RootState } from ".store/index";
+import { get } from ".store/storage/secure";
+import { logout as resetUserState } from ".store/user_management/authSlice";
 import { themeColors } from ".themes/colors";
 import { MyPageScreenProps } from ".constants/navigation";
 

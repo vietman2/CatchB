@@ -26,13 +26,13 @@ import {
   getUserProfile,
   renewToken,
 } from "../../services/user_management/account";
-import { setMode, setLocation } from "../../store/slices/general/generalSlice";
+import { setMode, setLocation } from ".store/general/generalSlice";
 import {
   setUserProfile,
   setNewToken,
-} from "../../store/slices/user_management/authSlice";
-import { AppDispatch, RootState } from "../../store/store";
-import { get } from "../../store/secure";
+} from ".store/user_management/authSlice";
+import { AppDispatch, RootState } from ".store/index";
+import { get } from ".store/storage/secure";
 /**
  * TabContainer
  * 하단 탭의 구성을 담당한다.

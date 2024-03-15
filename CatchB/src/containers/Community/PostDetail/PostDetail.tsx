@@ -7,7 +7,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import ErrorPage from "../../Base/ErrorPage";
 import { LoadingPage } from "../../../components/Loading";
 import { CommunityPostProfile } from "../../../components/Profile";
-import { RootState } from "../../../store/store";
+import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 import { PostDetailType } from ".types/community";
 import { getPostDetail } from "../../../services/community/post";

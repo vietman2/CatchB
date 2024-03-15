@@ -13,8 +13,8 @@ import BottomSheet from "@gorhom/bottom-sheet";
 
 import { PostSimple } from "../fragments";
 import ErrorPage from "../../Base/ErrorPage";
-import { AppDispatch } from "../../../store/store";
-import { setSelectedPost } from "../../../store/slices/community/postSlice";
+import { AppDispatch } from ".store/index";
+import { setSelectedPost } from ".store/community/postSlice";
 import { themeColors } from ".themes/colors";
 import { PostSimpleType } from ".types/community";
 import { CommunityScreenProps } from ".constants/navigation";

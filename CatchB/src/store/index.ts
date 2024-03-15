@@ -11,7 +11,6 @@ import pointReducer from "./user_management/pointSlice";
 import facilityReducer from "./products/facilitySlice";
 import coachReducer from "./products/coachSlice";
 import communityRedcucer from "./community/postSlice";
-import { RootState } from "../store";
 
 const rootReducer = combineReducers({
   general: generalReducer,
@@ -30,4 +29,10 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   });
 };
 
-export default rootReducer;
+export const store = configureStore({
+  reducer: rootReducer,
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppStore = typeof store;

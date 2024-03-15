@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import PointsDetail from "./PointsDetail";
 import { getPointsList } from "../../../services/user_management/point";
-import { AppDispatch, RootState } from "../../../store/store";
-import { setPointsState } from "../../../store/slices/user_management/pointSlice";
+import { AppDispatch, RootState } from ".store/index";
+import { setPointsState } from ".store/user_management/pointSlice";
 import { themeColors } from ".themes/colors";
 
 function NoPoints() {

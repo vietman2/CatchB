@@ -4,10 +4,11 @@
     "strict": false,
     "baseUrl": "./",
     "paths": {
-      ".themes/*": ["src/constants/themes/*"],
-      ".types/*": ["src/constants/types/*"],
       ".constants/*": ["src/constants/*"],
       ".data/*": ["src/constants/test_data/*"],
+      ".store/*": ["src/store/*"],
+      ".themes/*": ["src/constants/themes/*"],
+      ".types/*": ["src/constants/types/*"]
     }
   }
 }

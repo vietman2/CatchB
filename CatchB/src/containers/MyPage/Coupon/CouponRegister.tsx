@@ -13,7 +13,7 @@ import {
   registerCoupon,
   checkStatus,
 } from "../../../services/user_management/coupon";
-import { RootState } from "../../../store/store";
+import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 
 export default function CouponRegister() {

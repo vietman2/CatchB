@@ -22,8 +22,8 @@ import { createPost } from "../../../services/community/post";
 import { themeColors } from ".themes/colors";
 import { CommunityScreenProps } from ".constants/navigation";
 import { TagType } from ".types/community";
-import { RootState } from "../../../store/store";
-import { getTemp, removeTemp, saveTemp } from "../../../store/asyncStorage";
+import { RootState } from ".store/index";
+import { getTemp, removeTemp, saveTemp } from ".store/storage/asyncStorage";
 
 export default function PostCreate() {
   const [title, setTitle] = useState<string>("");

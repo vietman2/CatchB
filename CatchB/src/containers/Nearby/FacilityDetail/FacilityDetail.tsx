@@ -19,7 +19,7 @@ import {
 } from "../../../components/Tables";
 import { themeColors } from ".themes/colors";
 import { NearbyScreenProps } from ".constants/navigation";
-import { RootState } from "../../../store/store";
+import { RootState } from ".store/index";
 import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";
 
 const { width, height } = Dimensions.get("window");

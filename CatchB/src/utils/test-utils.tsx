@@ -5,8 +5,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { PreloadedState } from "@reduxjs/toolkit";
 import { render, RenderOptions } from "@testing-library/react-native";
 
-import { RootState, AppStore } from "../store/store";
-import { setupStore } from "../store/slices/index";
+import { RootState, AppStore, setupStore } from ".store/index";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: PreloadedState<RootState>;

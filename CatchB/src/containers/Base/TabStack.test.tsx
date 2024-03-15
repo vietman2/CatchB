@@ -6,7 +6,7 @@ import * as expoLocation from "expo-location";
 import TabContainer from "./TabStack";
 import { renderWithProviders } from "../../utils/test-utils";
 import { admin } from "../../variables/mvp_dummy_data/user";
-import * as SecureStore from "../../store/secure";
+import * as SecureStore from ".store/storage/secure";
 import * as userService from "../../services/user_management/account";
 
 jest.mock("react-native-gesture-handler", () => ({

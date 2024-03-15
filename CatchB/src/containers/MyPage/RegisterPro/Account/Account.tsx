@@ -14,7 +14,7 @@ import {
   SubTitle,
 } from "../fragments";
 import { RegisterProTerms } from "../../../../components/Terms";
-import { RootState } from "../../../../store/store";
+import { RootState } from ".store/index";
 import { getBankList } from "../../../../services/payments/account";
 import { themeColors } from ".themes/colors";
 import { sampleBankAccounts } from ".data/payments";

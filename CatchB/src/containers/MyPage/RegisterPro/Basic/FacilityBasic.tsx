@@ -13,8 +13,8 @@ import PostCode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
 import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
-import { AppDispatch, RootState } from "../../../../store/store";
-import { setMyFacilityUuid } from "../../../../store/slices/products/facilitySlice";
+import { AppDispatch, RootState } from ".store/index";
+import { setMyFacilityUuid } from ".store/products/facilitySlice";
 import { registerFacility } from "../../../../services/facility/facility";
 import { themeColors } from ".themes/colors";
 import { MyPageScreenProps } from ".constants/navigation";

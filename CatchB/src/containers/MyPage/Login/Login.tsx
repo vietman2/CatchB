@@ -19,8 +19,8 @@ import {
 import { LoginLogo } from "../../../components/Logos";
 import { NaverButton, KakaoButton } from "../../../components/Buttons";
 import { login } from "../../../services/user_management/account";
-import { login as setUserState } from "../../../store/slices/user_management/authSlice";
-import { AppDispatch } from "../../../store/store";
+import { login as setUserState } from ".store/user_management/authSlice";
+import { AppDispatch } from ".store/index";
 import { MyPageScreenProps } from ".constants/navigation";
 import { themeColors } from ".themes/colors";
 

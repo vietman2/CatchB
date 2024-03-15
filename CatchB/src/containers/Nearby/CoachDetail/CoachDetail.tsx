@@ -15,7 +15,7 @@ import { LessonProductsTable } from "../../../components/Tables";
 import { themeColors } from ".themes/colors";
 import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
 import { NearbyScreenProps } from ".constants/navigation";
-import { RootState } from "../../../store/store";
+import { RootState } from ".store/index";
 
 const { width, height } = Dimensions.get("window");
 

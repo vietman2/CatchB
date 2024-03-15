@@ -7,7 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import PostCreate from "./PostCreate";
 import { renderWithProviders } from "../../../utils/test-utils";
-import * as storage from "../../../store/asyncStorage";
+import * as storage from ".store/storage/asyncStorage";
 import * as mediaApi from "../../../services/community/media";
 import * as postApi from "../../../services/community/post";
 import { sampleTags } from ".data/community";

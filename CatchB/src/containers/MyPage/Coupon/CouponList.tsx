@@ -6,8 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import { ActivityIndicator, Coupon, NoCoupon } from "./fragments";
 import { getCouponList } from "../../../services/user_management/coupon";
-import { setCouponListState } from "../../../store/slices/user_management/couponSlice";
-import { AppDispatch, RootState } from "../../../store/store";
+import { setCouponListState } from ".store/user_management/couponSlice";
+import { AppDispatch, RootState } from ".store/index";
 import { MyPageScreenProps } from ".constants/navigation";
 import { themeColors } from ".themes/colors";
 

@@ -20,9 +20,9 @@ import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
 import { CoachType, FacilityType } from ".types/products";
 import { NearbyScreenProps } from ".constants/navigation";
 import { themeColors } from ".themes/colors";
-import { AppDispatch, RootState } from "../../../store/store";
-import { setSelectedFacility } from "../../../store/slices/products/facilitySlice";
-import { setSelectedCoach } from "../../../store/slices/products/coachSlice";
+import { AppDispatch, RootState } from ".store/index";
+import { setSelectedFacility } from ".store/products/facilitySlice";
+import { setSelectedCoach } from ".store/products/coachSlice";
 
 export default function NearbyMain() {
   const bottomSheetRef = useRef<BottomSheet>(null);

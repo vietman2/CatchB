@@ -9,7 +9,7 @@ import CoachDetail from "./CoachDetail/CoachDetail";
 import Payment from "./Payment/Payment";
 import { BackButton } from "../../components/Buttons";
 import { NearbyParams, NearbyScreenProps } from ".constants/navigation";
-import { RootState } from "../../store/store";
+import { RootState } from ".store/index";
 
 const NearbyNavStack = createStackNavigator<NearbyParams>();
 

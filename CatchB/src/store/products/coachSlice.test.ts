@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
 import coachReducer, { setSelectedCoach } from "./coachSlice";
-import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
+import { sampleCoaches } from "../../variables/mvp_dummy_data/coaches";
 
 const createStore = () => {
   return configureStore({
