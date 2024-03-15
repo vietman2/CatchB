@@ -46,3 +46,61 @@ export async function createPost(
     };
   }
 }
+
+export async function getPostList(forum: string, token: string) {
+  try {
+    const response = await axios.get(
+      `${API_LOCAL_URL}/api/community/posts/?forum=${forum}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
+export async function getPostDetail(postId: number, token: string) {
+  try {
+    const response = await axios.get(
+      `${API_LOCAL_URL}/api/community/posts/${postId}/`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
