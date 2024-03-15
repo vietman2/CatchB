@@ -6,20 +6,33 @@ export type TagType = {
   bgcolor: string;
 };
 
-export type PostType = {
+export type PostSimpleType = {
   id: number;
-  forum_id: number;
-  forum_name: string;
+  author_nickname: string;
   title: string;
-  body: string;
-  tags: string[];
-
-  userId: number;
-  author_name: string;
-  created_at: string;
-  updated_at: string;
+  content: string;
+  tags: TagType[];
+  contains_images: boolean;
+  num_clicks: number;
   num_comments: number;
   num_likes: number;
-  num_clicks: number;
+  created_at: string;
 };
 
+export type PostType = {
+  id: number;
+  forum: string;
+  author_nickname: string;
+  title: string;
+  content: string;
+
+  tags: TagType[];
+  images: string[];
+
+  num_comments: number;
+  num_clicks: number;
+  num_likes: number;
+
+  created_at: string;
+  updated_at: string;
+};
