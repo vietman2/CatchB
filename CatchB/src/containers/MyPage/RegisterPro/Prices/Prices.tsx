@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import { themeColors } from "../../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import { MyPageStackScreenProps } from "../../../../variables/navigation";
 
 export default function Prices() {
