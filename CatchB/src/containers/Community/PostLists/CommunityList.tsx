@@ -7,7 +7,7 @@ import {
   Keyboard,
 } from "react-native";
 import { Chip, Divider, Icon, Text, TextInput } from "react-native-paper";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
@@ -18,7 +18,6 @@ import { themeColors } from ".themes/colors";
 import { PostSimpleType } from ".types/community";
 import { CommunityScreenProps } from ".constants/navigation";
 import { getPostList } from "../../../services/community/post";
-import { RootState } from "../../../store/store";
 
 interface Props {
   mode: "덕아웃" | "드래프트";
