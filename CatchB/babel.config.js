@@ -12,6 +12,7 @@ module.exports = function (api) {
             assets: "./assets",
             ".constants": "./src/constants",
             ".data": "./src/constants/test_data",
+            '.services': './src/services',
             ".store": "./src/store",
             ".themes": "./src/constants/themes",
             ".types": "./src/constants/types",
@@ -19,7 +20,6 @@ module.exports = function (api) {
             //'constants': './src/constants',
             //'navigation': './src/navigation',
             //'screens': './src/screens',
-            //'services': './src/services',
             //'store': './src/store',
             //'styles': './src/styles',
             //'utils': './src/utils'

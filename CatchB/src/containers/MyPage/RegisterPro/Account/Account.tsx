@@ -14,10 +14,10 @@ import {
   SubTitle,
 } from "../fragments";
 import { RegisterProTerms } from "../../../../components/Terms";
-import { RootState } from ".store/index";
-import { getBankList } from "../../../../services/payments/account";
-import { themeColors } from ".themes/colors";
 import { sampleBankAccounts } from ".data/payments";
+import { getBankList } from ".services/payments";
+import { RootState } from ".store/index";
+import { themeColors } from ".themes/colors";
 import { BankType } from ".types/payments";
 
 interface Props {

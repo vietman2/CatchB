@@ -13,12 +13,12 @@ import BottomSheet from "@gorhom/bottom-sheet";
 
 import { PostSimple } from "../fragments";
 import ErrorPage from "../../Base/ErrorPage";
+import { CommunityScreenProps } from ".constants/navigation";
+import { getPostList } from ".services/community";
 import { AppDispatch } from ".store/index";
 import { setSelectedPost } from ".store/community/postSlice";
 import { themeColors } from ".themes/colors";
 import { PostSimpleType } from ".types/community";
-import { CommunityScreenProps } from ".constants/navigation";
-import { getPostList } from "../../../services/community/post";
 
 interface Props {
   mode: "덕아웃" | "드래프트";

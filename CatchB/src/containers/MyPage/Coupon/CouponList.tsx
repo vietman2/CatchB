@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 import { ActivityIndicator, Coupon, NoCoupon } from "./fragments";
-import { getCouponList } from "../../../services/user_management/coupon";
-import { setCouponListState } from ".store/user_management/couponSlice";
-import { AppDispatch, RootState } from ".store/index";
 import { MyPageScreenProps } from ".constants/navigation";
+import { getCouponList } from ".services/user_management";
+import { AppDispatch, RootState } from ".store/index";
+import { setCouponListState } from ".store/user_management/couponSlice";
 import { themeColors } from ".themes/colors";
 
 export default function CouponList() {

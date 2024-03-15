@@ -21,18 +21,12 @@ import {
 } from "../";
 import { SwitchModeDialog, LoginDialog } from "../../components/Dialogs";
 import { RootParams, RootScreenProps } from ".constants/navigation";
-import { themeColors } from ".themes/colors";
-import {
-  getUserProfile,
-  renewToken,
-} from "../../services/user_management/account";
+import { getUserProfile, renewToken } from ".services/user_management";
 import { setMode, setLocation } from ".store/general/generalSlice";
-import {
-  setUserProfile,
-  setNewToken,
-} from ".store/user_management/authSlice";
 import { AppDispatch, RootState } from ".store/index";
 import { get } from ".store/storage/secure";
+import { setUserProfile, setNewToken } from ".store/user_management/authSlice";
+import { themeColors } from ".themes/colors";
 /**
  * TabContainer
  * 하단 탭의 구성을 담당한다.

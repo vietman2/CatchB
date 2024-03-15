@@ -13,11 +13,11 @@ import PostCode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 
 import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
+import { MyPageScreenProps } from ".constants/navigation";
+import { registerFacility } from ".services/products";
 import { AppDispatch, RootState } from ".store/index";
 import { setMyFacilityUuid } from ".store/products/facilitySlice";
-import { registerFacility } from "../../../../services/facility/facility";
 import { themeColors } from ".themes/colors";
-import { MyPageScreenProps } from ".constants/navigation";
 
 interface Props {
   onFinish: () => void;

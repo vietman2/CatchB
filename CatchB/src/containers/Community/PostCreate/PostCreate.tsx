@@ -14,16 +14,12 @@ import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 import { MyDivider, Preview, Tags } from "./fragments";
 import { forumChoices, MyImageAsset } from "./variables";
 import { Selector } from "../../../components/Selectors";
-import {
-  getTagsList,
-  uploadImageFile,
-} from "../../../services/community/media";
-import { createPost } from "../../../services/community/post";
-import { themeColors } from ".themes/colors";
 import { CommunityScreenProps } from ".constants/navigation";
-import { TagType } from ".types/community";
+import { getTagsList, uploadImageFile, createPost } from ".services/community";
 import { RootState } from ".store/index";
 import { getTemp, removeTemp, saveTemp } from ".store/storage/asyncStorage";
+import { themeColors } from ".themes/colors";
+import { TagType } from ".types/community";
 
 export default function PostCreate() {
   const [title, setTitle] = useState<string>("");

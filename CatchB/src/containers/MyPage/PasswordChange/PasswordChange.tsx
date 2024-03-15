@@ -4,15 +4,15 @@ import { Alert, View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator, Button, Text, TextInput } from "react-native-paper";
 
+import { MyPageScreenProps } from ".constants/navigation";
 import {
   changePassword,
   logout,
-} from "../../../services/user_management/account";
+} from ".services/user_management";
 import { AppDispatch, RootState } from ".store/index";
 import { get } from ".store/storage/secure";
 import { logout as resetUserState } from ".store/user_management/authSlice";
 import { themeColors } from ".themes/colors";
-import { MyPageScreenProps } from ".constants/navigation";
 
 export default function PasswordChange() {
   const [oldPassword, setOldPassword] = useState<string>("");

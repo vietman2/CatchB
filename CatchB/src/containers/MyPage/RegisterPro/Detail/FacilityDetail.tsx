@@ -12,7 +12,7 @@ import {
   NumberPicker,
   WorkTimePickers,
 } from "../../../../components/Pickers";
-import { uploadDetails } from "../../../../services/facility/facility";
+import { uploadDetails } from ".services/products";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 

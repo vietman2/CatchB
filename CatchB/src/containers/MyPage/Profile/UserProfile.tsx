@@ -13,15 +13,15 @@ import { useNavigation } from "@react-navigation/native";
 import { AvatarImage } from "../../../components/Profile";
 import { TabButton } from "../../../components/Buttons";
 import { VerticalDivider } from "../../../components/Dividers";
+import { MyPageScreenProps } from ".constants/navigation";
 import {
   deleteAccount,
   logout,
-} from "../../../services/user_management/account";
+} from ".services/user_management";
 import { RootState, AppDispatch } from ".store/index";
 import { get } from ".store/storage/secure";
 import { logout as resetUserState } from ".store/user_management/authSlice";
 import { themeColors } from ".themes/colors";
-import { MyPageScreenProps } from ".constants/navigation";
 
 export default function UserProfile() {
   const [visible, setVisible] = useState(false);

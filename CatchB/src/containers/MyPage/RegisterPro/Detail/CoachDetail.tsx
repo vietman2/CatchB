@@ -15,7 +15,7 @@ import { partChoices, levelChoices, typeChoices } from "./options";
 import { MainTitle, SubTitle } from "../fragments";
 import { ImagePicker } from "../../../../components/Pickers";
 import { RegionSelector, Selector } from "../../../../components/Selectors";
-import { getRegionsList } from "../../../../services/facility/facility";
+import { getRegionsList } from ".services/products";
 import { themeColors } from ".themes/colors";
 import { SidoType, SigunguType } from ".types/products";
 

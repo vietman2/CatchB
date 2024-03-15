@@ -4,7 +4,7 @@ import { ActivityIndicator, Divider, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 
 import PointsDetail from "./PointsDetail";
-import { getPointsList } from "../../../services/user_management/point";
+import { getPointsList } from ".services/user_management";
 import { AppDispatch, RootState } from ".store/index";
 import { setPointsState } from ".store/user_management/pointSlice";
 import { themeColors } from ".themes/colors";

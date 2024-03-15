@@ -8,9 +8,9 @@ import ErrorPage from "../../Base/ErrorPage";
 import { LoadingPage } from "../../../components/Loading";
 import { CommunityPostProfile } from "../../../components/Profile";
 import { RootState } from ".store/index";
+import { getPostDetail } from ".services/community";
 import { themeColors } from ".themes/colors";
 import { PostDetailType } from ".types/community";
-import { getPostDetail } from "../../../services/community/post";
 
 export default function PostDetail() {
   const bottomSheetRef = useRef<BottomSheet>(null);

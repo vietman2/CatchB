@@ -12,11 +12,11 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { login, register } from "../../../services/user_management/account";
+import { MyPageScreenProps } from ".constants/navigation";
+import { login, register } from ".services/user_management";
 import { AppDispatch } from ".store/index";
 import { login as setUserState } from ".store/user_management/authSlice";
 import { themeColors } from ".themes/colors";
-import { MyPageScreenProps } from ".constants/navigation";
 
 interface Props {
   gender: "M" | "F" | "N";
