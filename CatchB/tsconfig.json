@@ -7,6 +7,7 @@
       ".themes/*": ["src/constants/themes/*"],
       ".types/*": ["src/constants/types/*"],
       ".constants/*": ["src/constants/*"],
+      ".data/*": ["src/constants/test_data/*"],
     }
   }
 }

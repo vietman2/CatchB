@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import CouponList from "./CouponList";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { sampleCoupons } from "../../../variables/mvp_dummy_data/coupons";
+import { sampleCoupons } from ".data/users";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

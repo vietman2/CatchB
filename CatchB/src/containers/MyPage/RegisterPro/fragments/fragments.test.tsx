@@ -10,7 +10,7 @@ import {
   Bank,
   BankChoice
 } from "./fragments";
-import { sampleBankAccounts, sampleBanks } from "../../../../variables/mvp_dummy_data/payments";
+import { sampleBankAccounts, sampleBanks } from ".data/payments";
 
 jest.mock("react-native-paper", () => ({
   Icon: "Icon",

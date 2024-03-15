@@ -13,6 +13,7 @@ module.exports = function (api) {
             ".themes": "./src/constants/themes",
             ".types": "./src/constants/types",
             ".constants": "./src/constants",
+            ".data": "./src/constants/test_data",
             //'components': './src/components',
             //'constants': './src/constants',
             //'navigation': './src/navigation',

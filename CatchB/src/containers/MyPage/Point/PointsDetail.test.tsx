@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 
 import PointsDetail from "./PointsDetail";
-import { samplePoints } from "../../../variables/mvp_dummy_data/points";
+import { samplePoints } from ".data/users";
 
 jest.mock("react-native-paper", () => {
   return {

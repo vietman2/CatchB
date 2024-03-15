@@ -10,7 +10,7 @@ import { renderWithProviders } from "../../../utils/test-utils";
 import * as storage from "../../../store/asyncStorage";
 import * as mediaApi from "../../../services/community/media";
 import * as postApi from "../../../services/community/post";
-import { sampleTags } from "../../../variables/mvp_dummy_data/tags";
+import { sampleTags } from ".data/community";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 
 jest.mock("react-native-gesture-handler", () => ({
