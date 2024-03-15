@@ -19,7 +19,7 @@ export type PostSimpleType = {
   created_at: string;
 };
 
-export type PostType = {
+export type PostDetailType = {
   id: number;
   forum: string;
   author_nickname: string;
