@@ -5,7 +5,8 @@
     "baseUrl": "./",
     "paths": {
       ".themes/*": ["src/constants/themes/*"],
-      ".types/*": ["src/constants/types/*"]
+      ".types/*": ["src/constants/types/*"],
+      ".constants/*": ["src/constants/*"],
     }
   }
 }

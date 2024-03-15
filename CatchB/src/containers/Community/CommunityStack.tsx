@@ -8,16 +8,13 @@ import PostCreate from "./PostCreate";
 import PostDetail from "./PostDetail";
 import { BackButton } from "../../components/Buttons";
 import { SmallLogo } from "../../components/Logos";
-import {
-  CommunityStackParamList,
-  CommunityStackScreenProps,
-} from "../../variables/navigation";
+import { CommunityParams, CommunityScreenProps } from ".constants/navigation";
 
-const CommunityStack = createStackNavigator<CommunityStackParamList>();
+const CommunityStack = createStackNavigator<CommunityParams>();
 
 export default function CommunityContainer() {
   const navigation =
-    useNavigation<CommunityStackScreenProps<"CommunityScreen">["navigation"]>();
+    useNavigation<CommunityScreenProps<"CommunityScreen">["navigation"]>();
 
   const backToMain = () => {
     return (

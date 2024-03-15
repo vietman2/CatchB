@@ -14,7 +14,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { LessonProductsTable } from "../../../components/Tables";
 import { themeColors } from ".themes/colors";
 import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
-import { NearbyStackScreenProps } from "../../../variables/navigation";
+import { NearbyScreenProps } from ".constants/navigation";
 import { RootState } from "../../../store/store";
 
 const { width, height } = Dimensions.get("window");
@@ -44,7 +44,7 @@ export default function CoachDetail() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
-    useNavigation<NearbyStackScreenProps<"CoachDetail">["navigation"]>();
+    useNavigation<NearbyScreenProps<"CoachDetail">["navigation"]>();
   const coach = useSelector((state: RootState) => state.coach.selectedCoach);
   const products = sampleLessonProducts.filter(
     (product) => product.coach_uuid === coach.coach_uuid

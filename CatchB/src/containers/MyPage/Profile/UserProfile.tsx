@@ -8,27 +8,27 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Text, Portal, Dialog, Button } from "react-native-paper";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
 import { AvatarImage } from "../../../components/Profile";
 import { TabButton } from "../../../components/Buttons";
 import { VerticalDivider } from "../../../components/Dividers";
-import { deleteAccount, logout } from "../../../services/user_management/account";
+import {
+  deleteAccount,
+  logout,
+} from "../../../services/user_management/account";
 import { RootState, AppDispatch } from "../../../store/store";
 import { get } from "../../../store/secure";
 import { logout as resetUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from ".themes/colors";
-import { MyPageStackParamList } from "../../../variables/navigation";
+import { MyPageScreenProps } from ".constants/navigation";
 
-type NavigationProp = StackNavigationProp<MyPageStackParamList, "Profile">;
-interface Props {
-  navigation: NavigationProp;
-}
-
-export default function UserProfile({ navigation }: Readonly<Props>) {
+export default function UserProfile() {
   const [visible, setVisible] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
   const token = useSelector((state: RootState) => state.auth.token);
+  const navigation =
+    useNavigation<MyPageScreenProps<"Profile">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogout = async () => {

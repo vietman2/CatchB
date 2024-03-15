@@ -16,7 +16,7 @@ import { AppDispatch } from "../../../store/store";
 import { setSelectedPost } from "../../../store/slices/community/postSlice";
 import { themeColors } from ".themes/colors";
 import { PostType } from ".types/community";
-import { CommunityStackScreenProps } from "../../../variables/navigation";
+import { CommunityScreenProps } from ".constants/navigation";
 import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
 
 interface Props {
@@ -32,7 +32,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
   const navigation =
-    useNavigation<CommunityStackScreenProps<"PostDetail">["navigation"]>();
+    useNavigation<CommunityScreenProps<"PostDetail">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
   const handlePress = async (post: PostType) => {

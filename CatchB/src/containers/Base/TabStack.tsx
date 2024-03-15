@@ -20,10 +20,7 @@ import {
   PromotionContainer,
 } from "../";
 import { SwitchModeDialog, LoginDialog } from "../../components/Dialogs";
-import {
-  RootTabParamList,
-  RootTabScreenProps,
-} from "../../variables/navigation";
+import { RootParams, RootScreenProps } from ".constants/navigation";
 import { themeColors } from ".themes/colors";
 import {
   getUserProfile,
@@ -41,7 +38,7 @@ import { get } from "../../store/secure";
  * 하단 탭의 구성을 담당한다.
  */
 
-const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
+const Tab = createMaterialBottomTabNavigator<RootParams>();
 
 export default function TabContainer() {
   const [switchModeVisible, setSwitchModeVisible] = useState(false);
@@ -50,7 +47,7 @@ export default function TabContainer() {
   const user = useSelector((state: RootState) => state.auth.user);
   const access = useSelector((state: RootState) => state.auth.token);
   const dispatch = useDispatch<AppDispatch>();
-  const navigation = useNavigation<RootTabScreenProps<"Home">["navigation"]>();
+  const navigation = useNavigation<RootScreenProps<"Home">["navigation"]>();
 
   const getPermission = async () => {
     await requestForegroundPermissionsAsync();

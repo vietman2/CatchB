@@ -12,6 +12,7 @@ module.exports = function (api) {
             assets: "./assets",
             ".themes": "./src/constants/themes",
             ".types": "./src/constants/types",
+            ".constants": "./src/constants",
             //'components': './src/components',
             //'constants': './src/constants',
             //'navigation': './src/navigation',

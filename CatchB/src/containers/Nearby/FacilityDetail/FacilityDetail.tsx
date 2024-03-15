@@ -18,7 +18,7 @@ import {
   ReservationProductsTable,
 } from "../../../components/Tables";
 import { themeColors } from ".themes/colors";
-import { NearbyStackScreenProps } from "../../../variables/navigation";
+import { NearbyScreenProps } from ".constants/navigation";
 import { RootState } from "../../../store/store";
 import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";
 
@@ -57,7 +57,7 @@ export default function FacilityDetail() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
-    useNavigation<NearbyStackScreenProps<"FacilityDetail">["navigation"]>();
+    useNavigation<NearbyScreenProps<"FacilityDetail">["navigation"]>();
   const facility = useSelector(
     (state: RootState) => state.facility.selectedFacility
   );

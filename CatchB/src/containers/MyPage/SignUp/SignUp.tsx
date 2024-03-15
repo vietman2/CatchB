@@ -16,7 +16,7 @@ import { login, register } from "../../../services/user_management/account";
 import { AppDispatch } from "../../../store/store";
 import { login as setUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from ".themes/colors";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
+import { MyPageScreenProps } from ".constants/navigation";
 
 interface Props {
   gender: "M" | "F" | "N";
@@ -60,8 +60,7 @@ export default function SignUp() {
   const [isPasswordCheckVisible, setIsPasswordCheckVisible] =
     useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const navigation =
-    useNavigation<MyPageStackScreenProps<"SignUp">["navigation"]>();
+  const navigation = useNavigation<MyPageScreenProps<"SignUp">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSignUpSuccess = async () => {

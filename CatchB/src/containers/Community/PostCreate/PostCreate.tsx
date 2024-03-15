@@ -20,7 +20,7 @@ import {
 } from "../../../services/community/media";
 import { createPost } from "../../../services/community/post";
 import { themeColors } from ".themes/colors";
-import { CommunityStackScreenProps } from "../../../variables/navigation";
+import { CommunityScreenProps } from ".constants/navigation";
 import { TagType } from ".types/community";
 import { RootState } from "../../../store/store";
 import { getTemp, removeTemp, saveTemp } from "../../../store/asyncStorage";
@@ -39,7 +39,7 @@ export default function PostCreate() {
   const user = useSelector((state: RootState) => state.auth.user);
   const token = useSelector((state: RootState) => state.auth.token);
   const navigation =
-    useNavigation<CommunityStackScreenProps<"PostCreate">["navigation"]>();
+    useNavigation<CommunityScreenProps<"PostCreate">["navigation"]>();
 
   useEffect(() => {
     const fetchTags = async () => {

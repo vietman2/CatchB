@@ -3,11 +3,11 @@ import { Button, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 import { themeColors } from ".themes/colors";
-import { MyPageStackScreenProps } from "../../../../variables/navigation";
+import { MyPageScreenProps } from ".constants/navigation";
 
 export default function Prices() {
   const navigation =
-    useNavigation<MyPageStackScreenProps<"RegisterPro">["navigation"]>();
+    useNavigation<MyPageScreenProps<"RegisterPro">["navigation"]>();
 
   const handleSubmitSuccess = () => {
     navigation.navigate("MyPageScreen");

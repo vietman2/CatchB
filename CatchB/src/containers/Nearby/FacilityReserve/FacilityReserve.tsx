@@ -5,12 +5,12 @@ import { Button, Icon, Text } from "react-native-paper";
 
 import { RootState } from "../../../store/store";
 import { themeColors } from ".themes/colors";
-import { NearbyStackScreenProps } from "../../../variables/navigation";
+import { NearbyScreenProps } from ".constants/navigation";
 
 export default function FacilityReserve() {
   const navigation =
-    useNavigation<NearbyStackScreenProps<"FacilityReserve">["navigation"]>();
-  const route = useRoute<NearbyStackScreenProps<"FacilityReserve">["route"]>();
+    useNavigation<NearbyScreenProps<"FacilityReserve">["navigation"]>();
+  const route = useRoute<NearbyScreenProps<"FacilityReserve">["route"]>();
   // params에 있으면 params에서 가져오고 없으면 undefined
   const selectedDate = route.params?.selectedDate;
   const selectedTime = route.params?.selectedTime;

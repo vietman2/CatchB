@@ -1,9 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import PromotionMain from "./Main/PromotionMain";
-import { PromotionStackParamList } from "../../variables/navigation";
+import { PromotionParams } from ".constants/navigation";
 
-const PromotionStack = createStackNavigator<PromotionStackParamList>();
+const PromotionStack = createStackNavigator<PromotionParams>();
 
 export default function PromotionContainer() {
   return (

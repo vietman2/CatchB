@@ -4,12 +4,15 @@ import { Alert, View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator, Button, Text, TextInput } from "react-native-paper";
 
-import { changePassword, logout } from "../../../services/user_management/account";
+import {
+  changePassword,
+  logout,
+} from "../../../services/user_management/account";
 import { AppDispatch, RootState } from "../../../store/store";
 import { get } from "../../../store/secure";
 import { logout as resetUserState } from "../../../store/slices/user_management/authSlice";
 import { themeColors } from ".themes/colors";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
+import { MyPageScreenProps } from ".constants/navigation";
 
 export default function PasswordChange() {
   const [oldPassword, setOldPassword] = useState<string>("");
@@ -21,7 +24,7 @@ export default function PasswordChange() {
   const token = useSelector((state: RootState) => state.auth.token);
   const dispatch = useDispatch<AppDispatch>();
   const navigation =
-    useNavigation<MyPageStackScreenProps<"PasswordChange">["navigation"]>();
+    useNavigation<MyPageScreenProps<"PasswordChange">["navigation"]>();
 
   const handlePasswordChangeSuccess = async () => {
     get("refresh_token").then(async (token) => {
@@ -140,7 +143,11 @@ export default function PasswordChange() {
           testID="new-password-check-input"
         />
         <View style={{ alignItems: "flex-end" }}>
-          {error ? <Text style={styles.errorText} testID="error-text">{error}</Text> : null}
+          {error ? (
+            <Text style={styles.errorText} testID="error-text">
+              {error}
+            </Text>
+          ) : null}
         </View>
         <View style={styles.buttonBox}>
           {isLoading ? (

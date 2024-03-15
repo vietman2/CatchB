@@ -18,7 +18,7 @@ import { VerticalDivider } from "../../../components/Dividers";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
 import { CoachType, FacilityType } from ".types/products";
-import { NearbyStackScreenProps } from "../../../variables/navigation";
+import { NearbyScreenProps } from ".constants/navigation";
 import { themeColors } from ".themes/colors";
 import { AppDispatch, RootState } from "../../../store/store";
 import { setSelectedFacility } from "../../../store/slices/products/facilitySlice";
@@ -38,7 +38,7 @@ export default function NearbyMain() {
     longitudeDelta: 0.02,
   });
   const navigation =
-    useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
+    useNavigation<NearbyScreenProps<"NearbyScreen">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
   const location = useSelector((state: RootState) => state.general.location);
 

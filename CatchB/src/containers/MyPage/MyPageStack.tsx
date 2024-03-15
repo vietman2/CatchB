@@ -17,16 +17,13 @@ import Reviews from "./Review/Reviews";
 import PasswordChange from "./PasswordChange/PasswordChange";
 import { BackButton } from "../../components/Buttons";
 import { SmallLogo } from "../../components/Logos";
-import {
-  MyPageStackParamList,
-  MyPageStackScreenProps,
-} from "../../variables/navigation";
+import { MyPageParams, MyPageScreenProps } from ".constants/navigation";
 
-const MyPageStack = createStackNavigator<MyPageStackParamList>();
+const MyPageStack = createStackNavigator<MyPageParams>();
 
 export default function MyPageContainer() {
   const navigation =
-    useNavigation<MyPageStackScreenProps<"MyPageScreen">["navigation"]>();
+    useNavigation<MyPageScreenProps<"MyPageScreen">["navigation"]>();
 
   const backToMyPage = () => (
     <BackButton onPress={() => navigation.navigate("MyPageScreen")} />

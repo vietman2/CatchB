@@ -13,18 +13,15 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { CoachPreview, CoachTypes, Filters, Shortcut } from "./fragments";
 import { SmallLogo } from "../../components/Logos";
-import {
-  HomeStackScreenProps,
-  HomeStackParamList,
-} from "../../variables/navigation";
+import { HomeScreenProps, HomeParams } from ".constants/navigation";
 import { sampleCoaches } from "../../variables/mvp_dummy_data/coaches";
 
-const NormalStack = createStackNavigator<HomeStackParamList>();
+const NormalStack = createStackNavigator<HomeParams>();
 
 function NormalHome() {
   const [selected, setSelected] = useState<CoachTypes>("타격");
   const navigation =
-    useNavigation<HomeStackScreenProps<"SplashScreen">["navigation"]>();
+    useNavigation<HomeScreenProps<"SplashScreen">["navigation"]>();
   const { width } = Dimensions.get("window");
   const tabWidth = (width - 50) / 2;
   const examplecoach = sampleCoaches[2];
@@ -88,20 +85,20 @@ function NormalHome() {
 }
 
 export default function NormalModeContainer() {
- return (
-   <NormalStack.Navigator
-     initialRouteName="SplashScreen"
-     screenOptions={{
-       headerLeft: SmallLogo,
-       headerTitle: () => {
-         return null;
-       },
-       headerShadowVisible: false,
-     }}
-   >
-     <NormalStack.Screen name="SplashScreen" component={NormalHome} />
-   </NormalStack.Navigator>
- );
+  return (
+    <NormalStack.Navigator
+      initialRouteName="SplashScreen"
+      screenOptions={{
+        headerLeft: SmallLogo,
+        headerTitle: () => {
+          return null;
+        },
+        headerShadowVisible: false,
+      }}
+    >
+      <NormalStack.Screen name="SplashScreen" component={NormalHome} />
+    </NormalStack.Navigator>
+  );
 }
 
 const styles = StyleSheet.create({

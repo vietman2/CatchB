@@ -17,7 +17,7 @@ import { AppDispatch, RootState } from "../../../../store/store";
 import { setMyFacilityUuid } from "../../../../store/slices/products/facilitySlice";
 import { registerFacility } from "../../../../services/facility/facility";
 import { themeColors } from ".themes/colors";
-import { MyPageStackScreenProps } from "../../../../variables/navigation";
+import { MyPageScreenProps } from ".constants/navigation";
 
 interface Props {
   onFinish: () => void;
@@ -34,7 +34,7 @@ export default function FacilityStep1({ onFinish }: Readonly<Props>) {
   const user = useSelector((state: RootState) => state.auth.user);
   const token = useSelector((state: RootState) => state.auth.token);
   const navigation =
-    useNavigation<MyPageStackScreenProps<"RegisterPro">["navigation"]>();
+    useNavigation<MyPageScreenProps<"RegisterPro">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleAddressSelected = async (data: OnCompleteParams) => {

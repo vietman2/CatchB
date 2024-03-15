@@ -11,13 +11,13 @@ import FacilityBasic from "./Basic/FacilityBasic";
 import FacilityDetail from "./Detail/FacilityDetail";
 import { ProgressSteps } from "../../../components/Progress";
 import { themeColors } from ".themes/colors";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
+import { MyPageScreenProps } from ".constants/navigation";
 
 export default function RegisterPro() {
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
   const navigation =
-    useNavigation<MyPageStackScreenProps<"RegisterPro">["navigation"]>();
-  const route = useRoute<MyPageStackScreenProps<"RegisterPro">["route"]>();
+    useNavigation<MyPageScreenProps<"RegisterPro">["navigation"]>();
+  const route = useRoute<MyPageScreenProps<"RegisterPro">["route"]>();
   const { title, type } = route.params;
 
   useEffect(() => {

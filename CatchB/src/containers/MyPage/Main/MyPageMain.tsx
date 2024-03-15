@@ -17,12 +17,12 @@ import { IconTextButton, TabButton } from "../../../components/Buttons";
 import { VerticalDivider } from "../../../components/Dividers";
 import { RootState } from "../../../store/store";
 import { themeColors } from ".themes/colors";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
+import { MyPageScreenProps } from ".constants/navigation";
 
 export default function MyPageMain() {
   const { start } = useTourGuideController();
   const navigation =
-    useNavigation<MyPageStackScreenProps<"MyPageScreen">["navigation"]>();
+    useNavigation<MyPageScreenProps<"MyPageScreen">["navigation"]>();
   const user = useSelector((state: RootState) => state.auth.user);
 
   const LoginAlert = () => {
