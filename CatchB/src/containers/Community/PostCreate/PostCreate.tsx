@@ -14,16 +14,12 @@ import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 import { MyDivider, Preview, Tags } from "./fragments";
 import { forumChoices, MyImageAsset } from "./variables";
 import { Selector } from "../../../components/Selectors";
-import {
-  getTagsList,
-  uploadImageFile,
-} from "../../../services/community/media";
-import { createPost } from "../../../services/community/post";
-import { themeColors } from "../../../variables/colors";
-import { CommunityStackScreenProps } from "../../../variables/navigation";
-import { TagType } from "../../../variables/types/community";
-import { RootState } from "../../../store/store";
-import { getTemp, removeTemp, saveTemp } from "../../../store/asyncStorage";
+import { CommunityScreenProps } from ".constants/navigation";
+import { getTagsList, uploadImageFile, createPost } from ".services/community";
+import { RootState } from ".store/index";
+import { getTemp, removeTemp, saveTemp } from ".store/storage/asyncStorage";
+import { themeColors } from ".themes/colors";
+import { TagType } from ".types/community";
 
 export default function PostCreate() {
   const [title, setTitle] = useState<string>("");
@@ -39,7 +35,7 @@ export default function PostCreate() {
   const user = useSelector((state: RootState) => state.auth.user);
   const token = useSelector((state: RootState) => state.auth.token);
   const navigation =
-    useNavigation<CommunityStackScreenProps<"PostCreate">["navigation"]>();
+    useNavigation<CommunityScreenProps<"PostCreate">["navigation"]>();
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -172,14 +168,16 @@ export default function PostCreate() {
           singleSelected={selectedForum}
           setSingleSelected={handleForumSelect}
         />
-        <Tags
-          tagChoices={tagChoices}
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-          setSnackbarText={setSnackbarText}
-          setVisible={setVisible}
-          selectedForum={selectedForum}
-        />
+        {tagChoices && (
+          <Tags
+            tagChoices={tagChoices}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            setSnackbarText={setSnackbarText}
+            setVisible={setVisible}
+            selectedForum={selectedForum}
+          />
+        )}
         <MyDivider />
         <TextInput
           label="제목"

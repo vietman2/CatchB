@@ -8,7 +8,7 @@ import {
   RecruitmentCommunity,
   VideoCommunity,
 } from "../PostLists";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 const Tab = createMaterialTopTabNavigator();
 

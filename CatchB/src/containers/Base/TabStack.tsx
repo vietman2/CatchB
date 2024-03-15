@@ -20,28 +20,19 @@ import {
   PromotionContainer,
 } from "../";
 import { SwitchModeDialog, LoginDialog } from "../../components/Dialogs";
-import {
-  RootTabParamList,
-  RootTabScreenProps,
-} from "../../variables/navigation";
-import { themeColors } from "../../variables/colors";
-import {
-  getUserProfile,
-  renewToken,
-} from "../../services/user_management/account";
-import { setMode, setLocation } from "../../store/slices/general/generalSlice";
-import {
-  setUserProfile,
-  setNewToken,
-} from "../../store/slices/user_management/authSlice";
-import { AppDispatch, RootState } from "../../store/store";
-import { get } from "../../store/secure";
+import { RootParams, RootScreenProps } from ".constants/navigation";
+import { getUserProfile, renewToken } from ".services/user_management";
+import { setMode, setLocation } from ".store/general/generalSlice";
+import { AppDispatch, RootState } from ".store/index";
+import { get } from ".store/storage/secure";
+import { setUserProfile, setNewToken } from ".store/user_management/authSlice";
+import { themeColors } from ".themes/colors";
 /**
  * TabContainer
  * 하단 탭의 구성을 담당한다.
  */
 
-const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
+const Tab = createMaterialBottomTabNavigator<RootParams>();
 
 export default function TabContainer() {
   const [switchModeVisible, setSwitchModeVisible] = useState(false);
@@ -50,7 +41,7 @@ export default function TabContainer() {
   const user = useSelector((state: RootState) => state.auth.user);
   const access = useSelector((state: RootState) => state.auth.token);
   const dispatch = useDispatch<AppDispatch>();
-  const navigation = useNavigation<RootTabScreenProps<"Home">["navigation"]>();
+  const navigation = useNavigation<RootScreenProps<"Home">["navigation"]>();
 
   const getPermission = async () => {
     await requestForegroundPermissionsAsync();

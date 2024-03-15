@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-paper";
 import { SvgCssUri } from "react-native-svg";
 
-import { TagType } from "../../../../variables/types/community";
+import { TagType } from ".types/community";
 
 interface Props {
   selectedForum: string;

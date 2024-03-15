@@ -3,10 +3,10 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import { Selector } from "../Selectors";
-import { LessonProduct } from "../../variables/types/products";
+import { LessonProductType } from ".types/products";
 
 interface Props {
-  products: LessonProduct[];
+  products: LessonProductType[];
 }
 
 export function LessonProductsTable({ products }: Readonly<Props>) {

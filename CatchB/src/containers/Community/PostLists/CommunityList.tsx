@@ -12,12 +12,13 @@ import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { PostSimple } from "../fragments";
-import { AppDispatch } from "../../../store/store";
-import { setSelectedPost } from "../../../store/slices/community/postSlice";
-import { themeColors } from "../../../variables/colors";
-import { PostType } from "../../../variables/types/community";
-import { CommunityStackScreenProps } from "../../../variables/navigation";
-import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
+import ErrorPage from "../../Base/ErrorPage";
+import { CommunityScreenProps } from ".constants/navigation";
+import { getPostList } from ".services/community";
+import { AppDispatch } from ".store/index";
+import { setSelectedPost } from ".store/community/postSlice";
+import { themeColors } from ".themes/colors";
+import { PostSimpleType } from ".types/community";
 
 interface Props {
   mode: "덕아웃" | "드래프트";
@@ -27,16 +28,17 @@ type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순
 
 export function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostSimpleType[]>([]);
   const [sort, setSort] = useState<Sort>("최신순");
+  const [error, setError] = useState<boolean>(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
   const navigation =
-    useNavigation<CommunityStackScreenProps<"PostDetail">["navigation"]>();
+    useNavigation<CommunityScreenProps<"PostDetail">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
 
-  const handlePress = async (post: PostType) => {
-    await dispatch(setSelectedPost(post));
+  const handlePress = async (post: PostSimpleType) => {
+    await dispatch(setSelectedPost(post.id));
     navigation.navigate("PostDetail");
   };
 
@@ -53,11 +55,17 @@ export function CommunityList({ mode }: Readonly<Props>) {
   };
 
   useEffect(() => {
-    if (mode === "덕아웃") {
-      setPosts(samplePosts.filter((post) => post.forum_id === 1));
-    } else {
-      setPosts(samplePosts.filter((post) => post.forum_id === 2));
-    }
+    const fetchPosts = async () => {
+      const response = await getPostList(mode);
+
+      if (response.status === 200) {
+        setPosts(response.data);
+      } else {
+        setError(true);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   const SortComponent = ({ choice }: Readonly<{ choice: Sort }>) => {
@@ -83,6 +91,8 @@ export function CommunityList({ mode }: Readonly<Props>) {
       </TouchableOpacity>
     );
   };
+
+  if (error) return <ErrorPage />;
 
   return (
     <View style={styles.container}>

@@ -12,9 +12,9 @@ import {
   NumberPicker,
   WorkTimePickers,
 } from "../../../../components/Pickers";
-import { uploadDetails } from "../../../../services/facility/facility";
-import { RootState } from "../../../../store/store";
-import { themeColors } from "../../../../variables/colors";
+import { uploadDetails } from ".services/products";
+import { RootState } from ".store/index";
+import { themeColors } from ".themes/colors";
 
 interface Props {
   onFinish: () => void;

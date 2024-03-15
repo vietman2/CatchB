@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 
 import CheckReservations from "./CheckReservations";
-import { themeColors } from "../../../variables/colors";
+import { themeColors } from ".themes/colors";
 import {
   newReservations,
   cancelledReservations,

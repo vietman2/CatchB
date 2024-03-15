@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
-import { themeColors } from "../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 interface IconProps {
   icon: string;

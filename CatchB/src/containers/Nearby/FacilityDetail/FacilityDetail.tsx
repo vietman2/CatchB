@@ -17,9 +17,9 @@ import {
   ScheduleBar,
   ReservationProductsTable,
 } from "../../../components/Tables";
-import { themeColors } from "../../../variables/colors";
-import { NearbyStackScreenProps } from "../../../variables/navigation";
-import { RootState } from "../../../store/store";
+import { themeColors } from ".themes/colors";
+import { NearbyScreenProps } from ".constants/navigation";
+import { RootState } from ".store/index";
 import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";
 
 const { width, height } = Dimensions.get("window");
@@ -57,7 +57,7 @@ export default function FacilityDetail() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
-    useNavigation<NearbyStackScreenProps<"FacilityDetail">["navigation"]>();
+    useNavigation<NearbyScreenProps<"FacilityDetail">["navigation"]>();
   const facility = useSelector(
     (state: RootState) => state.facility.selectedFacility
   );

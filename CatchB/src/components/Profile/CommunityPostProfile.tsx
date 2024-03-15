@@ -1,10 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import { Avatar, Text } from "react-native-paper";
 
-import { PostType } from "../../variables/types/community";
+import { PostDetailType } from ".types/community";
 
 interface PostProps {
-  post: PostType;
+  post: PostDetailType;
 }
 
 export function CommunityPostProfile({ post }: Readonly<PostProps>) {
@@ -34,7 +34,7 @@ export function CommunityPostProfile({ post }: Readonly<PostProps>) {
           color="white"
         />
         <Text variant="titleMedium" style={styles.name}>
-          {post.author_name}
+          {post.author_nickname}
         </Text>
         <Text variant="titleSmall">{renderCreatedAt()}</Text>
       </View>

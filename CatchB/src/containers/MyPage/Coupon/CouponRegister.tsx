@@ -9,12 +9,9 @@ import {
 import { ActivityIndicator, Button, Text, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
 
-import {
-  registerCoupon,
-  checkStatus,
-} from "../../../services/user_management/coupon";
-import { RootState } from "../../../store/store";
-import { themeColors } from "../../../variables/colors";
+import { registerCoupon, checkStatus } from ".services/user_management";
+import { RootState } from ".store/index";
+import { themeColors } from ".themes/colors";
 
 export default function CouponRegister() {
   const [code, setCode] = useState<string>("");

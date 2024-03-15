@@ -2,7 +2,7 @@ import { fireEvent } from "@testing-library/react-native";
 import { renderWithProviders } from "../../../../utils/test-utils";
 
 import Tags, { Tag } from "./Tags";
-import { sampleTags, tag1 } from "../../../../variables/mvp_dummy_data/tags";
+import { sampleTags, tag1 } from ".data/community";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;

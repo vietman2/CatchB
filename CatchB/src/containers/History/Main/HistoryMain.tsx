@@ -1,18 +1,8 @@
-import { StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import { themeColors } from "../../../variables/colors";
-
-// TODO: Remove this later
-export function NotReady() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text variant="headlineSmall">준비중입니다.</Text>
-    </View>
-  );
-}
-
+import NotReady from "../../Base/NotReady";
+import { themeColors } from ".themes/colors";
 
 const Tab = createMaterialTopTabNavigator();
 

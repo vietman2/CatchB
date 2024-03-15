@@ -1,6 +1,9 @@
+import { waitFor } from "@testing-library/react-native";
+
 import PostDetail from "./PostDetail";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
+import * as APIServer from "../../../services/community/post";
+import { samplePosts } from ".constants/test_data/community";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
@@ -12,21 +15,46 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Chips", () => ({
-  PostTagChip: "PostTagChip",
+jest.mock("../../Base/ErrorPage", () => "ErrorPage");
+jest.mock("../../../components/Loading", () => ({
+  LoadingPage: "LoadingPage",
 }));
 jest.mock("../../../components/Profile", () => ({
   CommunityPostProfile: "CommunityPostProfile",
 }));
 
+jest.spyOn(APIServer, "getPostDetail").mockResolvedValue({
+  status: 200,
+  data: samplePosts[0],
+});
+
 describe("<PostDetail />", () => {
-  it("renders correctly", () => {
-    renderWithProviders(<PostDetail />, {
-      preloadedState: {
-        community: {
-          selectedPost: samplePosts[0],
+  it("renders and gets response correctly", () => {
+    waitFor(() =>
+      renderWithProviders(<PostDetail />, {
+        preloadedState: {
+          community: {
+            selectedPostId: 0,
+          },
         },
-      },
+      })
+    );
+  });
+
+  it("handles error correctly", () => {
+    jest.spyOn(APIServer, "getPostDetail").mockResolvedValue({
+      status: 500,
+      data: null,
     });
+
+    waitFor(() =>
+      renderWithProviders(<PostDetail />, {
+        preloadedState: {
+          community: {
+            selectedPostId: 0,
+          },
+        },
+      })
+    );
   });
 });

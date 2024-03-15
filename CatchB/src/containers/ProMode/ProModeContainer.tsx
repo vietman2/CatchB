@@ -8,8 +8,8 @@ import { Calendar } from "./Calendar/Calendar";
 import { StoreDashboard } from "./StoreDashboard/StoreDashboard";
 import { Sales } from "./Sales/Sales";
 import { SmallLogo } from "../../components/Logos";
-import { themeColors } from "../../variables/colors";
-import { HomeStackParamList } from "../../variables/navigation";
+import { themeColors } from ".themes/colors";
+import { HomeParams } from ".constants/navigation";
 
 // TODO: Remove this later
 function NotReady() {
@@ -20,7 +20,7 @@ function NotReady() {
   );
 }
 
-const ProStack = createStackNavigator<HomeStackParamList>();
+const ProStack = createStackNavigator<HomeParams>();
 
 function AlertIcon() {
   return (

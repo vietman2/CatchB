@@ -1,4 +1,4 @@
-import { UserProfileType } from "../types/users";
+import { UserProfileType } from ".types/users";
 
 export const admin: UserProfileType = {
   uuid: "admin_uuid",

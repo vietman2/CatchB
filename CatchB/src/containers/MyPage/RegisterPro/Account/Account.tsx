@@ -14,11 +14,11 @@ import {
   SubTitle,
 } from "../fragments";
 import { RegisterProTerms } from "../../../../components/Terms";
-import { RootState } from "../../../../store/store";
-import { getBankList } from "../../../../services/payments/account";
-import { themeColors } from "../../../../variables/colors";
-import { sampleBankAccounts } from "../../../../variables/mvp_dummy_data/payments";
-import { BankType } from "../../../../variables/types/payments";
+import { sampleBankAccounts } from ".data/payments";
+import { getBankList } from ".services/payments";
+import { RootState } from ".store/index";
+import { themeColors } from ".themes/colors";
+import { BankType } from ".types/payments";
 
 interface Props {
   onFinish: () => void;

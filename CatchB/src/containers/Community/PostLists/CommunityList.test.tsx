@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { BaseballCommunity, RecruitmentCommunity } from "./";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { fireEvent, waitFor } from "@testing-library/react-native";
+import * as APIServer from "../../../services/community/post";
+import { sampleSimplePosts } from ".data/community";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -26,6 +28,7 @@ jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../fragments", () => ({
   PostSimple: "PostSimple",
 }));
+jest.mock("../../Base/ErrorPage", () => "ErrorPage");
 
 const Stack = createStackNavigator();
 
@@ -33,9 +36,9 @@ const FakePage = () => {
   return <></>;
 };
 
-const Components = ({ mode }: { mode: "야구톡" | "모집" }) => {
+const Components = ({ mode }: { mode: "덕아웃" | "드래프트" }) => {
   const Component = () => {
-    if (mode === "야구톡") {
+    if (mode === "덕아웃") {
       return <BaseballCommunity />;
     } else {
       return <RecruitmentCommunity />;
@@ -51,16 +54,15 @@ const Components = ({ mode }: { mode: "야구톡" | "모집" }) => {
   );
 };
 
+jest.spyOn(APIServer, "getPostList").mockResolvedValue({
+  status: 200,
+  data: sampleSimplePosts,
+});
+
 describe("<CommunityList />", () => {
   it("renders community mode correctly, and handles navigate to <PostDetail />", async () => {
-    const { getByTestId } = renderWithProviders(<Components mode="야구톡" />);
-
-    waitFor(() => fireEvent.press(getByTestId("post-id-1")));
-  });
-
-  it("renders community mode correctly, and handles sort", () => {
-    const { getByTestId, getByText } = renderWithProviders(
-      <Components mode="야구톡" />
+    const { getByTestId, getByText } = await waitFor(() =>
+      renderWithProviders(<Components mode="덕아웃" />)
     );
 
     fireEvent.press(getByTestId("sort-button"));
@@ -68,9 +70,18 @@ describe("<CommunityList />", () => {
     fireEvent.press(getByText("인기순"));
     fireEvent.press(getByText("인기순"));
     fireEvent.press(getByText("닫기"));
+    waitFor(() => fireEvent.press(getByTestId("post-id-1")));
   });
 
   it("renders recruit mode correctly", () => {
-    renderWithProviders(<Components mode="모집" />);
+    waitFor(() => renderWithProviders(<Components mode="드래프트" />));
+  });
+
+  it("renders handles error correctly", () => {
+    jest.spyOn(APIServer, "getPostList").mockResolvedValue({
+      status: 400,
+      data: {},
+    });
+    waitFor(() => renderWithProviders(<Components mode="드래프트" />));
   });
 });

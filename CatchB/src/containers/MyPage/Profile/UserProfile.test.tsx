@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import UserProfile from "./UserProfile";
-import * as SecureStore from "../../../store/secure";
+import * as SecureStore from ".store/storage/secure";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
 

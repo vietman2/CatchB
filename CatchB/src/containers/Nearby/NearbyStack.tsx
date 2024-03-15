@@ -8,13 +8,10 @@ import FacilityReserve from "./FacilityReserve/FacilityReserve";
 import CoachDetail from "./CoachDetail/CoachDetail";
 import Payment from "./Payment/Payment";
 import { BackButton } from "../../components/Buttons";
-import {
-  NearbyStackParamList,
-  NearbyStackScreenProps,
-} from "../../variables/navigation";
-import { RootState } from "../../store/store";
+import { NearbyParams, NearbyScreenProps } from ".constants/navigation";
+import { RootState } from ".store/index";
 
-const NearbyNavStack = createStackNavigator<NearbyStackParamList>();
+const NearbyNavStack = createStackNavigator<NearbyParams>();
 
 export default function NearbyStack() {
   const selectedFacility = useSelector(
@@ -24,7 +21,7 @@ export default function NearbyStack() {
     (store: RootState) => store.coach.selectedCoach
   );
   const navigation =
-    useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
+    useNavigation<NearbyScreenProps<"NearbyScreen">["navigation"]>();
 
   const goBackToNearbyScreen = () => {
     return <BackButton onPress={() => navigation.navigate("NearbyScreen")} />;

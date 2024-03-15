@@ -5,16 +5,16 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   View,
-  Alert
+  Alert,
 } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useRoute } from "@react-navigation/native";
 
-import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
+import { MyPageScreenProps } from ".constants/navigation";
+import { themeColors } from ".themes/colors";
 
 export default function EditProfile() {
-  const route = useRoute<MyPageStackScreenProps<"EditProfile">["route"]>();
+  const route = useRoute<MyPageScreenProps<"EditProfile">["route"]>();
   const { title, detail } = route.params;
   const [value, setValue] = useState<string>(detail);
 
@@ -45,7 +45,9 @@ export default function EditProfile() {
             onChangeText={(text) => setValue(text)}
             testID="edit-profile-text-input"
           />
-          <Button mode="contained" onPress={handleButton}>확인</Button>
+          <Button mode="contained" onPress={handleButton}>
+            확인
+          </Button>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

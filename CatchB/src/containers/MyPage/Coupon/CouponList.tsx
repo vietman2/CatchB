@@ -5,16 +5,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 import { ActivityIndicator, Coupon, NoCoupon } from "./fragments";
-import { getCouponList } from "../../../services/user_management/coupon";
-import { setCouponListState } from "../../../store/slices/user_management/couponSlice";
-import { AppDispatch, RootState } from "../../../store/store";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
+import { MyPageScreenProps } from ".constants/navigation";
+import { getCouponList } from ".services/user_management";
+import { AppDispatch, RootState } from ".store/index";
+import { setCouponListState } from ".store/user_management/couponSlice";
+import { themeColors } from ".themes/colors";
 
 export default function CouponList() {
   const [loading, setLoading] = useState(true);
   const navigation =
-    useNavigation<MyPageStackScreenProps<"CouponList">["navigation"]>();
+    useNavigation<MyPageScreenProps<"CouponList">["navigation"]>();
   const token = useSelector((state: RootState) => state.auth.token);
   const coupons = useSelector((state: RootState) => state.coupon.coupons);
   const dispatch = useDispatch<AppDispatch>();

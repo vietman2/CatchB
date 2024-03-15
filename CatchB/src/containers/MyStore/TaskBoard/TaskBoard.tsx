@@ -1,15 +1,12 @@
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  CheckStatus,
-  ProgressBanner,
-} from "./Progress";
-import { MyStoreStackScreenProps } from "../../../variables/navigation";
+import { CheckStatus, ProgressBanner } from "./Progress";
+import { MyStoreScreenProps } from ".constants/navigation";
 
 export default function TaskBoard() {
   const navigation =
-    useNavigation<MyStoreStackScreenProps<"MyStoreScreen">["navigation"]>();
+    useNavigation<MyStoreScreenProps<"MyStoreScreen">["navigation"]>();
 
   return (
     <>

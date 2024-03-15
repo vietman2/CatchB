@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
-import { themeColors } from "../../variables/colors";
+import { themeColors } from ".themes/colors";
 
 type Step = {
   step: number;

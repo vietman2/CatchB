@@ -6,7 +6,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import CommunityContainer from "./CommunityStack";
 import { renderWithProviders } from "../../utils/test-utils";
-import { samplePosts } from "../../variables/mvp_dummy_data/posts";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -77,7 +76,7 @@ describe("<CommunityStack />", () => {
     const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         community: {
-          selectedPost: samplePosts[0],
+          selectedPostId: 0,
         },
       },
     });
@@ -89,7 +88,7 @@ describe("<CommunityStack />", () => {
     const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         community: {
-          selectedPost: samplePosts[0],
+          selectedPostId: 0,
         },
       },
     });

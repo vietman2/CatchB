@@ -15,17 +15,17 @@ import { partChoices, levelChoices, typeChoices } from "./options";
 import { MainTitle, SubTitle } from "../fragments";
 import { ImagePicker } from "../../../../components/Pickers";
 import { RegionSelector, Selector } from "../../../../components/Selectors";
-import { getRegionsList } from "../../../../services/facility/facility";
-import { themeColors } from "../../../../variables/colors";
-import { Sido, Sigungu } from "../../../../variables/types/products";
+import { getRegionsList } from ".services/products";
+import { themeColors } from ".themes/colors";
+import { SidoType, SigunguType } from ".types/products";
 
 interface Props {
   onFinish: () => void;
 }
 
 type Data = {
-  sido: Sido[];
-  sigungu: Record<string, Sigungu[]>;
+  sido: SidoType[];
+  sigungu: Record<string, SigunguType[]>;
 };
 
 export default function CoachDetail({ onFinish }: Readonly<Props>) {
@@ -38,7 +38,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
   const [intro, setIntro] = useState<string>("");
   const [medias, setMedias] = useState<ImagePickerAsset[]>([]);
   const [selectedSido, setSelectedSido] = useState<string>("서울");
-  const [selectedRegions, setSelectedRegions] = useState<Sigungu[]>([]);
+  const [selectedRegions, setSelectedRegions] = useState<SigunguType[]>([]);
   const [data, setData] = useState<Data>();
 
   const handleSubmitSuccess = () => {
@@ -62,7 +62,7 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
     getRegions();
   }, []);
 
-  const removeSelected = (selected: Sigungu) => {
+  const removeSelected = (selected: SigunguType) => {
     setSelectedRegions(selectedRegions.filter((region) => region !== selected));
   };
 

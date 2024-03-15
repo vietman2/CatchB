@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import { API_LOCAL_URL } from "../";
-import { RegisterRoute } from "../../variables/enums";
 
 export async function login(username: string, password: string) {
   const url = `${API_LOCAL_URL}/api/users/login/`;
@@ -115,7 +114,7 @@ export async function register(
   gender: string
 ) {
   const url = `${API_LOCAL_URL}/api/users/register/`;
-  const register_route = RegisterRoute.CATCHB.value;
+  const register_route = 1;
 
   try {
     const response = await axios.post(url, {

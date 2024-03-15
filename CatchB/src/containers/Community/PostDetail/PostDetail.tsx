@@ -1,32 +1,56 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Divider, Text } from "react-native-paper";
 import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { PostTagChip } from "../../../components/Chips";
+import ErrorPage from "../../Base/ErrorPage";
+import { LoadingPage } from "../../../components/Loading";
 import { CommunityPostProfile } from "../../../components/Profile";
-import { RootState } from "../../../store/store";
-import { themeColors } from "../../../variables/colors";
+import { RootState } from ".store/index";
+import { getPostDetail } from ".services/community";
+import { themeColors } from ".themes/colors";
+import { PostDetailType } from ".types/community";
 
 export default function PostDetail() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "50%", "100%"], []);
-  const post = useSelector((state: RootState) => state.community.selectedPost);
+  const [post, setPost] = useState<PostDetailType>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const postId = useSelector(
+    (state: RootState) => state.community.selectedPostId
+  );
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const response = await getPostDetail(postId);
+
+      if (response.status === 200) {
+        setPost(response.data);
+      } else {
+        setError(true);
+      }
+
+      setLoading(false);
+    };
+
+    fetchPost();
+  }, []);
+
+  if (loading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
 
   return (
     <>
       <ScrollView style={styles.container}>
-        <View style={styles.tags}>
-          <PostTagChip label="일반" />
-        </View>
         <Text variant="headlineSmall" style={styles.title}>
           {post.title}
         </Text>
         <CommunityPostProfile post={post} />
         <Divider />
         <Text variant="titleMedium" style={styles.body}>
-          {post.body}
+          {post.content}
         </Text>
         <Divider />
         <View style={styles.interactions}>
@@ -57,11 +81,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themeColors.primaryContainer,
     paddingHorizontal: 20,
-  },
-  tags: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 10,
   },
   title: {
     flexWrap: "wrap",

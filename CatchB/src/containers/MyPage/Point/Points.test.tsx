@@ -4,7 +4,7 @@ import { waitFor } from "@testing-library/react-native";
 import Points from "./Points";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { admin } from "../../../variables/mvp_dummy_data/user";
-import { samplePoints } from "../../../variables/mvp_dummy_data/points";
+import { samplePoints } from ".data/users";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").Provider;

@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
-import { themeColors } from "../../variables/colors";
-import { Sigungu } from "../../variables/types/products";
+import { themeColors } from ".themes/colors";
+import { SigunguType } from ".types/products";
 
 interface Props {
-  options: Sigungu[];
-  multiSelected: Sigungu[];
-  setMultiSelected: Dispatch<SetStateAction<Sigungu[]>>;
+  options: SigunguType[];
+  multiSelected: SigunguType[];
+  setMultiSelected: Dispatch<SetStateAction<SigunguType[]>>;
   showSnackBar: (show: boolean) => void;
 }
 
@@ -17,11 +17,11 @@ export function RegionSelector({
   setMultiSelected,
   showSnackBar,
 }: Readonly<Props>) {
-  const isSelected = (option: Sigungu) => {
+  const isSelected = (option: SigunguType) => {
     return multiSelected.includes(option);
   };
 
-  const toggleSelected = (option: Sigungu) => {
+  const toggleSelected = (option: SigunguType) => {
     if (multiSelected.includes(option)) {
       setMultiSelected(multiSelected.filter((item) => item !== option));
     } else {

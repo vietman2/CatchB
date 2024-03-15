@@ -18,11 +18,11 @@ import {
 
 import { LoginLogo } from "../../../components/Logos";
 import { NaverButton, KakaoButton } from "../../../components/Buttons";
-import { login } from "../../../services/user_management/account";
-import { login as setUserState } from "../../../store/slices/user_management/authSlice";
-import { AppDispatch } from "../../../store/store";
-import { MyPageStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
+import { MyPageScreenProps } from ".constants/navigation";
+import { login } from ".services/user_management";
+import { AppDispatch } from ".store/index";
+import { login as setUserState } from ".store/user_management/authSlice";
+import { themeColors } from ".themes/colors";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -31,8 +31,7 @@ export default function Login() {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
-  const navigation =
-    useNavigation<MyPageStackScreenProps<"Login">["navigation"]>();
+  const navigation = useNavigation<MyPageScreenProps<"Login">["navigation"]>();
 
   const handleLogin = async () => {
     setIsLoading(true);

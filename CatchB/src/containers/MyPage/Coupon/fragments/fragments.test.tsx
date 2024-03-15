@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 
 import { ActivityIndicator, Coupon, NoCoupon } from "./";
-import { sampleCoupons } from "../../../../variables/mvp_dummy_data/coupons";
+import { sampleCoupons } from ".data/users";
 
 jest.mock("react-native-paper", () => ({
   ActivityIndicator: "ActivityIndicator",

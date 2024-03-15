@@ -10,8 +10,8 @@ import { TourGuideProvider } from "rn-tourguide";
 
 import TabContainer from "./src/containers/Base/TabStack";
 import useFonts from "./src/hooks/useFonts";
-import { store } from "./src/store/store";
-import { themeColors } from "./src/variables/colors";
+import { store } from ".store/index";
+import { themeColors } from ".themes/colors";
 
 const theme = {
   ...DefaultTheme,

@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import { Avatar, Text } from "react-native-paper";
 
-import { themeColors } from "../../variables/colors";
-import { UserProfileType } from "../../variables/types/users";
+import { themeColors } from ".themes/colors";
+import { UserProfileType } from ".types/users";
 
 interface ProfileProps {
   user: UserProfileType | null;

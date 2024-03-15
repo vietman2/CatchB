@@ -17,12 +17,12 @@ import { FacilitySimple } from "../FacilityDetail/FacilitySimple";
 import { VerticalDivider } from "../../../components/Dividers";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
-import { CoachType, FacilityType } from "../../../variables/types/products";
-import { NearbyStackScreenProps } from "../../../variables/navigation";
-import { themeColors } from "../../../variables/colors";
-import { AppDispatch, RootState } from "../../../store/store";
-import { setSelectedFacility } from "../../../store/slices/products/facilitySlice";
-import { setSelectedCoach } from "../../../store/slices/products/coachSlice";
+import { CoachType, FacilityType } from ".types/products";
+import { NearbyScreenProps } from ".constants/navigation";
+import { themeColors } from ".themes/colors";
+import { AppDispatch, RootState } from ".store/index";
+import { setSelectedFacility } from ".store/products/facilitySlice";
+import { setSelectedCoach } from ".store/products/coachSlice";
 
 export default function NearbyMain() {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -38,7 +38,7 @@ export default function NearbyMain() {
     longitudeDelta: 0.02,
   });
   const navigation =
-    useNavigation<NearbyStackScreenProps<"NearbyScreen">["navigation"]>();
+    useNavigation<NearbyScreenProps<"NearbyScreen">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
   const location = useSelector((state: RootState) => state.general.location);
 

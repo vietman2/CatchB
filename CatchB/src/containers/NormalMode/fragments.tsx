@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Chip, Icon, Surface, Text } from "react-native-paper";
 
-import { CoachType } from "../../variables/types/products";
+import { CoachType } from ".types/products";
 
 const { width } = Dimensions.get("window");
 

@@ -1,19 +1,19 @@
 import { View, StyleSheet } from "react-native";
-import { Avatar, Chip, Icon, Text } from "react-native-paper";
+import { Avatar, Icon, Text } from "react-native-paper";
 
-import { PostType } from "../../../variables/types/community";
-import { themeColors } from "../../../variables/colors";
+import { PostSimpleType } from ".types/community";
+import { themeColors } from ".themes/colors";
 
 interface Props {
-  post: PostType;
+  post: PostSimpleType;
 }
 
 export default function PostSimple({ post }: Readonly<Props>) {
   const renderPostBody = () => {
-    if (post.body.length > 25) {
-      return post.body.slice(0, 25) + "...";
+    if (post.content.length > 25) {
+      return post.content.slice(0, 25) + "...";
     }
-    return post.body;
+    return post.content;
   };
 
   const renderCreatedAt = () => {
@@ -39,9 +39,6 @@ export default function PostSimple({ post }: Readonly<Props>) {
 
   return (
     <View style={styles.container}>
-      <Chip compact mode="flat">
-        {post.tags[0]}
-      </Chip>
       <Text variant="titleMedium" style={styles.title}>
         {post.title}
       </Text>
@@ -56,7 +53,7 @@ export default function PostSimple({ post }: Readonly<Props>) {
               color="white"
             />
             <Text variant="titleMedium" style={styles.infoText}>
-              {post.author_name}
+              {post.author_nickname}
             </Text>
             <Text variant="titleSmall" style={styles.countText}>
               {renderCreatedAt()}
@@ -70,11 +67,11 @@ export default function PostSimple({ post }: Readonly<Props>) {
           </Text>
           <Text style={styles.countText}>
             <Icon source="heart" size={18} color={themeColors.primary} />{" "}
-            {post.num_likes}
+            {0/*TODO: post.num_likes*/}
           </Text>
           <Text style={styles.countText}>
             <Icon source="chat" size={18} color={themeColors.primary} />{" "}
-            {post.num_comments}
+            {0/*TODO: post.num_comments*/}
           </Text>
         </View>
       </View>

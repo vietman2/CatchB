@@ -16,9 +16,9 @@ import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
 import { FilePicker } from "../../../../components/Pickers";
 import { Selector } from "../../../../components/Selectors";
 import { RegisterProTerms } from "../../../../components/Terms";
-import { RootState } from "../../../../store/store";
-import { themeColors } from "../../../../variables/colors";
-import { MyPageStackScreenProps } from "../../../../variables/navigation";
+import { RootState } from ".store/index";
+import { themeColors } from ".themes/colors";
+import { MyPageScreenProps } from ".constants/navigation";
 
 interface Props {
   onFinish: () => void;
@@ -29,10 +29,10 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
     DocumentPickerAsset | ImagePickerAsset
   >(null);
   const [career, setCareer] = useState<string>("프로 선수 출신");
-  const [type, setType] = useState<"pdf"|"image">("pdf");
+  const [type, setType] = useState<"pdf" | "image">("pdf");
   const user = useSelector((state: RootState) => state.auth.user);
   const navigation =
-    useNavigation<MyPageStackScreenProps<"RegisterPro">["navigation"]>();
+    useNavigation<MyPageScreenProps<"RegisterPro">["navigation"]>();
 
   const handleRegisterSuccess = () => {
     Alert.alert(
