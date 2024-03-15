@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { Avatar, Chip, Icon, Text } from "react-native-paper";
+import { Avatar, Icon, Text } from "react-native-paper";
 
 import { PostSimpleType } from ".types/community";
 import { themeColors } from ".themes/colors";
