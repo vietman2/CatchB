@@ -28,6 +28,7 @@ jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../fragments", () => ({
   PostSimple: "PostSimple",
 }));
+jest.mock("../../Base/ErrorPage", () => "ErrorPage");
 
 const Stack = createStackNavigator();
 
@@ -69,9 +70,18 @@ describe("<CommunityList />", () => {
     fireEvent.press(getByText("인기순"));
     fireEvent.press(getByText("인기순"));
     fireEvent.press(getByText("닫기"));
+    waitFor(() => fireEvent.press(getByTestId("post-id-1")));
   });
 
   it("renders recruit mode correctly", () => {
+    waitFor(() => renderWithProviders(<Components mode="드래프트" />));
+  });
+
+  it("renders handles error correctly", () => {
+    jest.spyOn(APIServer, "getPostList").mockResolvedValue({
+      status: 400,
+      data: {},
+    });
     waitFor(() => renderWithProviders(<Components mode="드래프트" />));
   });
 });
