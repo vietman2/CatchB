@@ -13,7 +13,7 @@ import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 
 import { MyDivider, Preview, Tags } from "./fragments";
 import { forumChoices, MyImageAsset } from "./variables";
-import { Selector } from "../../../components/Selectors";
+import { Selector } from ".components/Selectors";
 import { CommunityScreenProps } from ".constants/navigation";
 import { getTagsList, uploadImageFile, createPost } from ".services/community";
 import { RootState } from ".store/index";

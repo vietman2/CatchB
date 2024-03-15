@@ -2,7 +2,7 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import { getCouponList, registerCoupon, checkStatus } from "./coupon";
-import { TestNetworkError } from "../../utils/test-utils";
+import { TestNetworkError } from ".utils/test-utils";
 
 describe("getCouponList", () => {
   it("should successfully get coupon list", async () => {

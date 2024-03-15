@@ -1,5 +1,5 @@
 import TodoList from "./TodoList";
-import { renderWithProviders } from "../../../utils/test-utils";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),

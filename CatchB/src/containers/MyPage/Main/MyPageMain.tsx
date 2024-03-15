@@ -12,12 +12,12 @@ import { useNavigation } from "@react-navigation/native";
 import ProgressBar from "react-native-progress/Bar";
 import { TourGuideZone, useTourGuideController } from "rn-tourguide";
 
-import { MainProfile } from "../../../components/Profile";
-import { IconTextButton, TabButton } from "../../../components/Buttons";
-import { VerticalDivider } from "../../../components/Dividers";
+import { MainProfile } from ".components/Profile";
+import { IconTextButton, TabButton } from ".components/Buttons";
+import { VerticalDivider } from ".components/Dividers";
+import { MyPageScreenProps } from ".constants/navigation";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
-import { MyPageScreenProps } from ".constants/navigation";
 
 export default function MyPageMain() {
   const { start } = useTourGuideController();

@@ -2,7 +2,7 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import { registerFacility, uploadDetails } from "./facility";
-import { TestNetworkError } from "../../utils/test-utils";
+import { TestNetworkError } from ".utils/test-utils";
 
 jest.mock("form-data", () => {
   return jest.fn().mockImplementation(() => {

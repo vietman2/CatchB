@@ -6,12 +6,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import PostCreate from "./PostCreate";
-import { renderWithProviders } from "../../../utils/test-utils";
-import * as storage from ".store/storage/asyncStorage";
-import * as mediaApi from "../../../services/community/media";
-import * as postApi from "../../../services/community/post";
 import { sampleTags } from ".data/community";
-import { admin } from "../../../variables/mvp_dummy_data/user";
+import { admin } from ".data/users";
+import * as mediaApi from ".services/community/media";
+import * as communityApi from ".services/community/post";
+import * as storage from ".store/storage/asyncStorage";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -120,7 +120,7 @@ describe("<PostCreate />", () => {
         id: 1,
       },
     });
-    jest.spyOn(postApi, "createPost").mockResolvedValue({
+    jest.spyOn(communityApi, "createPost").mockResolvedValue({
       status: 400,
       data: {},
     });
@@ -203,7 +203,7 @@ describe("<PostCreate />", () => {
       selectedForum: "덕아웃",
       uploadedImages: [],
     });
-    jest.spyOn(postApi, "createPost").mockResolvedValue({
+    jest.spyOn(communityApi, "createPost").mockResolvedValue({
       status: 201,
       data: {
         id: 1,
@@ -242,7 +242,7 @@ describe("<PostCreate />", () => {
   });
 
   it("handles create post: failed with message", async () => {
-    jest.spyOn(postApi, "createPost").mockResolvedValue({
+    jest.spyOn(communityApi, "createPost").mockResolvedValue({
       status: 400,
       data: {
         message: "error",

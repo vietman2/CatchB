@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as IPicker from "expo-image-picker";
 import * as FPicker from "expo-document-picker";
-import { fireEvent, waitFor } from "@testing-library/react-native";
+import { fireEvent, render, waitFor } from "@testing-library/react-native";
 
-import { FilePicker, ImagePicker, NumberPicker, WorkTimePickers } from "./";
-import { renderWithProviders } from "../../utils/test-utils";
+import {
+  FilePicker,
+  ImagePicker,
+  NumberPicker,
+  WorkTimePickers,
+} from ".components/Pickers";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").Provider;
@@ -33,7 +37,7 @@ jest.mock("expo-image-picker", () => ({
   MediaTypeOptions: jest.fn(),
   ImagePickerSuccessResult: jest.fn(),
 }));
-jest.mock("../Images", () => {
+jest.mock(".components/Images", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
 
   return {
@@ -63,7 +67,7 @@ describe("<ImagePicker />", () => {
         assets: assets,
       })
     );
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = render(
       <ImagePicker uploadedImages={[]} setUploadedImages={jest.fn()} />
     );
 
@@ -79,7 +83,7 @@ describe("<ImagePicker />", () => {
         assets: assets,
       })
     );
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = render(
       <ImagePicker uploadedImages={assets} setUploadedImages={jest.fn()} />
     );
 
@@ -93,7 +97,7 @@ describe("<ImagePicker />", () => {
         assets: null,
       })
     );
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = render(
       <ImagePicker uploadedImages={[]} setUploadedImages={jest.fn()} />
     );
 
@@ -101,7 +105,7 @@ describe("<ImagePicker />", () => {
   });
 
   it("should handle image removal", () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = render(
       <ImagePicker uploadedImages={assets} setUploadedImages={jest.fn()} />
     );
 
@@ -111,7 +115,7 @@ describe("<ImagePicker />", () => {
 
 describe("<NumberPicker />", () => {
   it("should handle number picker", () => {
-    const { getByText } = renderWithProviders(
+    const { getByText } = render(
       <NumberPicker label="" value={1} onChange={jest.fn()} />
     );
 
@@ -135,7 +139,7 @@ describe("<FilePicker />", () => {
         assets: null,
       })
     );
-    const { getByText } = renderWithProviders(
+    const { getByText } = render(
       <FilePicker setUploadedFile={jest.fn()} uploadedFile={null} type="pdf" />
     );
 
@@ -149,7 +153,7 @@ describe("<FilePicker />", () => {
         assets: [mockFile],
       })
     );
-    const { getByText } = renderWithProviders(
+    const { getByText } = render(
       <FilePicker setUploadedFile={jest.fn()} uploadedFile={null} type="pdf" />
     );
 
@@ -157,7 +161,7 @@ describe("<FilePicker />", () => {
   });
 
   it("should handle file picker: pdf, already uploaded", () => {
-    renderWithProviders(
+    render(
       <FilePicker
         setUploadedFile={jest.fn()}
         uploadedFile={mockFile}
@@ -180,7 +184,7 @@ describe("<FilePicker />", () => {
         assets: null,
       })
     );
-    const { getByText } = renderWithProviders(
+    const { getByText } = render(
       <FilePicker
         setUploadedFile={jest.fn()}
         uploadedFile={null}
@@ -198,7 +202,7 @@ describe("<FilePicker />", () => {
         assets: [mockImage],
       })
     );
-    const { getByText } = renderWithProviders(
+    const { getByText } = render(
       <FilePicker
         setUploadedFile={jest.fn()}
         uploadedFile={null}
@@ -210,7 +214,7 @@ describe("<FilePicker />", () => {
   });
 
   it("should handle file picker: image, already uploaded", () => {
-    renderWithProviders(
+    render(
       <FilePicker
         setUploadedFile={jest.fn()}
         uploadedFile={mockImage}
@@ -241,7 +245,7 @@ describe("<WorkTimePickers />", () => {
   };
 
   it("should correctly format time", () => {
-    const { getByTestId } = renderWithProviders(<Component />);
+    const { getByTestId } = render(<Component />);
 
     waitFor(() => {
       fireEvent.changeText(getByTestId("weekdayStart"), "1");

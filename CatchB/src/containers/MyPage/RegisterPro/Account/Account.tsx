@@ -13,7 +13,7 @@ import {
   MainTitle,
   SubTitle,
 } from "../fragments";
-import { RegisterProTerms } from "../../../../components/Terms";
+import { RegisterProTerms } from ".components/Terms";
 import { sampleBankAccounts } from ".data/payments";
 import { getBankList } from ".services/payments";
 import { RootState } from ".store/index";

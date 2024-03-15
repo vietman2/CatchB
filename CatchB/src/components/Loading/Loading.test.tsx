@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { LoadingPage, LoadingComponent } from "./";
+import { LoadingPage, LoadingComponent } from ".components/Loading";
 
 jest.mock("react-native-paper", () => ({
   ActivityIndicator: "ActivityIndicator",

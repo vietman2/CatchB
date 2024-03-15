@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { ProgressSteps } from "./";
+import { ProgressSteps } from ".components/Progress";
 
 describe("<ProgressSteps />", () => {
   const steps = [

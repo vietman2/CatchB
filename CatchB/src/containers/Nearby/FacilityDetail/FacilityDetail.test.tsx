@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import FacilityDetail from "./FacilityDetail";
-import { renderWithProviders } from "../../../utils/test-utils";
+import { renderWithProviders } from ".utils/test-utils";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 
 jest.mock("react-native-gesture-handler", () => ({
@@ -24,12 +24,12 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Profile", () => ({
-  AvatarImage: "AvatarImage",
+jest.mock(".components/Profile", () => ({
+  AvatarIcon: "AvatarIcon",
 }));
-jest.mock("../../../components/Tables", () => ({
-  ScheduleBar: "ScheduleBar",
-  ReservationProductsTable: "ReservationProductsTable",
+jest.mock(".components/Tables", () => ({
+  TimeBar: "TimeBar",
+  ReservationsTable: "ReservationsTable",
 }));
 
 const Stack = createStackNavigator();

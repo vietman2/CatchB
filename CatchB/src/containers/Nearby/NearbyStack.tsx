@@ -7,7 +7,7 @@ import FacilityDetail from "./FacilityDetail/FacilityDetail";
 import FacilityReserve from "./FacilityReserve/FacilityReserve";
 import CoachDetail from "./CoachDetail/CoachDetail";
 import Payment from "./Payment/Payment";
-import { BackButton } from "../../components/Buttons";
+import { BackButton } from ".components/Buttons";
 import { NearbyParams, NearbyScreenProps } from ".constants/navigation";
 import { RootState } from ".store/index";
 

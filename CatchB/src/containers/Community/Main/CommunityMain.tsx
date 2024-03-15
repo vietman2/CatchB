@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Dimensions, StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import {
@@ -8,18 +7,10 @@ import {
   RecruitmentCommunity,
   VideoCommunity,
 } from "../PostLists";
+import NotReady from "../../Base/NotReady";
 import { themeColors } from ".themes/colors";
 
 const Tab = createMaterialTopTabNavigator();
-
-// TODO: Remove This Later
-export function PlaceholderComponent() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text variant="titleMedium">준비 중입니다.</Text>
-    </View>
-  );
-}
 
 export default function Community() {
   const width = Dimensions.get("window").width;
@@ -49,9 +40,9 @@ export default function Community() {
           mode: "드래프트",
         }}
       />
-      <Tab.Screen name="장터" component={PlaceholderComponent} />
+      <Tab.Screen name="장터" component={NotReady} />
       <Tab.Screen name="스틸" component={VideoCommunity} />
-      <Tab.Screen name="내 활동" component={PlaceholderComponent} />
+      <Tab.Screen name="내 활동" component={NotReady} />
     </Tab.Navigator>
   );
 }

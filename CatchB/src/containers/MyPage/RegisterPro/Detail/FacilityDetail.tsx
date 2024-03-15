@@ -6,12 +6,12 @@ import { ImagePickerAsset } from "expo-image-picker";
 
 import { amenityChoices, equipmentChoices, otherChoices } from "./options";
 import { MainTitle, SubTitle } from "../fragments";
-import { Selector } from "../../../../components/Selectors";
+import { Selector } from ".components/Selectors";
 import {
   ImagePicker,
   NumberPicker,
   WorkTimePickers,
-} from "../../../../components/Pickers";
+} from ".components/Pickers";
 import { uploadDetails } from ".services/products";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";

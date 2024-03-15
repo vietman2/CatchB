@@ -2,7 +2,7 @@
 import { fireEvent } from "@testing-library/react-native";
 
 import Account from "./Account";
-import { renderWithProviders } from "../../../../utils/test-utils";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

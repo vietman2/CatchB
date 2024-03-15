@@ -4,10 +4,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import PasswordChange from "./PasswordChange";
+import { admin } from ".data/users";
+import * as accountApi from ".services/user_management/account";
 import * as SecureStore from ".store/storage/secure";
-import * as account from "../../../services/user_management/account";
-import { admin } from "../../../variables/mvp_dummy_data/user";
-import { renderWithProviders } from "../../../utils/test-utils";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -20,7 +20,9 @@ jest.mock("react-native-paper", () => {
     PaperProvider: Provider,
     ActivityIndicator: "ActivityIndicator",
     Button: ({ onPress, children }: any) => (
-      <TouchableOpacity onPress={onPress}><Text>{children}</Text></TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
+        <Text>{children}</Text>
+      </TouchableOpacity>
     ),
     Text: "Text",
     TextInput: "TextInput",
@@ -72,13 +74,13 @@ describe("<PasswordChange />", () => {
   });
 
   it("should handle logout failure: fail to logout", async () => {
-    jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
+    jest.spyOn(accountApi, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
         status: 200,
         data: {},
       })
     );
-    jest.spyOn(account, "logout").mockImplementationOnce(() =>
+    jest.spyOn(accountApi, "logout").mockImplementationOnce(() =>
       Promise.resolve({
         status: 500,
         data: {},
@@ -104,7 +106,7 @@ describe("<PasswordChange />", () => {
   });
 
   it("should handle logout failure: fail to reset ", async () => {
-    jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
+    jest.spyOn(accountApi, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
         status: 200,
         data: {},
@@ -130,7 +132,7 @@ describe("<PasswordChange />", () => {
 
   it("should handle password change failures", async () => {
     const mockChangePassword = (errors: any) => {
-      jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
+      jest.spyOn(accountApi, "changePassword").mockImplementationOnce(() =>
         Promise.resolve({
           status: 400,
           data: { errors },
@@ -163,7 +165,7 @@ describe("<PasswordChange />", () => {
     mockChangePassword({});
     await waitFor(() => fireEvent.press(getByText("확인")));
 
-    jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
+    jest.spyOn(accountApi, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
         status: 500,
         data: {},
@@ -173,7 +175,7 @@ describe("<PasswordChange />", () => {
   });
 
   it("should handle empty fields correctly", async () => {
-    jest.spyOn(account, "changePassword").mockImplementationOnce(() =>
+    jest.spyOn(accountApi, "changePassword").mockImplementationOnce(() =>
       Promise.resolve({
         status: 200,
         data: {},
@@ -182,7 +184,7 @@ describe("<PasswordChange />", () => {
     jest
       .spyOn(SecureStore, "get")
       .mockImplementationOnce(() => Promise.resolve("refresh"));
-    jest.spyOn(account, "logout").mockImplementationOnce(() =>
+    jest.spyOn(accountApi, "logout").mockImplementationOnce(() =>
       Promise.resolve({
         status: 200,
         data: {},

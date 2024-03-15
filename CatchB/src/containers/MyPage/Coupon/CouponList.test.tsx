@@ -4,8 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import CouponList from "./CouponList";
-import { renderWithProviders } from "../../../utils/test-utils";
 import { sampleCoupons } from ".data/users";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

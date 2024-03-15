@@ -13,12 +13,12 @@ import { DocumentPickerAsset } from "expo-document-picker";
 import { ImagePickerAsset } from "expo-image-picker";
 
 import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
-import { FilePicker } from "../../../../components/Pickers";
-import { Selector } from "../../../../components/Selectors";
-import { RegisterProTerms } from "../../../../components/Terms";
+import { FilePicker } from ".components/Pickers";
+import { Selector } from ".components/Selectors";
+import { RegisterProTerms } from ".components/Terms";
+import { MyPageScreenProps } from ".constants/navigation";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
-import { MyPageScreenProps } from ".constants/navigation";
 
 interface Props {
   onFinish: () => void;

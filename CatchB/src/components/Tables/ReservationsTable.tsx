@@ -2,22 +2,16 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-import { Selector } from "../Selectors";
-import { LessonProductType } from ".types/products";
+import { Selector } from ".components/Selectors";
+import { ReservationProductType } from ".types/products";
 
 interface Props {
-  products: LessonProductType[];
+  products: ReservationProductType[];
 }
 
-export function LessonProductsTable({ products }: Readonly<Props>) {
-  const [selected, setSelected] = useState("그룹 레슨");
-
-  const renderPrice = (price: number) => {
-    // 10,000원 형식
-    return price.toLocaleString();
-  };
-
-  const filters = ["그룹 레슨", "1:1 레슨", "기타"];
+export function ReservationsTable({ products }: Readonly<Props>) {
+  const [selected, setSelected] = useState("1회 대관");
+  const filters = ["1회 대관", "정기 대관", "기타"];
 
   return (
     <View style={styles.container}>
@@ -32,11 +26,8 @@ export function LessonProductsTable({ products }: Readonly<Props>) {
       </View>
       {products.map((product) => (
         <View key={product.id} style={styles.product}>
-          <Text variant="titleLarge">{product.title}</Text>
-          <Text variant="titleMedium" style={styles.description}>
-            {product.description}
-          </Text>
-          <Text variant="titleLarge">{renderPrice(product.price)}원</Text>
+          <Text variant="titleMedium">{product.title}</Text>
+          <Text variant="bodyLarge">{product.price.toLocaleString()}원</Text>
         </View>
       ))}
     </View>
@@ -58,8 +49,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 5,
-  },
-  description: {
-    marginVertical: 10,
   },
 });

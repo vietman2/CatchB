@@ -5,8 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CoachBasic from "./CoachBasic";
-import { renderWithProviders } from "../../../../utils/test-utils";
-import { admin } from "../../../../variables/mvp_dummy_data/user";
+import { admin } from ".data/users";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

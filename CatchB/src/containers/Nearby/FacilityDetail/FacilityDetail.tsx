@@ -12,14 +12,11 @@ import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { AvatarImage } from "../../../components/Profile";
-import {
-  ScheduleBar,
-  ReservationProductsTable,
-} from "../../../components/Tables";
-import { themeColors } from ".themes/colors";
+import { AvatarIcon } from ".components/Profile";
+import { TimeBar, ReservationsTable } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
 import { RootState } from ".store/index";
+import { themeColors } from ".themes/colors";
 import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";
 
 const { width, height } = Dimensions.get("window");
@@ -45,7 +42,7 @@ function DateTimePicker() {
 function CoachProfilePlaceholder({ name }: Readonly<{ name: string }>) {
   return (
     <View style={styles.placeholderContainer}>
-      <AvatarImage />
+      <AvatarIcon />
       <Text>{name}</Text>
     </View>
   );
@@ -157,7 +154,7 @@ export default function FacilityDetail() {
           <Text variant="titleLarge" style={styles.subtitle}>
             가격표
           </Text>
-          <ReservationProductsTable products={facility.products} />
+          <ReservationsTable products={facility.products} />
         </View>
         <View style={styles.content}>
           <View style={styles.reservation}>
@@ -170,7 +167,7 @@ export default function FacilityDetail() {
             <Text variant="titleMedium">{renderDate()}</Text>
             <Text variant="titleMedium">다른 날짜 선택</Text>
           </View>
-          <ScheduleBar />
+          <TimeBar />
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>

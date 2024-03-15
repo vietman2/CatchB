@@ -4,9 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { BaseballCommunity, RecruitmentCommunity } from "./";
-import { renderWithProviders } from "../../../utils/test-utils";
-import * as APIServer from "../../../services/community/post";
 import { sampleSimplePosts } from ".data/community";
+import * as APIServer from ".services/community/post";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

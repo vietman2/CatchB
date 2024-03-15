@@ -7,7 +7,7 @@ import authReducer, {
   setNewToken,
   setUserProfile,
 } from "./authSlice";
-import { admin } from "../../variables/mvp_dummy_data/user";
+import { admin } from ".data/users";
 
 // Create a mock store for testing
 const createStore = () => {

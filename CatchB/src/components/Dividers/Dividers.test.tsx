@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { VerticalDivider } from "./";
+import { VerticalDivider } from ".components/Dividers";
 
 describe("<VerticalDivider />", () => {
   it("renders correctly", () => {

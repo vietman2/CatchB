@@ -6,8 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import CommunityMain from "./Main";
 import PostCreate from "./PostCreate";
 import PostDetail from "./PostDetail";
-import { BackButton } from "../../components/Buttons";
-import { SmallLogo } from "../../components/Logos";
+import { BackButton } from ".components/Buttons";
+import { SmallLogo } from ".components/Logos";
 import { CommunityParams, CommunityScreenProps } from ".constants/navigation";
 
 const CommunityStack = createStackNavigator<CommunityParams>();

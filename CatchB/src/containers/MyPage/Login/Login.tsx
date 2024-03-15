@@ -16,8 +16,8 @@ import {
   TextInput,
 } from "react-native-paper";
 
-import { LoginLogo } from "../../../components/Logos";
-import { NaverButton, KakaoButton } from "../../../components/Buttons";
+import { LoginLogo } from ".components/Logos";
+import { NaverButton, KakaoButton } from ".components/Buttons";
 import { MyPageScreenProps } from ".constants/navigation";
 import { login } from ".services/user_management";
 import { AppDispatch } from ".store/index";

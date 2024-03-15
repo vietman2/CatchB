@@ -1,8 +1,8 @@
 import { useRef, useMemo } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { Divider, Text } from "react-native-paper";
-import BottomSheet from "@gorhom/bottom-sheet";
 import Markdown, { MarkdownIt } from "react-native-markdown-display";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 interface Props {
   content: string;

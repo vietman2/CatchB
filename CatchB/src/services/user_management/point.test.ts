@@ -2,7 +2,7 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import { getPointsList } from "./point";
-import { TestNetworkError } from "../../utils/test-utils";
+import { TestNetworkError } from ".utils/test-utils";
 
 describe("getPointsList", () => {
   it("should successfully get points list", async () => {

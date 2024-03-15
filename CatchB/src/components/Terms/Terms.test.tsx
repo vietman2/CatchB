@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { RegisterProTerms } from "./";
+import { RegisterProTerms } from ".components/Terms";
 
 jest.mock("react-native-paper", () => ({
   Icon: "Icon",

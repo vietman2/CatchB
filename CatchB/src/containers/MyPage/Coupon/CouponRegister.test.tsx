@@ -1,8 +1,8 @@
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
 import CouponRegister from "./CouponRegister";
-import * as CouponServices from "../../../services/user_management/coupon";
-import { renderWithProviders } from "../../../utils/test-utils";
+import * as CouponServices from ".services/user_management/coupon";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
