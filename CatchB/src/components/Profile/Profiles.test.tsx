@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { AvatarImage, CommunityPostProfile, MainProfile } from "./";
+import { AvatarIcon, CommunityProfile, MainProfile } from ".components/Profile";
 import { samplePosts } from ".data/community";
 import { admin } from ".data/users";
 
@@ -23,14 +23,14 @@ describe("<MainProfile />", () => {
   });
 });
 
-describe("<CommunityPostProfile />", () => {
+describe("<CommunityProfile />", () => {
   it("renders correctly", () => {
-    render(<CommunityPostProfile post={samplePosts[0]} />);
+    render(<CommunityProfile post={samplePosts[0]} />);
   });
 
   it("renders with fake timer1: 2021-01-01 01:01", () => {
     render(
-      <CommunityPostProfile
+      <CommunityProfile
         post={{ ...samplePosts[0], created_at: "2021-01-01 01:01" }}
       />
     );
@@ -38,19 +38,19 @@ describe("<CommunityPostProfile />", () => {
 
   it("renders with fake timer2: 2021-11-11 11:11", () => {
     render(
-      <CommunityPostProfile
+      <CommunityProfile
         post={{ ...samplePosts[0], created_at: "2021-11-11 11:11" }}
       />
     );
   });
 });
 
-describe("<AvatarImage />", () => {
+describe("<AvatarIcon />", () => {
   it("renders correctly", () => {
-    render(<AvatarImage />);
+    render(<AvatarIcon />);
   });
 
   it("renders correctly with profileImage", () => {
-    render(<AvatarImage profileImage="profileImage" />);
+    render(<AvatarIcon profileImage="profileImage" />);
   });
 });

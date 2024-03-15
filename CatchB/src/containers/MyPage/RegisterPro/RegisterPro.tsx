@@ -9,9 +9,9 @@ import CoachDetail from "./Detail/CoachDetail";
 import CoachBasic from "./Basic/CoachBasic";
 import FacilityBasic from "./Basic/FacilityBasic";
 import FacilityDetail from "./Detail/FacilityDetail";
-import { ProgressSteps } from "../../../components/Progress";
-import { themeColors } from ".themes/colors";
+import { ProgressSteps } from ".components/Progress";
 import { MyPageScreenProps } from ".constants/navigation";
+import { themeColors } from ".themes/colors";
 
 export default function RegisterPro() {
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0);

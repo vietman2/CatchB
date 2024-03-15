@@ -1,5 +1,5 @@
-import { AvatarImage } from "./AvatarImage";
-import { CommunityPostProfile } from "./CommunityPostProfile";
+import { AvatarIcon } from "./AvatarIcon";
+import { CommunityProfile } from "./CommunityProfile";
 import { MainProfile } from "./MainProfile";
 
-export { AvatarImage, CommunityPostProfile, MainProfile };
+export { AvatarIcon, CommunityProfile, MainProfile };

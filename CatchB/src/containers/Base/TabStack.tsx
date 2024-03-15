@@ -19,7 +19,7 @@ import {
   ProContainer,
   PromotionContainer,
 } from "../";
-import { SwitchModeDialog, LoginDialog } from "../../components/Dialogs";
+import { SwitchModeDialog, LoginDialog } from ".components/Dialogs";
 import { RootParams, RootScreenProps } from ".constants/navigation";
 import { getUserProfile, renewToken } from ".services/user_management";
 import { setMode, setLocation } from ".store/general/generalSlice";

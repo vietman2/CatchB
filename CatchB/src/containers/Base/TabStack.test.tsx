@@ -4,10 +4,10 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as expoLocation from "expo-location";
 
 import TabContainer from "./TabStack";
-import { renderWithProviders } from "../../utils/test-utils";
 import { admin } from ".data/users";
 import * as userService from ".services/user_management/account";
 import * as SecureStore from ".store/storage/secure";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

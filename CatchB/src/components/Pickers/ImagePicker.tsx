@@ -7,7 +7,7 @@ import {
   ImagePickerSuccessResult,
 } from "expo-image-picker";
 
-import { ImagePreview, ImagePlaceholder } from "../Images";
+import { ImagePreview, ImagePlaceholder } from ".components/Images";
 
 interface Props {
   uploadedImages: ImagePickerAsset[];

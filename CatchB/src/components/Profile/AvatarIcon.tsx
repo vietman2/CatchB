@@ -7,7 +7,7 @@ interface ImageProps {
   profileImage?: string;
 }
 
-export function AvatarImage({ profileImage }: Readonly<ImageProps>) {
+export function AvatarIcon({ profileImage }: Readonly<ImageProps>) {
   if (profileImage) {
     return (
       <Avatar.Image

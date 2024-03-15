@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import ErrorPage from "../../Base/ErrorPage";
-import { LoadingPage } from "../../../components/Loading";
-import { CommunityPostProfile } from "../../../components/Profile";
-import { RootState } from ".store/index";
+import { LoadingPage } from ".components/Loading";
+import { CommunityProfile } from ".components/Profile";
 import { getPostDetail } from ".services/community";
+import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 import { PostDetailType } from ".types/community";
 
@@ -47,7 +47,7 @@ export default function PostDetail() {
         <Text variant="headlineSmall" style={styles.title}>
           {post.title}
         </Text>
-        <CommunityPostProfile post={post} />
+        <CommunityProfile post={post} />
         <Divider />
         <Text variant="titleMedium" style={styles.body}>
           {post.content}

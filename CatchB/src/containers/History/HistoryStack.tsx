@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HistoryMain from "./Main";
-import { SmallLogo } from "../../components/Logos";
+import { SmallLogo } from ".components/Logos";
 import { HistoryParams } from ".constants/navigation";
 
 const HistoryStack = createStackNavigator<HistoryParams>();

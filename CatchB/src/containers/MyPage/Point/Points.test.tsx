@@ -2,8 +2,8 @@ import axios from "axios";
 import { waitFor } from "@testing-library/react-native";
 
 import Points from "./Points";
-import { renderWithProviders } from "../../../utils/test-utils";
 import { admin, samplePoints } from ".data/users";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").Provider;

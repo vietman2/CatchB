@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import FacilityDetail from "./FacilityDetail";
-import { renderWithProviders } from "../../../utils/test-utils";
+import { renderWithProviders } from ".utils/test-utils";
 import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 
 jest.mock("react-native-gesture-handler", () => ({

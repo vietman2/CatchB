@@ -2,7 +2,7 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import { getRegionsList } from "./region";
-import { TestNetworkError } from "../../utils/test-utils";
+import { TestNetworkError } from ".utils/test-utils";
 
 describe("getRegionsList", () => {
   it("should successfully get list", async () => {

@@ -7,7 +7,7 @@ import {
   NaverButton,
   KakaoButton,
   TabButton,
-} from "./";
+} from ".components/Buttons";
 
 jest.mock("react-native-paper", () => ({
   Surface: "Surface",

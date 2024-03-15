@@ -10,7 +10,7 @@ import {
 import { Card, Icon, Text } from "react-native-paper";
 
 import { NotificationChip } from "./components";
-import { HomeCard } from "../../../components/Cards";
+import { HomeCard } from ".components/Cards";
 import { themeColors } from ".themes/colors";
 
 type Notification = {

@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { ImagePlaceholder, ImagePreview } from "./";
+import { ImagePlaceholder, ImagePreview } from ".components/Images";
 
 jest.mock("react-native-paper", () => ({
   Icon: "Icon",

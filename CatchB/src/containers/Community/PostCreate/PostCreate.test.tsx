@@ -6,12 +6,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import PostCreate from "./PostCreate";
-import { renderWithProviders } from "../../../utils/test-utils";
 import { sampleTags } from ".data/community";
 import { admin } from ".data/users";
 import * as mediaApi from ".services/community/media";
 import * as communityApi from ".services/community/post";
 import * as storage from ".store/storage/asyncStorage";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

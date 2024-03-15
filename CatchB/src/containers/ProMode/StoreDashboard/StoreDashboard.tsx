@@ -7,7 +7,7 @@ import {
   PieChart,
 } from "react-native-gifted-charts";
 
-import { StatsCard } from "../../../components/Cards";
+import { StatsCard } from ".components/Cards";
 
 export function StoreDashboard() {
   const monthlyData = [

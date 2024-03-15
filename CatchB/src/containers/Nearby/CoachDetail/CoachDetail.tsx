@@ -11,11 +11,11 @@ import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { LessonProductsTable } from "../../../components/Tables";
-import { themeColors } from ".themes/colors";
-import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
+import { LessonsTable } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
 import { RootState } from ".store/index";
+import { themeColors } from ".themes/colors";
+import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
 
 const { width, height } = Dimensions.get("window");
 
@@ -140,7 +140,7 @@ export default function CoachDetail() {
           <Text variant="titleLarge" style={styles.subtitle}>
             가격표
           </Text>
-          <LessonProductsTable products={products} />
+          <LessonsTable products={products} />
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>

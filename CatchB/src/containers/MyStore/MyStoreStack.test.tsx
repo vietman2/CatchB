@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import MyStoreContainer from "./MyStoreStack";
-import { renderWithProviders } from "../../utils/test-utils";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

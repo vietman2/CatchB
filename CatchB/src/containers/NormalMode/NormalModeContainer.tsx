@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { CoachPreview, CoachTypes, Filters, Shortcut } from "./fragments";
-import { SmallLogo } from "../../components/Logos";
+import { SmallLogo } from ".components/Logos";
 import { HomeScreenProps, HomeParams } from ".constants/navigation";
 import { sampleCoaches } from "../../variables/mvp_dummy_data/coaches";
 

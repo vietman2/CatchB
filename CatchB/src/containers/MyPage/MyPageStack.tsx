@@ -13,8 +13,8 @@ import CouponRegister from "./Coupon/CouponRegister";
 import RegisterPro from "./RegisterPro/RegisterPro";
 import PasswordChange from "./PasswordChange/PasswordChange";
 import NotReady from "../Base/NotReady";
-import { BackButton } from "../../components/Buttons";
-import { SmallLogo } from "../../components/Logos";
+import { BackButton } from ".components/Buttons";
+import { SmallLogo } from ".components/Logos";
 import { MyPageParams, MyPageScreenProps } from ".constants/navigation";
 
 const MyPageStack = createStackNavigator<MyPageParams>();

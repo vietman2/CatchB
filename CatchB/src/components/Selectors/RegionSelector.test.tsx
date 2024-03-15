@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react-native";
+
 import { RegionSelector } from "./RegionSelector";
 
 const object1 = {

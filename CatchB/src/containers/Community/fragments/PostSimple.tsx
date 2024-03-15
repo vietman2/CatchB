@@ -1,8 +1,8 @@
 import { View, StyleSheet } from "react-native";
 import { Avatar, Icon, Text } from "react-native-paper";
 
-import { PostSimpleType } from ".types/community";
 import { themeColors } from ".themes/colors";
+import { PostSimpleType } from ".types/community";
 
 interface Props {
   post: PostSimpleType;

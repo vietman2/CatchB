@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { LoginLogo, SmallLogo } from "./";
+import { LoginLogo, SmallLogo } from ".components/Logos";
 
 describe("<LoginLogo />", () => {
   it("should render successfully", () => {

@@ -1,5 +1,5 @@
-import { LessonProductsTable } from "./LessonProductsTable";
-import { ReservationProductsTable } from "./ReservationProductsTable";
-import { ScheduleBar } from "./ScheduleBar";
+import { LessonsTable } from "./LessonsTable";
+import { ReservationsTable } from "./ReservationsTable";
+import { TimeBar } from "./TimeBar";
 
-export { LessonProductsTable, ReservationProductsTable, ScheduleBar };
+export { LessonsTable, ReservationsTable, TimeBar };

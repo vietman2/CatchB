@@ -1,9 +1,5 @@
 import { VideoList } from "./VideoList";
-import { renderWithProviders } from "../../../utils/test-utils";
-
-jest.mock("./", () => ({
-  PlaceholderComponent: "PlaceholderComponent",
-}));
+import { renderWithProviders } from ".utils/test-utils";
 
 describe("<VideoList />", () => {
   it("renders correctly", () => {

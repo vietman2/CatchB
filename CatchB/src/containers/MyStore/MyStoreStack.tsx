@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import MyStoreMain from "./Main/MyStoreMain";
 import WorkProgress from "./WorkProgress/WorkProgress";
-import { SmallLogo } from "../../components/Logos";
+import { SmallLogo } from ".components/Logos";
 import { MyStoreParams } from ".constants/navigation";
 
 const MyStoreStack = createStackNavigator<MyStoreParams>();

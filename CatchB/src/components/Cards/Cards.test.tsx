@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { HomeCard, StatsCard } from "./";
+import { HomeCard, StatsCard } from ".components/Cards";
 
 jest.mock("react-native-paper", () => ({
   Icon: "Icon",

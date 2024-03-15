@@ -3,7 +3,7 @@ import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
 import FacilityDetail from "./FacilityDetail";
-import { renderWithProviders } from "../../../../utils/test-utils";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;

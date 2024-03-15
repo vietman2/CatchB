@@ -10,14 +10,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Text, Portal, Dialog, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import { AvatarImage } from "../../../components/Profile";
-import { TabButton } from "../../../components/Buttons";
-import { VerticalDivider } from "../../../components/Dividers";
+import { AvatarIcon } from ".components/Profile";
+import { TabButton } from ".components/Buttons";
+import { VerticalDivider } from ".components/Dividers";
 import { MyPageScreenProps } from ".constants/navigation";
-import {
-  deleteAccount,
-  logout,
-} from ".services/user_management";
+import { deleteAccount, logout } from ".services/user_management";
 import { RootState, AppDispatch } from ".store/index";
 import { get } from ".store/storage/secure";
 import { logout as resetUserState } from ".store/user_management/authSlice";
@@ -69,7 +66,7 @@ export default function UserProfile() {
     <>
       <ScrollView style={styles.container}>
         <View style={styles.body}>
-          <AvatarImage profileImage={user?.profile_image} />
+          <AvatarIcon profileImage={user?.profile_image} />
           <Text variant="titleLarge">{`${user?.full_name} (${user?.gender})`}</Text>
           <View style={styles.tabs}>
             <TabButton

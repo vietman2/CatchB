@@ -5,10 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator, Button, Text, TextInput } from "react-native-paper";
 
 import { MyPageScreenProps } from ".constants/navigation";
-import {
-  changePassword,
-  logout,
-} from ".services/user_management";
+import { changePassword, logout } from ".services/user_management";
 import { AppDispatch, RootState } from ".store/index";
 import { get } from ".store/storage/secure";
 import { logout as resetUserState } from ".store/user_management/authSlice";

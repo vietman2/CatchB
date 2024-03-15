@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { LessonProductsTable, ReservationProductsTable, ScheduleBar } from "./";
+import { LessonsTable, ReservationsTable, TimeBar } from ".components/Tables";
 import { sampleLessonProducts } from "../../variables/mvp_dummy_data/lessons";
 import { reservationProducts } from "../../variables/mvp_dummy_data/reservations";
 
@@ -13,26 +13,26 @@ jest.mock("../Selectors", () => ({
 
 describe("<LessonProductsTable />", () => {
   it("renders correctly with no products", () => {
-    render(<LessonProductsTable products={[]} />);
+    render(<LessonsTable products={[]} />);
   });
 
   it("renders correctly with products", () => {
-    render(<LessonProductsTable products={sampleLessonProducts} />);
+    render(<LessonsTable products={sampleLessonProducts} />);
   });
 });
 
 describe("<ReservationProductsTable />", () => {
   it("renders correctly with no products", () => {
-    render(<ReservationProductsTable products={[]} />);
+    render(<ReservationsTable products={[]} />);
   });
 
   it("renders correctly with products", () => {
-    render(<ReservationProductsTable products={reservationProducts} />);
+    render(<ReservationsTable products={reservationProducts} />);
   });
 });
 
 describe("<ScheduleBar />", () => {
   it("renders correctly", () => {
-    render(<ScheduleBar />);
+    render(<TimeBar />);
   });
 });

@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-export function ScheduleBar() {
+export function TimeBar() {
   const renderTime = (i: number) => {
     return i < 10 ? `0${i}:00` : `${i}:00`;
   };

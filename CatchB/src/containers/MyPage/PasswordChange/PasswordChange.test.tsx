@@ -7,7 +7,7 @@ import PasswordChange from "./PasswordChange";
 import { admin } from ".data/users";
 import * as accountApi from ".services/user_management/account";
 import * as SecureStore from ".store/storage/secure";
-import { renderWithProviders } from "../../../utils/test-utils";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

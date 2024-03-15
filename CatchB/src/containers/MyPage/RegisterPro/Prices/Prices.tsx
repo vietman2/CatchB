@@ -2,8 +2,8 @@ import { ScrollView, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import { themeColors } from ".themes/colors";
 import { MyPageScreenProps } from ".constants/navigation";
+import { themeColors } from ".themes/colors";
 
 export default function Prices() {
   const navigation =
