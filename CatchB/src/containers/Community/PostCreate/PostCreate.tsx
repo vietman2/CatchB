@@ -172,14 +172,16 @@ export default function PostCreate() {
           singleSelected={selectedForum}
           setSingleSelected={handleForumSelect}
         />
-        <Tags
-          tagChoices={tagChoices}
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-          setSnackbarText={setSnackbarText}
-          setVisible={setVisible}
-          selectedForum={selectedForum}
-        />
+        {tagChoices && (
+          <Tags
+            tagChoices={tagChoices}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            setSnackbarText={setSnackbarText}
+            setVisible={setVisible}
+            selectedForum={selectedForum}
+          />
+        )}
         <MyDivider />
         <TextInput
           label="제목"
