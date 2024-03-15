@@ -31,6 +31,7 @@
       "!src/**/*/index.tsx",
       "!src/**/*/store.ts",
       "!src/**/*/apiConfig.ts",
+      "!src/constants/**/*.{js,jsx,ts,tsx}",
       "!src/hooks/**/*.{js,jsx,ts,tsx}",
       "!src/variables/**/*.{js,jsx,ts,tsx}"
     ]
