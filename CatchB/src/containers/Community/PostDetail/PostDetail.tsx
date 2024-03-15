@@ -4,29 +4,28 @@ import { Divider, Text } from "react-native-paper";
 import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
+import ErrorPage from "../../Base/ErrorPage";
+import { LoadingPage } from "../../../components/Loading";
 import { CommunityPostProfile } from "../../../components/Profile";
 import { RootState } from "../../../store/store";
 import { themeColors } from ".themes/colors";
-import { PostType } from ".types/community";
-import { LoadingPage } from "../../../components/Loading";
+import { PostDetailType } from ".types/community";
 import { getPostDetail } from "../../../services/community/post";
-import ErrorPage from "../../../containers/Base/ErrorPage";
 
 export default function PostDetail() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "50%", "100%"], []);
-  const [post, setPost] = useState<PostType>();
+  const [post, setPost] = useState<PostDetailType>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const postId = useSelector(
     (state: RootState) => state.community.selectedPostId
   );
-  const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await getPostDetail(postId, token);
+        const response = await getPostDetail(postId);
 
         if (response.status === 200) {
           setPost(response.data);

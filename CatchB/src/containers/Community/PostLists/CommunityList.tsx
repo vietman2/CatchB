@@ -32,7 +32,6 @@ export function CommunityList({ mode }: Readonly<Props>) {
   const [sort, setSort] = useState<Sort>("최신순");
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
-  const token = useSelector((state: RootState) => state.auth.token);
   const navigation =
     useNavigation<CommunityScreenProps<"PostDetail">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
@@ -56,7 +55,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await getPostList(mode, token);
+      const response = await getPostList(mode);
 
       if (response.status === 200) {
         setPosts(response.data);
