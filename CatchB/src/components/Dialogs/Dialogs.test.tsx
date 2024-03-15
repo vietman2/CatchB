@@ -1,7 +1,7 @@
 import { fireEvent } from "@testing-library/react-native";
 
 import { LoginDialog, SwitchModeDialog } from "./";
-import { admin, exampleUser } from "../../variables/mvp_dummy_data/user";
+import { admin, exampleUser } from ".data/users";
 import { renderWithProviders } from "../../utils/test-utils";
 
 describe("<LoginDialog />", () => {

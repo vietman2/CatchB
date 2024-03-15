@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 
 import { AvatarImage, CommunityPostProfile, MainProfile } from "./";
 import { samplePosts } from ".data/community";
-import { admin } from "../../variables/mvp_dummy_data/user";
+import { admin } from ".data/users";
 
 jest.mock("react-native-paper", () => ({
   Avatar: {
