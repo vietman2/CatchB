@@ -11,10 +11,8 @@ import Points from "./Point/Points";
 import CouponList from "./Coupon/CouponList";
 import CouponRegister from "./Coupon/CouponRegister";
 import RegisterPro from "./RegisterPro/RegisterPro";
-import Payments from "./Payment/Payments";
-import FAQ from "./FAQ/FAQ";
-import Reviews from "./Review/Reviews";
 import PasswordChange from "./PasswordChange/PasswordChange";
+import NotReady from "../Base/NotReady";
 import { BackButton } from "../../components/Buttons";
 import { SmallLogo } from "../../components/Logos";
 import { MyPageParams, MyPageScreenProps } from ".constants/navigation";
@@ -119,7 +117,7 @@ export default function MyPageContainer() {
       />
       <MyPageStack.Screen
         name="Payments"
-        component={Payments}
+        component={NotReady}
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("결제수단 관리"),
@@ -127,7 +125,7 @@ export default function MyPageContainer() {
       />
       <MyPageStack.Screen
         name="FAQ"
-        component={FAQ}
+        component={NotReady}
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("자주 묻는 질문"),
@@ -135,7 +133,7 @@ export default function MyPageContainer() {
       />
       <MyPageStack.Screen
         name="Reviews"
-        component={Reviews}
+        component={NotReady}
         options={{
           headerLeft: () => backToMyPage(),
           headerTitle: () => headerTitle("내가 남긴 리뷰"),
