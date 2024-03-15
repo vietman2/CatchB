@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { PostSimple } from "../fragments";
+import ErrorPage from "../../Base/ErrorPage";
 import { AppDispatch } from "../../../store/store";
 import { setSelectedPost } from "../../../store/slices/community/postSlice";
 import { themeColors } from ".themes/colors";
@@ -29,6 +30,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState<PostSimpleType[]>([]);
   const [sort, setSort] = useState<Sort>("최신순");
+  const [error, setError] = useState<boolean>(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
   const navigation =
@@ -58,6 +60,8 @@ export function CommunityList({ mode }: Readonly<Props>) {
 
       if (response.status === 200) {
         setPosts(response.data);
+      } else {
+        setError(true);
       }
     };
 
@@ -87,6 +91,8 @@ export function CommunityList({ mode }: Readonly<Props>) {
       </TouchableOpacity>
     );
   };
+
+  if (error) return <ErrorPage />;
 
   return (
     <View style={styles.container}>
