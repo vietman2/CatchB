@@ -1,16 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { PostType } from ".types/community";
-
 const initialState: {
-  selectedPost: PostType | null;
+  selectedPostId: number | null;
 } = {
-  selectedPost: null,
+  selectedPostId: null,
 };
 
 export const setSelectedPost = createAsyncThunk(
   "community/setSelectedPost",
-  async (data: PostType) => {
+  async (data: number) => {
     return data;
   }
 );
@@ -21,7 +19,7 @@ export const communitySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(setSelectedPost.fulfilled, (state, action) => {
-      state.selectedPost = action.payload;
+      state.selectedPostId = action.payload;
     });
   },
 });
