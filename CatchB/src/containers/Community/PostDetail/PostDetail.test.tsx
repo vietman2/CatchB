@@ -1,6 +1,5 @@
 import PostDetail from "./PostDetail";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { samplePosts } from "../../../variables/mvp_dummy_data/posts";
 
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
@@ -12,8 +11,9 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../../components/Chips", () => ({
-  PostTagChip: "PostTagChip",
+jest.mock("../../Base/ErrorPage", () => "ErrorPage");
+jest.mock("../../../components/Loading", () => ({
+  LoadingPage: "LoadingPage",
 }));
 jest.mock("../../../components/Profile", () => ({
   CommunityPostProfile: "CommunityPostProfile",
@@ -24,7 +24,7 @@ describe("<PostDetail />", () => {
     renderWithProviders(<PostDetail />, {
       preloadedState: {
         community: {
-          selectedPost: samplePosts[0],
+          selectedPostId: null,
         },
       },
     });
