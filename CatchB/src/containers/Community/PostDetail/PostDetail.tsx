@@ -24,15 +24,11 @@ export default function PostDetail() {
 
   useEffect(() => {
     const fetchPost = async () => {
-      try {
-        const response = await getPostDetail(postId);
+      const response = await getPostDetail(postId);
 
-        if (response.status === 200) {
-          setPost(response.data);
-        } else {
-          setError(true);
-        }
-      } catch (error) {
+      if (response.status === 200) {
+        setPost(response.data);
+      } else {
         setError(true);
       }
 
