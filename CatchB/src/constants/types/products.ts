@@ -24,19 +24,13 @@ export type ReservationType = {
   confirmed_at: string | null;
 };
 
-export type FacilityType = {
-  id: number;
+export type FacilitySimpleType = {
+  uuid: string;
   name: string;
-  location: string;
-  rating: number;
-  bulletPoints?: string[];
-  description: string;
-  position: {
-    lat: number;
-    lng: number;
-  };
-  products: ReservationProductType[];
-  image: ImageRequireSource;
+  region: string;
+  map_image: string;
+  latitude: number;
+  longitude: number;
 };
 
 export type CoachType = {
@@ -51,8 +45,6 @@ export type CoachType = {
   working_area: string;
   rating: number;
   image: ImageRequireSource;
-
-  facility?: FacilityType;
 };
 
 export type LessonProductType = {

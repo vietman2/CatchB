@@ -5,7 +5,7 @@ import facilityReducer, {
   setSelectedFacility,
   setMyFacilityUuid,
 } from "./facilitySlice";
-import { sampleFacilities } from "../../variables/mvp_dummy_data/facilities";
+import { sampleFacilities } from ".data/products";
 
 const createStore = () => {
   return configureStore({

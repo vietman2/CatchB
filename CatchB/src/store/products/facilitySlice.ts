@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { FacilityType } from ".types/products";
+import { FacilitySimpleType } from ".types/products";
 
 const initialState: {
-  selectedFacility: FacilityType | null;
+  selectedFacility: FacilitySimpleType | null;
   myFacilityUuid: string | null;
 } = {
   selectedFacility: null,
@@ -12,7 +12,7 @@ const initialState: {
 
 export const setSelectedFacility = createAsyncThunk(
   "facility/setSelectedFacility",
-  async (data: FacilityType) => {
+  async (data: FacilitySimpleType) => {
     return data;
   }
 );
