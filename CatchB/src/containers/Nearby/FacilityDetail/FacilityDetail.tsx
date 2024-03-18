@@ -50,7 +50,6 @@ function CoachProfilePlaceholder({ name }: Readonly<{ name: string }>) {
 
 export default function FacilityDetail() {
   const [isLiked, setIsLiked] = useState(false);
-  const [expand, setExpand] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
