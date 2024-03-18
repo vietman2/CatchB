@@ -6,9 +6,9 @@ import { API_LOCAL_URL } from "../";
 
 export async function registerFacility(
   name: string,
-  owner_uuid: string,
-  owner_name: string,
-  owner_phone: string,
+  member_uuid: string,
+  member_name: string,
+  member_phone: string,
   phone: string,
   reg_code: string,
   road_address_part1: string,
@@ -25,9 +25,9 @@ export async function registerFacility(
       url,
       {
         name,
-        owner_uuid,
-        owner_name,
-        owner_phone,
+        member_uuid,
+        member_name,
+        member_phone,
         phone,
         reg_code,
         road_address_part1,
@@ -42,6 +42,30 @@ export async function registerFacility(
         },
       }
     );
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: 400,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
+export async function getFacilityList() {
+  const url = `${API_LOCAL_URL}/api/products/facilities/`;
+
+  try {
+    const response = await axios.get(url);
 
     return {
       status: response.status,

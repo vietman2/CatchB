@@ -12,24 +12,24 @@ import MapView, { PROVIDER_GOOGLE, MapMarker } from "react-native-maps";
 import { Divider, Searchbar, Text } from "react-native-paper";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { CoachSimple } from "../CoachDetail/CoachSimple";
-import { FacilitySimple } from "../FacilityDetail/FacilitySimple";
+import { CoachSimple } from "../fragments/CoachSimple";
+import { FacilitySimple } from "../fragments/FacilitySimple";
 import { VerticalDivider } from ".components/Dividers";
 import { NearbyScreenProps } from ".constants/navigation";
 import { AppDispatch, RootState } from ".store/index";
 import { setSelectedCoach } from ".store/products/coachSlice";
 import { setSelectedFacility } from ".store/products/facilitySlice";
 import { themeColors } from ".themes/colors";
-import { CoachType, FacilityType } from ".types/products";
-import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
+import { CoachType, FacilitySimpleType } from ".types/products";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
+import { getFacilityList } from ".services/products/facility";
 
 export default function NearbyMain() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["3%", "70%"], []);
   const [searchQuery, setSearchQuery] = useState("");
   const [mode, setMode] = useState<"facility" | "coach">("facility");
-  const [facilities, setFacilities] = useState<FacilityType[]>([]);
+  const [facilities, setFacilities] = useState<FacilitySimpleType[]>([]);
   const [coaches, setCoaches] = useState<CoachType[]>([]);
   const [region, setRegion] = useState({
     latitude: 37.5326,
@@ -42,7 +42,7 @@ export default function NearbyMain() {
   const dispatch = useDispatch<AppDispatch>();
   const location = useSelector((state: RootState) => state.general.location);
 
-  const onFacilityPress = async (facility: FacilityType) => {
+  const onFacilityPress = async (facility: FacilitySimpleType) => {
     await dispatch(setSelectedFacility(facility));
     navigation.navigate("FacilityDetail");
   };
@@ -53,7 +53,15 @@ export default function NearbyMain() {
   };
 
   useEffect(() => {
-    setFacilities(sampleFacilities);
+    const fetchFacilities = async () => {
+      const response = await getFacilityList();
+
+      if (response.status === 200) {
+        setFacilities(response.data);
+      }
+    };
+
+    fetchFacilities();
     setCoaches(sampleCoaches);
 
     setRegion({
@@ -79,13 +87,11 @@ export default function NearbyMain() {
       >
         {facilities.map((facility) => (
           <MapMarker
-            key={facility.id}
+            key={facility.uuid}
             coordinate={{
-              latitude: facility.position.lat,
-              longitude: facility.position.lng,
+              latitude: facility.latitude,
+              longitude: facility.longitude,
             }}
-            title={facility.name}
-            description={facility.description}
           />
         ))}
       </MapView>
@@ -127,7 +133,7 @@ export default function NearbyMain() {
         <ScrollView>
           {mode === "facility"
             ? facilities.map((facility) => (
-                <View key={facility.id}>
+                <View key={facility.uuid}>
                   <TouchableOpacity onPress={() => onFacilityPress(facility)}>
                     <FacilitySimple facility={facility} />
                   </TouchableOpacity>
