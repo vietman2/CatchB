@@ -29,7 +29,6 @@ jest.mock(".components/Profile", () => ({
 }));
 jest.mock(".components/Tables", () => ({
   TimeBar: "TimeBar",
-  ReservationsTable: "ReservationsTable",
 }));
 
 const Stack = createStackNavigator();
@@ -60,22 +59,6 @@ describe("<FacilityDetail />", () => {
     waitFor(() => {
       fireEvent.press(likeButton);
       fireEvent.press(getByTestId("reserve-button"));
-    });
-  });
-
-  it("handles long descriptions", async () => {
-    const { getByTestId } = renderWithProviders(<Components />, {
-      preloadedState: {
-        facility: {
-          selectedFacility: sampleFacilities[1],
-          myFacilityUuid: "1235",
-        },
-      },
-    });
-
-    waitFor(() => {
-      fireEvent.press(getByTestId("expand-collapse"));
-      fireEvent.press(getByTestId("expand-collapse"));
     });
   });
 });

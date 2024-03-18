@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { AvatarIcon } from ".components/Profile";
-import { TimeBar, ReservationsTable } from ".components/Tables";
+import { TimeBar } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
@@ -67,26 +67,12 @@ export default function FacilityDetail() {
     });
   };
 
-  const renderDescription = (description: string) => {
-    if (description.length > 100) {
-      return (
-        <TouchableOpacity
-          onPress={() => setExpand(!expand)}
-          activeOpacity={0.6}
-          testID="expand-collapse"
-        >
-          <Text variant="bodyLarge" style={styles.detail}>
-            {expand ? description : `${description.slice(0, 100)}...`}
-          </Text>
-        </TouchableOpacity>
-      );
-    } else {
+  const renderDescription = () => {
       return (
         <Text variant="bodyLarge" style={styles.detail}>
-          {facility.description}
+          {"facility.description"}
         </Text>
       );
-    }
   };
 
   const renderDate = () => {
@@ -112,7 +98,7 @@ export default function FacilityDetail() {
           </Text>
           <View style={styles.rating}>
             <Icon source="star" size={20} color="gold" />
-            <Text>{facility.rating}/10</Text>
+            <Text>0/10</Text>
           </View>
           <View style={styles.interactions}>
             <TouchableOpacity
@@ -131,12 +117,7 @@ export default function FacilityDetail() {
           </View>
         </View>
         <View style={styles.description}>
-          {facility.bulletPoints.map((bulletPoint) => (
-            <Text key={bulletPoint} variant="bodyLarge">
-              {"\u2022"} {bulletPoint}
-            </Text>
-          ))}
-          {renderDescription(facility.description)}
+          {renderDescription()}
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
@@ -154,7 +135,6 @@ export default function FacilityDetail() {
           <Text variant="titleLarge" style={styles.subtitle}>
             가격표
           </Text>
-          <ReservationsTable products={facility.products} />
         </View>
         <View style={styles.content}>
           <View style={styles.reservation}>
@@ -174,7 +154,7 @@ export default function FacilityDetail() {
             위치
           </Text>
           <Text variant="titleMedium" style={styles.detail}>
-            {facility.location}
+            {"facility.location"}
           </Text>
           <Image
             source={require("assets/images/seouldae.jpeg")}

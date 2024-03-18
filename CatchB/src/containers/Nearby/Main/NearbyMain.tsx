@@ -16,13 +16,13 @@ import { CoachSimple } from "../fragments/CoachSimple";
 import { FacilitySimple } from "../fragments/FacilitySimple";
 import { VerticalDivider } from ".components/Dividers";
 import { NearbyScreenProps } from ".constants/navigation";
+import { getFacilityList } from ".services/products/facility";
 import { AppDispatch, RootState } from ".store/index";
 import { setSelectedCoach } from ".store/products/coachSlice";
 import { setSelectedFacility } from ".store/products/facilitySlice";
 import { themeColors } from ".themes/colors";
 import { CoachType, FacilitySimpleType } from ".types/products";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
-import { getFacilityList } from ".services/products/facility";
 
 export default function NearbyMain() {
   const bottomSheetRef = useRef<BottomSheet>(null);
