@@ -18,7 +18,7 @@ import { FilePicker } from ".components/Pickers";
 import { Selector } from ".components/Selectors";
 import { RegisterProTerms } from ".components/Terms";
 import { MyPageScreenProps } from ".constants/navigation";
-import { registerCoach } from ".services/products";
+import { postCoach } from ".services/products";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 
@@ -66,7 +66,7 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       return;
     }
 
-    const response = await registerCoach(
+    const response = await postCoach(
       user.uuid,
       user.full_name,
       user.phone_number,
