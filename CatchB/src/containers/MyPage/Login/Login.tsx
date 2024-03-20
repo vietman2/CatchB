@@ -10,14 +10,14 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Button, Divider, Text, TextInput } from "react-native-paper";
 
-import { LoginLogo } from ".components/Logos";
 import { NaverButton, KakaoButton } from ".components/Buttons";
+import { LoadingComponent } from ".components/Loading";
+import { LoginLogo } from ".components/Logos";
 import { MyPageScreenProps } from ".constants/navigation";
 import { login } from ".services/user_management";
 import { AppDispatch } from ".store/index";
 import { login as setUserState } from ".store/user_management/authSlice";
 import { themeColors } from ".themes/colors";
-import { LoadingComponent } from ".components/Loading";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");

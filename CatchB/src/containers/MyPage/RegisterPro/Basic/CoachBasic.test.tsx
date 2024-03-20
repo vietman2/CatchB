@@ -5,10 +5,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CoachBasic from "./CoachBasic";
+import { sampleCoaches } from ".data/products";
 import { admin } from ".data/users";
 import * as CoachAPI from ".services/products/coach";
 import { renderWithProviders } from ".utils/test-utils";
-import { sampleCoaches } from ".data/products";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -77,7 +77,7 @@ const render = () => {
 describe("<CoachBasic />", () => {
   it("should handle register success: navigate to MyPageScreen", async () => {
     jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
-    jest.spyOn(CoachAPI, "registerCoach").mockResolvedValue({
+    jest.spyOn(CoachAPI, "postCoach").mockResolvedValue({
       status: 201,
       data: sampleCoaches[0],
     });

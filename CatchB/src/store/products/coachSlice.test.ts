@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
 import coachReducer, { setSelectedCoach } from "./coachSlice";
-import { sampleCoaches } from "../../variables/mvp_dummy_data/coaches";
 
 const createStore = () => {
   return configureStore({
@@ -16,16 +15,17 @@ const createStore = () => {
 describe("coachSlice", () => {
   it("should handle initial state", () => {
     expect(coachReducer(undefined, { type: "unknown" })).toEqual({
-      selectedCoach: null,
+      selectedCoachId: null,
+      myCoachUuid: null,
     });
   });
 
   it("should handle setSelectedCoach", async () => {
     const store = createStore();
 
-    await store.dispatch(setSelectedCoach(sampleCoaches[0]));
+    await store.dispatch(setSelectedCoach("1"));
 
     const state = store.getState().coach;
-    expect(state.selectedCoach).toEqual(sampleCoaches[0]);
+    expect(state.selectedCoachId).toEqual("1");
   });
 });

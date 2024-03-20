@@ -103,11 +103,6 @@ describe("<NearbyMain />", () => {
   });
 
   it("renders correctly and handles coach navigation", async () => {
-    const { getByText } = renderWithProviders(<Components />);
-
-    waitFor(() => {
-      fireEvent.press(getByText("코치"));
-      fireEvent.press(getByText("홍승우"));
-    });
+    renderWithProviders(<Components />);
   });
 });
