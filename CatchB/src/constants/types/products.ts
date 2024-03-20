@@ -80,3 +80,8 @@ export type SigunguType = {
   name: string;
   label: string;
 };
+
+export type RegionsType = {
+  sido: SidoType[];
+  sigungu: Record<string, SigunguType[]>;
+};
