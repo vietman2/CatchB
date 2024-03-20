@@ -45,9 +45,9 @@ export default function CoachDetail() {
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
     useNavigation<NearbyScreenProps<"CoachDetail">["navigation"]>();
-  const coach = useSelector((state: RootState) => state.coach.selectedCoach);
+  const coachUuid = useSelector((state: RootState) => state.coach.selectedCoachId);
   const products = sampleLessonProducts.filter(
-    (product) => product.coach_uuid === coach.coach_uuid
+    (product) => product.coach_uuid === "1"
   );
 
   const handleApply = () => {
@@ -86,11 +86,11 @@ export default function CoachDetail() {
         </ScrollView>
         <View style={styles.topLine}>
           <Text variant="headlineMedium" style={styles.title}>
-            {coach.coach_name} 코치
+            코치
           </Text>
           <View style={styles.rating}>
             <Icon source="star" size={20} color="gold" />
-            <Text>{coach.rating}/10</Text>
+            <Text>0/10</Text>
           </View>
           <View style={styles.interactions}>
             <TouchableOpacity
@@ -108,22 +108,11 @@ export default function CoachDetail() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.description}>
-          <Text variant="bodyLarge">
-            {"\u2022"} 학력: {coach.academic_background}
-          </Text>
-          <Text variant="bodyLarge">
-            {"\u2022"} 야구 경력: {coach.baseball_career}
-          </Text>
-          <Text variant="bodyLarge">
-            {"\u2022"} 코치 경력: {coach.coaching_career}
-          </Text>
-        </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
             소개
           </Text>
-          {renderDescription(coach.description)}
+          ㅋㅋ
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
@@ -225,10 +214,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5,
     marginTop: 20,
-  },
-  description: {
-    marginVertical: 10,
-    paddingHorizontal: 20,
   },
   locationImage: {
     width: "100%",
