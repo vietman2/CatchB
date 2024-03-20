@@ -42,6 +42,11 @@ export type FacilityDetailType = {
   //info: {};
 }
 
+export type CoachSimpleType = {
+  uuid: string;
+  name: string;
+}
+
 export type CoachType = {
   id: number;
   coach_uuid: string;
