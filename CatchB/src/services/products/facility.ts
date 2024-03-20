@@ -4,7 +4,7 @@ import { ImagePickerAsset } from "expo-image-picker";
 
 import { API_LOCAL_URL } from "../";
 
-export async function registerFacility(
+export async function postFacility(
   name: string,
   member_uuid: string,
   member_name: string,
@@ -140,7 +140,7 @@ export async function getFacilityDetail(uuid: string) {
   }
 }
 
-export async function uploadDetails(
+export async function postFacilityInfo(
   facility_uuid: string,
   intro: string,
   times: {
@@ -181,14 +181,14 @@ export async function uploadDetails(
   formData.append("saturday_close", times.saturday_close);
   formData.append("sunday_open", times.sunday_open);
   formData.append("sunday_close", times.sunday_close);
+  formData.append("num_mounds", numMounds);
+  formData.append("num_plates", numPlates);
   convenience.forEach((item) => {
     formData.append("convenience", item);
   });
   equipment.forEach((item) => {
     formData.append("equipment", item);
   });
-  formData.append("num_mounds", numMounds);
-  formData.append("num_plates", numPlates);
   additionalEquipment.forEach((item) => {
     formData.append("custom", item);
   });

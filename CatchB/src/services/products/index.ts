@@ -1,20 +1,22 @@
-import { registerCoach, getCoachList } from "./coach";
+import { postCoach, getCoachRegisterStatus, getCoachList, postCoachInfo } from "./coach";
 import {
-  registerFacility,
+  postFacility,
   getFacilityRegisterStatus,
   getFacilityList,
   getFacilityDetail,
-  uploadDetails,
+  postFacilityInfo,
 } from "./facility";
 import { getRegionsList } from "./region";
 
 export {
-  registerCoach,
+  postCoach,
+  getCoachRegisterStatus as getCoachStatus,
   getCoachList,
-  registerFacility,
-  getFacilityRegisterStatus,
+  postCoachInfo,
+  postFacility,
+  getFacilityRegisterStatus as getFacilityStatus,
   getFacilityList,
   getFacilityDetail,
-  uploadDetails,
+  postFacilityInfo,
   getRegionsList,
 };
