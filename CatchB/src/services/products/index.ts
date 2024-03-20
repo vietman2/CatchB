@@ -1,3 +1,4 @@
+import { registerCoach } from "./coach";
 import {
   registerFacility,
   getFacilityRegisterStatus,
@@ -8,6 +9,7 @@ import {
 import { getRegionsList } from "./region";
 
 export {
+  registerCoach,
   registerFacility,
   getFacilityRegisterStatus,
   getFacilityList,

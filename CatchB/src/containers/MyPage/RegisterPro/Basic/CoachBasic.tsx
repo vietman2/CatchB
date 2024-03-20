@@ -13,10 +13,12 @@ import { DocumentPickerAsset } from "expo-document-picker";
 import { ImagePickerAsset } from "expo-image-picker";
 
 import { DisabledTextInput, MainTitle, SubTitle } from "../fragments";
+import { LoadingComponent } from ".components/Loading";
 import { FilePicker } from ".components/Pickers";
 import { Selector } from ".components/Selectors";
 import { RegisterProTerms } from ".components/Terms";
 import { MyPageScreenProps } from ".constants/navigation";
+import { registerCoach } from ".services/products";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 
@@ -28,9 +30,11 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
   const [uploadedFile, setUploadedFile] = useState<
     DocumentPickerAsset | ImagePickerAsset
   >(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [career, setCareer] = useState<string>("프로 선수 출신");
   const [type, setType] = useState<"pdf" | "image">("pdf");
   const user = useSelector((state: RootState) => state.auth.user);
+  const token = useSelector((state: RootState) => state.auth.token);
   const navigation =
     useNavigation<MyPageScreenProps<"RegisterPro">["navigation"]>();
 
@@ -53,9 +57,31 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
     );
   };
 
-  const handleRegister = () => {
-    // TODO: API 연동
-    handleRegisterSuccess();
+  const handleRegister = async () => {
+    setLoading(true);
+
+    if (!uploadedFile) {
+      Alert.alert("파일 업로드", "파일을 업로드해주세요.");
+      setLoading(false);
+      return;
+    }
+
+    const response = await registerCoach(
+      user.uuid,
+      user.full_name,
+      user.phone_number,
+      career,
+      uploadedFile,
+      token
+    );
+
+    if (response.status === 201) {
+      handleRegisterSuccess();
+    } else {
+      Alert.alert("등록 실패", "다시 시도해주세요.");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -107,13 +133,13 @@ export default function CoachStep1({ onFinish }: Readonly<Props>) {
       <SubTitle text="약관 동의" />
       <RegisterProTerms />
       <Divider bold style={styles.divider} />
-      <Button
-        mode="contained"
-        onPress={handleRegister}
-        style={{ marginTop: 10 }}
-      >
-        등록하기
-      </Button>
+      {loading ? (
+        <LoadingComponent style={styles.button} />
+      ) : (
+        <Button mode="contained" onPress={handleRegister} style={styles.button}>
+          등록하기
+        </Button>
+      )}
     </ScrollView>
   );
 }
@@ -149,5 +175,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     padding: 5,
     paddingRight: 10,
+  },
+  button: {
+    marginTop: 20,
   },
 });
