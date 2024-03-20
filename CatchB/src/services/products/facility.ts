@@ -61,8 +61,63 @@ export async function registerFacility(
   }
 }
 
+export async function getFacilityRegisterStatus(uuid: string, token: string) {
+  const url = `${API_LOCAL_URL}/api/products/facilities/status/`;
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        uuid,
+      },
+    });
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: 400,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
 export async function getFacilityList() {
   const url = `${API_LOCAL_URL}/api/products/facilities/`;
+
+  try {
+    const response = await axios.get(url);
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: 400,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
+export async function getFacilityDetail(uuid: string) {
+  const url = `${API_LOCAL_URL}/api/products/facilities/${uuid}/`;
 
   try {
     const response = await axios.get(url);

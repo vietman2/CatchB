@@ -1,4 +1,17 @@
-import { registerFacility, uploadDetails } from "./facility";
+import {
+  registerFacility,
+  getFacilityRegisterStatus,
+  getFacilityList,
+  getFacilityDetail,
+  uploadDetails,
+} from "./facility";
 import { getRegionsList } from "./region";
 
-export { registerFacility, uploadDetails, getRegionsList };
+export {
+  registerFacility,
+  getFacilityRegisterStatus,
+  getFacilityList,
+  getFacilityDetail,
+  uploadDetails,
+  getRegionsList,
+};
