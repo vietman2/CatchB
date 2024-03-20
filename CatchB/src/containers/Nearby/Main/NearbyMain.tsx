@@ -18,13 +18,12 @@ import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { VerticalDivider } from ".components/Dividers";
 import { NearbyScreenProps } from ".constants/navigation";
-import { getFacilityList } from ".services/products";
+import { getCoachList, getFacilityList } from ".services/products";
 import { AppDispatch, RootState } from ".store/index";
 import { setSelectedCoach } from ".store/products/coachSlice";
 import { setSelectedFacility } from ".store/products/facilitySlice";
 import { themeColors } from ".themes/colors";
-import { CoachType, FacilitySimpleType } from ".types/products";
-import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
+import { CoachSimpleType, FacilitySimpleType } from ".types/products";
 
 const defaultRegion = {
   latitude: 37.5326,
@@ -40,7 +39,7 @@ export default function NearbyMain() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [mode, setMode] = useState<"facility" | "coach">("facility");
   const [facilities, setFacilities] = useState<FacilitySimpleType[]>([]);
-  const [coaches, setCoaches] = useState<CoachType[]>([]);
+  const [coaches, setCoaches] = useState<CoachSimpleType[]>([]);
   const [region, setRegion] = useState(defaultRegion);
   const navigation =
     useNavigation<NearbyScreenProps<"NearbyScreen">["navigation"]>();
@@ -52,8 +51,8 @@ export default function NearbyMain() {
     navigation.navigate("FacilityDetail");
   };
 
-  const onCoachPress = async (coach: CoachType) => {
-    await dispatch(setSelectedCoach(coach));
+  const onCoachPress = async (coach: CoachSimpleType) => {
+    await dispatch(setSelectedCoach(coach.uuid));
     navigation.navigate("CoachDetail");
   };
 
@@ -62,20 +61,22 @@ export default function NearbyMain() {
   };
 
   useEffect(() => {
-    const fetchFacilities = async () => {
+    const fetchLists = async () => {
       setLoading(true);
-      const response = await getFacilityList();
 
-      if (response.status === 200) {
-        setFacilities(response.data);
+      const response1 = await getFacilityList();
+      const response2 = await getCoachList();
+
+      if (response1.status === 200 && response2.status === 200) {
+        setFacilities(response1.data);
+        setCoaches(response2.data);
         setError(false);
       } else {
         setError(true);
       }
     };
 
-    fetchFacilities();
-    setCoaches(sampleCoaches);
+    fetchLists();
 
     setRegion(
       location
@@ -110,7 +111,7 @@ export default function NearbyMain() {
               </View>
             ))
           : coaches.map((coach) => (
-              <View key={coach.id}>
+              <View key={coach.uuid}>
                 <TouchableOpacity onPress={() => onCoachPress(coach)}>
                   <CoachSimple coach={coach} />
                 </TouchableOpacity>
