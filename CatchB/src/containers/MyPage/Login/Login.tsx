@@ -23,6 +23,7 @@ import { login } from ".services/user_management";
 import { AppDispatch } from ".store/index";
 import { login as setUserState } from ".store/user_management/authSlice";
 import { themeColors } from ".themes/colors";
+import { LoadingComponent } from ".components/Loading";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -104,7 +105,7 @@ export default function Login() {
         </View>
         <View style={styles.container}>
           {isLoading ? (
-            <ActivityIndicator animating={true} color={themeColors.primary} />
+            <LoadingComponent />
           ) : (
             <Button
               mode="contained"
