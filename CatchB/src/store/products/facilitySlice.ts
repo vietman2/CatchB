@@ -1,18 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { FacilitySimpleType } from ".types/products";
-
 const initialState: {
-  selectedFacility: FacilitySimpleType | null;
+  selectedFacilityId: string | null;
   myFacilityUuid: string | null;
 } = {
-  selectedFacility: null,
+  selectedFacilityId: null,
   myFacilityUuid: null,
 };
 
 export const setSelectedFacility = createAsyncThunk(
   "facility/setSelectedFacility",
-  async (data: FacilitySimpleType) => {
+  async (data: string) => {
     return data;
   }
 );
@@ -30,7 +28,7 @@ export const facilitySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(setSelectedFacility.fulfilled, (state, action) => {
-      state.selectedFacility = action.payload;
+      state.selectedFacilityId = action.payload;
     });
     builder.addCase(setMyFacilityUuid.fulfilled, (state, action) => {
       state.myFacilityUuid = action.payload;
