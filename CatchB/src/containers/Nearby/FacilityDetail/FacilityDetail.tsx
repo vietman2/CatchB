@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -12,11 +12,15 @@ import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
+import ErrorPage from "../../Base/ErrorPage";
+import { LoadingPage } from ".components/Loading";
 import { AvatarIcon } from ".components/Profile";
 import { TimeBar } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
+import { getFacilityDetail } from ".services/products";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
+import { FacilityDetailType } from ".types/products";
 import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";
 
 const { width, height } = Dimensions.get("window");
@@ -49,13 +53,16 @@ function CoachProfilePlaceholder({ name }: Readonly<{ name: string }>) {
 }
 
 export default function FacilityDetail() {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+  const [facility, setFacility] = useState<FacilityDetailType>();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
     useNavigation<NearbyScreenProps<"FacilityDetail">["navigation"]>();
-  const facility = useSelector(
-    (state: RootState) => state.facility.selectedFacility
+  const facilityUuid = useSelector(
+    (state: RootState) => state.facility.selectedFacilityId
   );
 
   const handleReserve = () => {
@@ -67,11 +74,11 @@ export default function FacilityDetail() {
   };
 
   const renderDescription = () => {
-      return (
-        <Text variant="bodyLarge" style={styles.detail}>
-          {"facility.description"}
-        </Text>
-      );
+    return (
+      <Text variant="bodyLarge" style={styles.detail}>
+        {"facility.description"}
+      </Text>
+    );
   };
 
   const renderDate = () => {
@@ -82,6 +89,26 @@ export default function FacilityDetail() {
 
     return monthString + dateString;
   };
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      const response = await getFacilityDetail(facilityUuid);
+
+      if (response.status !== 200) {
+        setError(true);
+        return;
+      } else {
+        setFacility(response.data);
+        setError(false);
+      }
+      setLoading(false);
+    }
+
+    fetchDetails();
+  }, [])
+
+  if (loading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
 
   return (
     <>
@@ -115,9 +142,7 @@ export default function FacilityDetail() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.description}>
-          {renderDescription()}
-        </View>
+        <View style={styles.description}>{renderDescription()}</View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
             코치진
@@ -156,7 +181,8 @@ export default function FacilityDetail() {
             {"facility.location"}
           </Text>
           <Image
-            source={require("assets/images/seouldae.jpeg")}
+            source={0}
+            src={facility.map_image}
             style={styles.locationImage}
           />
         </View>
