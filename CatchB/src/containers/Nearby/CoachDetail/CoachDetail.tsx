@@ -6,14 +6,12 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import { useSelector } from "react-redux";
 import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { LessonsTable } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
-import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
 
@@ -40,12 +38,12 @@ function ProductPicker() {
 
 export default function CoachDetail() {
   const [isLiked, setIsLiked] = useState(false);
-  const [expand, setExpand] = useState(false);
+  //const [expand, setExpand] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
     useNavigation<NearbyScreenProps<"CoachDetail">["navigation"]>();
-  const coachUuid = useSelector((state: RootState) => state.coach.selectedCoachId);
+  //const coachUuid = useSelector((state: RootState) => state.coach.selectedCoachId);
   const products = sampleLessonProducts.filter(
     (product) => product.coach_uuid === "1"
   );
@@ -53,7 +51,7 @@ export default function CoachDetail() {
   const handleApply = () => {
     navigation.navigate("Payment");
   };
-
+/*
   const renderDescription = (description: string) => {
     if (description.length > 100) {
       return (
@@ -75,6 +73,7 @@ export default function CoachDetail() {
       );
     }
   };
+  */
 
   return (
     <>

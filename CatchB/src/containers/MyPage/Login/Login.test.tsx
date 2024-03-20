@@ -27,7 +27,6 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    ActivityIndicator: "ActivityIndicator",
     Button: ({ onPress, children, testID }: any) => (
       <TouchableOpacity onPress={onPress} testID={testID}>
         <Text>{children}</Text>

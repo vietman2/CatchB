@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 import { CoachSimpleType } from ".types/products";
@@ -9,19 +9,12 @@ interface Props {
   coach: CoachSimpleType;
 }
 
-function CoachImage({ coach }: Readonly<Props>) {
-  return (<></>
-    //<Image source={coach.image} style={styles.imageBox} resizeMode="center" />
-  );
-}
-
 export function CoachSimple({ coach }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <Text variant="headlineMedium" style={{ fontWeight: "bold" }}>
         {coach.name} 코치
       </Text>
-      <CoachImage coach={coach} />
       <View style={styles.infoBox}>
         <View style={styles.rating}>
           <Icon source="star" size={20} color="gold" />

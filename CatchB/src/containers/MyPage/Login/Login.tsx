@@ -8,13 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import {
-  ActivityIndicator,
-  Button,
-  Divider,
-  Text,
-  TextInput,
-} from "react-native-paper";
+import { Button, Divider, Text, TextInput } from "react-native-paper";
 
 import { LoginLogo } from ".components/Logos";
 import { NaverButton, KakaoButton } from ".components/Buttons";
