@@ -20,7 +20,7 @@ export function FacilitySimple({ facility }: Readonly<Props>) {
     <View style={styles.container}>
       <FacilityImage facility={facility} />
       <View style={styles.infoBox}>
-        <Text variant="titleMedium" style={{ fontWeight: "bold" }}>
+        <Text variant="titleMedium" style={styles.bold}>
           {facility.name}
         </Text>
         <View style={styles.rating}>
@@ -76,4 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  bold: {
+    fontWeight: "bold",
+  }
 });
