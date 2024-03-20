@@ -1,26 +1,55 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Text } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import Account from "./Account/Account";
 import Prices from "./Prices/Prices";
-import CoachDetail from "./Detail/CoachDetail";
 import CoachBasic from "./Basic/CoachBasic";
 import FacilityBasic from "./Basic/FacilityBasic";
+import CoachDetail from "./Detail/CoachDetail";
 import FacilityDetail from "./Detail/FacilityDetail";
 import { ProgressSteps } from ".components/Progress";
 import { MyPageScreenProps } from ".constants/navigation";
+import { getFacilityRegisterStatus } from ".services/products";
+import { AppDispatch, RootState } from ".store/index";
+import { setMyFacilityUuid } from ".store/products/facilitySlice";
 import { themeColors } from ".themes/colors";
 
 export default function RegisterPro() {
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const dispatch = useDispatch<AppDispatch>();
   const navigation =
     useNavigation<MyPageScreenProps<"RegisterPro">["navigation"]>();
   const route = useRoute<MyPageScreenProps<"RegisterPro">["route"]>();
   const { title, type } = route.params;
 
   useEffect(() => {
+    if (type === "facility") {
+      const fetchRegisterState = async () => {
+        const response = await getFacilityRegisterStatus(user.uuid, token);
+
+        if (response.status === 200) {
+          Alert.alert(response.data.title, response.data.message, [
+            {
+              text: "확인",
+            },
+          ]);
+
+          setStep(response.data.step);
+
+          if (response.data.step > 0) {
+            await dispatch(setMyFacilityUuid(response.data.facility));
+          }
+        }
+      };
+
+      fetchRegisterState();
+    }
     navigation.setOptions({
       headerTitle: () => (
         <Text variant="headlineSmall" style={styles.header}>
