@@ -12,8 +12,9 @@ import CoachDetail from "./Detail/CoachDetail";
 import FacilityDetail from "./Detail/FacilityDetail";
 import { ProgressSteps } from ".components/Progress";
 import { MyPageScreenProps } from ".constants/navigation";
-import { getFacilityRegisterStatus } from ".services/products";
+import { getFacilityStatus, getCoachStatus } from ".services/products";
 import { AppDispatch, RootState } from ".store/index";
+import { setMyCoachUuid } from ".store/products/coachSlice";
 import { setMyFacilityUuid } from ".store/products/facilitySlice";
 import { themeColors } from ".themes/colors";
 
@@ -28,28 +29,54 @@ export default function RegisterPro() {
   const route = useRoute<MyPageScreenProps<"RegisterPro">["route"]>();
   const { title, type } = route.params;
 
+  const statusAlert = (title: string, body: string, action?: () => void) => {
+    Alert.alert(title, body, [
+      {
+        text: "확인",
+        onPress: action,
+      },
+    ]);
+  };
+
   useEffect(() => {
-    if (type === "facility") {
-      const fetchRegisterState = async () => {
-        const response = await getFacilityRegisterStatus(user.uuid, token);
+    const fetchRegisterState = async () => {
+      if (type === "coach") {
+        const response = await getCoachStatus(user.uuid, token);
 
         if (response.status === 200) {
-          Alert.alert(response.data.title, response.data.message, [
-            {
-              text: "확인",
-            },
-          ]);
+          statusAlert(response.data.title, response.data.message);
 
-          setStep(response.data.step);
+          if (response.data.step > 0) {
+            await dispatch(setMyCoachUuid(response.data.coach));
+            setStep(response.data.step);
+          }
+
+          if (response.data.step === -1) {
+            statusAlert(response.data.title, response.data.message, () => navigation.goBack());
+          }
+        } else if (response.status === 400) {
+          statusAlert(response.data.title, response.data.message, () => navigation.goBack());
+        }
+      } else {
+        const response = await getFacilityStatus(user.uuid, token);
+
+        if (response.status === 200) {
+          statusAlert(response.data.title, response.data.message);
 
           if (response.data.step > 0) {
             await dispatch(setMyFacilityUuid(response.data.facility));
+            setStep(response.data.step);
           }
+        } else if (response.status === 400) {
+          statusAlert(response.data.title, response.data.message, () =>
+            navigation.goBack()
+          );
         }
-      };
+      }
+    };
 
-      fetchRegisterState();
-    }
+    fetchRegisterState();
+
     navigation.setOptions({
       headerTitle: () => (
         <Text variant="headlineSmall" style={styles.header}>
