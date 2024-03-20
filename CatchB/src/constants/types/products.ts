@@ -33,6 +33,15 @@ export type FacilitySimpleType = {
   longitude: number;
 };
 
+export type FacilityDetailType = {
+  name: string;
+  phone: string;
+  region: string;
+  address: string;
+  map_image: string;
+  //info: {};
+}
+
 export type CoachType = {
   id: number;
   coach_uuid: string;
