@@ -12,7 +12,7 @@ import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import ErrorPage from "../../Base/ErrorPage";
+import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { AvatarIcon } from ".components/Profile";
 import { TimeBar } from ".components/Tables";

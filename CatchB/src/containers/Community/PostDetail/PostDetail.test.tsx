@@ -15,7 +15,9 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../../Base/ErrorPage", () => "ErrorPage");
+jest.mock(".components/Error", () => ({
+  ErrorPage: "ErrorPage",
+}));
 jest.mock(".components/Loading", () => ({
   LoadingPage: "LoadingPage",
 }));

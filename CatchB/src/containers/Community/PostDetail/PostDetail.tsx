@@ -4,7 +4,7 @@ import { Divider, Text } from "react-native-paper";
 import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import ErrorPage from "../../Base/ErrorPage";
+import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { CommunityProfile } from ".components/Profile";
 import { getPostDetail } from ".services/community";

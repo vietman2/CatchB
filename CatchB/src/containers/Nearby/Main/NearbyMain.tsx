@@ -14,7 +14,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 
 import { CoachSimple } from "../fragments/CoachSimple";
 import { FacilitySimple } from "../fragments/FacilitySimple";
-import ErrorPage from "../../Base/ErrorPage";
+import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { VerticalDivider } from ".components/Dividers";
 import { NearbyScreenProps } from ".constants/navigation";

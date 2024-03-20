@@ -55,6 +55,12 @@ jest.mock("../fragments/FacilitySimple", () => {
     },
   };
 });
+jest.mock(".components/Error", () => ({
+  ErrorPage: "ErrorPage",
+}));
+jest.mock(".components/Loading", () => ({
+  LoadingPage: "LoadingPage",
+}));
 jest.mock(".components/Dividers", () => ({
   VerticalDivider: "VerticalDivider",
 }));

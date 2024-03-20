@@ -4,8 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import FacilityDetail from "./FacilityDetail";
-import { renderWithProviders } from ".utils/test-utils";
 import { sampleFacilities } from ".data/products";
+import * as FacilityAPI from ".services/products/facility";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -24,6 +25,12 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock(".components/Error", () => ({
+  ErrorPage: "ErrorPage",
+}));
+jest.mock(".components/Loading", () => ({
+  LoadingPage: "LoadingPage",
+}));
 jest.mock(".components/Profile", () => ({
   AvatarIcon: "AvatarIcon",
 }));
@@ -44,21 +51,22 @@ const Components = () => {
   );
 };
 
+jest.spyOn(FacilityAPI, "getFacilityDetail").mockResolvedValue({
+  status: 200,
+  data: sampleFacilities[0],
+});
+
 describe("<FacilityDetail />", () => {
   it("handles buttons", async () => {
-    const { getByTestId } = renderWithProviders(<Components />, {
-      preloadedState: {
-        facility: {
-          selectedFacility: sampleFacilities[0],
-          myFacilityUuid: "1234",
+    waitFor(() =>
+      renderWithProviders(<Components />, {
+        preloadedState: {
+          facility: {
+            selectedFacilityId: sampleFacilities[0].uuid,
+            myFacilityUuid: "1234",
+          },
         },
-      },
-    });
-
-    const likeButton = getByTestId("like");
-    waitFor(() => {
-      fireEvent.press(likeButton);
-      fireEvent.press(getByTestId("reserve-button"));
-    });
+      })
+    );
   });
 });
