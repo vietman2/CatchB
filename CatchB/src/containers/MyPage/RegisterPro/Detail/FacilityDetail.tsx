@@ -12,7 +12,7 @@ import {
   NumberPicker,
   WorkTimePickers,
 } from ".components/Pickers";
-import { uploadDetails } from ".services/products";
+import { postFacilityInfo } from ".services/products";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 
@@ -69,7 +69,8 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
 
   const handleSubmit = async () => {
     setWaiting(true);
-    const response = await uploadDetails(
+
+    const response = await postFacilityInfo(
       facility_uuid,
       introduction,
       {
@@ -95,7 +96,10 @@ export default function FacilityDetail({ onFinish }: Readonly<Props>) {
     } else if (response.status === 400) {
       Alert.alert("등록 실패", response.data.message);
     } else {
-      Alert.alert("등록 실패", "서버에 오류가 발생했습니다.");
+      Alert.alert(
+        "등록 실패",
+        "서버에 오류가 발생했습니다. 나중에 다시 시도해주세요."
+      );
     }
     setWaiting(false);
   };
