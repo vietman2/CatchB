@@ -14,9 +14,11 @@ import BottomSheet from "@gorhom/bottom-sheet";
 
 import { CoachSimple } from "../fragments/CoachSimple";
 import { FacilitySimple } from "../fragments/FacilitySimple";
+import ErrorPage from "../../Base/ErrorPage";
+import { LoadingPage } from ".components/Loading";
 import { VerticalDivider } from ".components/Dividers";
 import { NearbyScreenProps } from ".constants/navigation";
-import { getFacilityList } from ".services/products/facility";
+import { getFacilityList } from ".services/products";
 import { AppDispatch, RootState } from ".store/index";
 import { setSelectedCoach } from ".store/products/coachSlice";
 import { setSelectedFacility } from ".store/products/facilitySlice";
@@ -24,26 +26,29 @@ import { themeColors } from ".themes/colors";
 import { CoachType, FacilitySimpleType } from ".types/products";
 import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
 
+const defaultRegion = {
+  latitude: 37.5326,
+  longitude: 127.024612,
+};
+
 export default function NearbyMain() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["3%", "70%"], []);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [refreshCount, setRefreshCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [mode, setMode] = useState<"facility" | "coach">("facility");
   const [facilities, setFacilities] = useState<FacilitySimpleType[]>([]);
   const [coaches, setCoaches] = useState<CoachType[]>([]);
-  const [region, setRegion] = useState({
-    latitude: 37.5326,
-    longitude: 127.024612,
-    latitudeDelta: 0.009,
-    longitudeDelta: 0.02,
-  });
+  const [region, setRegion] = useState(defaultRegion);
   const navigation =
     useNavigation<NearbyScreenProps<"NearbyScreen">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
   const location = useSelector((state: RootState) => state.general.location);
 
   const onFacilityPress = async (facility: FacilitySimpleType) => {
-    await dispatch(setSelectedFacility(facility));
+    await dispatch(setSelectedFacility(facility.uuid));
     navigation.navigate("FacilityDetail");
   };
 
@@ -52,25 +57,69 @@ export default function NearbyMain() {
     navigation.navigate("CoachDetail");
   };
 
+  const handleRefresh = () => {
+    setRefreshCount((prev) => prev + 1);
+  };
+
   useEffect(() => {
     const fetchFacilities = async () => {
+      setLoading(true);
       const response = await getFacilityList();
 
       if (response.status === 200) {
         setFacilities(response.data);
+        setError(false);
+      } else {
+        setError(true);
       }
     };
 
     fetchFacilities();
     setCoaches(sampleCoaches);
 
-    setRegion({
-      latitude: location ? location.coords.latitude : 37.5326,
-      longitude: location ? location.coords.longitude : 127.024612,
-      latitudeDelta: 0.009,
-      longitudeDelta: 0.02,
-    });
-  }, []);
+    setRegion(
+      location
+        ? {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+          }
+        : defaultRegion
+    );
+
+    setLoading(false);
+  }, [refreshCount]);
+
+  const Content = () => {
+    if (error) {
+      return <ErrorPage onRefresh={handleRefresh} />;
+    }
+
+    if (loading) {
+      return <LoadingPage />;
+    }
+
+    return (
+      <ScrollView>
+        {mode === "facility"
+          ? facilities.map((facility) => (
+              <View key={facility.uuid}>
+                <TouchableOpacity onPress={() => onFacilityPress(facility)}>
+                  <FacilitySimple facility={facility} />
+                </TouchableOpacity>
+                <Divider />
+              </View>
+            ))
+          : coaches.map((coach) => (
+              <View key={coach.id}>
+                <TouchableOpacity onPress={() => onCoachPress(coach)}>
+                  <CoachSimple coach={coach} />
+                </TouchableOpacity>
+                <Divider />
+              </View>
+            ))}
+      </ScrollView>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -81,7 +130,7 @@ export default function NearbyMain() {
         showsMyLocationButton
         showsCompass
         mapPadding={{ right: 0, bottom: 0, left: 0, top: 100 }}
-        region={region}
+        region={{ ...region, latitudeDelta: 0.009, longitudeDelta: 0.02 }}
         onPanDrag={Keyboard.dismiss}
         //onPress={() => bottomSheetRef.current.snapToIndex(0)}
       >
@@ -130,25 +179,7 @@ export default function NearbyMain() {
           </TouchableOpacity>
         </View>
         <Divider style={styles.divider} />
-        <ScrollView>
-          {mode === "facility"
-            ? facilities.map((facility) => (
-                <View key={facility.uuid}>
-                  <TouchableOpacity onPress={() => onFacilityPress(facility)}>
-                    <FacilitySimple facility={facility} />
-                  </TouchableOpacity>
-                  <Divider />
-                </View>
-              ))
-            : coaches.map((coach) => (
-                <View key={coach.id}>
-                  <TouchableOpacity onPress={() => onCoachPress(coach)}>
-                    <CoachSimple coach={coach} />
-                  </TouchableOpacity>
-                  <Divider />
-                </View>
-              ))}
-        </ScrollView>
+        <Content />
       </BottomSheet>
     </View>
   );
