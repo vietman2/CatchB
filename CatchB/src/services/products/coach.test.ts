@@ -2,12 +2,12 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import {
-  postFacility,
-  getFacilityRegisterStatus,
-  getFacilityList,
-  getFacilityDetail,
-  postFacilityInfo,
-} from "./facility";
+  postCoach,
+  getCoachRegisterStatus,
+  getCoachList,
+  getCoachDetail,
+  postCoachInfo,
+} from "./coach";
 import { TestNetworkError } from ".utils/test-utils";
 
 jest.mock("form-data", () => {
@@ -18,24 +18,21 @@ jest.mock("form-data", () => {
   });
 });
 
-describe("postFacility", () => {
+describe("postCoach", () => {
   const register = () =>
-    postFacility(
-      "name",
+    postCoach(
       "owner_uuid",
       "owner_name",
       "owner_phone_number",
-      "phone",
-      "reg_code",
-      "road_address_part1",
-      "road_address_part2",
-      "building_name",
-      12345,
-      "1100000000",
+      "professional",
+      {
+        uri: "assets/images/coach1.jpg",
+        name: "asdf",
+      },
       "token"
     );
 
-  it("should successfully register facility", async () => {
+  it("should successfully register coach", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
       Promise.resolve({
         status: 201,
@@ -46,7 +43,7 @@ describe("postFacility", () => {
     await act(() => register());
   });
 
-  it("should fail to register facility", async () => {
+  it("should fail to register coach", async () => {
     jest
       .spyOn(axios, "post")
       .mockImplementation(() =>
@@ -67,10 +64,10 @@ describe("postFacility", () => {
   });
 });
 
-describe("getFacilityRegisterStatus", () => {
-  const getStatus = () => getFacilityRegisterStatus("uuid", "token");
+describe("getCoachRegisterStatus", () => {
+  const status = () => getCoachRegisterStatus("uuid", "token");
 
-  it("should successfully get status", async () => {
+  it("should successfully get coach register status", async () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
         status: 200,
@@ -78,10 +75,10 @@ describe("getFacilityRegisterStatus", () => {
       })
     );
 
-    await act(() => getStatus());
+    await act(() => status());
   });
 
-  it("should fail to get status", async () => {
+  it("should fail to get coach register status", async () => {
     jest
       .spyOn(axios, "get")
       .mockImplementation(() =>
@@ -90,7 +87,7 @@ describe("getFacilityRegisterStatus", () => {
         )
       );
 
-    await act(() => getStatus());
+    await act(() => status());
   });
 
   it("should handle server error", async () => {
@@ -98,14 +95,14 @@ describe("getFacilityRegisterStatus", () => {
       .spyOn(axios, "get")
       .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
-    await act(() => getStatus());
+    await act(() => status());
   });
 });
 
-describe("getFacilityList", () => {
-  const getList = () => getFacilityList();
+describe("getCoachList", () => {
+  const list = () => getCoachList();
 
-  it("should successfully get list", async () => {
+  it("should successfully get coach list", async () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
         status: 200,
@@ -113,10 +110,10 @@ describe("getFacilityList", () => {
       })
     );
 
-    await act(() => getList());
+    await act(() => list());
   });
 
-  it("should fail to get list", async () => {
+  it("should fail to get coach list", async () => {
     jest
       .spyOn(axios, "get")
       .mockImplementation(() =>
@@ -125,7 +122,7 @@ describe("getFacilityList", () => {
         )
       );
 
-    await act(() => getList());
+    await act(() => list());
   });
 
   it("should handle server error", async () => {
@@ -133,14 +130,14 @@ describe("getFacilityList", () => {
       .spyOn(axios, "get")
       .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
-    await act(() => getList());
+    await act(() => list());
   });
 });
 
-describe("getFacilityDetail", () => {
-  const getDetail = () => getFacilityDetail("uuid");
+describe("getCoachDetail", () => {
+  const detail = () => getCoachDetail("uuid");
 
-  it("should successfully get detail", async () => {
+  it("should successfully get coach detail", async () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
         status: 200,
@@ -148,10 +145,10 @@ describe("getFacilityDetail", () => {
       })
     );
 
-    await act(() => getDetail());
+    await act(() => detail());
   });
 
-  it("should fail to get detail", async () => {
+  it("should fail to get coach detail", async () => {
     jest
       .spyOn(axios, "get")
       .mockImplementation(() =>
@@ -160,7 +157,7 @@ describe("getFacilityDetail", () => {
         )
       );
 
-    await act(() => getDetail());
+    await act(() => detail());
   });
 
   it("should handle server error", async () => {
@@ -168,44 +165,36 @@ describe("getFacilityDetail", () => {
       .spyOn(axios, "get")
       .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
-    await act(() => getDetail());
+    await act(() => detail());
   });
 });
 
-describe("postFacilityInfo", () => {
-  const upload = () =>
-    postFacilityInfo(
-      "facility_uuid",
+describe("postCoachInfo", () => {
+  const info = () =>
+    postCoachInfo(
+      "uuid",
       "intro",
-      {
-        weekday_open: "09:00",
-        weekday_close: "18:00",
-        saturday_open: "09:00",
-        saturday_close: "18:00",
-        sunday_open: "09:00",
-        sunday_close: "18:00",
-      },
-      ["convenience1"],
-      ["equipment1"],
-      0,
-      3,
-      ["additional"],
-      ["others"],
+      ["asdf", "qwer"],
+      ["1", "2"],
+      ["3", "4"],
       [
         {
-          uri: "fake://uri",
-          type: "image",
-          fileName: "image.jpg",
-          width: 100,
-          height: 100,
-          exif: {},
-          fileSize: 100,
+          uri: "assets/images/coach1.jpg",
+          width: 50,
+          height: 50,
+        },
+      ],
+      [
+        {
+          code: "1111000000",
+          name: "종로구",
+          label: "종로",
         },
       ],
       "token"
     );
 
-  it("should successfully upload details", async () => {
+  it("should successfully post coach info", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
       Promise.resolve({
         status: 201,
@@ -213,10 +202,10 @@ describe("postFacilityInfo", () => {
       })
     );
 
-    await act(() => upload());
+    await act(() => info());
   });
 
-  it("should fail to upload details", async () => {
+  it("should fail to post coach info", async () => {
     jest
       .spyOn(axios, "post")
       .mockImplementation(() =>
@@ -225,7 +214,7 @@ describe("postFacilityInfo", () => {
         )
       );
 
-    await act(() => upload());
+    await act(() => info());
   });
 
   it("should handle server error", async () => {
@@ -233,6 +222,6 @@ describe("postFacilityInfo", () => {
       .spyOn(axios, "post")
       .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
-    await act(() => upload());
+    await act(() => info());
   });
 });

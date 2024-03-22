@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
-import coachReducer, { setSelectedCoach } from "./coachSlice";
+import coachReducer, { setSelectedCoach, setMyCoachUuid } from "./coachSlice";
 
 const createStore = () => {
   return configureStore({
@@ -27,5 +27,14 @@ describe("coachSlice", () => {
 
     const state = store.getState().coach;
     expect(state.selectedCoachId).toEqual("1");
+  });
+
+  it("should handle setMyCoachUuid", async () => {
+    const store = createStore();
+
+    await store.dispatch(setMyCoachUuid("1"));
+
+    const state = store.getState().coach;
+    expect(state.myCoachUuid).toEqual("1");
   });
 });
