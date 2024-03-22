@@ -1,13 +1,7 @@
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import {
-  View,
-  StyleSheet,
-  Keyboard,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, Keyboard, TouchableOpacity } from "react-native";
 import MapView, { PROVIDER_GOOGLE, MapMarker } from "react-native-maps";
 import { Divider, Searchbar, Text } from "react-native-paper";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -17,6 +11,7 @@ import { FacilitySimple } from "../fragments/FacilitySimple";
 import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { VerticalDivider } from ".components/Dividers";
+import { ScrollView } from ".components/ScrollView";
 import { NearbyScreenProps } from ".constants/navigation";
 import { getCoachList, getFacilityList } from ".services/products";
 import { AppDispatch, RootState } from ".store/index";
@@ -33,8 +28,8 @@ const defaultRegion = {
 export default function NearbyMain() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["3%", "70%"], []);
-  const [refreshCount, setRefreshCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  const [refreshCount, setRefreshCount] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [mode, setMode] = useState<"facility" | "coach">("facility");
@@ -57,7 +52,7 @@ export default function NearbyMain() {
   };
 
   const handleRefresh = () => {
-    setRefreshCount((prev) => prev + 1);
+    setRefreshCount(refreshCount + 1);
   };
 
   useEffect(() => {
@@ -100,7 +95,7 @@ export default function NearbyMain() {
     }
 
     return (
-      <ScrollView>
+      <ScrollView refreshing={loading} onRefresh={handleRefresh}>
         {mode === "facility"
           ? facilities.map((facility) => (
               <View key={facility.uuid}>

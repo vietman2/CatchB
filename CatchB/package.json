@@ -29,6 +29,7 @@
       "!src/**/*/types.ts",
       "!src/**/*/navigation.ts",
       "!src/**/*/index.tsx",
+      "!src/**/*/index.ts",
       "!src/**/*/store.ts",
       "!src/**/*/apiConfig.ts",
       "!src/constants/**/*.{js,jsx,ts,tsx}",

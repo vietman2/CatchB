@@ -10,7 +10,7 @@ interface Props {
 }
 
 function FacilityImage({ facility }: Readonly<Props>) {
-  return <Image source={0} src={facility.map_image} style={styles.imageBox} />;
+  return <Image source={0} src={facility.profile} style={styles.imageBox} />;
 }
 
 export function FacilitySimple({ facility }: Readonly<Props>) {

@@ -107,6 +107,30 @@ export async function getCoachList() {
   }
 }
 
+export async function getCoachDetail(uuid: string) {
+  const url = `${API_LOCAL_URL}/api/products/coaches/${uuid}/`;
+
+  try {
+    const response = await axios.get(url);
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: 400,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
 export async function postCoachInfo(
   coach_uuid: string,
   intro: string,

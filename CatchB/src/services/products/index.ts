@@ -1,4 +1,10 @@
-import { postCoach, getCoachRegisterStatus, getCoachList, postCoachInfo } from "./coach";
+import {
+  postCoach,
+  getCoachRegisterStatus,
+  getCoachList,
+  getCoachDetail,
+  postCoachInfo,
+} from "./coach";
 import {
   postFacility,
   getFacilityRegisterStatus,
@@ -12,6 +18,7 @@ export {
   postCoach,
   getCoachRegisterStatus as getCoachStatus,
   getCoachList,
+  getCoachDetail,
   postCoachInfo,
   postFacility,
   getFacilityRegisterStatus as getFacilityStatus,

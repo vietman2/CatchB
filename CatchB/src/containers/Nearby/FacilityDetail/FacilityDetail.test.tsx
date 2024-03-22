@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import FacilityDetail from "./FacilityDetail";
-import { sampleFacilities } from ".data/products";
+import { sampleFacilities, sampleFacilityDetail } from ".data/products";
 import * as FacilityAPI from ".services/products/facility";
 import { renderWithProviders } from ".utils/test-utils";
 
@@ -12,27 +12,36 @@ jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
 jest.mock("react-native-paper", () => {
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+  const { TouchableOpacity, Text, View } = jest.requireActual("react-native");
+  const ActualAvatar = jest.requireActual("react-native-paper").Avatar;
+  const AvatarImage = () => <View />;
+  const Avatar = (props: any) => {
+    return <ActualAvatar {...props}>{props.children}</ActualAvatar>;
+  };
+  Avatar.Image = AvatarImage;
+
   return {
     ...jest.requireActual("react-native-paper"),
-    Icon: "Icon",
+    Avatar,
     Button: ({ onPress, children, testID }: any) => (
       <TouchableOpacity onPress={onPress} testID={testID}>
         <Text>{children}</Text>
       </TouchableOpacity>
     ),
+    Icon: "Icon",
     Text: "Text",
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock("../fragments/fragments", () => ({
+  Stats: "Stats",
+  TitleText: "TitleText",
+}));
 jest.mock(".components/Error", () => ({
   ErrorPage: "ErrorPage",
 }));
 jest.mock(".components/Loading", () => ({
   LoadingPage: "LoadingPage",
-}));
-jest.mock(".components/Profile", () => ({
-  AvatarIcon: "AvatarIcon",
 }));
 jest.mock(".components/Tables", () => ({
   TimeBar: "TimeBar",
@@ -53,7 +62,7 @@ const Components = () => {
 
 jest.spyOn(FacilityAPI, "getFacilityDetail").mockResolvedValue({
   status: 200,
-  data: sampleFacilities[0],
+  data: sampleFacilityDetail,
 });
 
 describe("<FacilityDetail />", () => {

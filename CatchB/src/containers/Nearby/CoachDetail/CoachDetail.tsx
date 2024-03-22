@@ -1,5 +1,6 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  Image,
   View,
   StyleSheet,
   ScrollView,
@@ -8,12 +9,20 @@ import {
 } from "react-native";
 import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
+import { Stats, TitleText } from "../fragments/fragments";
+import { ErrorPage } from ".components/Error";
+import { LoadingPage } from ".components/Loading";
 import { LessonsTable } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
+import { CoachInfoDetailType } from ".constants/types/products";
+import { getCoachDetail } from ".services/products";
+import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -37,13 +46,19 @@ function ProductPicker() {
 }
 
 export default function CoachDetail() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [coach, setCoach] = useState<CoachInfoDetailType>();
+
   const [isLiked, setIsLiked] = useState(false);
-  //const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
     useNavigation<NearbyScreenProps<"CoachDetail">["navigation"]>();
-  //const coachUuid = useSelector((state: RootState) => state.coach.selectedCoachId);
+  const coachUuid = useSelector(
+    (state: RootState) => state.coach.selectedCoachId
+  );
   const products = sampleLessonProducts.filter(
     (product) => product.coach_uuid === "1"
   );
@@ -51,9 +66,30 @@ export default function CoachDetail() {
   const handleApply = () => {
     navigation.navigate("Payment");
   };
-/*
-  const renderDescription = (description: string) => {
-    if (description.length > 100) {
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      const response = await getCoachDetail(coachUuid);
+
+      if (response.status !== 200) {
+        setLoading(true);
+      } else {
+        setCoach(response.data);
+        setError(false);
+      }
+
+      setLoading(false);
+    };
+
+    fetchDetails();
+  }, []);
+
+  useEffect(() => {
+    navigation.setOptions({ title: `${coach?.coach.name} ${"코치"}` });
+  }, [coach]);
+
+  const renderIntro = (intro: string) => {
+    if (intro.length > 100) {
       return (
         <TouchableOpacity
           onPress={() => setExpand(!expand)}
@@ -61,68 +97,56 @@ export default function CoachDetail() {
           testID="expand-collapse"
         >
           <Text variant="bodyLarge" style={styles.detail}>
-            {expand ? description : `${description.slice(0, 100)}...`}
+            {expand ? intro : `${intro.slice(0, 100)}...`}
           </Text>
         </TouchableOpacity>
       );
     } else {
       return (
         <Text variant="bodyLarge" style={styles.detail}>
-          {description}
+          {intro}
         </Text>
       );
     }
   };
-  */
+
+  if (loading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
 
   return (
     <>
       <ScrollView style={styles.container}>
         <ScrollView horizontal pagingEnabled>
-          <View style={{ ...styles.image, backgroundColor: "blue" }} />
-          <View style={{ ...styles.image, backgroundColor: "red" }} />
-          <View style={{ ...styles.image, backgroundColor: "yellow" }} />
+          {coach.images.map((image, index) => (
+            <Image
+              key={index}
+              source={0}
+              src={image.uri}
+              style={styles.image}
+              resizeMode="contain"
+            />
+          ))}
         </ScrollView>
         <View style={styles.topLine}>
-          <Text variant="headlineMedium" style={styles.title}>
-            코치
-          </Text>
-          <View style={styles.rating}>
-            <Icon source="star" size={20} color="gold" />
-            <Text>0/10</Text>
-          </View>
-          <View style={styles.interactions}>
-            <TouchableOpacity
-              onPress={() => setIsLiked(!isLiked)}
-              testID="like"
-            >
-              <Icon
-                source={isLiked ? "heart" : "heart-outline"}
-                size={20}
-                color={themeColors.primary}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}}>
-              <Icon source="share-outline" size={20} />
-            </TouchableOpacity>
-          </View>
+          <TitleText title={coach.coach.name} is_coach />
+          <Stats rating={0} like={isLiked} setLike={setIsLiked} />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginTop: 5,
+            marginHorizontal: 10,
+          }}
+        >
+          <SimpleChip label="타격" />
+          <SimpleChip label="주루" />
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
             소개
           </Text>
-          ㅋㅋ
-        </View>
-        <View style={styles.content}>
-          <Text variant="titleLarge" style={styles.subtitle}>
-            전문 분야
-          </Text>
-          <View
-            style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}
-          >
-            <SimpleChip label="타격" />
-            <SimpleChip label="주루" />
-          </View>
+          {renderIntro(coach.intro)}
         </View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
@@ -181,7 +205,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width,
     height: height * 0.27,
-    backgroundColor: "red",
   },
   topLine: {
     flexDirection: "row",
@@ -190,35 +213,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 10,
   },
-  title: {
-    flex: 5,
-    fontFamily: "Catch B ExtraBold",
-    color: themeColors.primary,
-  },
   subtitle: {
     fontWeight: "bold",
-  },
-  rating: {
-    flex: 1.2,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  interactions: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
   },
   content: {
     paddingHorizontal: 20,
     paddingVertical: 5,
     marginTop: 20,
-  },
-  locationImage: {
-    width: "100%",
-    height: 210,
-    resizeMode: "contain",
-    marginBottom: 10,
   },
   detail: {
     color: "gray",
