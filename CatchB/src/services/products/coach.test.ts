@@ -19,7 +19,7 @@ jest.mock("form-data", () => {
 });
 
 describe("postCoach", () => {
-  const register = () =>
+  const post = () =>
     postCoach(
       "owner_uuid",
       "owner_name",
@@ -35,12 +35,11 @@ describe("postCoach", () => {
   it("should successfully register coach", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
       Promise.resolve({
-        status: 201,
-        data: {},
+        status: 204,
       })
     );
 
-    await act(() => register());
+    await act(() => post());
   });
 
   it("should fail to register coach", async () => {
@@ -52,7 +51,7 @@ describe("postCoach", () => {
         )
       );
 
-    await act(() => register());
+    await act(() => post());
   });
 
   it("should handle server error", async () => {
@@ -60,7 +59,7 @@ describe("postCoach", () => {
       .spyOn(axios, "post")
       .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
-    await act(() => register());
+    await act(() => post());
   });
 });
 
@@ -197,8 +196,7 @@ describe("postCoachInfo", () => {
   it("should successfully post coach info", async () => {
     jest.spyOn(axios, "post").mockImplementation(() =>
       Promise.resolve({
-        status: 201,
-        data: {},
+        status: 204,
       })
     );
 
@@ -210,7 +208,7 @@ describe("postCoachInfo", () => {
       .spyOn(axios, "post")
       .mockImplementation(() =>
         Promise.reject(
-          new TestNetworkError({ status: 400, data: "Bad Request" })
+          new TestNetworkError({ status: 404, data: "Not Found" })
         )
       );
 
