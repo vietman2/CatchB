@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 
@@ -9,17 +8,10 @@ import CoachDetail from "./CoachDetail/CoachDetail";
 import Payment from "./Payment/Payment";
 import { BackButton } from ".components/Buttons";
 import { NearbyParams, NearbyScreenProps } from ".constants/navigation";
-import { RootState } from ".store/index";
 
 const NearbyNavStack = createStackNavigator<NearbyParams>();
 
 export default function NearbyStack() {
-  const selectedFacility = useSelector(
-    (store: RootState) => store.facility.selectedFacility
-  );
-  const selectedCoach = useSelector(
-    (store: RootState) => store.coach.selectedCoach
-  );
   const navigation =
     useNavigation<NearbyScreenProps<"NearbyScreen">["navigation"]>();
 
@@ -52,7 +44,6 @@ export default function NearbyStack() {
         options={{
           headerShown: true,
           headerLeft: goBackToNearbyScreen,
-          headerTitle: selectedFacility?.name,
           headerBackTitleVisible: false,
         }}
       />
@@ -72,7 +63,6 @@ export default function NearbyStack() {
         options={{
           headerShown: true,
           headerLeft: goBackToNearbyScreen,
-          headerTitle: `${selectedCoach?.coach_name} 코치`,
           headerBackTitleVisible: false,
         }}
       />
