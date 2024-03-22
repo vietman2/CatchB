@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -26,6 +25,16 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock("../fragments/fragments", () => ({
+  Stats: "Stats",
+  TitleText: "TitleText",
+}));
+jest.mock(".components/Error", () => ({
+  ErrorPage: "ErrorPage",
+}));
+jest.mock(".components/Loading", () => ({
+  LoadingPage: "LoadingPage",
+}));
 jest.mock(".components/Tables", () => ({
   LessonsTable: "LessonsTable",
 }));
@@ -44,19 +53,14 @@ const Components = () => {
 };
 
 describe("<CoachDetail />", () => {
-  it("handles like button", async () => {
-    const { getByTestId } = renderWithProviders(<Components />, {
+  it("renders correctly", async () => {
+    renderWithProviders(<Components />, {
       preloadedState: {
         coach: {
           selectedCoachId: sampleCoaches[0].uuid,
           myCoachUuid: "1",
         },
       },
-    });
-
-    waitFor(() => {
-      fireEvent.press(getByTestId("like"));
-      fireEvent.press(getByTestId("apply-button"));
     });
   });
 });

@@ -18,10 +18,11 @@ import { LoadingPage } from ".components/Loading";
 import { LessonsTable } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
 import { CoachInfoDetailType } from ".constants/types/products";
-import { themeColors } from ".themes/colors";
-import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
 import { getCoachDetail } from ".services/products";
 import { RootState } from ".store/index";
+import { themeColors } from ".themes/colors";
+import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
+
 
 const { width, height } = Dimensions.get("window");
 

@@ -1,10 +1,8 @@
-import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 import { CoachSimpleType } from ".types/products";
 import { CoachTypeChip } from ".components/Chips";
-
-const { width } = Dimensions.get("window");
 
 interface Props {
   coach: CoachSimpleType;

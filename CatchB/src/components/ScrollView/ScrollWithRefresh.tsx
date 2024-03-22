@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { RefreshControl, ScrollView } from "react-native";
 
@@ -7,7 +8,11 @@ interface Props {
   onRefresh: () => void;
 }
 
-export default function ScrollWithRefresh({ children, refreshing, onRefresh }: Props) {
+export default function ScrollWithRefresh({
+  children,
+  refreshing,
+  onRefresh,
+}: Props) {
   const [isPulledDown, setIsPulledDown] = useState<boolean>(false);
 
   const onScroll = (event: any) => {
