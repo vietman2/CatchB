@@ -8,19 +8,19 @@ import {
   Image,
 } from "react-native";
 import { useSelector } from "react-redux";
-import { Button, Icon, Text } from "react-native-paper";
+import { Avatar, Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
+import { Stats, TitleText } from "../fragments/fragments";
 import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
-import { AvatarIcon } from ".components/Profile";
 import { TimeBar } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
 import { getFacilityDetail } from ".services/products";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
-import { FacilityDetailType } from ".types/products";
+import { FacilityInfoDetailType } from ".types/products";
 import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";
 
 const { width, height } = Dimensions.get("window");
@@ -43,10 +43,10 @@ function DateTimePicker() {
   );
 }
 
-function CoachProfilePlaceholder({ name }: Readonly<{ name: string }>) {
+function CoachProfile({ name, profile }: Readonly<{ name: string; profile: string }>) {
   return (
-    <View style={styles.placeholderContainer}>
-      <AvatarIcon />
+    <View style={styles.profileContainer}>
+      <Avatar.Image source={{ uri: profile }} style={{marginVertical: 16}} size={64} />
       <Text>{name}</Text>
     </View>
   );
@@ -56,7 +56,7 @@ export default function FacilityDetail() {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
-  const [facility, setFacility] = useState<FacilityDetailType>();
+  const [facility, setFacility] = useState<FacilityInfoDetailType>();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
@@ -76,7 +76,7 @@ export default function FacilityDetail() {
   const renderDescription = () => {
     return (
       <Text variant="bodyLarge" style={styles.detail}>
-        {"facility.description"}
+        {facility.intro}
       </Text>
     );
   };
@@ -107,6 +107,10 @@ export default function FacilityDetail() {
     fetchDetails();
   }, [])
 
+  useEffect(() => {
+    navigation.setOptions({ title: facility?.facility.name });
+  }, [facility])
+
   if (loading) return <LoadingPage />;
   if (error) return <ErrorPage />;
 
@@ -114,33 +118,19 @@ export default function FacilityDetail() {
     <>
       <ScrollView style={styles.container}>
         <ScrollView horizontal pagingEnabled>
-          <View style={{ ...styles.image, backgroundColor: "blue" }} />
-          <View style={{ ...styles.image, backgroundColor: "red" }} />
-          <View style={{ ...styles.image, backgroundColor: "yellow" }} />
+          {facility.images.map((image, index) => (
+            <Image
+              key={index}
+              source={0}
+              src={image.uri}
+              style={styles.image}
+              resizeMode="contain"
+            />
+          ))}
         </ScrollView>
         <View style={styles.topLine}>
-          <Text variant="headlineMedium" style={styles.title}>
-            {facility.name}
-          </Text>
-          <View style={styles.rating}>
-            <Icon source="star" size={20} color="gold" />
-            <Text>0/10</Text>
-          </View>
-          <View style={styles.interactions}>
-            <TouchableOpacity
-              onPress={() => setIsLiked(!isLiked)}
-              testID="like"
-            >
-              <Icon
-                source={isLiked ? "heart" : "heart-outline"}
-                size={20}
-                color={themeColors.primary}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}}>
-              <Icon source="share-outline" size={20} />
-            </TouchableOpacity>
-          </View>
+          <TitleText title={facility.facility.name} />
+          <Stats rating={0} like={isLiked} setLike={setIsLiked} />
         </View>
         <View style={styles.description}>{renderDescription()}</View>
         <View style={styles.content}>
@@ -148,11 +138,13 @@ export default function FacilityDetail() {
             코치진
           </Text>
           <ScrollView horizontal>
-            <CoachProfilePlaceholder name="김감독" />
-            <CoachProfilePlaceholder name="이코치" />
-            <CoachProfilePlaceholder name="박코치" />
-            <CoachProfilePlaceholder name="최코치" />
-            <CoachProfilePlaceholder name="김코치" />
+            {facility.coaches.map((coach, index) => (
+              <CoachProfile
+                key={index}
+                name={coach.name}
+                profile={coach.profile}
+              />
+            ))}
           </ScrollView>
         </View>
         <View style={styles.content}>
@@ -178,11 +170,11 @@ export default function FacilityDetail() {
             위치
           </Text>
           <Text variant="titleMedium" style={styles.detail}>
-            {"facility.location"}
+            {facility.facility.address}
           </Text>
           <Image
             source={0}
-            src={facility.map_image}
+            src={facility.facility.map_image}
             style={styles.locationImage}
           />
         </View>
@@ -230,7 +222,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themeColors.primaryContainer,
   },
-  placeholderContainer: {
+  profileContainer: {
     alignItems: "center",
     marginRight: 15,
   },
@@ -238,7 +230,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width,
     height: height * 0.27,
-    backgroundColor: "red",
   },
   topLine: {
     flexDirection: "row",
@@ -254,17 +245,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontWeight: "bold",
-  },
-  rating: {
-    flex: 1.2,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  interactions: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
   },
   content: {
     paddingHorizontal: 20,
