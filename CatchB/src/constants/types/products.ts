@@ -1,51 +1,59 @@
 import { ImageRequireSource } from "react-native";
 
-export type ReservationProductType = {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  facility: string;
-  hours: number;
-  minutes: number;
-};
-
-type ReservationStatusChoices = "WA" | "CO" | "CA" | "FI";
-
-export type ReservationType = {
-  uuid: string;
-  product: ReservationProductType;
-  reserved_user: string;
-  lesson_session: string | null;
-  start_datetime: string;
-  end_datetime: string;
-  status: ReservationStatusChoices;
-  created_at: string;
-  confirmed_at: string | null;
-};
+type ProviderImageType = {
+  uri: string;
+}
 
 export type FacilitySimpleType = {
   uuid: string;
   name: string;
   region: string;
-  map_image: string;
+  profile: string;
   latitude: number;
   longitude: number;
 };
 
-export type FacilityDetailType = {
+type FacilityDetailType = {
   name: string;
   phone: string;
-  region: string;
+  owner_name: string;
+  owner_phone: string;
   address: string;
   map_image: string;
-  //info: {};
 }
+
+export type FacilityInfoDetailType = {
+  intro: string;
+  facility: FacilityDetailType;
+  images: ProviderImageType[];
+  coaches: CoachProfileType[];
+};
 
 export type CoachSimpleType = {
   uuid: string;
   name: string;
+  profile: string;
+  regions: string;
+  is_academy_coach: boolean;
 }
+
+export type CoachProfileType = {
+  name: string;
+  profile: string;
+}
+
+type CoachDetailType = {
+  name: string;
+  phone: string;
+  facility: string | null;
+  career: string;
+}
+
+export type CoachInfoDetailType = {
+  intro: string;
+  coach: CoachDetailType;
+  images: ProviderImageType[];
+};
 
 export type CoachType = {
   id: number;
@@ -84,4 +92,28 @@ export type SigunguType = {
 export type RegionsType = {
   sido: SidoType[];
   sigungu: Record<string, SigunguType[]>;
+};
+
+export type ReservationProductType = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  facility: string;
+  hours: number;
+  minutes: number;
+};
+
+type ReservationStatusChoices = "WA" | "CO" | "CA" | "FI";
+
+export type ReservationType = {
+  uuid: string;
+  product: ReservationProductType;
+  reserved_user: string;
+  lesson_session: string | null;
+  start_datetime: string;
+  end_datetime: string;
+  status: ReservationStatusChoices;
+  created_at: string;
+  confirmed_at: string | null;
 };
