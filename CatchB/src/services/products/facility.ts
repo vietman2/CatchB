@@ -163,17 +163,6 @@ export async function postFacilityInfo(
   const url = `${API_LOCAL_URL}/api/products/facilities/${facility_uuid}/`;
   const formData = new FormData();
 
-  for (let i = 0; i < images.length; i++) {
-    const image = images[i];
-    const fileType = image.fileName.split(".").pop();
-
-    formData.append("images", {
-      uri: image.uri,
-      name: image.fileName,
-      type: `image/${fileType}`,
-    });
-  }
-
   formData.append("intro", intro);
   formData.append("weekday_open", times.weekday_open);
   formData.append("weekday_close", times.weekday_close);
@@ -194,6 +183,12 @@ export async function postFacilityInfo(
   });
   others.forEach((item) => {
     formData.append("others", item);
+  });
+  images.forEach((image, index) => {
+    formData.append("images", {
+      uri: image.uri,
+      name: `image${index}`,
+    });
   });
 
   try {
