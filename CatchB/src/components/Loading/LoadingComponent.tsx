@@ -1,13 +1,12 @@
+import { StyleProp, ViewStyle } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 
 import { themeColors } from ".themes/colors";
 
-export default function LoadingComponent() {
-  return (
-    <ActivityIndicator
-      size={"large"}
-      color={themeColors.primary}
-      style={{ flex: 1, marginBottom: 30 }}
-    />
-  );
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
+
+export default function LoadingComponent({ style }: Readonly<Props>) {
+  return <ActivityIndicator animating={true} color={themeColors.primary} style={style} />;
 }

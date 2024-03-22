@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { PostSimple } from "../fragments";
-import ErrorPage from "../../Base/ErrorPage";
+import { ErrorPage } from ".components/Error";
 import { CommunityScreenProps } from ".constants/navigation";
 import { getPostList } from ".services/community";
 import { AppDispatch } from ".store/index";

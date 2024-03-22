@@ -1,5 +1,5 @@
 export const themeColors = {
-  primary: "green",
+  primary: "#14863e",
   //onPrimary: "white",
   primaryContainer: "#fff",
   //onPrimaryContainer: "white",

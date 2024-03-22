@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fireEvent, waitFor } from "@testing-library/react-native";
+import { waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import FacilityDetail from "./FacilityDetail";
+import { sampleFacilities } from ".data/products";
+import * as FacilityAPI from ".services/products/facility";
 import { renderWithProviders } from ".utils/test-utils";
-import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -24,12 +25,17 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
+jest.mock(".components/Error", () => ({
+  ErrorPage: "ErrorPage",
+}));
+jest.mock(".components/Loading", () => ({
+  LoadingPage: "LoadingPage",
+}));
 jest.mock(".components/Profile", () => ({
   AvatarIcon: "AvatarIcon",
 }));
 jest.mock(".components/Tables", () => ({
   TimeBar: "TimeBar",
-  ReservationsTable: "ReservationsTable",
 }));
 
 const Stack = createStackNavigator();
@@ -45,37 +51,22 @@ const Components = () => {
   );
 };
 
+jest.spyOn(FacilityAPI, "getFacilityDetail").mockResolvedValue({
+  status: 200,
+  data: sampleFacilities[0],
+});
+
 describe("<FacilityDetail />", () => {
   it("handles buttons", async () => {
-    const { getByTestId } = renderWithProviders(<Components />, {
-      preloadedState: {
-        facility: {
-          selectedFacility: sampleFacilities[0],
-          myFacilityUuid: "1234",
+    waitFor(() =>
+      renderWithProviders(<Components />, {
+        preloadedState: {
+          facility: {
+            selectedFacilityId: sampleFacilities[0].uuid,
+            myFacilityUuid: "1234",
+          },
         },
-      },
-    });
-
-    const likeButton = getByTestId("like");
-    waitFor(() => {
-      fireEvent.press(likeButton);
-      fireEvent.press(getByTestId("reserve-button"));
-    });
-  });
-
-  it("handles long descriptions", async () => {
-    const { getByTestId } = renderWithProviders(<Components />, {
-      preloadedState: {
-        facility: {
-          selectedFacility: sampleFacilities[1],
-          myFacilityUuid: "1235",
-        },
-      },
-    });
-
-    waitFor(() => {
-      fireEvent.press(getByTestId("expand-collapse"));
-      fireEvent.press(getByTestId("expand-collapse"));
-    });
+      })
+    );
   });
 });

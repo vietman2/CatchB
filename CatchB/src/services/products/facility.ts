@@ -4,11 +4,11 @@ import { ImagePickerAsset } from "expo-image-picker";
 
 import { API_LOCAL_URL } from "../";
 
-export async function registerFacility(
+export async function postFacility(
   name: string,
-  owner_uuid: string,
-  owner_name: string,
-  owner_phone: string,
+  member_uuid: string,
+  member_name: string,
+  member_phone: string,
   phone: string,
   reg_code: string,
   road_address_part1: string,
@@ -25,9 +25,9 @@ export async function registerFacility(
       url,
       {
         name,
-        owner_uuid,
-        owner_name,
-        owner_phone,
+        member_uuid,
+        member_name,
+        member_phone,
         phone,
         reg_code,
         road_address_part1,
@@ -61,7 +61,86 @@ export async function registerFacility(
   }
 }
 
-export async function uploadDetails(
+export async function getFacilityRegisterStatus(uuid: string, token: string) {
+  const url = `${API_LOCAL_URL}/api/products/facilities/status/`;
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        uuid,
+      },
+    });
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: 400,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
+export async function getFacilityList() {
+  const url = `${API_LOCAL_URL}/api/products/facilities/`;
+
+  try {
+    const response = await axios.get(url);
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: 400,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
+export async function getFacilityDetail(uuid: string) {
+  const url = `${API_LOCAL_URL}/api/products/facilities/${uuid}/`;
+
+  try {
+    const response = await axios.get(url);
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: 400,
+        data: err.response.data,
+      };
+    }
+    return {
+      status: 500,
+      data: "Server Error",
+    };
+  }
+}
+
+export async function postFacilityInfo(
   facility_uuid: string,
   intro: string,
   times: {
@@ -102,14 +181,14 @@ export async function uploadDetails(
   formData.append("saturday_close", times.saturday_close);
   formData.append("sunday_open", times.sunday_open);
   formData.append("sunday_close", times.sunday_close);
+  formData.append("num_mounds", numMounds);
+  formData.append("num_plates", numPlates);
   convenience.forEach((item) => {
     formData.append("convenience", item);
   });
   equipment.forEach((item) => {
     formData.append("equipment", item);
   });
-  formData.append("num_mounds", numMounds);
-  formData.append("num_plates", numPlates);
   additionalEquipment.forEach((item) => {
     formData.append("custom", item);
   });

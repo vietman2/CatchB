@@ -27,7 +27,6 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    ActivityIndicator: "ActivityIndicator",
     Button: ({ onPress, children, testID }: any) => (
       <TouchableOpacity onPress={onPress} testID={testID}>
         <Text>{children}</Text>
@@ -38,12 +37,15 @@ jest.mock("react-native-paper", () => {
     TextInput: TextInput,
   };
 });
-jest.mock("../../../components/Logos", () => ({
-  LoginLogo: "Logo",
-}));
-jest.mock("../../../components/Buttons", () => ({
+jest.mock(".components/Buttons", () => ({
   NaverButton: "NaverButton",
   KakaoButton: "KakaoButton",
+}));
+jest.mock(".components/Loading", () => ({
+  LoadingComponent: "LoadingComponent",
+}));
+jest.mock(".components/Logos", () => ({
+  LoginLogo: "Logo",
 }));
 
 const Stack = createStackNavigator();

@@ -1,26 +1,82 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Text } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import Account from "./Account/Account";
 import Prices from "./Prices/Prices";
-import CoachDetail from "./Detail/CoachDetail";
 import CoachBasic from "./Basic/CoachBasic";
 import FacilityBasic from "./Basic/FacilityBasic";
+import CoachDetail from "./Detail/CoachDetail";
 import FacilityDetail from "./Detail/FacilityDetail";
 import { ProgressSteps } from ".components/Progress";
 import { MyPageScreenProps } from ".constants/navigation";
+import { getFacilityStatus, getCoachStatus } from ".services/products";
+import { AppDispatch, RootState } from ".store/index";
+import { setMyCoachUuid } from ".store/products/coachSlice";
+import { setMyFacilityUuid } from ".store/products/facilitySlice";
 import { themeColors } from ".themes/colors";
 
 export default function RegisterPro() {
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const dispatch = useDispatch<AppDispatch>();
   const navigation =
     useNavigation<MyPageScreenProps<"RegisterPro">["navigation"]>();
   const route = useRoute<MyPageScreenProps<"RegisterPro">["route"]>();
   const { title, type } = route.params;
 
+  const statusAlert = (title: string, body: string, action?: () => void) => {
+    Alert.alert(title, body, [
+      {
+        text: "확인",
+        onPress: action,
+      },
+    ]);
+  };
+
   useEffect(() => {
+    const fetchRegisterState = async () => {
+      if (type === "coach") {
+        const response = await getCoachStatus(user.uuid, token);
+
+        if (response.status === 200) {
+          statusAlert(response.data.title, response.data.message);
+
+          if (response.data.step > 0) {
+            await dispatch(setMyCoachUuid(response.data.coach));
+            setStep(response.data.step);
+          }
+
+          if (response.data.step === -1) {
+            statusAlert(response.data.title, response.data.message, () => navigation.goBack());
+          }
+        } else if (response.status === 400) {
+          statusAlert(response.data.title, response.data.message, () => navigation.goBack());
+        }
+      } else {
+        const response = await getFacilityStatus(user.uuid, token);
+
+        if (response.status === 200) {
+          statusAlert(response.data.title, response.data.message);
+
+          if (response.data.step > 0) {
+            await dispatch(setMyFacilityUuid(response.data.facility));
+            setStep(response.data.step);
+          }
+        } else if (response.status === 400) {
+          statusAlert(response.data.title, response.data.message, () =>
+            navigation.goBack()
+          );
+        }
+      }
+    };
+
+    fetchRegisterState();
+
     navigation.setOptions({
       headerTitle: () => (
         <Text variant="headlineSmall" style={styles.header}>

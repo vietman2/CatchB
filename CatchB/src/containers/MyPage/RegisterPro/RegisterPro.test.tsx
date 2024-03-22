@@ -1,10 +1,12 @@
 /* eslint-disable react/display-name */
-import { fireEvent } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import RegisterPro from "./RegisterPro";
 import { admin } from ".data/users";
+import * as CoachAPI from ".services/products/coach";
+import * as FacilityAPI from ".services/products/facility";
 import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
@@ -58,7 +60,7 @@ jest.mock("./Detail/FacilityDetail", () => {
     );
   };
 });
-jest.mock("../../../components/Progress", () => ({
+jest.mock(".components/Progress", () => ({
   ProgressSteps: "ProgressSteps",
 }));
 
@@ -90,16 +92,34 @@ const render = (type: "coach" | "facility") => {
 };
 
 describe("<RegisterPro />", () => {
-  it("should render coach and handle steps", () => {
-    const { getByTestId } = render("coach");
+  it("should render coach and handle steps", async () => {
+    jest.spyOn(CoachAPI, "getCoachRegisterStatus").mockResolvedValue({
+      status: 200,
+      data: {
+        title: "title",
+        message: "message",
+        step: 0,
+        coach: "1",
+      },
+    });
+    const { getByTestId } = await waitFor(() => render("coach"));
 
     fireEvent.press(getByTestId("coach-basic-button"));
     fireEvent.press(getByTestId("coach-detail-button"));
     fireEvent.press(getByTestId("account-button"));
   });
 
-  it("should render facility and handle steps", () => {
-    const { getByTestId } = render("facility");
+  it("should render facility and handle steps", async () => {
+    jest.spyOn(FacilityAPI, "getFacilityRegisterStatus").mockResolvedValue({
+      status: 200,
+      data: {
+        title: "title",
+        message: "message",
+        step: 0,
+        facility: "1",
+      },
+    });
+    const { getByTestId } = await waitFor(() => render("facility"));
 
     fireEvent.press(getByTestId("facility-basic-button"));
     fireEvent.press(getByTestId("facility-detail-button"));

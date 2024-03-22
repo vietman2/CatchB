@@ -5,7 +5,7 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 
 import FacilityReserve from "./FacilityReserve";
 import { renderWithProviders } from ".utils/test-utils";
-import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
+import { sampleFacilities } from ".data/products";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",

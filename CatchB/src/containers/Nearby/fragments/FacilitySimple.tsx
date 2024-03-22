@@ -3,14 +3,14 @@ import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 import { themeColors } from ".themes/colors";
-import { FacilityType } from ".types/products";
+import { FacilitySimpleType } from ".types/products";
 
 interface Props {
-  facility: FacilityType;
+  facility: FacilitySimpleType;
 }
 
 function FacilityImage({ facility }: Readonly<Props>) {
-  return <Image source={facility.image} style={styles.imageBox} />;
+  return <Image source={0} src={facility.map_image} style={styles.imageBox} />;
 }
 
 export function FacilitySimple({ facility }: Readonly<Props>) {
@@ -20,14 +20,14 @@ export function FacilitySimple({ facility }: Readonly<Props>) {
     <View style={styles.container}>
       <FacilityImage facility={facility} />
       <View style={styles.infoBox}>
-        <Text variant="titleMedium" style={{ fontWeight: "bold" }}>
+        <Text variant="titleMedium" style={styles.bold}>
           {facility.name}
         </Text>
         <View style={styles.rating}>
           <Icon source="star" size={20} color="gold" />
-          <Text>{facility.rating}/10</Text>
+          <Text>0/10</Text>
         </View>
-        <Text>{facility.location}</Text>
+        <Text>{facility.region}</Text>
       </View>
       <View style={styles.interactionBox}>
         <TouchableOpacity
@@ -76,4 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  bold: {
+    fontWeight: "bold",
+  }
 });

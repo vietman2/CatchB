@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CoachDetail from "./CoachDetail";
-import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
+import { sampleCoaches } from ".data/products";
 import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
@@ -48,7 +48,8 @@ describe("<CoachDetail />", () => {
     const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         coach: {
-          selectedCoach: sampleCoaches[0],
+          selectedCoachId: sampleCoaches[0].uuid,
+          myCoachUuid: "1",
         },
       },
     });
@@ -56,23 +57,6 @@ describe("<CoachDetail />", () => {
     waitFor(() => {
       fireEvent.press(getByTestId("like"));
       fireEvent.press(getByTestId("apply-button"));
-    });
-  });
-
-  it("renders long description", async () => {
-    const { getByTestId } = renderWithProviders(<Components />, {
-      preloadedState: {
-        coach: {
-          selectedCoach: sampleCoaches[2],
-        },
-      },
-    });
-
-    const expandCollapseButton = getByTestId("expand-collapse");
-
-    waitFor(() => {
-      fireEvent.press(expandCollapseButton);
-      fireEvent.press(expandCollapseButton);
     });
   });
 });

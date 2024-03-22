@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -12,11 +12,15 @@ import { Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
+import { ErrorPage } from ".components/Error";
+import { LoadingPage } from ".components/Loading";
 import { AvatarIcon } from ".components/Profile";
-import { TimeBar, ReservationsTable } from ".components/Tables";
+import { TimeBar } from ".components/Tables";
 import { NearbyScreenProps } from ".constants/navigation";
+import { getFacilityDetail } from ".services/products";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
+import { FacilityDetailType } from ".types/products";
 import { reservationProducts } from "../../../variables/mvp_dummy_data/reservations";
 
 const { width, height } = Dimensions.get("window");
@@ -49,14 +53,16 @@ function CoachProfilePlaceholder({ name }: Readonly<{ name: string }>) {
 }
 
 export default function FacilityDetail() {
-  const [isLiked, setIsLiked] = useState(false);
-  const [expand, setExpand] = useState(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+  const [facility, setFacility] = useState<FacilityDetailType>();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "65%"], []);
   const navigation =
     useNavigation<NearbyScreenProps<"FacilityDetail">["navigation"]>();
-  const facility = useSelector(
-    (state: RootState) => state.facility.selectedFacility
+  const facilityUuid = useSelector(
+    (state: RootState) => state.facility.selectedFacilityId
   );
 
   const handleReserve = () => {
@@ -67,26 +73,12 @@ export default function FacilityDetail() {
     });
   };
 
-  const renderDescription = (description: string) => {
-    if (description.length > 100) {
-      return (
-        <TouchableOpacity
-          onPress={() => setExpand(!expand)}
-          activeOpacity={0.6}
-          testID="expand-collapse"
-        >
-          <Text variant="bodyLarge" style={styles.detail}>
-            {expand ? description : `${description.slice(0, 100)}...`}
-          </Text>
-        </TouchableOpacity>
-      );
-    } else {
-      return (
-        <Text variant="bodyLarge" style={styles.detail}>
-          {facility.description}
-        </Text>
-      );
-    }
+  const renderDescription = () => {
+    return (
+      <Text variant="bodyLarge" style={styles.detail}>
+        {"facility.description"}
+      </Text>
+    );
   };
 
   const renderDate = () => {
@@ -97,6 +89,26 @@ export default function FacilityDetail() {
 
     return monthString + dateString;
   };
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      const response = await getFacilityDetail(facilityUuid);
+
+      if (response.status !== 200) {
+        setError(true);
+        return;
+      } else {
+        setFacility(response.data);
+        setError(false);
+      }
+      setLoading(false);
+    }
+
+    fetchDetails();
+  }, [])
+
+  if (loading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
 
   return (
     <>
@@ -112,7 +124,7 @@ export default function FacilityDetail() {
           </Text>
           <View style={styles.rating}>
             <Icon source="star" size={20} color="gold" />
-            <Text>{facility.rating}/10</Text>
+            <Text>0/10</Text>
           </View>
           <View style={styles.interactions}>
             <TouchableOpacity
@@ -130,14 +142,7 @@ export default function FacilityDetail() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.description}>
-          {facility.bulletPoints.map((bulletPoint) => (
-            <Text key={bulletPoint} variant="bodyLarge">
-              {"\u2022"} {bulletPoint}
-            </Text>
-          ))}
-          {renderDescription(facility.description)}
-        </View>
+        <View style={styles.description}>{renderDescription()}</View>
         <View style={styles.content}>
           <Text variant="titleLarge" style={styles.subtitle}>
             코치진
@@ -154,7 +159,6 @@ export default function FacilityDetail() {
           <Text variant="titleLarge" style={styles.subtitle}>
             가격표
           </Text>
-          <ReservationsTable products={facility.products} />
         </View>
         <View style={styles.content}>
           <View style={styles.reservation}>
@@ -174,10 +178,11 @@ export default function FacilityDetail() {
             위치
           </Text>
           <Text variant="titleMedium" style={styles.detail}>
-            {facility.location}
+            {"facility.location"}
           </Text>
           <Image
-            source={require("assets/images/seouldae.jpeg")}
+            source={0}
+            src={facility.map_image}
             style={styles.locationImage}
           />
         </View>

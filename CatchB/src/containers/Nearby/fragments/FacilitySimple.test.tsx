@@ -1,7 +1,7 @@
 import { render, fireEvent } from "@testing-library/react-native";
 
 import { FacilitySimple } from "./FacilitySimple";
-import { sampleFacilities } from "../../../variables/mvp_dummy_data/facilities";
+import { sampleFacilities } from ".data/products";
 
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),

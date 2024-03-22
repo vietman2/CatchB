@@ -5,7 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CoachBasic from "./CoachBasic";
+import { sampleCoaches } from ".data/products";
 import { admin } from ".data/users";
+import * as CoachAPI from ".services/products/coach";
 import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
@@ -37,13 +39,16 @@ jest.mock("../fragments", () => ({
   SubTitle: "SubTitle",
   DisabledTextInput: "DisabledTextInput",
 }));
-jest.mock("../../../../components/Pickers", () => ({
+jest.mock(".components/Loading", () => ({
+  LoadingComponent: "LoadingComponent",
+}));
+jest.mock(".components/Pickers", () => ({
   FilePicker: "FilePicker",
 }));
-jest.mock("../../../../components/Selectors", () => ({
+jest.mock(".components/Selectors", () => ({
   Selector: "Selector",
 }));
-jest.mock("../../../../components/Terms", () => ({
+jest.mock(".components/Terms", () => ({
   RegisterProTerms: "RegisterProTerms",
 }));
 
@@ -72,17 +77,14 @@ const render = () => {
 describe("<CoachBasic />", () => {
   it("should handle register success: navigate to MyPageScreen", async () => {
     jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
+    jest.spyOn(CoachAPI, "postCoach").mockResolvedValue({
+      status: 201,
+      data: sampleCoaches[0],
+    });
     const { getByText } = render();
 
     await waitFor(() => {
       fireEvent.press(getByText("등록하기"));
-    });
-
-    const alert = Alert.alert.mock.calls[0][2];
-
-    waitFor(() => {
-      alert[0].onPress();
-      alert[1].onPress();
     });
   });
 });

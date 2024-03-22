@@ -1,54 +1,80 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import {
-  Button,
-  Chip,
-  Divider,
-  Snackbar,
-  Text,
-  TextInput,
-} from "react-native-paper";
+import { Alert, ScrollView, StyleSheet } from "react-native";
+import { Button, Divider, Snackbar, TextInput } from "react-native-paper";
+import { useSelector } from "react-redux";
 import { ImagePickerAsset } from "expo-image-picker";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { partChoices, levelChoices, typeChoices } from "./options";
-import { MainTitle, SubTitle } from "../fragments";
+import {
+  MainTitle,
+  SubTitle,
+  RegionChoices,
+  SelectedRegions,
+} from "../fragments";
+import { LoadingComponent } from ".components/Loading";
 import { ImagePicker } from ".components/Pickers";
-import { RegionSelector, Selector } from ".components/Selectors";
-import { getRegionsList } from ".services/products";
+import { Selector } from ".components/Selectors";
+import { getRegionsList, postCoachInfo } from ".services/products";
+import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
-import { SidoType, SigunguType } from ".types/products";
+import { RegionsType, SigunguType } from ".types/products";
 
 interface Props {
   onFinish: () => void;
 }
-
-type Data = {
-  sido: SidoType[];
-  sigungu: Record<string, SigunguType[]>;
-};
 
 export default function CoachDetail({ onFinish }: Readonly<Props>) {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["93%"], []);
   const [selectedParts, setSelectedParts] = useState<string[]>(["투구"]);
   const [selectedLevels, setSelectedLevels] = useState<string[]>(["비기너1"]);
-  const [selectedTypes, setSelectedTypes] = useState<string[]>(["개인"]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>(["개인 레슨"]);
   const [visible, setVisible] = useState<boolean>(false);
   const [intro, setIntro] = useState<string>("");
   const [medias, setMedias] = useState<ImagePickerAsset[]>([]);
   const [selectedSido, setSelectedSido] = useState<string>("서울");
   const [selectedRegions, setSelectedRegions] = useState<SigunguType[]>([]);
-  const [data, setData] = useState<Data>();
+  const [data, setData] = useState<RegionsType>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const coach_uuid = useSelector((state: RootState) => state.coach.myCoachUuid);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const handleSubmitSuccess = () => {
-    onFinish();
+    Alert.alert(
+      "등록 성공",
+      "코치님의 상세 정보가 성공적으로 등록되었습니다.",
+      [{ text: "확인", onPress: onFinish, isPreferred: true }]
+    );
   };
 
-  /*
-  const handleSubmit = () => {
-    // TODO: API 연동
-  };*/
+  const handleSubmit = async () => {
+    setLoading(true);
+
+    const response = await postCoachInfo(
+      coach_uuid,
+      intro,
+      selectedParts,
+      selectedLevels,
+      selectedTypes,
+      medias,
+      selectedRegions,
+      token
+    );
+
+    if (response.status === 201) {
+      handleSubmitSuccess();
+    } else if (response.status === 400) {
+      Alert.alert("등록 실패", response.data.message);
+    } else {
+      Alert.alert(
+        "등록 실패",
+        "서버에 오류가 발생했습니다. 나중에 다시 시도해주세요."
+      );
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     const getRegions = async () => {
@@ -124,22 +150,20 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
         <ImagePicker uploadedImages={medias} setUploadedImages={setMedias} />
         <Divider style={styles.divider} />
         <SubTitle text="선호 활동 지역" sub=" 선택하면 초기 검색에 유리해요!" />
-        {selectedRegions.length > 0 && (
-          <Text style={{ marginBottom: 10 }}>
-            선택한 지역:{" "}
-            {selectedRegions.map((region) => region.name).join(", ")}
-          </Text>
-        )}
+        <SelectedRegions
+          selectedRegions={selectedRegions}
+          removeSelected={removeSelected}
+        />
         <Button onPress={() => bottomSheetRef.current?.expand()}>
           {selectedRegions.length > 0 ? "다시 선택하기" : "선택하기"}
         </Button>
-        <Button
-          mode="contained"
-          onPress={handleSubmitSuccess}
-          style={styles.button}
-        >
-          다음 (1/3)
-        </Button>
+        {loading ? (
+          <LoadingComponent style={styles.button} />
+        ) : (
+          <Button mode="contained" onPress={handleSubmit} style={styles.button}>
+            다음 (1/3)
+          </Button>
+        )}
       </ScrollView>
       <BottomSheet
         ref={bottomSheetRef}
@@ -147,53 +171,18 @@ export default function CoachDetail({ onFinish }: Readonly<Props>) {
         snapPoints={snapPoints}
         enableHandlePanningGesture={false}
       >
-        <ScrollView style={{ flex: 1, paddingHorizontal: 20 }}>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ flex: 2, marginRight: 10 }}>시/도</Text>
-            <View style={{ flex: 8 }}>
-              <Selector
-                numItemsInRow={2}
-                options={data?.sido.map((sido) => sido.label) || []}
-                singleSelected={selectedSido}
-                setSingleSelected={setSelectedSido}
-                noIcon
-              />
-            </View>
-          </View>
-          <Divider style={{ marginVertical: 10 }} />
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ flex: 2, marginRight: 10 }}>시/군/구</Text>
-            <View style={{ flex: 8 }}>
-              <RegionSelector
-                options={data?.sigungu[selectedSido] || []}
-                multiSelected={selectedRegions}
-                setMultiSelected={setSelectedRegions}
-                showSnackBar={setVisible}
-              />
-            </View>
-          </View>
-        </ScrollView>
-        {selectedRegions.length > 0 && (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              paddingHorizontal: 20,
-            }}
-          >
-            {selectedRegions.map((region) => (
-              <TouchableOpacity
-                key={region.code}
-                onPress={() => removeSelected(region)}
-              >
-                <Chip style={{ margin: 5, backgroundColor: "green" }}>
-                  {region.name}
-                </Chip>
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
+        <RegionChoices
+          data={data}
+          selectedSido={selectedSido}
+          setSelectedSido={setSelectedSido}
+          selectedRegions={selectedRegions}
+          setSelectedRegions={setSelectedRegions}
+          setVisible={setVisible}
+        />
+        <SelectedRegions
+          selectedRegions={selectedRegions}
+          removeSelected={removeSelected}
+        />
         <Button
           mode="contained"
           onPress={() => bottomSheetRef.current?.close()}
@@ -222,19 +211,6 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.primaryContainer,
     paddingTop: 10,
     paddingHorizontal: 20,
-  },
-  title: {
-    marginTop: 20,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    marginTop: 10,
-    marginBottom: 5,
-    fontWeight: "bold",
-  },
-  description: {
-    marginBottom: 5,
-    color: "gray",
   },
   divider: {
     marginVertical: 10,

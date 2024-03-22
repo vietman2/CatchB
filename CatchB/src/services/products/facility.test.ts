@@ -1,7 +1,7 @@
 import axios from "axios";
 import { act } from "@testing-library/react-native";
 
-import { registerFacility, uploadDetails } from "./facility";
+import { postFacility, postFacilityInfo } from "./facility";
 import { TestNetworkError } from ".utils/test-utils";
 
 jest.mock("form-data", () => {
@@ -12,9 +12,9 @@ jest.mock("form-data", () => {
   });
 });
 
-describe("registerFacility", () => {
+describe("postFacility", () => {
   const register = () =>
-    registerFacility(
+    postFacility(
       "name",
       "owner_uuid",
       "owner_name",
@@ -61,9 +61,9 @@ describe("registerFacility", () => {
   });
 });
 
-describe("uploadDetails", () => {
+describe("postFacilityInfo", () => {
   const upload = () =>
-    uploadDetails(
+    postFacilityInfo(
       "facility_uuid",
       "intro",
       {

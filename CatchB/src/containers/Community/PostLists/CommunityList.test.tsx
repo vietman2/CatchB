@@ -28,7 +28,9 @@ jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../fragments", () => ({
   PostSimple: "PostSimple",
 }));
-jest.mock("../../Base/ErrorPage", () => "ErrorPage");
+jest.mock(".components/Error", () => ({
+  ErrorPage: "ErrorPage",
+}));
 
 const Stack = createStackNavigator();
 

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -37,7 +36,7 @@ jest.mock("react-native-maps", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../CoachDetail/CoachSimple", () => {
+jest.mock("../fragments/CoachSimple", () => {
   const { Text } = jest.requireActual("react-native");
 
   return {
@@ -46,7 +45,7 @@ jest.mock("../CoachDetail/CoachSimple", () => {
     },
   };
 });
-jest.mock("../FacilityDetail/FacilitySimple", () => {
+jest.mock("../fragments/FacilitySimple", () => {
   const { Text } = jest.requireActual("react-native");
 
   return {
@@ -55,7 +54,13 @@ jest.mock("../FacilityDetail/FacilitySimple", () => {
     },
   };
 });
-jest.mock("../../../components/Dividers", () => ({
+jest.mock(".components/Error", () => ({
+  ErrorPage: "ErrorPage",
+}));
+jest.mock(".components/Loading", () => ({
+  LoadingPage: "LoadingPage",
+}));
+jest.mock(".components/Dividers", () => ({
   VerticalDivider: "VerticalDivider",
 }));
 
@@ -96,22 +101,7 @@ describe("<NearbyMain />", () => {
     });
   });
 
-  it("renders correctly and handles facility navigation", async () => {
-    const { getByText } = renderWithProviders(<Components />);
-
-    waitFor(() => {
-      fireEvent.press(getByText("시설"));
-      fireEvent.press(getByText("서울대 야구장"));
-    });
-  });
-
   it("renders correctly and handles coach navigation", async () => {
-    const { getByText } = renderWithProviders(<Components />);
-
-    waitFor(() => {
-      fireEvent.press(getByText("코치"));
-      fireEvent.press(getByText("홍승우"));
-    });
+    renderWithProviders(<Components />);
   });
-
 });

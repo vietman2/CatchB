@@ -24,20 +24,28 @@ export type ReservationType = {
   confirmed_at: string | null;
 };
 
-export type FacilityType = {
-  id: number;
+export type FacilitySimpleType = {
+  uuid: string;
   name: string;
-  location: string;
-  rating: number;
-  bulletPoints?: string[];
-  description: string;
-  position: {
-    lat: number;
-    lng: number;
-  };
-  products: ReservationProductType[];
-  image: ImageRequireSource;
+  region: string;
+  map_image: string;
+  latitude: number;
+  longitude: number;
 };
+
+export type FacilityDetailType = {
+  name: string;
+  phone: string;
+  region: string;
+  address: string;
+  map_image: string;
+  //info: {};
+}
+
+export type CoachSimpleType = {
+  uuid: string;
+  name: string;
+}
 
 export type CoachType = {
   id: number;
@@ -51,8 +59,6 @@ export type CoachType = {
   working_area: string;
   rating: number;
   image: ImageRequireSource;
-
-  facility?: FacilityType;
 };
 
 export type LessonProductType = {
@@ -73,4 +79,9 @@ export type SigunguType = {
   code: string;
   name: string;
   label: string;
+};
+
+export type RegionsType = {
+  sido: SidoType[];
+  sigungu: Record<string, SigunguType[]>;
 };
