@@ -12,7 +12,7 @@ import CouponList from "./Coupon/CouponList";
 import CouponRegister from "./Coupon/CouponRegister";
 import RegisterPro from "./RegisterPro/RegisterPro";
 import PasswordChange from "./PasswordChange/PasswordChange";
-import NotReady from "../Base/NotReady";
+import { NotReady } from ".components/Loading";
 import { BackButton } from ".components/Buttons";
 import { SmallLogo } from ".components/Logos";
 import { MyPageParams, MyPageScreenProps } from ".constants/navigation";

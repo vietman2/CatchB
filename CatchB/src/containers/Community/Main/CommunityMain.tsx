@@ -7,7 +7,7 @@ import {
   RecruitmentCommunity,
   VideoCommunity,
 } from "../PostLists";
-import NotReady from "../../Base/NotReady";
+import { NotReady } from ".components/Loading";
 import { themeColors } from ".themes/colors";
 
 const Tab = createMaterialTopTabNavigator();
