@@ -36,6 +36,7 @@ export default function ScrollWithRefresh({
       onScroll={onScroll}
       onScrollEndDrag={onScrollEndDrag}
       scrollEventThrottle={16}
+      testID="scroll-view"
     >
       {children}
     </ScrollView>

@@ -40,16 +40,16 @@ export function RegionSelector({
         <TouchableOpacity
           key={option.code}
           onPress={() => toggleSelected(option)}
-          style={{
-            marginRight: 10,
-            marginBottom: 10,
-            borderRadius: 8,
-            backgroundColor: isSelected(option)
-              ? themeColors.tertiaryContainer
-              : themeColors.tertiary,
-          }}
+          style={[
+            styles.outer,
+            {
+              backgroundColor: isSelected(option)
+                ? themeColors.tertiaryContainer
+                : themeColors.tertiary,
+            },
+          ]}
         >
-          <View style={styles.box}>
+          <View style={styles.inner}>
             <Text
               style={[
                 styles.label,
@@ -70,7 +70,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
-  box: {
+  outer: {
+    marginRight: 10,
+    marginBottom: 10,
+    borderRadius: 8,
+  },
+  inner: {
     justifyContent: "center",
     paddingVertical: 5,
     paddingHorizontal: 10,
