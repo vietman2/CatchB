@@ -8,7 +8,7 @@ interface StatsProps {
   iconColor?: string;
 }
 
-export function StatsCard(props: StatsProps) {
+export function StatsCard(props: Readonly<StatsProps>) {
   return (
     <View style={styles.container}>
       <Text style={styles.bold} variant="titleLarge">

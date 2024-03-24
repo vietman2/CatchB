@@ -12,7 +12,7 @@ export default function ScrollWithRefresh({
   children,
   refreshing,
   onRefresh,
-}: Props) {
+}: Readonly<Props>) {
   const [isPulledDown, setIsPulledDown] = useState<boolean>(false);
 
   const onScroll = (event: any) => {

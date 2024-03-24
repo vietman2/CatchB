@@ -24,13 +24,11 @@ export function RegionSelector({
   const toggleSelected = (option: SigunguType) => {
     if (multiSelected.includes(option)) {
       setMultiSelected(multiSelected.filter((item) => item !== option));
-    } else {
+    } else if (multiSelected.length < 5) {
       // if length exceeds 5, snack bar should be shown
-      if (multiSelected.length < 5) {
-        setMultiSelected([...multiSelected, option]);
-      } else {
-        showSnackBar(true);
-      }
+      setMultiSelected([...multiSelected, option]);
+    } else {
+      showSnackBar(true);
     }
   };
 

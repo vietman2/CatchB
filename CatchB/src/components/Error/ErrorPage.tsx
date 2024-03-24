@@ -5,7 +5,7 @@ interface Props {
   onRefresh?: () => void;
 }
 
-export default function ErrorPage({ onRefresh }: Props) {
+export default function ErrorPage({ onRefresh }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       {/* TODO: 아이콘이나 이미지 추가하기 */}
