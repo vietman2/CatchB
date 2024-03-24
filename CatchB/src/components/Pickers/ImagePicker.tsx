@@ -28,7 +28,7 @@ export function ImagePicker({
     if (result.canceled) return;
 
     const images = result as ImagePickerSuccessResult;
-    for (let imageAsset of images.assets) {
+    for (const imageAsset of images.assets) {
       if (uploadedImages.some((img) => img.fileName === imageAsset.fileName)) {
         // if same image is already uploaded, skip
         Alert.alert("이미 업로드된 사진이 포함되어 있습니다.");
