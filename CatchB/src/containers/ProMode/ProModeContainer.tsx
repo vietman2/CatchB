@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Badge, Icon, Text } from "react-native-paper";
+import { Badge, Icon } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 

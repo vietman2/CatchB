@@ -71,6 +71,9 @@ export default function Account({ onFinish }: Readonly<Props>) {
     setAddNew(true);
   };
 
+  if (loading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
+
   return (
     <>
       <ScrollView

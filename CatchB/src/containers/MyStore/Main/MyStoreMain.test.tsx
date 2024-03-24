@@ -13,7 +13,6 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
-    Text: "Text",
   };
 });
 jest.mock("../TaskBoard/TaskBoard", () => "TaskBoard");

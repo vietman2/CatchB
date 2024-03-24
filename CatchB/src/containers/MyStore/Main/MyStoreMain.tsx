@@ -1,5 +1,4 @@
-import { StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import TaskBoard from "../TaskBoard/TaskBoard";
