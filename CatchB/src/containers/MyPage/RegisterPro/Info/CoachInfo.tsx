@@ -24,7 +24,7 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function CoachDetail({ onFinish }: Readonly<Props>) {
+export default function CoachInfo({ onFinish }: Readonly<Props>) {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["93%"], []);
   const [selectedParts, setSelectedParts] = useState<string[]>(["투구"]);

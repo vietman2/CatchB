@@ -8,8 +8,8 @@ import Account from "./Account/Account";
 import Prices from "./Prices/Prices";
 import CoachBasic from "./Basic/CoachBasic";
 import FacilityBasic from "./Basic/FacilityBasic";
-import CoachDetail from "./Detail/CoachDetail";
-import FacilityDetail from "./Detail/FacilityDetail";
+import CoachInfo from "./Info/CoachInfo";
+import FacilityInfo from "./Info/FacilityInfo";
 import { ProgressSteps } from ".components/Progress";
 import { MyPageScreenProps } from ".constants/navigation";
 import { getFacilityStatus, getCoachStatus } from ".services/products";
@@ -69,7 +69,7 @@ export default function RegisterPro() {
           }
         } else if (response.status === 400) {
           statusAlert(response.data.title, response.data.message, () =>
-            navigation.goBack()
+            navigation.navigate("MyPageScreen")
           );
         }
       }
@@ -109,9 +109,9 @@ export default function RegisterPro() {
       return <FacilityBasic onFinish={() => setStep(1)} />;
     } else if (step === 1) {
       if (type === "coach") {
-        return <CoachDetail onFinish={() => setStep(2)} />;
+        return <CoachInfo onFinish={() => setStep(2)} />;
       }
-      return <FacilityDetail onFinish={() => setStep(2)} />;
+      return <FacilityInfo onFinish={() => setStep(2)} />;
     } else if (step === 2) {
       return <Account onFinish={() => setStep(3)} />;
     } else {

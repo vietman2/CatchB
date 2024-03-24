@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 
-import { RegionChip } from "./RegionChip";
+import { RegionChip } from ".components/Chips";
 import { SigunguType } from ".constants/types/products";
 
 interface Props {
