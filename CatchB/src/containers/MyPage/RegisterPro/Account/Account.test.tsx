@@ -40,6 +40,12 @@ jest.mock("../fragments", () => {
     SubTitle: "SubTitle",
   };
 });
+jest.mock(".components/Error", () => ({
+  ErrorPage: "ErrorPage",
+}));
+jest.mock(".components/Loading", () => ({
+  LoadingPage: "LoadingPage",
+}));
 jest.mock(".components/Terms", () => ({
   RegisterProTerms: "RegisterProTerms",
 }));

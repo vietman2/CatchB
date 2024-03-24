@@ -21,7 +21,7 @@ export default function Tags({
   setSnackbarText,
   setVisible,
   tagChoices,
-}: Props) {
+}: Readonly<Props>) {
   const renderTags = () => {
     return tagChoices[selectedForum].map((tag: TagType) => (
       <TouchableOpacity key={tag.name} onPress={() => handleTagSelect(tag)}>

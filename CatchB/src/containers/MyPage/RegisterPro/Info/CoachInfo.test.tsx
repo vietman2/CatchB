@@ -41,11 +41,9 @@ jest.mock("../fragments", () => {
     MainTitle: "MainTitle",
     SubTitle: "SubTitle",
     RegionChoices: ({ setVisible }: any) => (
-      <>
-        <TouchableOpacity onPress={() => setVisible(true)}>
-          <Text>RegionChoices</Text>
-        </TouchableOpacity>
-      </>
+      <TouchableOpacity onPress={() => setVisible(true)}>
+        <Text>RegionChoices</Text>
+      </TouchableOpacity>
     ),
     SelectedRegions: ({ removeSelected }: any) => (
       <TouchableOpacity onPress={removeSelected}>
