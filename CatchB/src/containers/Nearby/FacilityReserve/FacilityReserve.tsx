@@ -16,7 +16,7 @@ export default function FacilityReserve() {
   const selectedTime = route.params?.selectedTime;
   const selectedProduct = route.params?.selectedProduct;
   const facility = useSelector(
-    (state: RootState) => state.facility.selectedFacility
+    (state: RootState) => state.facility.selectedFacilityId
   );
 
   const handlePayment = () => {
@@ -40,7 +40,7 @@ export default function FacilityReserve() {
       <View style={styles.facilityContainer}>
         <Icon source="baseball-diamond" size={36} color="green" />
         <Text variant="headlineMedium" style={styles.facilityTitle}>
-          {facility.name}
+          {facility}
         </Text>
       </View>
       <View style={styles.contentBox}>
@@ -75,11 +75,7 @@ export default function FacilityReserve() {
         <Text variant="titleMedium">할인: {`- 3,000원`}</Text>
         <Text variant="titleMedium">최종 결제 금액: {`12,000원`}</Text>
       </View>
-      <Button
-        mode="contained"
-        style={{ marginTop: 20 }}
-        onPress={handlePayment}
-      >
+      <Button mode="contained" style={styles.button} onPress={handlePayment}>
         결제하기
       </Button>
     </View>
@@ -112,5 +108,8 @@ const styles = StyleSheet.create({
   },
   contentText: {
     marginTop: 5,
+  },
+  button: {
+    marginTop: 20,
   },
 });

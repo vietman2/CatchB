@@ -1,12 +1,15 @@
 import { render } from "@testing-library/react-native";
 
 import { CoachSimple } from "./CoachSimple";
-import { sampleCoaches } from "../../../variables/mvp_dummy_data/coaches";
+import { sampleCoaches } from ".data/products";
 
 jest.mock("react-native-paper", () => ({
   ...jest.requireActual("react-native-paper"),
   Icon: "Icon",
   Text: "Text",
+}));
+jest.mock(".components/Chips", () => ({
+  CoachTypeChip: () => null,
 }));
 
 describe("<CoachSimple />", () => {

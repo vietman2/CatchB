@@ -6,7 +6,6 @@ jest.mock("react-native-paper", () => ({
   Divider: "Divider",
   Text: "Text",
 }));
-jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("react-native-markdown-display", () => {
   const MockMarkdown = () => "Markdown";
   const MockMarkdownIt = jest.fn().mockImplementation(() => {
@@ -19,6 +18,7 @@ jest.mock("react-native-markdown-display", () => {
     MarkdownIt: MockMarkdownIt,
   };
 });
+jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 
 describe("<MdPreview />", () => {
   it("should render", () => {

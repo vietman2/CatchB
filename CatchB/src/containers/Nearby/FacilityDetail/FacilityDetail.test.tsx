@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { waitFor } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -33,7 +33,7 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../fragments/fragments", () => ({
+jest.mock("../fragments", () => ({
   Stats: "Stats",
   TitleText: "TitleText",
 }));
@@ -60,13 +60,13 @@ const Components = () => {
   );
 };
 
-jest.spyOn(FacilityAPI, "getFacilityDetail").mockResolvedValue({
-  status: 200,
-  data: sampleFacilityDetail,
-});
-
 describe("<FacilityDetail />", () => {
-  it("handles buttons", async () => {
+  it("renders error page correctly", async () => {
+    jest.spyOn(FacilityAPI, "getFacilityDetail").mockResolvedValue({
+      status: 400,
+      data: "Error",
+    });
+
     waitFor(() =>
       renderWithProviders(<Components />, {
         preloadedState: {
@@ -77,5 +77,25 @@ describe("<FacilityDetail />", () => {
         },
       })
     );
+  });
+
+  it("handles reserve press", async () => {
+    jest.spyOn(FacilityAPI, "getFacilityDetail").mockResolvedValue({
+      status: 200,
+      data: sampleFacilityDetail,
+    });
+
+    const { getByTestId } = await waitFor(() =>
+      renderWithProviders(<Components />, {
+        preloadedState: {
+          facility: {
+            selectedFacilityId: sampleFacilities[0].uuid,
+            myFacilityUuid: "1234",
+          },
+        },
+      })
+    );
+
+    waitFor(() => fireEvent.press(getByTestId("reserve-button")));
   });
 });

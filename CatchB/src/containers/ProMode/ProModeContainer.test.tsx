@@ -29,8 +29,11 @@ jest.mock("./StoreDashboard/StoreDashboard", () => ({
 jest.mock("./Sales/Sales", () => ({
   Sales: "Sales",
 }));
-jest.mock("../../components/Logos", () => ({
+jest.mock(".components/Logos", () => ({
   SmallLogo: () => "SmallLogo",
+}));
+jest.mock(".components/Loading", () => ({
+  NotReady: "NotReady",
 }));
 
 const Tab = createBottomTabNavigator();

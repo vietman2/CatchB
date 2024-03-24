@@ -27,7 +27,7 @@ jest.mock("../", () => {
     PromotionContainer: "PromotionContainer",
   };
 });
-jest.mock("../../components/Dialogs", () => {
+jest.mock(".components/Dialogs", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
     SwitchModeDialog: ({ onClose, setMode }: any) => {

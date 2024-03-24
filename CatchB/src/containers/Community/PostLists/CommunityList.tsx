@@ -72,11 +72,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
     return (
       <TouchableOpacity
         onPress={() => handleSortChoice(choice)}
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-        }}
+        style={styles.sort}
         testID="sortChoice"
       >
         <Text
@@ -114,12 +110,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
             onPress={handleOpenBottomSheet}
             testID="sort-button"
           >
-            <Chip
-              compact
-              icon="sort"
-              selectedColor="green"
-              style={{ backgroundColor: "rgba(64, 196, 20, 0.25)" }}
-            >
+            <Chip compact icon="sort" selectedColor="green" style={styles.chip}>
               {sort}
             </Chip>
           </TouchableOpacity>
@@ -128,10 +119,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
               compact
               icon="filter-variant"
               selectedColor="green"
-              style={{
-                backgroundColor: "rgba(64, 196, 20, 0.25)",
-                marginLeft: 10,
-              }}
+              style={styles.filterChip}
             >
               전체
             </Chip>
@@ -142,10 +130,7 @@ export function CommunityList({ mode }: Readonly<Props>) {
                 compact
                 icon="check-circle-outline"
                 selectedColor="green"
-                style={{
-                  backgroundColor: "rgba(64, 196, 20, 0.25)",
-                  marginLeft: 10,
-                }}
+                style={styles.filterChip}
               >
                 우리동네만 보기
               </Chip>
@@ -236,5 +221,17 @@ const styles = StyleSheet.create({
   },
   sortChoices: {
     marginTop: 15,
+  },
+  sort: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+  },
+  chip: {
+    backgroundColor: "rgba(64, 196, 20, 0.25)",
+  },
+  filterChip: {
+    backgroundColor: "rgba(64, 196, 20, 0.25)",
+    marginLeft: 10,
   },
 });

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Badge, Icon, Text } from "react-native-paper";
+import { Badge, Icon } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
@@ -8,17 +8,9 @@ import { Calendar } from "./Calendar/Calendar";
 import { StoreDashboard } from "./StoreDashboard/StoreDashboard";
 import { Sales } from "./Sales/Sales";
 import { SmallLogo } from ".components/Logos";
+import { NotReady } from ".components/Loading";
 import { HomeParams } from ".constants/navigation";
 import { themeColors } from ".themes/colors";
-
-// TODO: Remove this later
-function NotReady() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text variant="headlineSmall">준비중입니다.</Text>
-    </View>
-  );
-}
 
 const ProStack = createStackNavigator<HomeParams>();
 

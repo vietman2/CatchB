@@ -1,9 +1,10 @@
 import { render } from "@testing-library/react-native";
 
-import { LoadingPage, LoadingComponent } from ".components/Loading";
+import { LoadingPage, LoadingComponent, NotReady } from ".components/Loading";
 
 jest.mock("react-native-paper", () => ({
   ActivityIndicator: "ActivityIndicator",
+  Text: "Text",
 }));
 
 describe("<LoadingPage />", () => {
@@ -15,5 +16,11 @@ describe("<LoadingPage />", () => {
 describe("<LoadingComponent />", () => {
   it("should render", () => {
     render(<LoadingComponent />);
+  });
+});
+
+describe("<NotReady />", () => {
+  it("should render", () => {
+    render(<NotReady />);
   });
 });

@@ -13,6 +13,8 @@ import {
   MainTitle,
   SubTitle,
 } from "../fragments";
+import { ErrorPage } from ".components/Error";
+import { LoadingPage } from ".components/Loading";
 import { RegisterProTerms } from ".components/Terms";
 import { sampleBankAccounts } from ".data/payments";
 import { getBankList } from ".services/payments";
@@ -30,6 +32,8 @@ export default function Account({ onFinish }: Readonly<Props>) {
   //const [selectedBank, setSelectedBank] = useState<BankAccountType | null>(
   //  null
   //);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
   const [bankList, setBankList] = useState<BankType[]>([]);
   const [addNew, setAddNew] = useState<boolean>(false);
   const token = useSelector((state: RootState) => state.auth.token);
@@ -50,9 +54,14 @@ export default function Account({ onFinish }: Readonly<Props>) {
   useEffect(() => {
     const getList = async () => {
       const response = await getBankList(token);
-      if (response) {
+
+      if (response.status !== 200) {
+        setError(true);
+      } else {
         setBankList(response.data);
+        setError(false);
       }
+      setLoading(false);
     };
 
     getList();
@@ -61,6 +70,9 @@ export default function Account({ onFinish }: Readonly<Props>) {
   const handleNewAccount = () => {
     setAddNew(true);
   };
+
+  if (loading) return <LoadingPage />;
+  if (error) return <ErrorPage />;
 
   return (
     <>
@@ -77,7 +89,7 @@ export default function Account({ onFinish }: Readonly<Props>) {
         {addNew ? (
           <View style={styles.newAccount}>
             <IconText text="신규 계좌 추가" icon="wallet-plus" />
-            <TouchableOpacity onPress={handleBankChoicePress}>
+            <TouchableOpacity onPress={handleBankChoicePress} testID="bank">
               <Bank />
             </TouchableOpacity>
           </View>
@@ -109,7 +121,7 @@ export default function Account({ onFinish }: Readonly<Props>) {
               }}
             >
               {bankList.map((bank, index) => (
-                <TouchableOpacity key={index} onPress={() => {}}>
+                <TouchableOpacity key={index} onPress={() => {}}> {/*TODO: setSelectedBank(bank)*/}
                   <BankChoice key={index} bank={bank} />
                 </TouchableOpacity>
               ))}

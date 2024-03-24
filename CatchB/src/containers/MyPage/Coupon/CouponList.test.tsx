@@ -20,9 +20,11 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("./fragments", () => ({
-  ActivityIndicator: "ActivityIndicator",
   Coupon: "Coupon",
   NoCoupon: "NoCoupon",
+}));
+jest.mock(".components/Loading", () => ({
+  LoadingPage: "LoadingPage",
 }));
 
 const Stack = createStackNavigator();

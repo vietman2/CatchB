@@ -5,7 +5,7 @@ interface Props {
   is_academy_coach: boolean;
 }
 
-export function CoachTypeChip({ is_academy_coach }: Props) {
+export function CoachTypeChip({ is_academy_coach }: Readonly<Props>) {
   return (
     <View style={styles.container}>
       <View

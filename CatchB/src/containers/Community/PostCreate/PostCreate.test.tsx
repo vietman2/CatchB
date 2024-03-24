@@ -52,14 +52,14 @@ jest.mock("expo-image-picker", () => ({
   MediaTypeOptions: "MediaTypeOptions",
   launchImageLibraryAsync: jest.fn(),
 }));
-jest.mock("./fragments", () => {
+jest.mock("../fragments", () => {
   return {
     MyDivider: "MyDivider",
     Preview: "Preview",
     Tags: "Tags",
   };
 });
-jest.mock("../../../components/Selectors", () => {
+jest.mock(".components/Selectors", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
     Selector: ({ setSingleSelected }: any) => (

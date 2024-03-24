@@ -18,7 +18,9 @@ export default function Preview({ content, uploadedImages }: Readonly<Props>) {
       .split("\n")
       .map((line) => {
         if (line.startsWith("![업로드")) {
-          const imageIndex = parseInt(line.match(/\d+/)[0]) - 1;
+          const match = /\d+/.exec(line);
+          const imageIndex = match ? parseInt(match[0], 10) - 1 : -1;
+
           return `![업로드${imageIndex + 1}](${
             uploadedImages[imageIndex].url
           })`;

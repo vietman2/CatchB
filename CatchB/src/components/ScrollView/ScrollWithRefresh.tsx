@@ -12,7 +12,7 @@ export default function ScrollWithRefresh({
   children,
   refreshing,
   onRefresh,
-}: Props) {
+}: Readonly<Props>) {
   const [isPulledDown, setIsPulledDown] = useState<boolean>(false);
 
   const onScroll = (event: any) => {
@@ -36,6 +36,7 @@ export default function ScrollWithRefresh({
       onScroll={onScroll}
       onScrollEndDrag={onScrollEndDrag}
       scrollEventThrottle={16}
+      testID="scroll-view"
     >
       {children}
     </ScrollView>

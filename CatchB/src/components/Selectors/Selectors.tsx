@@ -53,14 +53,14 @@ export function Selector({
         <View key={option} style={noIcon ? {} : { width: itemWidth }}>
           <TouchableOpacity
             onPress={() => toggleSelected(option)}
-            style={{
-              marginRight: 10,
-              marginBottom: 10,
-              borderRadius: 8,
-              backgroundColor: isSelected(option)
-                ? themeColors.tertiaryContainer
-                : themeColors.tertiary,
-            }}
+            style={[
+              styles.touchable,
+              {
+                backgroundColor: isSelected(option)
+                  ? themeColors.tertiaryContainer
+                  : themeColors.tertiary,
+              },
+            ]}
           >
             <SelectionChip
               label={option}
@@ -121,6 +121,11 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
     paddingLeft: 5,
+  },
+  touchable: {
+    marginRight: 10,
+    marginBottom: 10,
+    borderRadius: 8,
   },
   box: {
     justifyContent: "center",

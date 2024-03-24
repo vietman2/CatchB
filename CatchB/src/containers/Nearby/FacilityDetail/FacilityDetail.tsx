@@ -12,7 +12,7 @@ import { Avatar, Button, Icon, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { Stats, TitleText } from "../fragments/fragments";
+import { Stats, TitleText } from "../fragments";
 import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { TimeBar } from ".components/Tables";
@@ -43,10 +43,17 @@ function DateTimePicker() {
   );
 }
 
-function CoachProfile({ name, profile }: Readonly<{ name: string; profile: string }>) {
+function CoachProfile({
+  name,
+  profile,
+}: Readonly<{ name: string; profile: string }>) {
   return (
     <View style={styles.profileContainer}>
-      <Avatar.Image source={{ uri: profile }} style={{marginVertical: 16}} size={64} />
+      <Avatar.Image
+        source={{ uri: profile }}
+        style={styles.profileImage}
+        size={64}
+      />
       <Text>{name}</Text>
     </View>
   );
@@ -96,20 +103,19 @@ export default function FacilityDetail() {
 
       if (response.status !== 200) {
         setError(true);
-        return;
       } else {
         setFacility(response.data);
         setError(false);
       }
       setLoading(false);
-    }
+    };
 
     fetchDetails();
-  }, [])
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({ title: facility?.facility.name });
-  }, [facility])
+  }, [facility]);
 
   if (loading) return <LoadingPage />;
   if (error) return <ErrorPage />;
@@ -190,7 +196,7 @@ export default function FacilityDetail() {
         index={0}
         snapPoints={snapPoints}
         style={styles.bottomSheet}
-        backgroundStyle={{ backgroundColor: "rgb(245, 245, 245)" }}
+        backgroundStyle={styles.sheetBackground}
       >
         <Text variant="titleLarge" style={styles.subtitle}>
           예약하기
@@ -288,5 +294,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
+  },
+  profileImage: {
+    marginVertical: 16,
+  },
+  sheetBackground: {
+    backgroundColor: "rgb(245, 245, 245)",
   },
 });

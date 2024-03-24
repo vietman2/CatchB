@@ -2,7 +2,7 @@
 import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
-import FacilityDetail from "./FacilityDetail";
+import FacilityInfo from "./FacilityInfo";
 import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-paper", () => {
@@ -38,19 +38,19 @@ jest.mock("../fragments", () => ({
   MainTitle: "MainTitle",
   SubTitle: "SubTitle",
 }));
-jest.mock("../../../../components/Selectors", () => ({
+jest.mock(".components/Selectors", () => ({
   Selector: "Selector",
 }));
-jest.mock("../../../../components/Pickers", () => ({
+jest.mock(".components/Pickers", () => ({
   ImagePicker: "ImagePicker",
   NumberPicker: "NumberPicker",
   WorkTimePickers: "WorkTimePickers",
 }));
 
-describe("<FacilityDetail />", () => {
+describe("<FacilityInfo />", () => {
   it("should handle introduction input", async () => {
     const { getByTestId } = renderWithProviders(
-      <FacilityDetail onFinish={() => {}} />
+      <FacilityInfo onFinish={() => {}} />
     );
 
     const textinput = getByTestId("introduction");
@@ -59,7 +59,7 @@ describe("<FacilityDetail />", () => {
 
   it("should handle custom equipment", async () => {
     const { getByTestId, getByText } = renderWithProviders(
-      <FacilityDetail onFinish={() => {}} />
+      <FacilityInfo onFinish={() => {}} />
     );
 
     const textinput = getByTestId("additionalEquipment");
@@ -82,7 +82,7 @@ describe("<FacilityDetail />", () => {
       })
     );
     const { getByText } = renderWithProviders(
-      <FacilityDetail onFinish={() => {}} />
+      <FacilityInfo onFinish={() => {}} />
     );
 
     const button = getByText("완료 (1/3)");
@@ -96,7 +96,7 @@ describe("<FacilityDetail />", () => {
       })
     );
     const { getByText } = renderWithProviders(
-      <FacilityDetail onFinish={() => {}} />
+      <FacilityInfo onFinish={() => {}} />
     );
 
     const button = getByText("완료 (1/3)");
@@ -110,7 +110,7 @@ describe("<FacilityDetail />", () => {
       })
     );
     const { getByText } = renderWithProviders(
-      <FacilityDetail onFinish={() => {}} />
+      <FacilityInfo onFinish={() => {}} />
     );
 
     const button = getByText("완료 (1/3)");

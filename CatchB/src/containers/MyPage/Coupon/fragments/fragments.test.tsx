@@ -1,24 +1,15 @@
 import { render } from "@testing-library/react-native";
 
-import { ActivityIndicator, Coupon, NoCoupon } from "./";
+import { Coupon, NoCoupon } from "./";
 import { sampleCoupons } from ".data/users";
 
 jest.mock("react-native-paper", () => ({
-  ActivityIndicator: "ActivityIndicator",
   Icon: "Icon",
   Text: "Text",
 }));
-jest.mock("expo-linear-gradient", () => {
-  return {
-    LinearGradient: "LinearGradient",
-  };
-});
-
-describe("<ActivityIndicator />", () => {
-  it("renders correctly", () => {
-    render(<ActivityIndicator />);
-  });
-});
+jest.mock("expo-linear-gradient", () => ({
+  LinearGradient: "LinearGradient",
+}));
 
 describe("<Coupon />", () => {
   it("renders new coupon correctly", () => {

@@ -4,8 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
 import FacilityReserve from "./FacilityReserve";
-import { renderWithProviders } from ".utils/test-utils";
 import { sampleFacilities } from ".data/products";
+import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -64,7 +64,7 @@ describe("<FacilityReserve />", () => {
     renderWithProviders(<Components />, {
       preloadedState: {
         facility: {
-          selectedFacility: sampleFacilities[0],
+          selectedFacilityId: sampleFacilities[0].uuid,
           myFacilityUuid: "1234",
         },
       },
@@ -81,7 +81,7 @@ describe("<FacilityReserve />", () => {
       {
         preloadedState: {
           facility: {
-            selectedFacility: sampleFacilities[0],
+            selectedFacilityId: sampleFacilities[0].uuid,
             myFacilityUuid: "1234",
           },
         },

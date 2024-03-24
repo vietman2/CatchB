@@ -26,7 +26,7 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function CoachStep1({ onFinish }: Readonly<Props>) {
+export default function CoachBasic({ onFinish }: Readonly<Props>) {
   const [uploadedFile, setUploadedFile] = useState<
     DocumentPickerAsset | ImagePickerAsset
   >(null);

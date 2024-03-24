@@ -8,6 +8,7 @@ import { admin } from ".data/users";
 import * as CoachAPI from ".services/products/coach";
 import * as FacilityAPI from ".services/products/facility";
 import { renderWithProviders } from ".utils/test-utils";
+import { Alert } from "react-native";
 
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
@@ -28,7 +29,7 @@ jest.mock("./Account/Account", () => {
   };
 });
 jest.mock("./Prices/Prices", () => "Prices");
-jest.mock("./Detail/CoachDetail", () => {
+jest.mock("./Info/CoachInfo", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
 
   return ({ onFinish }: { onFinish: () => void }) => {
@@ -51,7 +52,7 @@ jest.mock("./Basic/FacilityBasic", () => {
     );
   };
 });
-jest.mock("./Detail/FacilityDetail", () => {
+jest.mock("./Info/FacilityInfo", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
 
   return ({ onFinish }: { onFinish: () => void }) => {
@@ -66,6 +67,8 @@ jest.mock(".components/Progress", () => ({
 
 const Stack = createStackNavigator();
 
+const EmptyComponent = () => <></>;
+
 const render = (type: "coach" | "facility") => {
   return renderWithProviders(
     <NavigationContainer>
@@ -78,6 +81,7 @@ const render = (type: "coach" | "facility") => {
             type: type,
           }}
         />
+        <Stack.Screen name="MyPageScreen" component={EmptyComponent} />
       </Stack.Navigator>
     </NavigationContainer>,
     {
@@ -92,7 +96,7 @@ const render = (type: "coach" | "facility") => {
 };
 
 describe("<RegisterPro />", () => {
-  it("should render coach and handle steps", async () => {
+  it("should render coach and handle step 0", async () => {
     jest.spyOn(CoachAPI, "getCoachRegisterStatus").mockResolvedValue({
       status: 200,
       data: {
@@ -109,7 +113,52 @@ describe("<RegisterPro />", () => {
     fireEvent.press(getByTestId("account-button"));
   });
 
-  it("should render facility and handle steps", async () => {
+  it("should render coach and handle step 1", async () => {
+    jest.spyOn(CoachAPI, "getCoachRegisterStatus").mockResolvedValue({
+      status: 200,
+      data: {
+        title: "title",
+        message: "message",
+        step: 1,
+        coach: "1",
+      },
+    });
+    await waitFor(() => render("coach"));
+  });
+
+  it("should render coach and handle step -1", async () => {
+    jest.spyOn(CoachAPI, "getCoachRegisterStatus").mockResolvedValue({
+      status: 200,
+      data: {
+        title: "title",
+        message: "message",
+        step: -1,
+        coach: "1",
+      },
+    });
+    await waitFor(() => render("coach"));
+  });
+
+  it("should handle error", async () => {
+    jest.spyOn(CoachAPI, "getCoachRegisterStatus").mockResolvedValue({
+      status: 400,
+      data: {
+        title: "title",
+        message: "message",
+      },
+    });
+    await waitFor(() => render("coach"));
+  });
+
+  it("should handle server error", async () => {
+    jest.spyOn(CoachAPI, "getCoachRegisterStatus").mockResolvedValue({
+      status: 500,
+      data: {},
+    });
+    await waitFor(() => render("coach"));
+  });
+
+  it("should render facility and handle step 0", async () => {
     jest.spyOn(FacilityAPI, "getFacilityRegisterStatus").mockResolvedValue({
       status: 200,
       data: {
@@ -124,5 +173,40 @@ describe("<RegisterPro />", () => {
     fireEvent.press(getByTestId("facility-basic-button"));
     fireEvent.press(getByTestId("facility-detail-button"));
     fireEvent.press(getByTestId("account-button"));
+  });
+
+  it("should render facility and handle step 1", async () => {
+    jest.spyOn(FacilityAPI, "getFacilityRegisterStatus").mockResolvedValue({
+      status: 200,
+      data: {
+        title: "title",
+        message: "message",
+        step: 1,
+        facility: "1",
+      },
+    });
+    await waitFor(() => render("facility"));
+  });
+
+  it("should handle error", async () => {
+    jest.spyOn(FacilityAPI, "getFacilityRegisterStatus").mockResolvedValue({
+      status: 400,
+      data: {
+        title: "title",
+        message: "message",
+      },
+    });
+    jest.spyOn(Alert, "alert").mockImplementationOnce(jest.fn);
+    await waitFor(() => render("facility"));
+
+    waitFor(() => Alert.alert.mock.calls[0][2][0].onPress());
+  });
+
+  it("should handle server error", async () => {
+    jest.spyOn(FacilityAPI, "getFacilityRegisterStatus").mockResolvedValue({
+      status: 500,
+      data: {},
+    });
+    await waitFor(() => render("facility"));
   });
 });

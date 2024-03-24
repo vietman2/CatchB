@@ -1,8 +1,8 @@
 import { Image, StyleSheet, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
-import { CoachSimpleType } from ".types/products";
 import { CoachTypeChip } from ".components/Chips";
+import { CoachSimpleType } from ".types/products";
 
 interface Props {
   coach: CoachSimpleType;
@@ -20,9 +20,7 @@ export function CoachSimple({ coach }: Readonly<Props>) {
       <View style={styles.infoBox}>
         <View>
           <View style={styles.horizontal}>
-            <CoachTypeChip
-              is_academy_coach={coach.is_academy_coach}
-            />
+            <CoachTypeChip is_academy_coach={coach.is_academy_coach} />
             <View style={styles.rating}>
               <Icon source="star" size={20} color="#14863e" />
               <Text>0/10</Text>

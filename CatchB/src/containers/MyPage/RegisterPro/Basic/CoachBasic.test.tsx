@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/prop-types */
 import { Alert } from "react-native";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -42,9 +43,22 @@ jest.mock("../fragments", () => ({
 jest.mock(".components/Loading", () => ({
   LoadingComponent: "LoadingComponent",
 }));
-jest.mock(".components/Pickers", () => ({
-  FilePicker: "FilePicker",
-}));
+jest.mock(".components/Pickers", () => {
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+  const mockedFile = {
+    uri: "uri",
+    name: "name",
+    type: "type",
+  };
+
+  return {
+    FilePicker: ({ setUploadedFile }) => (
+      <TouchableOpacity onPress={() => setUploadedFile(mockedFile)}>
+        <Text>Upload</Text>
+      </TouchableOpacity>
+    ),
+  };
+});
 jest.mock(".components/Selectors", () => ({
   Selector: "Selector",
 }));
@@ -76,15 +90,53 @@ const render = () => {
 
 describe("<CoachBasic />", () => {
   it("should handle register success: navigate to MyPageScreen", async () => {
-    jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
     jest.spyOn(CoachAPI, "postCoach").mockResolvedValue({
       status: 201,
       data: sampleCoaches[0],
     });
+    jest.spyOn(Alert, "alert").mockImplementation(jest.fn());
+    const { getByText } = render();
+
+    await waitFor(() => {
+      fireEvent.press(getByText("Upload"));
+      fireEvent.press(getByText("등록하기"));
+    });
+
+    const alert = Alert.alert.mock.calls[0][2];
+
+    waitFor(() => {
+      alert[0].onPress();
+      alert[1].onPress();
+    });
+  });
+
+  it("should handle register failure: no file uploaded", async () => {
     const { getByText } = render();
 
     await waitFor(() => {
       fireEvent.press(getByText("등록하기"));
+    });
+  });
+
+  it("should handle register failure: API error", async () => {
+    jest.spyOn(CoachAPI, "postCoach").mockResolvedValue({
+      status: 400,
+      data: { message: "error" },
+    });
+    const { getByText } = render();
+
+    await waitFor(() => {
+      fireEvent.press(getByText("Upload"));
+      fireEvent.press(getByText("등록하기"));
+    });
+  });
+
+  it("should handle file upload", async () => {
+    const { getByText } = render();
+
+    await waitFor(() => {
+      fireEvent.press(getByText("pdf 업로드"));
+      fireEvent.press(getByText("이미지 업로드"));
     });
   });
 });

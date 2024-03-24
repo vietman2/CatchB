@@ -1,3 +1,4 @@
 import { CoachTypeChip } from "./CoachTypeChip";
+import { RegionChip } from "./RegionChip";
 
-export { CoachTypeChip };
+export { CoachTypeChip, RegionChip };

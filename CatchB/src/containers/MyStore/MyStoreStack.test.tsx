@@ -9,6 +9,9 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("./Main/MyStoreMain", () => "MyStoreMain");
 jest.mock("./WorkProgress/WorkProgress", () => "WorkProgress");
+jest.mock(".components/Logos", () => ({
+  SmallLogo: () => "SmallLogo",
+}));
 
 const Tab = createBottomTabNavigator();
 

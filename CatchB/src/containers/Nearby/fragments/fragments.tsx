@@ -1,8 +1,7 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Icon, Text } from "react-native-paper";
 
 import { themeColors } from ".themes/colors";
-import { TouchableOpacity } from "react-native";
 
 interface TitleProps {
   title: string;
@@ -38,7 +37,7 @@ export function Stats({ rating, like, setLike }: StatsProps) {
             color={themeColors.primary}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => {}} testID="share">
           <Icon source="share-outline" size={20} />
         </TouchableOpacity>
       </View>

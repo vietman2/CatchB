@@ -20,7 +20,6 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("./Main", () => {
-  // mock default
   const { View, Text, TouchableOpacity } = jest.requireActual("react-native");
 
   return () => {
@@ -42,7 +41,7 @@ jest.mock("./Main", () => {
 });
 jest.mock("./PostCreate", () => "PostCreate");
 jest.mock("./PostDetail", () => "PostDetail");
-jest.mock("../../components/Buttons", () => {
+jest.mock(".components/Buttons", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
   return {
     BackButton: ({ onPress }: { onPress: () => void }) => {
@@ -50,7 +49,7 @@ jest.mock("../../components/Buttons", () => {
     },
   };
 });
-jest.mock("../../components/Logos", () => {
+jest.mock(".components/Logos", () => {
   const { Text } = jest.requireActual("react-native");
   return {
     SmallLogo: () => {

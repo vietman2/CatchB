@@ -20,7 +20,7 @@ interface Props {
   onFinish: () => void;
 }
 
-export default function FacilityDetail({ onFinish }: Readonly<Props>) {
+export default function FacilityInfo({ onFinish }: Readonly<Props>) {
   const [waiting, setWaiting] = useState<boolean>(false);
   // text inputs
   const [introduction, setIntroduction] = useState<string>("");
