@@ -2,19 +2,12 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import TaskBoard from "../../MyStore/TaskBoard/TaskBoard";
-import ManageReservations from "../../MyStore/ManageReservations/ManageReservations";
+import TaskBoard from "../TaskBoard/TaskBoard";
+import ManageReservations from "../ManageReservations/ManageReservations";
+import { NotReady } from ".components/Loading";
 import { themeColors } from ".themes/colors";
 
 const Tab = createMaterialTopTabNavigator();
-
-function NotReady() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text variant="headlineSmall">준비중입니다.</Text>
-    </View>
-  );
-}
 
 export default function MyStoreMain() {
   return (

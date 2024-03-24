@@ -8,17 +8,9 @@ import { Calendar } from "./Calendar/Calendar";
 import { StoreDashboard } from "./StoreDashboard/StoreDashboard";
 import { Sales } from "./Sales/Sales";
 import { SmallLogo } from ".components/Logos";
+import { NotReady } from ".components/Loading";
 import { HomeParams } from ".constants/navigation";
 import { themeColors } from ".themes/colors";
-
-// TODO: Remove this later
-function NotReady() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text variant="headlineSmall">준비중입니다.</Text>
-    </View>
-  );
-}
 
 const ProStack = createStackNavigator<HomeParams>();
 

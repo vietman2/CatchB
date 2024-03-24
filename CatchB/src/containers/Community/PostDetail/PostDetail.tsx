@@ -63,7 +63,7 @@ export default function PostDetail() {
         ref={bottomSheetRef}
         index={0}
         snapPoints={snapPoints}
-        backgroundStyle={{ backgroundColor: "rgb(250, 250, 250)" }}
+        backgroundStyle={styles.sheetBackground}
       >
         <View style={styles.comments}>
           <Text variant="titleMedium" style={styles.commentTitle}>
@@ -102,5 +102,8 @@ const styles = StyleSheet.create({
   },
   commentTitle: {
     marginBottom: 10,
+  },
+  sheetBackground: {
+    backgroundColor: "rgb(250, 250, 250)",
   },
 });

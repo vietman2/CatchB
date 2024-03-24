@@ -4,7 +4,8 @@ import { Divider, Text } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import { ActivityIndicator, Coupon, NoCoupon } from "./fragments";
+import { Coupon, NoCoupon } from "./fragments";
+import { LoadingPage } from ".components/Loading";
 import { MyPageScreenProps } from ".constants/navigation";
 import { getCouponList } from ".services/user_management";
 import { AppDispatch, RootState } from ".store/index";
@@ -61,7 +62,7 @@ export default function CouponList() {
           <Text variant="titleMedium">+ 쿠폰등록</Text>
         </TouchableOpacity>
       </View>
-      {loading ? <ActivityIndicator /> : renderCoupons()}
+      {loading ? <LoadingPage /> : renderCoupons()}
     </View>
   );
 }

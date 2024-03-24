@@ -13,6 +13,7 @@ module.exports = function (api) {
             ".components": "./src/components",
             ".constants": "./src/constants",
             ".data": "./src/constants/test_data",
+            ".enums": "./src/constants/enums",
             ".services": "./src/services",
             ".store": "./src/store",
             ".themes": "./src/constants/themes",

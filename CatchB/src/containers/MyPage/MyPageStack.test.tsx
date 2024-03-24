@@ -10,45 +10,14 @@ import { renderWithProviders } from ".utils/test-utils";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
-jest.mock("rn-tourguide", () => ({
-  TourGuideZone: "TourGuideZone",
-  useTourGuideController: () => ({ start: jest.fn() }),
-}));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
-  const { TouchableOpacity, Text } = jest.requireActual("react-native");
-  const { Dialog } = jest.requireActual("react-native-paper");
-
-  const mockButton = ({ children, onPress }) => (
-    <TouchableOpacity onPress={onPress}>
-      <Text>{children}</Text>
-    </TouchableOpacity>
-  );
 
   return {
     PaperProvider: Provider,
-    Divider: "Divider",
     Text: "Text",
-    TextInput: "TextInput",
-    TouchableRipple: "TouchableRipple",
-    Icon: "Icon",
-    IconButton: "IconButton",
-    Button: mockButton,
-    Snackbar: "Snackbar",
-    ActivityIndicator: "ActivityIndicator",
-    Portal: "Portal",
-    Dialog: Dialog,
   };
 });
-jest.mock("expo-linear-gradient", () => ({
-  LinearGradient: "LinearGradient",
-}));
-jest.mock("expo-document-picker", () => ({
-  getDocumentAsync: jest.fn(),
-}));
-jest.mock("expo-image-picker", () => ({
-  launchImageLibraryAsync: jest.fn(),
-}));
 jest.mock("./Main/MyPageMain", () => {
   const { View, TouchableOpacity } = jest.requireActual("react-native");
 
@@ -107,7 +76,7 @@ jest.mock("./Coupon/CouponList", () => "CouponList");
 jest.mock("./Coupon/CouponRegister", () => "CouponRegister");
 jest.mock("./RegisterPro/RegisterPro", () => "RegisterPro");
 jest.mock("./PasswordChange/PasswordChange", () => "PasswordChange");
-jest.mock("../../components/Buttons", () => {
+jest.mock(".components/Buttons", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
   return {
     BackButton: ({ onPress }: { onPress: () => void }) => {
@@ -115,7 +84,10 @@ jest.mock("../../components/Buttons", () => {
     },
   };
 });
-jest.mock("../../components/Logos", () => ({
+jest.mock(".components/Loading", () => ({
+  NotReady: "NotReady",
+}));
+jest.mock(".components/Logos", () => ({
   SmallLogo: "SmallLogo",
 }));
 

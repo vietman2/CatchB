@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { Stats, TitleText } from "../fragments/fragments";
+import { Stats, TitleText } from "../fragments";
 import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { LessonsTable } from ".components/Tables";
@@ -23,13 +23,12 @@ import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 import { sampleLessonProducts } from "../../../variables/mvp_dummy_data/lessons";
 
-
 const { width, height } = Dimensions.get("window");
 
 function SimpleChip({ label }: Readonly<{ label: string }>) {
   return (
     <View style={styles.simpleChip}>
-      <Text variant="titleMedium" style={{ color: "white" }}>
+      <Text variant="titleMedium" style={styles.chipText}>
         {label}
       </Text>
     </View>
@@ -72,7 +71,7 @@ export default function CoachDetail() {
       const response = await getCoachDetail(coachUuid);
 
       if (response.status !== 200) {
-        setLoading(true);
+        setError(true);
       } else {
         setCoach(response.data);
         setError(false);
@@ -131,14 +130,7 @@ export default function CoachDetail() {
           <TitleText title={coach.coach.name} is_coach />
           <Stats rating={0} like={isLiked} setLike={setIsLiked} />
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            marginTop: 5,
-            marginHorizontal: 10,
-          }}
-        >
+        <View style={styles.specialties}>
           <SimpleChip label="타격" />
           <SimpleChip label="주루" />
         </View>
@@ -158,9 +150,7 @@ export default function CoachDetail() {
           <Text variant="titleLarge" style={styles.subtitle}>
             주 활동 지역
           </Text>
-          <View
-            style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}
-          >
+          <View style={styles.regions}>
             <SimpleChip label="서울 관악구" />
             <SimpleChip label="인천 서구" />
           </View>
@@ -177,7 +167,7 @@ export default function CoachDetail() {
         index={0}
         snapPoints={snapPoints}
         style={styles.bottomSheet}
-        backgroundStyle={{ backgroundColor: "rgb(245, 245, 245)" }}
+        backgroundStyle={styles.sheetBackground}
       >
         <Text variant="titleLarge" style={styles.subtitle}>
           신청하기
@@ -249,5 +239,22 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.primary,
     borderRadius: 10,
     margin: 5,
+  },
+  regions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 5,
+  },
+  chipText: {
+    color: "white",
+  },
+  specialties: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 5,
+    marginHorizontal: 10,
+  },
+  sheetBackground: {
+    backgroundColor: "rgb(245, 245, 245)",
   },
 });

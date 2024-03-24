@@ -15,7 +15,7 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("./Main", () => "HistoryMain");
-jest.mock("../../components/Logos", () => {
+jest.mock(".components/Logos", () => {
   const { Text } = jest.requireActual("react-native");
   return {
     SmallLogo: () => {

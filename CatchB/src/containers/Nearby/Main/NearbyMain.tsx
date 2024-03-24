@@ -1,13 +1,12 @@
 import { useEffect, useState, useRef, useMemo } from "react";
+import { View, StyleSheet, Keyboard, TouchableOpacity } from "react-native";
+import { Divider, Searchbar, Text } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, Keyboard, TouchableOpacity } from "react-native";
 import MapView, { PROVIDER_GOOGLE, MapMarker } from "react-native-maps";
-import { Divider, Searchbar, Text } from "react-native-paper";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { CoachSimple } from "../fragments/CoachSimple";
-import { FacilitySimple } from "../fragments/FacilitySimple";
+import { CoachSimple, FacilitySimple } from "../fragments";
 import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { VerticalDivider } from ".components/Dividers";
@@ -147,12 +146,7 @@ export default function NearbyMain() {
         style={styles.search}
       />
       <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.sheetContainer}>
           <TouchableOpacity
             style={styles.tab}
             onPress={() => setMode("facility")}
@@ -220,5 +214,9 @@ const styles = StyleSheet.create({
   divider: {
     marginHorizontal: 10,
     marginTop: 5,
+  },
+  sheetContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CoachDetail from "./CoachDetail";
-import { sampleCoaches } from ".data/products";
+import { sampleCoaches, sampleCoachInfos } from ".data/products";
+import * as CoachAPI from ".services/products/coach";
 import { renderWithProviders } from ".utils/test-utils";
 
 jest.mock("react-native-gesture-handler", () => ({
@@ -25,7 +27,7 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("../fragments/fragments", () => ({
+jest.mock("../fragments", () => ({
   Stats: "Stats",
   TitleText: "TitleText",
 }));
@@ -52,15 +54,49 @@ const Components = () => {
   );
 };
 
-describe("<CoachDetail />", () => {
-  it("renders correctly", async () => {
-    renderWithProviders(<Components />, {
-      preloadedState: {
-        coach: {
-          selectedCoachId: sampleCoaches[0].uuid,
-          myCoachUuid: "1",
-        },
+const render = () => {
+  return renderWithProviders(<Components />, {
+    preloadedState: {
+      coach: {
+        selectedCoachId: sampleCoaches[0].uuid,
+        myCoachUuid: "1",
       },
-    });
+    },
+  });
+};
+
+describe("<CoachDetail />", () => {
+  it("renders error page correctly", async () => {
+    jest
+      .spyOn(CoachAPI, "getCoachDetail")
+      .mockImplementation(() =>
+        Promise.resolve({ status: 400, data: "Bad Request" })
+      );
+
+    waitFor(() => render());
+  });
+
+  it("renders coach details correctly (short intro)", async () => {
+    jest
+      .spyOn(CoachAPI, "getCoachDetail")
+      .mockImplementation(() =>
+        Promise.resolve({ status: 200, data: sampleCoachInfos[0] })
+      );
+
+    const { getByTestId } = await waitFor(() => render());
+
+    waitFor(() => fireEvent.press(getByTestId("apply-button")));
+  });
+
+  it("renders coach details correctly (long intro)", async () => {
+    jest
+      .spyOn(CoachAPI, "getCoachDetail")
+      .mockImplementation(() =>
+        Promise.resolve({ status: 200, data: sampleCoachInfos[1] })
+      );
+
+    const { getByTestId } = await waitFor(() => render());
+
+    waitFor(() => fireEvent.press(getByTestId("expand-collapse")));
   });
 });

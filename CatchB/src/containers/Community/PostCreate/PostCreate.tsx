@@ -11,15 +11,16 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 
-import { MyDivider, Preview, Tags } from "./fragments";
-import { forumChoices, MyImageAsset } from "./variables";
+import { MyDivider, Preview, Tags } from "../fragments";
 import { Selector } from ".components/Selectors";
 import { CommunityScreenProps } from ".constants/navigation";
+import { forumChoices } from ".enums/community";
 import { getTagsList, uploadImageFile, createPost } from ".services/community";
 import { RootState } from ".store/index";
 import { getTemp, removeTemp, saveTemp } from ".store/storage/asyncStorage";
 import { themeColors } from ".themes/colors";
 import { TagType } from ".types/community";
+import { MyImageAsset } from ".types/others";
 
 export default function PostCreate() {
   const [title, setTitle] = useState<string>("");

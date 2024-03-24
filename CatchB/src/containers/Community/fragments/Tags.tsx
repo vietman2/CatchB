@@ -105,7 +105,7 @@ export function Chip({
           width={16}
           height={16}
           uri={icon}
-          style={{ marginRight: 5 }}
+          style={styles.svg}
           fillOpacity={active ? 1 : 0.25}
         />
       )}
@@ -135,5 +135,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginRight: 10,
+  },
+  svg: {
+    marginRight: 5,
   },
 });

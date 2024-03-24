@@ -1,4 +1,9 @@
-import { sampleCoaches } from "./coaches";
+import { sampleCoaches, sampleCoachInfos } from "./coaches";
 import { sampleFacilities, sampleFacilityDetail } from "./facilities";
 
-export { sampleCoaches, sampleFacilities, sampleFacilityDetail };
+export {
+  sampleCoaches,
+  sampleCoachInfos,
+  sampleFacilities,
+  sampleFacilityDetail,
+};

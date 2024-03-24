@@ -50,7 +50,7 @@ jest.mock("./FacilityDetail/FacilityDetail", () => "FacilityDetail");
 jest.mock("./FacilityReserve/FacilityReserve", () => "FacilityReserve");
 jest.mock("./CoachDetail/CoachDetail", () => "CoachDetail");
 jest.mock("./Payment/Payment", () => "Payment");
-jest.mock("../../components/Buttons", () => {
+jest.mock(".components/Buttons", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
   return {
     BackButton: ({ onPress }: { onPress: () => void }) => {

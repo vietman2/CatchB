@@ -8,11 +8,22 @@ import { renderWithProviders } from ".utils/test-utils";
 jest.mock("react-native-gesture-handler", () => ({
   PanGestureHandler: "PanGestureHandler",
 }));
+jest.mock("react-native-paper", () => {
+  const Provider = jest.requireActual("react-native-paper").PaperProvider;
+
+  return {
+    PaperProvider: Provider,
+    Text: "Text",
+  };
+});
 jest.mock("../TaskBoard/TaskBoard", () => "TaskBoard");
 jest.mock(
   "../ManageReservations/ManageReservations",
   () => "ManageReservations"
 );
+jest.mock(".components/Loading", () => ({
+  NotReady: "NotReady",
+}));
 
 const Stack = createStackNavigator();
 
@@ -20,10 +31,7 @@ const render = () => {
   return renderWithProviders(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="MyStore"
-          component={MyStoreMain}
-        />
+        <Stack.Screen name="MyStore" component={MyStoreMain} />
       </Stack.Navigator>
     </NavigationContainer>
   );
