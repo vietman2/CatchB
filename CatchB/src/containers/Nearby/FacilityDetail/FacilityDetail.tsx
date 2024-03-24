@@ -124,9 +124,9 @@ export default function FacilityDetail() {
     <>
       <ScrollView style={styles.container}>
         <ScrollView horizontal pagingEnabled>
-          {facility.images.map((image, index) => (
+          {facility.images.map((image) => (
             <Image
-              key={index}
+              key={image.uri}
               source={0}
               src={image.uri}
               style={styles.image}
@@ -144,9 +144,9 @@ export default function FacilityDetail() {
             코치진
           </Text>
           <ScrollView horizontal>
-            {facility.coaches.map((coach, index) => (
+            {facility.coaches.map((coach) => (
               <CoachProfile
-                key={index}
+                key={coach.name}
                 name={coach.name}
                 profile={coach.profile}
               />

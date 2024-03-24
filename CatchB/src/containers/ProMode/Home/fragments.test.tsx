@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { NotificationChip } from "./components";
+import { NotificationChip } from "./fragments";
 
 jest.mock("react-native-paper", () => ({
   Icon: "Icon",

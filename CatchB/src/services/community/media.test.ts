@@ -2,6 +2,7 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import { getTagsList, uploadImageFile } from "./media";
+import { TestNetworkError } from ".utils/test-utils";
 
 jest.mock("form-data", () => {
   return jest.fn().mockImplementation(() => {
@@ -29,21 +30,23 @@ describe("getTagsList", () => {
   it("should fail to get tags list", async () => {
     jest
       .spyOn(axios, "get")
-      .mockImplementation(() => Promise.reject(new Error("Network Error")));
-
-    await act(() => getTagsList());
-  });
-
-  it("should fail to get tags list", async () => {
-    jest
-      .spyOn(axios, "get")
       .mockImplementation(() =>
-        Promise.reject({ response: { status: 400, data: "Bad Request" } })
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
       );
 
     const response = await act(() => getTagsList());
 
     expect(response.status).toBe(400);
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => getTagsList());
   });
 });
 
@@ -73,20 +76,22 @@ describe("uploadImageFile", () => {
   it("should fail to upload image", async () => {
     jest
       .spyOn(axios, "post")
-      .mockImplementation(() => Promise.reject(new Error("Network Error")));
-
-    await act(() => uploadImageFile(user_uuid, image));
-  });
-
-  it("should fail to upload image", async () => {
-    jest
-      .spyOn(axios, "post")
       .mockImplementation(() =>
-        Promise.reject({ response: { status: 400, data: "Bad Request" } })
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
       );
 
     const response = await act(() => uploadImageFile(user_uuid, image));
 
     expect(response.status).toBe(400);
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => uploadImageFile(user_uuid, image));
   });
 });

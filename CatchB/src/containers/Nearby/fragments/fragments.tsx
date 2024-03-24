@@ -8,7 +8,7 @@ interface TitleProps {
   is_coach?: boolean;
 }
 
-export function TitleText({ title, is_coach }: TitleProps) {
+export function TitleText({ title, is_coach }: Readonly<TitleProps>) {
   return (
     <Text variant="headlineMedium" style={styles.title}>
       {`${title}${is_coach ? " 코치" : ""}`}
@@ -22,7 +22,7 @@ interface StatsProps {
   setLike: (like: boolean) => void;
 }
 
-export function Stats({ rating, like, setLike }: StatsProps) {
+export function Stats({ rating, like, setLike }: Readonly<StatsProps>) {
   return (
     <>
       <View style={styles.rating}>

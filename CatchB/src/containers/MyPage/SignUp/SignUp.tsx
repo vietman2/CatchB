@@ -18,9 +18,11 @@ import { AppDispatch } from ".store/index";
 import { login as setUserState } from ".store/user_management/authSlice";
 import { themeColors } from ".themes/colors";
 
+type GenderOptions = "M" | "F" | "N";
+
 interface Props {
-  gender: "M" | "F" | "N";
-  setGender: (gender: SetStateAction<"M" | "F" | "N">) => void;
+  gender: GenderOptions;
+  setGender: (gender: SetStateAction<GenderOptions>) => void;
 }
 
 function GenderButton({ gender, setGender }: Readonly<Props>) {

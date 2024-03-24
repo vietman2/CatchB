@@ -95,7 +95,7 @@ export default function PostCreate() {
         setSnackbarText("오류가 발생했습니다.");
       }
       setVisible(true);
-      return;
+      //return;
     }
 
     // TODO: + setSelectedPost to new post

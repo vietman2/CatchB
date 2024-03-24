@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function MainTitle({ text, sub }: Readonly<Props>) {
-  const subExists = sub ? true : false;
+  const subExists = sub ? sub : false;
 
   return (
     <>
@@ -30,7 +30,7 @@ export function MainTitle({ text, sub }: Readonly<Props>) {
 }
 
 export function SubTitle({ text, sub }: Readonly<Props>) {
-  const subExists = sub ? true : false;
+  const subExists = sub ? sub : false;
 
   return (
     <Text style={styles.subtitle}>

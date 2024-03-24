@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Card, Icon, Text } from "react-native-paper";
 
-import { NotificationChip } from "./components";
+import { NotificationChip } from "./fragments";
 import { HomeCard } from ".components/Cards";
 import { themeColors } from ".themes/colors";
 
@@ -145,10 +145,10 @@ export function ProHome() {
         </TouchableOpacity>
         {hide ? null : (
           <View style={{ paddingHorizontal: 5 }}>
-            {notifications.slice(0, 3).map((notification, index) => (
+            {notifications.slice(0, 3).map((notification) => (
               <NotificationChip
                 type={notification.type}
-                key={index}
+                key={notification.label}
                 label={notification.label}
               />
             ))}
