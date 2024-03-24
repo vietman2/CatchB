@@ -33,12 +33,12 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
   };
 });
-jest.mock("./components", () => ({
+jest.mock("./fragments", () => ({
   NotificationChip: "NotificationChip",
   AlertIcon: "AlertIcon",
   ShowHideIcon: "ShowHideIcon",
 }));
-jest.mock("../../../components/Cards", () => {
+jest.mock(".components/Cards", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");
   return {
     HomeCard: ({ actionText, action }: any) => (

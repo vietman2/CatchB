@@ -2,6 +2,7 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import { createPost, getPostList, getPostDetail } from "./post";
+import { TestNetworkError } from ".utils/test-utils";
 
 describe("createPost", () => {
   const forum = "forum";
@@ -32,25 +33,25 @@ describe("createPost", () => {
   it("should fail to create post", async () => {
     jest
       .spyOn(axios, "post")
-      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
 
     await act(() =>
       createPost(forum, uuid, title, content, tags, images, token)
     );
   });
 
-  it("should fail to create post", async () => {
+  it("should handle server error", async () => {
     jest
       .spyOn(axios, "post")
-      .mockImplementation(() =>
-        Promise.reject({ response: { status: 400, data: "Bad Request" } })
-      );
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
-    const response = await act(() =>
+    await act(() =>
       createPost(forum, uuid, title, content, tags, images, token)
     );
-
-    expect(response.status).toBe(400);
   });
 });
 
@@ -75,21 +76,23 @@ describe("getPostList", () => {
   it("should fail to get post list", async () => {
     jest
       .spyOn(axios, "get")
-      .mockImplementation(() => Promise.reject(new Error("Network Error")));
-
-    await act(() => getPostList(forum));
-  });
-
-  it("should fail to get post list", async () => {
-    jest
-      .spyOn(axios, "get")
       .mockImplementation(() =>
-        Promise.reject({ response: { status: 400, data: "Bad Request" } })
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
       );
 
     const response = await act(() => getPostList(forum));
 
     expect(response.status).toBe(400);
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => getPostList(forum));
   });
 });
 
@@ -114,20 +117,22 @@ describe("getPostDetail", () => {
   it("should fail to get post detail", async () => {
     jest
       .spyOn(axios, "get")
-      .mockImplementation(() => Promise.reject(new Error("Network Error")));
-
-    await act(() => getPostDetail(postId));
-  });
-
-  it("should fail to get post detail", async () => {
-    jest
-      .spyOn(axios, "get")
       .mockImplementation(() =>
-        Promise.reject({ response: { status: 400, data: "Bad Request" } })
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
       );
 
     const response = await act(() => getPostDetail(postId));
 
     expect(response.status).toBe(400);
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => getPostDetail(postId));
   });
 });

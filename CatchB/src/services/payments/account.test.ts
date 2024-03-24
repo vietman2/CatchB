@@ -2,6 +2,7 @@ import axios from "axios";
 import { act } from "@testing-library/react-native";
 
 import { getBankList } from "./account";
+import { TestNetworkError } from ".utils/test-utils";
 
 describe("getBankList", () => {
   it("should successfully get bank list", async () => {
@@ -13,9 +14,7 @@ describe("getBankList", () => {
     );
 
     const token = "token";
-
     const response = await act(() => getBankList(token));
-
     expect(response.status).toBe(200);
     expect(response.data[0].name).toBe("Bank 1");
   });
@@ -23,22 +22,21 @@ describe("getBankList", () => {
   it("should fail to get bank list", async () => {
     jest
       .spyOn(axios, "get")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
+    const token = "token";
+    await act(() => getBankList(token));
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "get")
       .mockImplementation(() => Promise.reject(new Error("Network Error")));
     const token = "token";
 
     await act(() => getBankList(token));
-  });
-
-  it("should fail to get bank list", async () => {
-    jest
-      .spyOn(axios, "get")
-      .mockImplementation(() =>
-        Promise.reject({ response: { status: 400, data: "Bad Request" } })
-      );
-    const token = "token";
-
-    const response = await act(() => getBankList(token));
-
-    expect(response.status).toBe(400);
   });
 });

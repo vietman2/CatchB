@@ -116,9 +116,9 @@ export default function CoachDetail() {
     <>
       <ScrollView style={styles.container}>
         <ScrollView horizontal pagingEnabled>
-          {coach.images.map((image, index) => (
+          {coach.images.map((image) => (
             <Image
-              key={index}
+              key={image.uri}
               source={0}
               src={image.uri}
               style={styles.image}

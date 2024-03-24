@@ -8,7 +8,7 @@ interface ChipProps {
   content: string;
 }
 
-function Chip({ color, icon, title, content }: ChipProps) {
+function Chip({ color, icon, title, content }: Readonly<ChipProps>) {
   return (
     <View
       style={[
@@ -27,13 +27,12 @@ function Chip({ color, icon, title, content }: ChipProps) {
   );
 }
 
-export function NotificationChip({
-  type,
-  label,
-}: {
+interface Props {
   type: "store" | "worker" | "reservation";
   label: string;
-}) {
+}
+
+export function NotificationChip({ type, label }: Readonly<Props>) {
   if (type === "store") {
     return (
       <Chip
