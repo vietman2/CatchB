@@ -1,6 +1,6 @@
 import { createComment } from "./comment";
 import { getTagsList, uploadImageFile } from "./media";
-import { createPost, getPostList, getPostDetail } from "./post";
+import { createPost, getPostList, getPostDetail, postLike, postDislike } from "./post";
 
 export {
   createComment,
@@ -9,4 +9,6 @@ export {
   createPost,
   getPostList,
   getPostDetail,
+  postLike,
+  postDislike,
 };
