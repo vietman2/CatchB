@@ -36,6 +36,9 @@ export type PostDetailType = {
   num_likes: number;
   num_dislikes: number;
 
+  is_liked: boolean;
+  is_disliked: boolean;
+
   created_at: string;
   updated_at: string;
 };
