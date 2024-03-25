@@ -30,9 +30,7 @@ export default function PostSimple({ post }: Readonly<Props>) {
         ? "0" + (date.getMonth() + 1)
         : date.getMonth() + 1;
     const dateText =
-      date.getDate() < 10 
-        ? "0" + date.getDate() 
-        : date.getDate();
+      date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
 
     return date.getFullYear() + "-" + monthText + "-" + dateText;
   };
@@ -61,18 +59,22 @@ export default function PostSimple({ post }: Readonly<Props>) {
           </View>
         </View>
         <View style={styles.inner}>
-          <Text style={styles.countText}>
-            <Icon source="eye" size={18} color={themeColors.primary} />{" "}
-            {post.num_clicks}
-          </Text>
-          <Text style={styles.countText}>
-            <Icon source="heart" size={18} color={themeColors.primary} />{" "}
-            {0/*TODO: post.num_likes*/}
-          </Text>
-          <Text style={styles.countText}>
-            <Icon source="chat" size={18} color={themeColors.primary} />{" "}
-            {0/*TODO: post.num_comments*/}
-          </Text>
+          <View style={styles.count}>
+            <Icon source="eye" size={16} color={themeColors.primary} />
+            <Text style={styles.countText}>{post.num_clicks}</Text>
+          </View>
+          <View style={styles.count}>
+            <Icon source="heart" size={16} color={themeColors.primary} />
+            <Text style={styles.countText}>{post.num_likes}</Text>
+          </View>
+          <View style={styles.count}>
+            <Icon source="heart-broken" size={16} color={themeColors.primary} />
+            <Text style={styles.countText}>{post.num_dislikes}</Text>
+          </View>
+          <View style={styles.count}>
+            <Icon source="chat" size={16} color={themeColors.primary} />
+            <Text style={styles.countText}>{post.num_comments}</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -104,9 +106,15 @@ const styles = StyleSheet.create({
   infoText: {
     color: "gray",
   },
+  count: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    marginLeft: 10,
+  },
   countText: {
     color: "gray",
-    marginLeft: 15,
+    marginLeft: 2.5,
   },
   profile: {
     flexDirection: "row",
