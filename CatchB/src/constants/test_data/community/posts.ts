@@ -1,3 +1,4 @@
+import { sampleComments } from "./comments";
 import { tag1 } from "./tags";
 import { PostDetailType, PostSimpleType } from ".types/community";
 
@@ -14,7 +15,9 @@ export const samplePosts: PostDetailType[] = [
     updated_at: "2024-02-13T12:30:01.010Z",
     num_comments: 1,
     num_likes: 1,
+    num_dislikes: 0,
     num_clicks: 1,
+    comments: sampleComments,
   },
 ];
 
@@ -29,6 +32,7 @@ export const sampleSimplePosts: PostSimpleType[] = [
     created_at: "2024-02-01T12:00:01.010Z",
     num_comments: 1,
     num_likes: 1,
+    num_dislikes: 0,
     num_clicks: 1,
   },
   {
@@ -41,6 +45,7 @@ export const sampleSimplePosts: PostSimpleType[] = [
     created_at: "2024-11-11T12:11:11.010Z",
     num_comments: 1,
     num_likes: 1,
+    num_dislikes: 0,
     num_clicks: 1,
   },
   {
@@ -53,6 +58,7 @@ export const sampleSimplePosts: PostSimpleType[] = [
     created_at: new Date().toISOString(),
     num_comments: 1,
     num_likes: 1,
+    num_dislikes: 0,
     num_clicks: 1,
-  }
+  },
 ];

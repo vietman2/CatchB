@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import {
   BaseballCommunity,
   RecruitmentCommunity,
+  MarketCommunity,
   VideoCommunity,
 } from "../PostLists";
 import { NotReady } from ".components/Loading";
@@ -40,7 +41,13 @@ export default function Community() {
           mode: "드래프트",
         }}
       />
-      <Tab.Screen name="장터" component={NotReady} />
+      <Tab.Screen
+        name="장터"
+        component={MarketCommunity}
+        initialParams={{
+          mode: "장터",
+        }}
+      />
       <Tab.Screen name="스틸" component={VideoCommunity} />
       <Tab.Screen name="내 활동" component={NotReady} />
     </Tab.Navigator>

@@ -7,7 +7,7 @@ interface PostProps {
   post: PostDetailType;
 }
 
-export function CommunityProfile({ post }: Readonly<PostProps>) {
+export default function PostHeader({ post }: Readonly<PostProps>) {
   const renderCreatedAt = () => {
     // MM/DD HH:MM
     const date = new Date(post.created_at);

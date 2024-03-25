@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { RefreshControl, ScrollView } from "react-native";
+import { Keyboard, RefreshControl, ScrollView } from "react-native";
 
 interface Props {
   children: React.ReactNode;
@@ -17,11 +17,14 @@ export default function ScrollWithRefresh({
 
   const onScroll = (event: any) => {
     const scrollY = event.nativeEvent.contentOffset.y;
+
     if (scrollY < -100) {
       setIsPulledDown(true);
     } else {
       setIsPulledDown(false);
     }
+
+    Keyboard.dismiss();
   };
 
   const onScrollEndDrag = () => {
@@ -32,6 +35,7 @@ export default function ScrollWithRefresh({
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       refreshControl={<RefreshControl refreshing={refreshing} />}
       onScroll={onScroll}
       onScrollEndDrag={onScrollEndDrag}

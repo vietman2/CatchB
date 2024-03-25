@@ -1,11 +1,5 @@
 import { useRef, useState, useMemo, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Keyboard,
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Chip, Divider, Icon, Text, TextInput } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +7,8 @@ import BottomSheet from "@gorhom/bottom-sheet";
 
 import { PostSimple } from "../fragments";
 import { ErrorPage } from ".components/Error";
+import { LoadingPage } from ".components/Loading";
+import { ScrollView } from ".components/ScrollView";
 import { CommunityScreenProps } from ".constants/navigation";
 import { getPostList } from ".services/community";
 import { AppDispatch } from ".store/index";
@@ -21,7 +17,7 @@ import { themeColors } from ".themes/colors";
 import { PostSimpleType } from ".types/community";
 
 interface Props {
-  mode: "덕아웃" | "드래프트";
+  mode: "덕아웃" | "드래프트" | "장터";
 }
 
 type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순";
@@ -30,9 +26,12 @@ export function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState<PostSimpleType[]>([]);
   const [sort, setSort] = useState<Sort>("최신순");
-  const [error, setError] = useState<boolean>(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
+
+  const [refreshCount, setRefreshCount] = useState<number>(0);
+  const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const navigation =
     useNavigation<CommunityScreenProps<"PostDetail">["navigation"]>();
   const dispatch = useDispatch<AppDispatch>();
@@ -54,19 +53,28 @@ export function CommunityList({ mode }: Readonly<Props>) {
     bottomSheetRef.current?.expand();
   };
 
+  const handleRefresh = () => {
+    setRefreshCount(refreshCount + 1);
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
+      setLoading(true);
+
       const response = await getPostList(mode);
 
       if (response.status === 200) {
         setPosts(response.data);
+        setError(false);
       } else {
         setError(true);
       }
     };
 
     fetchPosts();
-  }, []);
+
+    setLoading(false);
+  }, [refreshCount]);
 
   const SortComponent = ({ choice }: Readonly<{ choice: Sort }>) => {
     return (
@@ -88,15 +96,12 @@ export function CommunityList({ mode }: Readonly<Props>) {
     );
   };
 
-  if (error) return <ErrorPage />;
+  if (error) return <ErrorPage onRefresh={handleRefresh} />;
+  if (loading) return <LoadingPage />;
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        onScroll={Keyboard.dismiss}
-        scrollEventThrottle={16}
-      >
+      <ScrollView refreshing={loading} onRefresh={handleRefresh}>
         <TextInput
           mode="outlined"
           placeholder="제목, 내용으로 검색하세요."

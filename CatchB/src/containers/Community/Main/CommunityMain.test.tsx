@@ -20,6 +20,7 @@ jest.mock("react-native-paper", () => {
 jest.mock("../PostLists", () => ({
   BaseballCommunity: "BaseballCommunity",
   RecruitmentCommunity: "RecruitmentCommunity",
+  MarketCommunity: "MarketCommunity",
   VideoCommunity: "VideoCommunity",
 }));
 jest.mock(".components/Loading", () => ({
