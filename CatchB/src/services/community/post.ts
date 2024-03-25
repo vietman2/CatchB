@@ -71,10 +71,15 @@ export async function getPostList(forum: string) {
   }
 }
 
-export async function getPostDetail(postId: number) {
+export async function getPostDetail(postId: number, token?: string) {
   try {
     const response = await axios.get(
-      `${API_LOCAL_URL}/api/community/posts/${postId}/`
+      `${API_LOCAL_URL}/api/community/posts/${postId}/`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     return {
