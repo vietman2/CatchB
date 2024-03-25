@@ -101,6 +101,7 @@ export default function PostDetail() {
                 <TextInput.Icon icon="send" onPress={handleComment} />
               ) : null
             }
+            testID="comment-input"
           />
           <Divider style={styles.divider} />
           {post.comments.map((comment) => (

@@ -3,6 +3,21 @@ import { render } from "@testing-library/react-native";
 import PostHeader from "./PostHeader";
 import { samplePosts } from ".data/community";
 
+jest.mock("react-native-paper", () => {
+  const { View } = jest.requireActual("react-native");
+  const ActualAvatar = jest.requireActual("react-native-paper").Avatar;
+  const AvatarIcon = () => <View />;
+  const Avatar = (props: any) => {
+    return <ActualAvatar {...props}>{props.children}</ActualAvatar>;
+  };
+  Avatar.Icon = AvatarIcon;
+
+  return {
+    Avatar,
+    Text: "Text",
+  };
+});
+
 describe("<PostHeader />", () => {
   it("renders correctly", () => {
     render(<PostHeader post={samplePosts[0]} />);

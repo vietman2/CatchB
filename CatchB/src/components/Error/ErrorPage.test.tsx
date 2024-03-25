@@ -10,4 +10,8 @@ describe("<ErrorPage />", () => {
   it("renders correctly", () => {
     render(<ErrorPage />);
   });
+
+  it("renders correctly with onRefresh prop", () => {
+    render(<ErrorPage onRefresh={() => {}} />);
+  });
 });
