@@ -14,7 +14,7 @@ import { getPostList } from ".services/community";
 import { AppDispatch } from ".store/index";
 import { setSelectedPost } from ".store/community/postSlice";
 import { themeColors } from ".themes/colors";
-import { PostSimpleType } from ".types/community";
+import { PostSimpleType, TagType } from ".types/community";
 
 interface Props {
   mode: "덕아웃" | "드래프트" | "장터";
@@ -25,6 +25,7 @@ type Sort = "최신순" | "인기순" | "조회 많은 순" | "댓글 많은 순
 export function CommunityList({ mode }: Readonly<Props>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState<PostSimpleType[]>([]);
+  const [tagChoices, setTagChoices] = useState<TagType[]>([]);
   const [sort, setSort] = useState<Sort>("최신순");
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["1%", "45%"], []);
@@ -64,7 +65,8 @@ export function CommunityList({ mode }: Readonly<Props>) {
       const response = await getPostList(mode);
 
       if (response.status === 200) {
-        setPosts(response.data);
+        setPosts(response.data.posts);
+        setTagChoices(response.data.tags);
         setError(false);
       } else {
         setError(true);
@@ -119,30 +121,17 @@ export function CommunityList({ mode }: Readonly<Props>) {
               {sort}
             </Chip>
           </TouchableOpacity>
-          <TouchableOpacity>
+          {/*TODO: fix this later*/}
+          {tagChoices.map((tag) => (
             <Chip
+              key={tag.id}
               compact
-              icon="filter-variant"
-              selectedColor="green"
               style={styles.filterChip}
+              selectedColor="green"
             >
-              전체
+              {tag.name}
             </Chip>
-          </TouchableOpacity>
-          {mode === "드래프트" ? (
-            <TouchableOpacity>
-              <Chip
-                compact
-                icon="check-circle-outline"
-                selectedColor="green"
-                style={styles.filterChip}
-              >
-                우리동네만 보기
-              </Chip>
-            </TouchableOpacity>
-          ) : (
-            <></>
-          )}
+          ))}
         </View>
         {posts.map((post) => (
           <View key={post.id}>
