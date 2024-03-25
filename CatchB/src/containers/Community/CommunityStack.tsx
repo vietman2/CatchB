@@ -91,7 +91,7 @@ export default function CommunityContainer() {
         component={PostDetail}
         options={{
           headerLeft: () => backToMain(),
-          headerTitle: () => headerTitle("글 상세"),
+          headerTitle: () => null,
         }}
       />
     </CommunityStack.Navigator>
