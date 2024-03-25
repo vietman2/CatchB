@@ -1,6 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Avatar, Icon, Text } from "react-native-paper";
 
+import { Tag } from "./Tags";
 import { themeColors } from ".themes/colors";
 import { PostSimpleType } from ".types/community";
 
@@ -37,6 +38,11 @@ export default function PostSimple({ post }: Readonly<Props>) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.tags}>
+        {post.tags.map((tag) => (
+          <Tag key={tag.id} tag={tag} active />
+        ))}
+      </View>
       <Text variant="titleMedium" style={styles.title}>
         {post.title}
       </Text>
@@ -128,5 +134,9 @@ const styles = StyleSheet.create({
   icon: {
     backgroundColor: "gray",
     marginRight: 7.5,
+  },
+  tags: {
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 });
