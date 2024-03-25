@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { BaseballCommunity, RecruitmentCommunity, MarketCommunity } from "./";
-import { sampleSimplePosts } from ".data/community";
+import { sampleSimplePosts, sampleTags } from ".data/community";
 import * as APIServer from ".services/community/post";
 import { renderWithProviders } from ".utils/test-utils";
 
@@ -74,7 +74,7 @@ const Components = ({ mode }: { mode: "덕아웃" | "드래프트" | "장터" })
 
 jest.spyOn(APIServer, "getPostList").mockResolvedValue({
   status: 200,
-  data: sampleSimplePosts,
+  data: { posts: sampleSimplePosts, tags: sampleTags },
 });
 
 describe("<CommunityList />", () => {
@@ -104,7 +104,9 @@ describe("<CommunityList />", () => {
       status: 400,
       data: {},
     });
-    const { getByText } = await waitFor(() => renderWithProviders(<Components mode="드래프트" />));
+    const { getByText } = await waitFor(() =>
+      renderWithProviders(<Components mode="드래프트" />)
+    );
 
     fireEvent.press(getByText("Error"));
   });

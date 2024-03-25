@@ -27,8 +27,8 @@ const defaultRegion = {
 export default function NearbyMain() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["3%", "70%"], []);
-  const [loading, setLoading] = useState<boolean>(true);
   const [refreshCount, setRefreshCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [mode, setMode] = useState<"facility" | "coach">("facility");

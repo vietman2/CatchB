@@ -1,23 +1,31 @@
 import { useRef, useMemo, useState, useEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Divider, Text, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { CommentSimple, PostHeader } from "../fragments";
+import { CommunityButton } from ".components/Buttons";
 import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
-import { createComment, getPostDetail } from ".services/community";
+import { ScrollView } from ".components/ScrollView";
+import {
+  createComment,
+  getPostDetail,
+  postLike,
+  postDislike,
+} from ".services/community";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
 import { PostDetailType } from ".types/community";
 
 export default function PostDetail() {
-  const [newComment, setNewComment] = useState<string>("");
-
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "50%", "100%"], []);
   const [post, setPost] = useState<PostDetailType>();
+  const [newComment, setNewComment] = useState<string>("");
+
+  const [refreshCount, setRefreshCount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
@@ -30,17 +38,29 @@ export default function PostDetail() {
     const response = await createComment(postId, newComment, user.uuid, token);
 
     if (response.status === 201) {
-      setPost((prevPost) => {
-        if (prevPost) {
-          return {
-            ...prevPost,
-            num_comments: prevPost.num_comments + 1,
-          };
-        }
-        return prevPost;
-      });
+      handleRefresh();
       setNewComment("");
     }
+  };
+
+  const handleLike = async () => {
+    const response = await postLike(postId, user.uuid, token);
+
+    if (response.status === 200) {
+      setPost(response.data);
+    }
+  };
+
+  const handleDislike = async () => {
+    const response = await postDislike(postId, user.uuid, token);
+
+    if (response.status === 200) {
+      setPost(response.data);
+    }
+  };
+
+  const handleRefresh = () => {
+    setRefreshCount(refreshCount + 1);
   };
 
   useEffect(() => {
@@ -49,6 +69,7 @@ export default function PostDetail() {
 
       if (response.status === 200) {
         setPost(response.data);
+        setError(false);
       } else {
         setError(true);
       }
@@ -57,32 +78,42 @@ export default function PostDetail() {
     };
 
     fetchPost();
-  }, []);
+  }, [refreshCount]);
 
   if (loading) return <LoadingPage />;
-  if (error) return <ErrorPage />;
+  if (error) return <ErrorPage onRefresh={handleRefresh} />;
 
   return (
     <>
-      <ScrollView style={styles.container}>
-        <Text variant="headlineSmall" style={styles.title}>
-          {post.title}
-        </Text>
-        <PostHeader post={post} />
-        <Divider style={styles.divider} />
-        <Text variant="titleMedium" style={styles.body}>
-          {post.content}
-        </Text>
-        <Divider style={styles.divider} />
-        <View style={styles.interactions}>
-          <Text variant="titleSmall">공감하기</Text>
-          <Text variant="titleSmall">신고하기</Text>
+      <ScrollView refreshing={loading} onRefresh={handleRefresh}>
+        <View style={styles.container}>
+          <PostHeader post={post} />
+          <Divider style={styles.divider} />
+          <Text variant="titleMedium" style={styles.body}>
+            {post.content}
+          </Text>
+          <Divider style={styles.divider} />
+          <View style={styles.interactions}>
+            <CommunityButton
+              mode="like"
+              number={post.num_likes}
+              state={post.is_liked}
+              action={handleLike}
+            />
+            <CommunityButton
+              mode="dislike"
+              number={post.num_dislikes}
+              state={post.is_disliked}
+              action={handleDislike}
+            />
+            <CommunityButton mode="report" state={false} action={() => {}} />
+          </View>
+          <Divider style={styles.divider} />
         </View>
-        <Divider style={styles.divider} />
       </ScrollView>
       <BottomSheet
         ref={bottomSheetRef}
-        index={0}
+        index={1}
         snapPoints={snapPoints}
         backgroundStyle={styles.sheetBackground}
       >
@@ -119,19 +150,13 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.primaryContainer,
     paddingHorizontal: 20,
   },
-  title: {
-    flexWrap: "wrap",
-    fontWeight: "bold",
-    marginTop: 10,
-  },
   body: {
     marginVertical: 10,
   },
   interactions: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-    marginBottom: 80,
+    justifyContent: "space-evenly",
+    marginVertical: 10,
   },
   comments: {
     paddingHorizontal: 20,

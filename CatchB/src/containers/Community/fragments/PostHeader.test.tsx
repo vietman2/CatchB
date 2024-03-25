@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render } from "@testing-library/react-native";
 
 import PostHeader from "./PostHeader";
@@ -14,9 +15,13 @@ jest.mock("react-native-paper", () => {
 
   return {
     Avatar,
+    Icon: "Icon",
     Text: "Text",
   };
 });
+jest.mock("./Tags", () => ({
+  Tag: "Tag",
+}));
 
 describe("<PostHeader />", () => {
   it("renders correctly", () => {

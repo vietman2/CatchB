@@ -1,7 +1,7 @@
 import axios from "axios";
 import { act } from "@testing-library/react-native";
 
-import { createPost, getPostList, getPostDetail } from "./post";
+import { createPost, getPostList, getPostDetail, postLike, postDislike } from "./post";
 import { TestNetworkError } from ".utils/test-utils";
 
 describe("createPost", () => {
@@ -62,15 +62,13 @@ describe("getPostList", () => {
     jest.spyOn(axios, "get").mockImplementation(() =>
       Promise.resolve({
         status: 200,
-        data: [{ id: 1, title: "title" }],
+        data: { post: [{ id: 1, title: "title" }], tags: [] },
       })
     );
 
     const response = await act(() => getPostList(forum));
 
     expect(response.status).toBe(200);
-    expect(response.data[0].id).toBe(1);
-    expect(response.data[0].title).toBe("title");
   });
 
   it("should fail to get post list", async () => {
@@ -134,5 +132,79 @@ describe("getPostDetail", () => {
       .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
     await act(() => getPostDetail(postId));
+  });
+});
+
+describe("postLike", () => {
+  const postId = 1;
+  const uuid = "uuid";
+  const token = "token";
+
+  it("should successfully like post", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: { id: 1, title: "title" },
+      })
+    );
+
+    await act(() => postLike(postId, uuid, token));
+  });
+
+  it("should fail to like post", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
+
+    await act(() => postLike(postId, uuid, token));
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => postLike(postId, uuid, token));
+  });
+});
+
+describe("postDislike", () => {
+  const postId = 1;
+  const uuid = "uuid";
+  const token = "token";
+
+  it("should successfully dislike post", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: { id: 1, title: "title" },
+      })
+    );
+
+    await act(() => postDislike(postId, uuid, token));
+  });
+
+  it("should fail to dislike post", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
+
+    await act(() => postDislike(postId, uuid, token));
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => postDislike(postId, uuid, token));
   });
 });

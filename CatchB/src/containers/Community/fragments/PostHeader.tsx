@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
-import { Avatar, Text } from "react-native-paper";
+import { Avatar, Icon, Text } from "react-native-paper";
 
+import { Tag } from "./Tags";
 import { PostDetailType } from ".types/community";
 
 interface PostProps {
@@ -25,38 +26,52 @@ export default function PostHeader({ post }: Readonly<PostProps>) {
   };
 
   return (
-    <View style={styles.postContainer}>
-      <View style={styles.profile}>
-        <Avatar.Icon
-          size={28}
-          icon="account"
-          style={styles.icon}
-          color="white"
-        />
-        <Text variant="titleMedium" style={styles.name}>
-          {post.author_nickname}
-        </Text>
-        <Text variant="titleSmall">{renderCreatedAt()}</Text>
+    <>
+      <View style={styles.tags}>
+        {post.tags.map((tag) => (
+          <Tag key={tag.id} tag={tag} active />
+        ))}
       </View>
-      <View style={styles.stats}>
-        <Text variant="titleSmall">조회수: {post.num_clicks}</Text>
-        <Text variant="titleSmall"> 좋아요: {post.num_likes}</Text>
+      <Text variant="headlineSmall" style={styles.title}>
+        {post.title}
+      </Text>
+      <View style={styles.horizontal}>
+        <View style={styles.profile}>
+          <Avatar.Icon
+            size={28}
+            icon="account"
+            style={styles.icon}
+            color="white"
+          />
+          <Text variant="titleMedium" style={styles.name}>
+            {"글쓴이" /*TODO: post.author_nickname*/}
+          </Text>
+          <Text variant="titleSmall">{renderCreatedAt()}</Text>
+        </View>
+        <View style={styles.views}>
+          <Icon source="eye" size={20} color="gray" />
+          <Text style={styles.viewText}>{post.num_clicks}</Text>
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  postContainer: {
+  tags: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 10,
-    marginBottom: 10,
+    flexWrap: "wrap",
+    marginBottom: 5,
+  },
+  title: {
+    flexWrap: "wrap",
+    fontWeight: "bold",
   },
   profile: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 10,
+    marginBottom: 10,
   },
   name: {
     fontWeight: "bold",
@@ -68,7 +83,17 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
     marginRight: 7.5,
   },
-  stats: {
+  horizontal: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
+  views: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  viewText: {
+    color: "gray",
+    marginLeft: 5,
+  }
 });

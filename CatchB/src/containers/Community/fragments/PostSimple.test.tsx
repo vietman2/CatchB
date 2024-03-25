@@ -17,6 +17,9 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
   };
 });
+jest.mock("./Tags", () => ({
+  Tag: "Tag",
+}));
 
 describe("<PostSimple />", () => {
   it("renders short post correctly", () => {
