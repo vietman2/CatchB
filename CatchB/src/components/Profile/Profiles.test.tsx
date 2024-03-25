@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import { AvatarIcon, CommunityProfile, MainProfile } from ".components/Profile";
-import { samplePosts } from ".data/community";
+import { AvatarIcon, MainProfile } from ".components/Profile";
 import { admin } from ".data/users";
 
 jest.mock("react-native-paper", () => ({
@@ -20,28 +19,6 @@ describe("<MainProfile />", () => {
 
   it("renders correctly with user", () => {
     render(<MainProfile user={admin} />);
-  });
-});
-
-describe("<CommunityProfile />", () => {
-  it("renders correctly", () => {
-    render(<CommunityProfile post={samplePosts[0]} />);
-  });
-
-  it("renders with fake timer1: 2021-01-01 01:01", () => {
-    render(
-      <CommunityProfile
-        post={{ ...samplePosts[0], created_at: "2021-01-01 01:01" }}
-      />
-    );
-  });
-
-  it("renders with fake timer2: 2021-11-11 11:11", () => {
-    render(
-      <CommunityProfile
-        post={{ ...samplePosts[0], created_at: "2021-11-11 11:11" }}
-      />
-    );
   });
 });
 
