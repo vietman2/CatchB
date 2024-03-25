@@ -11,9 +11,11 @@ export default function ErrorPage({ onRefresh }: Readonly<Props>) {
       {/* TODO: 아이콘이나 이미지 추가하기 */}
       <Text variant="headlineSmall">오류가 발생했습니다.</Text>
       <Text variant="titleMedium">잠시 후 다시 시도해주세요.</Text>
-      <TouchableOpacity onPress={onRefresh} style={styles.button}>
-        <Text variant="titleMedium">새로고침</Text>
-      </TouchableOpacity>
+      {onRefresh && (
+        <TouchableOpacity onPress={onRefresh} style={styles.button}>
+          <Text variant="titleMedium">새로고침</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
