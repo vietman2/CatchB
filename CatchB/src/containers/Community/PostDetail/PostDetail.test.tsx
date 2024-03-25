@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/prop-types */
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
 import PostDetail from "./PostDetail";
@@ -34,11 +36,23 @@ jest.mock("../fragments", () => ({
   CommentSimple: "CommentSimple",
   PostHeader: "PostHeader",
 }));
+jest.mock(".components/Buttons", () => {
+  const { TouchableOpacity } = jest.requireActual("react-native");
+
+  return {
+    CommunityButton: ({ mode, action }) => (
+      <TouchableOpacity onPress={action} testID={mode} />
+    ),
+  };
+});
 jest.mock(".components/Error", () => ({
   ErrorPage: "ErrorPage",
 }));
 jest.mock(".components/Loading", () => ({
   LoadingPage: "LoadingPage",
+}));
+jest.mock(".components/ScrollView", () => ({
+  ScrollView: "ScrollView",
 }));
 
 jest.spyOn(PostAPI, "getPostDetail").mockResolvedValue({
@@ -70,7 +84,7 @@ describe("<PostDetail />", () => {
         preloadedState: {
           auth: {
             user: admin,
-            token: "token"
+            token: "token",
           },
           community: {
             selectedPostId: 0,
@@ -88,13 +102,103 @@ describe("<PostDetail />", () => {
     });
   });
 
-  it("handles error correctly", () => {
+  it("handles comment error correctly", async () => {
+    jest.spyOn(CommentAPI, "createComment").mockResolvedValue({
+      status: 500,
+      data: null,
+    });
+
+    const { getByTestId, getByText } = await waitFor(() =>
+      renderWithProviders(<PostDetail />, {
+        preloadedState: {
+          auth: {
+            user: admin,
+            token: "token",
+          },
+          community: {
+            selectedPostId: 0,
+          },
+        },
+      })
+    );
+
+    await waitFor(() => {
+      fireEvent.changeText(getByTestId("comment-input"), "test comment");
+    });
+
+    await waitFor(() => {
+      fireEvent.press(getByText("send"));
+    });
+  });
+
+  it("handles buttons correctly", async () => {
+    jest.spyOn(PostAPI, "postLike").mockResolvedValue({
+      status: 200,
+      data: samplePosts[0],
+    });
+    jest.spyOn(PostAPI, "postDislike").mockResolvedValue({
+      status: 200,
+      data: samplePosts[0],
+    });
+
+    const { getByTestId } = await waitFor(() =>
+      renderWithProviders(<PostDetail />, {
+        preloadedState: {
+          auth: {
+            user: admin,
+            token: "token",
+          },
+          community: {
+            selectedPostId: 0,
+          },
+        },
+      })
+    );
+
+    await waitFor(() => {
+      fireEvent.press(getByTestId("like"));
+      fireEvent.press(getByTestId("dislike"));
+      fireEvent.press(getByTestId("report"));
+    });
+  });
+
+  it("handles button errors correctly", async () => {
+    jest.spyOn(PostAPI, "postLike").mockResolvedValue({
+      status: 500,
+      data: null,
+    });
+    jest.spyOn(PostAPI, "postDislike").mockResolvedValue({
+      status: 500,
+      data: null,
+    });
+
+    const { getByTestId } = await waitFor(() =>
+      renderWithProviders(<PostDetail />, {
+        preloadedState: {
+          auth: {
+            user: admin,
+            token: "token",
+          },
+          community: {
+            selectedPostId: 0,
+          },
+        },
+      })
+    );
+
+    await waitFor(() => {
+      fireEvent.press(getByTestId("like"));
+      fireEvent.press(getByTestId("dislike"));
+    });
+  });
+
+  it("handles error correctly", async () => {
     jest.spyOn(PostAPI, "getPostDetail").mockResolvedValue({
       status: 500,
       data: null,
     });
 
-    waitFor(() =>
+    await waitFor(() =>
       renderWithProviders(<PostDetail />, {
         preloadedState: {
           community: {
