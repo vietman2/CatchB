@@ -27,6 +27,7 @@ jest.mock("react-native-paper", () => {
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
 jest.mock("../fragments", () => ({
   PostSimple: "PostSimple",
+  Tag: "Tag",
 }));
 jest.mock(".components/Error", () => {
   const { TouchableOpacity, Text } = jest.requireActual("react-native");

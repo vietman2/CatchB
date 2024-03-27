@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Avatar, Icon, Text } from "react-native-paper";
 
-import { Tag } from "./Tags";
+import { Tag } from "../fragments";
 import { themeColors } from ".themes/colors";
 import { PostSimpleType } from ".types/community";
 
@@ -70,15 +70,15 @@ export default function PostSimple({ post }: Readonly<Props>) {
             <Text style={styles.countText}>{post.num_clicks}</Text>
           </View>
           <View style={styles.count}>
-            <Icon source="heart" size={16} color={themeColors.primary} />
+            <Icon source="heart-outline" size={16} color={themeColors.primary} />
             <Text style={styles.countText}>{post.num_likes}</Text>
           </View>
           <View style={styles.count}>
-            <Icon source="heart-broken" size={16} color={themeColors.primary} />
+            <Icon source="emoticon-cry-outline" size={16} color={themeColors.primary} />
             <Text style={styles.countText}>{post.num_dislikes}</Text>
           </View>
           <View style={styles.count}>
-            <Icon source="chat" size={16} color={themeColors.primary} />
+            <Icon source="chat-outline" size={16} color={themeColors.primary} />
             <Text style={styles.countText}>{post.num_comments}</Text>
           </View>
         </View>

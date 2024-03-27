@@ -1,4 +1,3 @@
-import { sampleComments } from "./comments";
 import { tag1 } from "./tags";
 import { PostDetailType, PostSimpleType } from ".types/community";
 
@@ -17,7 +16,8 @@ export const samplePosts: PostDetailType[] = [
     num_likes: 1,
     num_dislikes: 0,
     num_clicks: 1,
-    comments: sampleComments,
+    is_liked: true,
+    is_disliked: false,
   },
 ];
 

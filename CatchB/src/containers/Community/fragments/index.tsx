@@ -1,13 +1,14 @@
-import { Divider } from "react-native-paper";
+import { InputText, Tag } from "./fragments";
+import { default as Tags } from "./Tags/Tags";
+import { default as Preview } from "./PostPreview/PostPreview";
+import { default as PostHeader } from "./PostHeader/PostHeader";
+import { default as PostSimple } from "./PostSimple/PostSimple";
 
-import { default as CommentSimple } from "./CommentSimple";
-import { default as Tags } from "./Tags";
-import { default as Preview } from "./MdPreview";
-import { default as PostHeader } from "./PostHeader";
-import { default as PostSimple } from "./PostSimple";
-
-function MyDivider() {
-  return <Divider style={{ marginVertical: 10 }} />;
-}
-
-export { CommentSimple, MyDivider, Preview, PostHeader, Tags, PostSimple };
+export {
+  InputText,
+  Tag,
+  Preview,
+  PostHeader,
+  Tags,
+  PostSimple,
+};

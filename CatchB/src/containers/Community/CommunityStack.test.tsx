@@ -35,12 +35,19 @@ jest.mock("./Main", () => {
         >
           <Text>Details</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          testID="post-report-button"
+          onPress={() => navigation.navigate("CommunityReport")}
+        >
+          <Text>Report</Text>
+        </TouchableOpacity>
       </View>
     );
   };
 });
 jest.mock("./PostCreate", () => "PostCreate");
 jest.mock("./PostDetail", () => "PostDetail");
+jest.mock("./CommunityReport", () => "CommunityReport");
 jest.mock(".components/Buttons", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
   return {
@@ -83,7 +90,7 @@ describe("<CommunityStack />", () => {
     fireEvent.press(getByTestId("back"));
   });
 
-  it("renders correctly and navigates to <PostDetail /> and back", () => {
+  it("renders correctly and navigates to <PostDetail />, <PostReport /> and back", () => {
     const { getByTestId } = renderWithProviders(<Components />, {
       preloadedState: {
         community: {
@@ -92,6 +99,8 @@ describe("<CommunityStack />", () => {
       },
     });
     fireEvent.press(getByTestId("post-detail-button"));
+    fireEvent.press(getByTestId("back"));
+    fireEvent.press(getByTestId("post-report-button"));
     fireEvent.press(getByTestId("back"));
   });
 });

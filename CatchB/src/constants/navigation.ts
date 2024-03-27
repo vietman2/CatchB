@@ -1,8 +1,9 @@
 import { CompositeScreenProps } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 
-import { CouponType } from ".types/users";
+import { CommentSimpleType, PostDetailType } from "./types/community";
 import { ReservationProductType } from ".types/products";
+import { CouponType } from ".types/users";
 
 export type RootParams = {
   Home: undefined;
@@ -58,6 +59,11 @@ export type CommunityParams = {
   CommunityScreen: undefined;
   PostCreate: undefined;
   PostDetail: undefined;
+  CommunityReport: {
+    type: "post" | "comment" | "recomment";
+    post?: PostDetailType;
+    comment?: CommentSimpleType;
+  };
 };
 export type CommunityScreenProps<T extends keyof CommunityParams> =
   CompositeScreenProps<
@@ -97,4 +103,14 @@ export type MyPageScreenProps<T extends keyof MyPageParams> =
   CompositeScreenProps<
     StackScreenProps<MyPageParams, T>,
     RootScreenProps<"MyPage">
+  >;
+
+export type CommentParams = {
+  CommentList: undefined;
+};
+
+export type CommentScreenProps<T extends keyof CommentParams> =
+  CompositeScreenProps<
+    StackScreenProps<CommentParams, T>,
+    CommunityScreenProps<"PostDetail">
   >;

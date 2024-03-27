@@ -1,9 +1,12 @@
-import { createComment } from "./comment";
+import { createComment, getCommentList, commentLike, commentDislike } from "./comment";
 import { getTagsList, uploadImageFile } from "./media";
 import { createPost, getPostList, getPostDetail, postLike, postDislike } from "./post";
 
 export {
   createComment,
+  getCommentList,
+  commentLike,
+  commentDislike,
   getTagsList,
   uploadImageFile,
   createPost,

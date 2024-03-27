@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { PostSimple } from "../fragments";
+import { PostSimple, Tag } from "../fragments";
 import { ErrorPage } from ".components/Error";
 import { LoadingPage } from ".components/Loading";
 import { ScrollView } from ".components/ScrollView";
@@ -121,16 +121,12 @@ export function CommunityList({ mode }: Readonly<Props>) {
               {sort}
             </Chip>
           </TouchableOpacity>
-          {/*TODO: fix this later*/}
           {tagChoices.map((tag) => (
-            <Chip
+            <Tag
+              tag={tag}
+              active={false}
               key={tag.id}
-              compact
-              style={styles.filterChip}
-              selectedColor="green"
-            >
-              {tag.name}
-            </Chip>
+              />
           ))}
         </View>
         {posts.map((post) => (
