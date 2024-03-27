@@ -29,7 +29,6 @@ export type PostDetailType = {
 
   tags: TagType[];
   images: string[];
-  comments: CommentSimpleType[];
 
   num_comments: number;
   num_clicks: number;
@@ -49,5 +48,9 @@ export type CommentSimpleType = {
   content: string;
   created_at: string;
   num_likes: number;
+  num_dislikes: number;
   num_recomments: number;
+
+  is_liked: boolean;
+  is_disliked: boolean;
 };

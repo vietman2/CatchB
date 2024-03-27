@@ -7,7 +7,10 @@ export const sampleComments: CommentSimpleType[] = [
     content: "test content",
     created_at: "2024-02-01T12:00:01.010Z",
     num_likes: 1,
+    num_dislikes: 1,
     num_recomments: 1,
+    is_liked: true,
+    is_disliked: false,
   },
   {
     id: 2,
@@ -15,7 +18,10 @@ export const sampleComments: CommentSimpleType[] = [
     content: "long post content. the content is longer than 25 characters",
     created_at: "2024-11-11T12:11:11.010Z",
     num_likes: 1,
+    num_dislikes: 1,
     num_recomments: 1,
+    is_liked: false,
+    is_disliked: true,
   },
   {
     id: 3,
@@ -23,6 +29,9 @@ export const sampleComments: CommentSimpleType[] = [
     content: "short post content",
     created_at: new Date().toISOString(),
     num_likes: 1,
+    num_dislikes: 1,
     num_recomments: 1,
+    is_liked: false,
+    is_disliked: false,
   },
 ];
