@@ -12,17 +12,19 @@ import { ImagePreview, ImagePlaceholder } from ".components/Images";
 interface Props {
   uploadedImages: ImagePickerAsset[];
   setUploadedImages: Dispatch<SetStateAction<ImagePickerAsset[]>>;
+  maxImages?: number;
 }
 
 export function ImagePicker({
   uploadedImages,
   setUploadedImages,
+  maxImages = 10,
 }: Readonly<Props>) {
   const uploadImage = async () => {
     const result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.All,
       allowsMultipleSelection: true,
-      selectionLimit: 10 - uploadedImages.length,
+      selectionLimit: maxImages - uploadedImages.length,
     });
 
     if (result.canceled) return;
