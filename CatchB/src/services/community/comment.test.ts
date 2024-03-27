@@ -1,7 +1,13 @@
 import axios from "axios";
 import { act } from "@testing-library/react-native";
 
-import { createComment } from "./comment";
+import {
+  createComment,
+  getCommentList,
+  commentLike,
+  commentDislike,
+} from "./comment";
+import { sampleComments } from ".data/community";
 import { TestNetworkError } from ".utils/test-utils";
 
 describe("createComment", () => {
@@ -57,5 +63,107 @@ describe("createComment", () => {
       .mockImplementation(() => Promise.reject(new Error("Network Error")));
 
     await act(() => createComment(1, "test content", "uuid", "token"));
+  });
+});
+
+describe("getCommentList", () => {
+  it("should successfully get comment list", async () => {
+    jest.spyOn(axios, "get").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          comments: sampleComments,
+          num_comments: 1,
+        },
+      })
+    );
+
+    await act(() => getCommentList(1, "token"));
+  });
+
+  it("should fail to get comment list", async () => {
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
+
+    await act(() => getCommentList(1, "token"));
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => getCommentList(1, "token"));
+  });
+});
+
+describe("commentLike", () => {
+  it("should successfully like a comment", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: { num_likes: 1 },
+      })
+    );
+
+    await act(() => commentLike(1, "uuid", "token"));
+  });
+
+  it("should fail to like a comment", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
+
+    await act(() => commentLike(1, "uuid", "token"));
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => commentLike(1, "uuid", "token"));
+  });
+});
+
+describe("commentDislike", () => {
+  it("should successfully dislike a comment", async () => {
+    jest.spyOn(axios, "post").mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        data: { num_likes: 1 },
+      })
+    );
+
+    await act(() => commentDislike(1, "uuid", "token"));
+  });
+
+  it("should fail to dislike a comment", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() =>
+        Promise.reject(
+          new TestNetworkError({ status: 400, data: "Bad Request" })
+        )
+      );
+
+    await act(() => commentDislike(1, "uuid", "token"));
+  });
+
+  it("should handle server error", async () => {
+    jest
+      .spyOn(axios, "post")
+      .mockImplementation(() => Promise.reject(new Error("Network Error")));
+
+    await act(() => commentDislike(1, "uuid", "token"));
   });
 });
