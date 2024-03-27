@@ -1,14 +1,15 @@
 import { StyleSheet, View } from "react-native";
 import { Avatar, Icon, Text } from "react-native-paper";
 
-import { Tag } from "./Tags";
+import { Tag } from "../fragments";
 import { PostDetailType } from ".types/community";
 
 interface PostProps {
   post: PostDetailType;
+  simple?: boolean;
 }
 
-export default function PostHeader({ post }: Readonly<PostProps>) {
+export default function PostHeader({ post, simple }: Readonly<PostProps>) {
   const renderCreatedAt = () => {
     // MM/DD HH:MM
     const date = new Date(post.created_at);
@@ -48,10 +49,12 @@ export default function PostHeader({ post }: Readonly<PostProps>) {
           </Text>
           <Text variant="titleSmall">{renderCreatedAt()}</Text>
         </View>
-        <View style={styles.views}>
-          <Icon source="eye" size={20} color="gray" />
-          <Text style={styles.viewText}>{post.num_clicks}</Text>
-        </View>
+        {!simple && (
+          <View style={styles.views}>
+            <Icon source="eye" size={20} color="gray" />
+            <Text style={styles.viewText}>{post.num_clicks}</Text>
+          </View>
+        )}
       </View>
     </>
   );
@@ -95,5 +98,5 @@ const styles = StyleSheet.create({
   viewText: {
     color: "gray",
     marginLeft: 5,
-  }
+  },
 });

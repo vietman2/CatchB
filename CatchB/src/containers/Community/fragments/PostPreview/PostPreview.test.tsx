@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 
-import Preview from "./MdPreview";
+import Preview from "./PostPreview";
 
 jest.mock("react-native-paper", () => ({
   Divider: "Divider",

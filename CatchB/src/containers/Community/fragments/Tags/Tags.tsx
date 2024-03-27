@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-paper";
-import { SvgCssUri } from "react-native-svg";
 
+import { Tag } from "../fragments";
 import { TagType } from ".types/community";
 
 interface Props {
@@ -54,66 +54,6 @@ export default function Tags({
   );
 }
 
-interface TagProps {
-  tag?: TagType;
-  active?: boolean;
-  blank?: boolean;
-}
-
-export function Tag({ tag, active, blank }: Readonly<TagProps>) {
-  if (blank)
-    return <Chip label="선택하기" backgroundColor="gray" color="white" />;
-
-  return (
-    <Chip
-      label={tag.name}
-      backgroundColor={tag.bgcolor}
-      color={tag.color}
-      icon={tag.icon}
-      active={active}
-    />
-  );
-}
-
-interface ChipProps {
-  icon?: string;
-  label: string;
-  color: string;
-  backgroundColor: string;
-  active?: boolean;
-}
-
-export function Chip({
-  icon,
-  label,
-  color,
-  backgroundColor,
-  active,
-}: Readonly<ChipProps>) {
-  return (
-    <View
-      style={[
-        styles.chip,
-        {
-          backgroundColor: active ? backgroundColor : "silver",
-          opacity: active ? 1 : 0.5,
-        },
-      ]}
-    >
-      {icon === undefined ? null : (
-        <SvgCssUri
-          width={16}
-          height={16}
-          uri={icon}
-          style={styles.svg}
-          fillOpacity={active ? 1 : 0.25}
-        />
-      )}
-      <Text style={{ color }}>{label}</Text>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   subtitle: {
     marginVertical: 5,
@@ -128,16 +68,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     marginBottom: 5,
-  },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 7.5,
-    borderRadius: 10,
-    marginRight: 10,
-  },
-  svg: {
-    marginRight: 5,
   },
 });

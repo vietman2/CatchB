@@ -19,7 +19,7 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
   };
 });
-jest.mock("./Tags", () => ({
+jest.mock("../fragments", () => ({
   Tag: "Tag",
 }));
 

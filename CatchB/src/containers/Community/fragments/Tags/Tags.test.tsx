@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react-native";
 
-import Tags, { Tag } from "./Tags";
+import Tags from "./Tags";
 import { sampleTags, tag1 } from ".data/community";
 import { renderWithProviders } from ".utils/test-utils";
 
@@ -13,9 +13,16 @@ jest.mock("react-native-paper", () => {
     Text: "Text",
   };
 });
-jest.mock("react-native-svg", () => ({
-  SvgCssUri: "SvgCssUri",
-}));
+jest.mock("../fragments", () => {
+  const { TouchableOpacity, Text } = jest.requireActual("react-native");
+  return {
+    Tag: ({ tag }) => (
+      <TouchableOpacity>
+        <Text>{tag.name}</Text>
+      </TouchableOpacity>
+    ),
+  };
+});
 
 describe("<Tags />", () => {
   const tagChoices = {
@@ -59,11 +66,5 @@ describe("<Tags />", () => {
     );
 
     fireEvent.press(getByText("tag4"));
-  });
-});
-
-describe("<Tag />", () => {
-  it("should render blank", () => {
-    renderWithProviders(<Tag blank />);
   });
 });
