@@ -42,6 +42,7 @@ jest.mock("react-native-paper", () => {
 
   return {
     PaperProvider: Provider,
+    Divider: "Divider",
     Icon: "Icon",
     Snackbar: Snackbar,
     Text: "Text",
@@ -53,7 +54,6 @@ jest.mock("expo-image-picker", () => ({
   launchImageLibraryAsync: jest.fn(),
 }));
 jest.mock("../fragments", () => ({
-  MyDivider: "MyDivider",
   Preview: "Preview",
   Tags: "Tags",
 }));

@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Icon, Snackbar, Text, TextInput } from "react-native-paper";
+import { Divider, Icon, Snackbar, Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 
-import { MyDivider, Preview, Tags } from "../fragments";
+import { Preview, Tags } from "../fragments";
 import { Selector } from ".components/Selectors";
 import { CommunityScreenProps } from ".constants/navigation";
 import { forumChoices } from ".enums/community";
@@ -179,7 +179,7 @@ export default function PostCreate() {
             selectedForum={selectedForum}
           />
         )}
-        <MyDivider />
+        <Divider style={styles.divider} />
         <TextInput
           label="제목"
           mode="outlined"
@@ -215,7 +215,7 @@ export default function PostCreate() {
         />
         {uploadedImages.length > 0 && (
           <>
-            <MyDivider />
+            <Divider style={styles.divider} />
             <Text style={styles.subtitle}>포함된 이미지</Text>
             {uploadedImages.map((image) => (
               <View style={styles.box} key={image.url}>
@@ -227,7 +227,7 @@ export default function PostCreate() {
             ))}
           </>
         )}
-        <MyDivider />
+        <Divider style={styles.divider} />
         <View style={styles.buttons}>
           <TouchableOpacity
             style={[styles.button, styles.tempButton]}
@@ -314,5 +314,8 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 10,
+  },
+  divider: {
+    marginVertical: 10,
   },
 });
