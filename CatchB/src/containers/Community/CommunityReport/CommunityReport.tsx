@@ -5,6 +5,7 @@ import { useRoute } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { ImagePickerAsset } from "expo-image-picker";
 
+import { CommentSimple } from "../Comments";
 import { InputText, PostHeader } from "../fragments";
 import { ImagePicker } from ".components/Pickers";
 import { Selector } from ".components/Selectors";
@@ -19,7 +20,39 @@ export default function CommunityReport() {
   const [images, setImages] = useState<ImagePickerAsset[]>([]);
 
   const user = useSelector((state: RootState) => state.auth.user);
-  const route = useRoute<CommunityScreenProps<"PostReport">["route"]>();
+  const route = useRoute<CommunityScreenProps<"CommunityReport">["route"]>();
+
+  const getTitle = () => {
+    if (route.params.type === "post") {
+      return "게시글 신고";
+    } else if (route.params.type === "comment") {
+      return "댓글 신고";
+    } else {
+      return "답글 신고";
+    }
+  };
+
+  const Content = () => {
+    if (route.params.type === "post") {
+      return (
+        <>
+          <Text variant="titleMedium">신고할 게시글</Text>
+          <View style={styles.content}>
+            <PostHeader post={route.params.post} simple />
+          </View>
+        </>
+      );
+    } else if (route.params.type === "comment") {
+      return (
+        <>
+          <Text variant="titleMedium">신고할 댓글</Text>
+          <View style={styles.content}>
+            <CommentSimple initialComment={route.params.comment} simple />
+          </View>
+        </>
+      );
+    }
+  };
 
   const handleSubmit = () => {
     console.log(content);
@@ -28,15 +61,12 @@ export default function CommunityReport() {
   return (
     <ScrollView style={styles.container} automaticallyAdjustKeyboardInsets>
       <Text style={styles.title} variant="headlineMedium">
-        게시글 신고
+        {getTitle()}
       </Text>
       <Divider style={styles.divider} />
       <InputText title="신고자 이름" text={user.full_name} disabled />
       <InputText title="신고자 전화번호" text={user.phone_number} disabled />
-      <Text variant="titleMedium">신고할 게시글</Text>
-      <View style={styles.postheader}>
-        <PostHeader post={route.params.post} simple />
-      </View>
+      <Content />
       <Text variant="titleMedium">신고 사유</Text>
       <View style={styles.space}>
         <Selector
@@ -95,7 +125,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     borderRadius: 5,
   },
-  postheader: {
+  content: {
     marginVertical: 10,
     paddingTop: 10,
     paddingHorizontal: 10,

@@ -37,7 +37,7 @@ jest.mock("./Main", () => {
         </TouchableOpacity>
         <TouchableOpacity
           testID="post-report-button"
-          onPress={() => navigation.navigate("PostReport")}
+          onPress={() => navigation.navigate("CommunityReport")}
         >
           <Text>Report</Text>
         </TouchableOpacity>
@@ -47,7 +47,7 @@ jest.mock("./Main", () => {
 });
 jest.mock("./PostCreate", () => "PostCreate");
 jest.mock("./PostDetail", () => "PostDetail");
-jest.mock("./PostReport", () => "PostReport");
+jest.mock("./CommunityReport", () => "CommunityReport");
 jest.mock(".components/Buttons", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
   return {

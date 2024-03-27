@@ -1,4 +1,6 @@
-import { fireEvent } from "@testing-library/react-native";
+import { fireEvent, waitFor } from "@testing-library/react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
 import CommentSimple from "./CommentSimple";
 import { sampleComments } from ".data/community";
@@ -11,14 +13,11 @@ jest.mock("react-native-gesture-handler", () => ({
 }));
 jest.mock("react-native-paper", () => {
   const Provider = jest.requireActual("react-native-paper").PaperProvider;
-  const Dialog = jest.requireActual("react-native-paper").Dialog;
 
   return {
     PaperProvider: Provider,
-    Dialog,
     Divider: "Divider",
     Icon: "Icon",
-    Portal: "Portal",
     Text: "Text",
   };
 });
@@ -26,16 +25,32 @@ jest.mock(".components/Selectors", () => ({
   Selector: "Selector",
 }));
 
+const Stack = createStackNavigator();
+
+const Components = ({ index }: { index: number }) => {
+  const Component = () => (
+    <CommentSimple initialComment={sampleComments[index]} />
+  );
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="CommentSimple" component={Component} />
+        <Stack.Screen name="CommunityReport" component={Component} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
 describe("<CommentSimple />", () => {
   it("should render liked comment correctly", () => {
-    renderWithProviders(<CommentSimple initialComment={sampleComments[0]} />);
+    waitFor(() => renderWithProviders(<Components index={0} />));
   });
 
   it("should render disliked comment correctly", () => {
-    renderWithProviders(<CommentSimple initialComment={sampleComments[1]} />);
+    waitFor(() => renderWithProviders(<Components index={1} />));
   });
 
-  it("should handle like/dislike button click", () => {
+  it("should handle like/dislike button click", async () => {
     jest.spyOn(commentAPI, "commentLike").mockResolvedValue({
       status: 200,
       data: sampleComments[0],
@@ -45,23 +60,24 @@ describe("<CommentSimple />", () => {
       data: sampleComments[0],
     });
 
-    const { getByTestId } = renderWithProviders(
-      <CommentSimple initialComment={sampleComments[0]} />,
-      {
+    const { getByTestId } = await waitFor(() =>
+      renderWithProviders(<Components index={0} />, {
         preloadedState: {
           auth: {
             token: "token",
             user: admin,
           },
         },
-      }
+      })
     );
 
-    fireEvent.press(getByTestId("like"));
-    fireEvent.press(getByTestId("dislike"));
+    waitFor(() => {
+      fireEvent.press(getByTestId("like"));
+      fireEvent.press(getByTestId("dislike"));
+    });
   });
 
-  it("should handle like/dislike button click fail", () => {
+  it("should handle like/dislike button click fail", async () => {
     jest.spyOn(commentAPI, "commentLike").mockResolvedValue({
       status: 400,
       data: {},
@@ -71,28 +87,26 @@ describe("<CommentSimple />", () => {
       data: {},
     });
 
-    const { getByTestId } = renderWithProviders(
-      <CommentSimple initialComment={sampleComments[0]} />,
-      {
+    const { getByTestId } = await waitFor(() =>
+      renderWithProviders(<Components index={0} />, {
         preloadedState: {
           auth: {
             token: "token",
             user: admin,
           },
         },
-      }
+      })
     );
 
     fireEvent.press(getByTestId("like"));
     fireEvent.press(getByTestId("dislike"));
   });
 
-  it("should handle report button click", () => {
-    const { getByTestId } = renderWithProviders(
-      <CommentSimple initialComment={sampleComments[0]} />
+  it("should handle report button click", async () => {
+    const { getByTestId } = await waitFor(() =>
+      renderWithProviders(<Components index={0} />)
     );
 
-    fireEvent.press(getByTestId("report"));
-    fireEvent.press(getByTestId("submit"));
+    waitFor(() => fireEvent.press(getByTestId("report")));
   });
 });

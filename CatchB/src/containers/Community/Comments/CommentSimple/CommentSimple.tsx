@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Dialog, Divider, Icon, Portal, Text } from "react-native-paper";
+import { Divider, Icon, Text } from "react-native-paper";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
-import { Selector } from ".components/Selectors";
-import { reasonChoices } from ".enums/community";
+import { CommentScreenProps } from ".constants/navigation";
 import { commentLike, commentDislike } from ".services/community";
 import { RootState } from ".store/index";
 import { themeColors } from ".themes/colors";
@@ -20,14 +20,11 @@ export default function CommentSimple({
   simple,
 }: Readonly<Props>) {
   const [comment, setComment] = useState<CommentSimpleType>(initialComment);
-  const [visible, setVisible] = useState(false);
-  const [selectedReason, setSelectedReason] = useState<string>("욕설/비방");
 
   const user = useSelector((state: RootState) => state.auth.user);
   const token = useSelector((state: RootState) => state.auth.token);
-
-  const showDialog = () => setVisible(true);
-  const hideDialog = () => setVisible(false);
+  const navigation =
+    useNavigation<CommentScreenProps<"CommentList">["navigation"]>();
 
   const handleLike = async () => {
     const response = await commentLike(comment.id, user.uuid, token);
@@ -46,8 +43,10 @@ export default function CommentSimple({
   };
 
   const handleReport = () => {
-    console.log("report");
-    hideDialog();
+    navigation.navigate("CommunityReport", {
+      type: "comment",
+      comment: comment,
+    });
   };
 
   const getIconSource = (state: boolean, type: 1 | 2) => {
@@ -73,7 +72,11 @@ export default function CommentSimple({
           </View>
           {!simple && (
             <View style={styles.horizontal}>
-              <TouchableOpacity style={styles.number} onPress={handleLike} testID="like">
+              <TouchableOpacity
+                style={styles.number}
+                onPress={handleLike}
+                testID="like"
+              >
                 <Icon
                   source={getIconSource(comment.is_liked, 1)}
                   size={14}
@@ -81,7 +84,11 @@ export default function CommentSimple({
                 />
                 <Text style={styles.numberText}>{comment.num_likes}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.number} onPress={handleDislike} testID="dislike">
+              <TouchableOpacity
+                style={styles.number}
+                onPress={handleDislike}
+                testID="dislike"
+              >
                 <Icon
                   source={getIconSource(comment.is_disliked, 2)}
                   size={14}
@@ -97,7 +104,11 @@ export default function CommentSimple({
                 />
                 <Text style={styles.numberText}>{comment.num_recomments}</Text>
               </View>
-              <TouchableOpacity style={styles.number} onPress={showDialog} testID="report">
+              <TouchableOpacity
+                style={styles.number}
+                onPress={handleReport}
+                testID="report"
+              >
                 <Icon
                   source="flag-outline"
                   size={14}
@@ -110,27 +121,6 @@ export default function CommentSimple({
         </View>
         <Divider style={styles.divider} />
       </View>
-      <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.Title>댓글 신고</Dialog.Title>
-          <Dialog.Content>
-            <Selector
-              options={reasonChoices}
-              numItemsInRow={2.5}
-              singleSelected={selectedReason}
-              setSingleSelected={setSelectedReason}
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <TouchableOpacity onPress={hideDialog} style={styles.button}>
-              <Text style={styles.buttonText}>취소</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleReport} style={styles.button} testID="submit">
-              <Text style={styles.buttonText}>확인</Text>
-            </TouchableOpacity>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
     </>
   );
 }
@@ -169,5 +159,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: themeColors.primary,
     fontWeight: "bold",
-  }
+  },
 });

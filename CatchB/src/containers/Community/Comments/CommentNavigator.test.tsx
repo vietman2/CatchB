@@ -1,3 +1,5 @@
+import { NavigationContainer } from "@react-navigation/native";
+
 import CommentNavigator from "./CommentNavigator";
 import { renderWithProviders } from ".utils/test-utils";
 
@@ -17,6 +19,10 @@ jest.mock("./CommentList", () => ({
 
 describe("<CommentNavigator />", () => {
   it("should render properly", () => {
-    renderWithProviders(<CommentNavigator />);
+    renderWithProviders(
+      <NavigationContainer>
+        <CommentNavigator />
+      </NavigationContainer>
+    );
   });
 });

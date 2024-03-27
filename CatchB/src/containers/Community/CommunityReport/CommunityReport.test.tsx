@@ -2,8 +2,8 @@ import { fireEvent } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import PostReport from "./PostReport";
-import { samplePosts } from ".data/community";
+import PostReport from "./CommunityReport";
+import { sampleComments, samplePosts } from ".data/community";
 import { admin } from ".data/users";
 import { renderWithProviders } from ".utils/test-utils";
 
@@ -23,6 +23,9 @@ jest.mock("react-native-paper", () => {
 jest.mock("expo-image-picker", () => ({
   ImagePickerAsset: "ImagePickerAsset",
 }));
+jest.mock("../Comments", () => ({
+  CommentSimple: "CommentSimple",
+}));
 jest.mock("../fragments", () => ({
   InputText: "InputText",
   PostHeader: "PostHeader",
@@ -36,16 +39,27 @@ jest.mock(".components/Selectors", () => ({
 
 const Stack = createStackNavigator();
 
-const Components = () => {
+const Components = ({type}: {type: "p"|"c"|"r"}) => {
+  const params = () => {
+    if (type === "p") {
+      return {
+        type: "post",
+        post: samplePosts[0],
+      }
+    } else if (type === "c") {
+      return {
+        type: "comment",
+        comment: sampleComments[0],
+      }
+    }
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="PostReport"
           component={PostReport}
-          initialParams={{
-            post: samplePosts[0],
-          }}
+          initialParams={params()}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -53,8 +67,21 @@ const Components = () => {
 };
 
 describe("<PostReport />", () => {
-  it("should handle report", () => {
-    const { getByText } = renderWithProviders(<Components />, {
+  it("should handle post report", () => {
+    const { getByText } = renderWithProviders(<Components type="p" />, {
+      preloadedState: {
+        auth: {
+          token: "token",
+          user: admin,
+        },
+      },
+    });
+
+    fireEvent.press(getByText("신고하기"));
+  });
+
+  it("should handle comment report", () => {
+    const { getByText } = renderWithProviders(<Components type="c" />, {
       preloadedState: {
         auth: {
           token: "token",

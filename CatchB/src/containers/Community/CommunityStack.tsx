@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import CommunityMain from "./Main";
 import PostCreate from "./PostCreate";
 import PostDetail from "./PostDetail";
-import PostReport from "./PostReport";
+import CommunityReport from "./CommunityReport";
 import { BackButton } from ".components/Buttons";
 import { SmallLogo } from ".components/Logos";
 import { CommunityParams, CommunityScreenProps } from ".constants/navigation";
@@ -96,8 +96,8 @@ export default function CommunityContainer() {
         }}
       />
       <CommunityStack.Screen
-        name="PostReport"
-        component={PostReport}
+        name="CommunityReport"
+        component={CommunityReport}
         options={{
           headerLeft: () => backToMain(),
           headerTitle: () => null,

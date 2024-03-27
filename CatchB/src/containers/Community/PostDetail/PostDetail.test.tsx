@@ -23,7 +23,7 @@ jest.mock("react-native-paper", () => {
   };
 });
 jest.mock("@gorhom/bottom-sheet", () => "BottomSheet");
-jest.mock("./Comments", () => "Comments");
+jest.mock("../Comments", () => "Comments");
 jest.mock("../fragments", () => ({
   PostHeader: "PostHeader",
 }));
@@ -65,7 +65,7 @@ const Components = () => {
             postId: 0,
           }}
         />
-        <Stack.Screen name="PostReport" component={PostDetail} />
+        <Stack.Screen name="CommunityReport" component={PostDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

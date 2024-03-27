@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import Comments from "./Comments";
+import Comments from "../Comments";
 import { PostHeader } from "../fragments";
 import { CommunityButton } from ".components/Buttons";
 import { ErrorPage } from ".components/Error";
@@ -53,7 +53,8 @@ export default function PostDetail() {
   };
 
   const handleReport = () => {
-    navigation.navigate("PostReport", {
+    navigation.navigate("CommunityReport", {
+      type: "post",
       post: post,
     });
   };

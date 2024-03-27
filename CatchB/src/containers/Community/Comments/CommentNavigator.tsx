@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
   StackNavigationOptions,
@@ -22,14 +21,12 @@ export default function CommentNavigator() {
   );
 
   return (
-    <NavigationContainer independent={true}>
-      <Stack.Navigator screenOptions={screenOptions}>
-        <Stack.Screen
-          name="CommentList"
-          component={CommentList}
-          options={{ headerShown: true, headerTitle: "" }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name="CommentList"
+        component={CommentList}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+    </Stack.Navigator>
   );
 }
