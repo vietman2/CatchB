@@ -1,4 +1,3 @@
-import { sampleComments } from "./comments";
 import { tag1 } from "./tags";
 import { PostDetailType, PostSimpleType } from ".types/community";
 

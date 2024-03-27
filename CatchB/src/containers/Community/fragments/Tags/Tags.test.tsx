@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { fireEvent } from "@testing-library/react-native";
 
 import Tags from "./Tags";
